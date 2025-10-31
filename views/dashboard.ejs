@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auxilium School Admin Dashboard</title>
+    <link rel="stylesheet" href="css/style.css"> 
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Override base styles to match the main site's font/color scheme */
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #1a120b; 
+        }
+
+        .sidebar { 
+            background-color: #1f2937;
+            /* New: Mobile styles for sidebar */
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 50; /* Ensure it's above other content */
+        }
+        .sidebar.open {
+            transform: translateX(0);
+        }
+        @media (min-width: 1024px) {
+            .sidebar {
+                transform: translateX(0); /* Always visible on large screens */
+                position: fixed;
+            }
+        }
+
+        .nav-item:hover { background-color: #374151;
+        }
+
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid white;
+            width: 1.5rem;
+            height: 1.5rem;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg);
+            }
+            100% { transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen font-sans">
+    <div class="flex">
+        <div id="sidebar-overlay" class="fixed inset-0 bg-black opacity-50 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
+
+        <aside id="sidebar" class="sidebar w-64 min-h-screen text-white p-4 space-y-4 fixed h-full">
+            
+            <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-3">
+                <h1 class="text-2xl font-bold">Auxilium Admin</h1>
+                <button id="close-sidebar-btn" class="text-white hover:text-gray-300 lg:hidden focus:outline-none" onclick="toggleSidebar()">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"> 
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            
+            <nav class="space-y-2">
+                <a href="#" class="nav-item block px-4 py-3 rounded-lg bg-indigo-600 font-semibold" id="nav-applications" onclick="showAdminSection('applications')">
+                    ADMISSION APPLICATION
+                </a>
+                <a href="#" class="nav-item block px-4 py-3 rounded-lg" id="nav-gallery" onclick="showAdminSection('gallery')">
+                    Gallery Management
+                </a>
+            
+                <a href="#" class="nav-item block px-4 py-3 rounded-lg" id="nav-alumni" onclick="showAdminSection('alumni')">
+                    Alumni Management
+                </a>
+                <a href="#" class="nav-item block px-4 py-3 rounded-lg" id="nav-faculty" onclick="showAdminSection('faculty')">
+                    Faculty 
+Management
+                </a>
+                <a href="#" class="nav-item block px-4 py-3 rounded-lg" id="nav-principal-message" onclick="showAdminSection('principal-message')">
+                    Principal's Message
+                </a>
+                
+            
+            <a href="#" class="nav-item block px-4 py-3 rounded-lg" id="nav-achievements" onclick="showAdminSection('achievements')">
+                    Achievements
+                </a>
+                <a href="#" class="nav-item block px-4 py-3 rounded-lg" id="nav-results" onclick="showAdminSection('results')">
+            
+                    ICSE & ISC Results
+                </a>
+                <a href="#" class="nav-item block px-4 py-3 rounded-lg" id="nav-disclosure" onclick="showAdminSection('disclosure')">
+                    Public Disclosure
+                </a>
+                <a href="#" class="nav-item block px-4 py-3 rounded-lg" id="nav-user-management" onclick="showAdminSection('user-management')">
+            
+                    User Management
+                </a>
+                <a href="/admin/logout" class="nav-item block px-4 py-3 rounded-lg text-red-400 hover:bg-red-800">
+                    Sign Out
+                </a>
+            
+            </nav>
+        </aside>
+
+        <main class="flex-1 p-4 lg:p-8 lg:ml-64">
+            <div class="lg:hidden flex justify-start items-center mb-4">
+                <button id="open-sidebar-btn" class="text-gray-800 focus:outline-none p-2 rounded" onclick="toggleSidebar()">
+                    <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                </button>
+            </div>
+            
+            <h2 id="section-title" class="text-3xl font-extrabold text-gray-800 mb-8 border-b pb-3">ADMISSION APPLICATION</h2>
+            
+            <div id="status-message" class="hidden bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 rounded" role="alert"></div>
+
+            <section id="applications-section" class="admin-section">
+                
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <p class="text-gray-500 text-center">Loading application data...</p>
+                </div>
+            </section>
+
+            <section id="gallery-section" class="admin-section hidden">
+                <div 
+class="bg-white p-6 rounded-xl shadow-lg mb-8">
+                    <h3 class="text-xl font-bold text-indigo-700 mb-4">Add New Gallery Item (Photo/Video)</h3>
+                    <form id="galleryUploadForm" class="space-y-4" enctype="multipart/form-data">
+                        <input type="text" name="title" placeholder="Title (e.g., Annual Day 2024)" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+            
+                    <textarea type="text" name="description" placeholder="Description (Max 250 characters)" maxlength="250" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+            
+                    <select name="type" required class="p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                                <option value="" disabled selected>Select Media Type</option>
+                                <option value="photo">Photo</option>
+                    
+                    <option value="video">Video</option>
+                            </select>
+                            <input type="file" name="mediaFile" accept="image/*,video/*" required class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+            
+                    </div>
+
+                        <button type="submit" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 flex items-center justify-center transition duration-150" id="gallery-submit-btn">
+                            Upload to Gallery
+            
+                </button>
+                    </form>
+                </div>
+                
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">Existing Gallery Items</h3>
+            
+                <div id="existing-gallery-items" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                </div>
+            </section>
+            
+            <section id="alumni-section" class="admin-section hidden">
+                <div class="bg-white p-6 rounded-xl shadow-lg mb-8">
+                
+                <h3 class="text-xl font-bold text-indigo-700 mb-4">Add New Alumnus Profile</h3>
+                    <form id="alumniUploadForm" class="space-y-4" enctype="multipart/form-data">
+                        <input type="text" name="name" placeholder="Alumnus Full Name" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                        <input type="text" name="titleOrAchievement" placeholder="Title / 
+Achievement (e.g., CEO, Doctor, Scientist)" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                        <input type="number" name="graduationYear" placeholder="Graduation Year (e.g., 2010)" min="1900" max="2099" step="1" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                        <textarea name="description" placeholder="Detailed description/bio (Max 800 characters)" maxlength="800" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+            
+                
+                        <label class="block">
+                            <span class="text-gray-700 font-semibold block mb-1">Profile Photo (Square, image file only):</span>
+                    
+                <input type="file" name="profilePhoto" accept="image/*" required class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                        </label>
+
+                        <button type="submit" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 flex items-center justify-center transition duration-150" id="alumni-submit-btn">
+                
+                Add Alumnus Profile
+                        </button>
+                    </form>
+                </div>
+                
+            
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">Existing Alumni Profiles</h3>
+                <div id="existing-alumni-profiles" class="space-y-6">
+                    <p class="text-gray-500 text-center">Loading alumni profiles...</p>
+                </div>
+            </section>
+
+            <section id="faculty-section" class="admin-section hidden">
+            
+                <div class="bg-white p-6 rounded-xl shadow-lg mb-8">
+                    <h3 class="text-xl font-bold text-indigo-700 mb-4">Add New Faculty / Staff Member</h3>
+                    <form id="facultyUploadForm" class="space-y-4" enctype="multipart/form-data">
+                        
+            
+                        <div class="flex flex-col sm:flex-row sm:space-x-4">
+                            <div class="w-full sm:w-1/2">
+                                <label for="facultyName" class="block text-sm font-medium text-gray-700">Full Name <span class="text-red-500">*</span></label>
+            
+                            <input type="text" id="facultyName" name="name" placeholder="Name" required
+                                        class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                        
+                            </div>
+                            
+                            <div class="w-full sm:w-1/2">
+                                <label for="facultyQualification" class="block text-sm 
+font-medium text-gray-700">Qualification <span class="text-red-500">*</span></label>
+                                <input type="text" id="facultyQualification" name="qualification" placeholder="e.g., M.Sc., B.Ed."
+required
+                                        class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                            </div>
+                        </div>
+
+            
+                        <div class="flex flex-col sm:flex-row sm:space-x-4">
+                            <div class="w-full sm:w-1/2">
+                                <label for="facultySubject" class="block text-sm font-medium text-gray-700">Subject / Designation <span class="text-red-500">*</span></label>
+            
+                                <input type="text" id="facultySubject" name="subjectOrDesignation" placeholder="e.g., Chemistry Teacher" required
+                                        class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                        
+                            </div>
+                            <div class="w-full sm:w-1/2">
+                                <label for="facultyProfilePhoto" class="block text-sm font-medium text-gray-700">Profile Photo <span class="text-red-500">*</span></label>
+            
+                            <input type="file" id="facultyProfilePhoto" name="profilePhoto" accept="image/*" required
+                                        class="mt-1 block w-full text-sm text-gray-900 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                            
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="facultyDescription" class="block text-sm font-medium text-gray-700">Description / Quote (Max 500 chars) <span class="text-red-500">*</span></label>
+            
+                            <textarea id="facultyDescription" name="description" rows="3" maxlength="500" required
+                                            class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" placeholder="A short description or professional quote."></textarea>
+                        </div>
+            
+                        
+                        <div class="flex justify-end">
+                            <button type="submit" id="faculty-submit-btn"
+            
+                class="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition duration-150">
+                                Add Faculty Member
+                            </button>
+            
+                        </div>
+                    </form>
+                </div>
+
+                <h3 class="text-2xl font-bold text-gray-800 my-4 pt-4 border-t">Existing Faculty & Staff</h3>
+                <div id="existing-faculty-profiles" 
+            
+                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <p class="text-gray-500 text-center col-span-full">Loading faculty profiles...</p>
+                </div>
+            </section>
+            
+            <section id="principal-message-section" class="admin-section hidden">
+            
+                <div class="bg-white p-6 rounded-xl shadow-lg mb-8">
+                    <h3 class="text-xl font-bold text-indigo-700 mb-4">Add/Update Principal's Message</h3>
+                    <p class="text-sm text-red-500 mb-4">Note: This system is configured to keep only the latest message active.
+Submitting a new message will override the previous one.</p>
+
+                    <form id="principalMessageForm" class="space-y-4" enctype="multipart/form-data">
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            
+                            <div>
+                                <label for="principalName" class="block text-sm font-medium text-gray-700">Principal Name <span class="text-red-500">*</span></label>
+                                <input type="text" id="principalName" name="principalName" placeholder="Full Name" required class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+            
+                            </div>
+                            <div>
+                                <label for="qualification" class="block text-sm font-medium text-gray-700">Qualification</label>
+            
+                            <input type="text" id="qualification" name="qualification" placeholder="e.g., M.A., Ph.D."
+class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            
+                            <div>
+                                <label for="fromYear" class="block text-sm font-medium text-gray-700">Tenure: From Year</label>
+                                <input type="text" id="fromYear" name="fromYear" placeholder="e.g., 2020" class="mt-1 block w-full p-3 border border-gray-300 
+rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                            </div>
+                            <div>
+                                <label for="toYear" class="block text-sm font-medium text-gray-700">Tenure: To Year</label>
+            
+                            <input type="text" id="toYear" name="toYear" placeholder="e.g., 2024 or Present" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                            </div>
+                        </div>
+
+            
+                        <div>
+                            <label for="messageText" class="block text-sm font-medium text-gray-700">Message Text <span class="text-red-500">*</span></label>
+                            <textarea id="messageText" name="messageText" rows="6" required class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" placeholder="Type 
+the principal's full message here."></textarea>
+                        </div>
+                        
+                        <div>
+                        
+                            <label for="principalPhoto" class="block text-sm font-medium text-gray-700">Principal Photo (Required for New Message/Optional for Update) <span class="text-red-500">*</span></label>
+                            <input type="file" id="principalPhoto" name="principalPhoto" accept="image/*" required class="mt-1 block w-full text-sm text-gray-900 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                        </div>
+
+            
+                        <div class="flex justify-end">
+                            <button type="submit" id="principal-msg-submit-btn" class="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition duration-150">
+                                Save Principal's Message
+            
+                        </button>
+                        </div>
+                    </form>
+                </div>
+
+                <h3 class="text-2xl font-bold text-gray-800 my-4 pt-4 
+border-t">Current Principal's Message</h3>
+                <div id="existing-principal-messages" class="space-y-6">
+                    <p class="text-gray-500 text-center">Loading current message...</p>
+                </div>
+            </section>
+            
+            <section id="achievements-section" class="admin-section hidden">
+                <div class="bg-white p-6 rounded-xl shadow-lg mb-8">
+                    <h3 class="text-xl font-bold text-indigo-700 mb-4">Add New Achievement</h3>
+                    <form id="achievementUploadForm" class="space-y-4" enctype="multipart/form-data">
+            
+            
+                        <input type="text" name="title" placeholder="Achievement Title (e.g., State Level Science Fair Winner)" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                        
+                        <textarea 
+name="description" placeholder="Detailed description of the achievement (Max 1000 characters)" maxlength="1000" rows="4" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+                        
+                        <label class="block">
+                            <span class="text-gray-700 font-semibold block mb-1">Achievement 
+Photo (Image file only): <span class="text-red-500">*</span></span>
+                            <input type="file" name="photo" accept="image/*" required class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                        </label>
+
+                        <button 
+type="submit" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 flex items-center justify-center transition duration-150" id="achievement-submit-btn">
+                            Add Achievement
+                        </button>
+                    </form>
+            
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">Existing Achievements</h3>
+                <div id="existing-achievements" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <p class="text-gray-500 text-center col-span-full">Loading achievements...</p>
+                </div>
+            </section>
+            
+            
+            
+            <section id="results-section" class="admin-section hidden">
+                <div class="bg-white p-6 rounded-xl shadow-lg mb-8">
+                    <h3 class="text-xl font-bold text-indigo-700 mb-4">Add New ICSE / ISC Result</h3>
+            
+            <form id="resultUploadForm" class="space-y-4" enctype="multipart/form-data">
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <select name="type" required class="p-3 border border-gray-300 rounded-lg 
+focus:ring-indigo-500 focus:border-indigo-500">
+                                <option value="" disabled selected>Select Board Type <span class="text-red-500">*</span></option>
+                                <option value="ICSE">ICSE</option>
+                            
+            <option value="ISC">ISC</option>
+                            </select>
+                            <input type="text" name="studentName" placeholder="Student Name" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                        </div>
+            
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <input type="number" name="percentage" placeholder="Percentage (e.g., 95.5)" step="0.1" min="0" max="100" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+            
+                        
+                            <label class="block">
+                                <span class="text-gray-700 font-semibold block mb-1">Student Photo: <span class="text-red-500">*</span></span>
+            
+                            <input type="file" name="photo" accept="image/*" required class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                            </label>
+                        </div>
+            
+            
+                        <button type="submit" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 flex items-center justify-center transition duration-150" id="result-submit-btn">
+                            Add Result Entry
+            
+                </button>
+                    </form>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">Existing Results (ICSE & ISC)</h3>
+                <div id="existing-results" class="space-y-6">
+            
+                    <p class="text-gray-500 text-center">Loading results...</p>
+                </div>
+            </section>
+            
+            <section id="disclosure-section" class="admin-section hidden">
+                <div class="bg-white p-6 rounded-xl shadow-lg mb-8">
+                    <h3 class="text-xl font-bold text-indigo-700 mb-4">Upload New Mandatory Document</h3>
+                    <form id="disclosureUploadForm" class="space-y-4" enctype="multipart/form-data">
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <select name="type" required class="p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                                <option value="" disabled selected>Select Document Type <span class="text-red-500">*</span></option>
+                                <option value="Affiliation">Affiliation Certificate</option>
+                                <option value="NOC">No Objection Certificate (NOC)</option>
+                                <option value="Minority Certificate">Minority Certificate</option>
+                                <option value="Building Fitness Certificate">Building Fitness Certificate</option>
+                            </select>
+                            <input type="text" name="title" placeholder="Document Title (e.g., Permanent Affiliation 2020)" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                        </div>
+                        
+                        <label class="block">
+                            <span class="text-gray-700 font-semibold block mb-1">Document File (PDF or Image, Max 10MB): <span class="text-red-500">*</span></span>
+                            <input type="file" name="documentFile" accept="application/pdf,image/*" required class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                        </label>
+
+                        <button type="submit" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 flex items-center justify-center transition duration-150" id="disclosure-submit-btn">
+                            Upload Document
+                        </button>
+                    </form>
+                </div>
+                
+                <h3 class="text-2xl font-bold text-gray-800 my-4 pt-4 border-t">Existing Mandatory Documents</h3>
+                <div id="existing-disclosure-documents" class="space-y-6">
+                    <p class="text-gray-500 text-center">Loading documents...</p>
+                </div>
+            </section>
+            
+            <section id="user-management-section" class="admin-section hidden">
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                
+            
+                    <h3 class="text-xl font-bold text-indigo-700 mb-4">Create New Admin User</h3>
+                    <p class="text-sm text-gray-600 mb-6">Create credentials for a new admin user who can access this portal.</p>
+                    <form id="createUserForm" class="space-y-4">
+            
+            
+                        <label class="block">
+                            <span class="text-gray-700 font-semibold">Username:</span>
+                            <input type="text" name="username" placeholder="Enter new username 
+(e.g., admin2)" required class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                        </label>
+                        <label class="block">
+                            <span class="text-gray-700 font-semibold">Password:</span>
+            
+                            <input type="password" name="password" placeholder="Enter a strong password" required class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                        </label>
+                        
+            
+                        <button type="submit" class="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 flex items-center justify-center transition duration-150" id="create-user-btn">
+                            Create Admin Account
+                        </button>
+                    </form>
+            
+            </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        function showAdminSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.admin-section').forEach(section => {
+                section.classList.add('hidden');
+            });
+
+            // Show the requested section
+            document.getElementById(`${sectionId}-section`).classList.remove('hidden');
+
+            // Update title
+            const navText = document.getElementById(`nav-${sectionId}`).textContent.trim();
+            document.getElementById('section-title').textContent = navText;
+
+            // Update active nav item styling
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('bg-indigo-600', 'font-semibold');
+            });
+            document.getElementById(`nav-${sectionId}`).classList.add('bg-indigo-600', 'font-semibold');
+
+            // Close sidebar on mobile after selection
+            if (window.innerWidth < 1024) {
+                toggleSidebar();
+            }
+        }
+
+        // function to toggle the sidebar for mobile view
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            
+            // Toggle the 'open' class for the slide-in/out effect
+            sidebar.classList.toggle('open'); 
+
+            // Toggle the overlay visibility
+            overlay.classList.toggle('hidden');
+
+            // Prevent body scrolling when the sidebar is open on mobile
+            document.body.classList.toggle('overflow-hidden');
+        }
+
+        // Initialize by showing the default section
+        document.addEventListener('DOMContentLoaded', () => {
+            showAdminSection('applications');
+        });
+
+    </script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

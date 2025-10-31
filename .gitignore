@@ -1,0 +1,32 @@
+# 1. Dependency Directories
+# Node modules directory
+node_modules/
+# Optional: yarn dependency cache
+.yarn/cache
+
+# 2. Build Artifacts / Runtime Files
+# Logs and other temporary files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# 3. Environment/Config Files (Containing Secrets)
+# CRITICAL: Exclude your environment variables file which likely holds
+# your DB connection string, Cloudinary keys, and JWT secrets.
+.env
+.env.local
+.env.development
+.env.production
+
+# 4. OS and Editor Files
+.DS_Store
+Thumbs.db
+*.code-workspace
+.idea/
+.vscode/
+
+# 5. Compiled or Output Files (If applicable in a future setup)
+/dist
+/build
+/out

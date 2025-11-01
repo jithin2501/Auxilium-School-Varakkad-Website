@@ -1,109 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AUXILIUM SCHOOL</title>
-<link rel="stylesheet" href="css/style.css"> 
-<link rel="icon" type="image/png" href="./css/images/banner/cropped_circle_image.png">
-<script src="https://cdn.tailwindcss.com"></script>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AUXILIUM SCHOOL</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="./css/images/banner/cropped_circle_image.png">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
 
 <div class="top-header-bar">
     <header class="navbar">
-        <a href="#home" class="logo"> <img src="./css/images/banner/cropped_circle_image.png" alt="Auxilium School Logo" class="logo-img" />
+        <a href="#home" class="logo">
+            <img src="./css/images/banner/cropped_circle_image.png" alt="Auxilium School Logo" class="logo-img" />
             <div class="logo-text-wrapper">
                 <span class="logo-text main-title">AUXILIUM</span>
                 <span class="logo-text sub-title"><b>SCHOOL VARAKKAD</b></span>
             </div>
         </a>
-        
+
         <div class="hamburger-menu-toggle" id="hamburger-toggle">
             <span class="hamburger-line"></span>
         </div>
 
         <nav class="nav-links">
-<ul>
-    <li><a href="#home" data-page="home">HOME</a></li>
-    <li class="nav-dropdown-wrapper" id="desktop-dropdown-knowus">
-    <div class="dropdown-link-and-toggle js-dropdown-toggle"> 
-        <a href="#knowus" data-page="knowus" class="nav-link-page">KNOW US</a>
-        <div class="dropdown-toggle-arrow">
-            <span class="dropdown-arrow-icon"></span>
-        </div>
-    </div>
-    <ul class="nav-dropdown-menu">
-            <li><a href="#vision-mission" data-page="vision-mission">Vision & Mission</a></li>
-
-            <li><a href="#timing" data-page="timing">School Timing</a></li>
-            <li><a href="#groups" data-page="groups">Groups & Clubs</a></li>
-            <li><a href="#rules" data-page="rules">Rules</a></li>
+            <ul>
+                <li><a href="#home" data-page="home">HOME</a></li>
+                <li class="nav-dropdown-wrapper" id="desktop-dropdown-knowus">
+                    <div class="dropdown-link-and-toggle js-dropdown-toggle">
+                        <a href="#knowus" data-page="knowus" class="nav-link-page">KNOW US</a>
+                        <div class="dropdown-toggle-arrow">
+                            <span class="dropdown-arrow-icon"></span>
+                        </div>
+                    </div>
+                    <ul class="nav-dropdown-menu">
+                        <li><a href="#vision-mission" data-page="vision-mission">Vision & Mission</a></li>
+                        <li><a href="#timing" data-page="timing">School Timing</a></li>
+                        <li><a href="#groups" data-page="groups">Groups & Clubs</a></li>
+                        <li><a href="#rules" data-page="rules">Rules</a></li>
+                    </ul>
+                </li>
+                <li class="nav-dropdown-wrapper" id="desktop-dropdown-academics">
+                    <div class="dropdown-link-and-toggle js-dropdown-toggle">
+                        <a href="#home#academics-section" data-page="home" class="nav-link-page">ACADEMICS</a>
+                        <div class="dropdown-toggle-arrow">
+                            <span class="dropdown-arrow-icon"></span>
+                        </div>
+                    </div>
+                    <ul class="nav-dropdown-menu academics-menu">
+                        <li><a href="#alumni" data-page="alumni">Alumni network</a></li>
+                        <li><a href="#faculty" data-page="faculty">Faculty & Staff</a></li>
+                        <li><a href="#subjects" data-page="subjects">List of books</a></li>
+                        <li><a href="#achievements" data-page="achievements">Achievements</a></li>
+                    </ul>
+                </li>
+                <li class="nav-dropdown-wrapper admin-dropdown-wider" id="desktop-dropdown-admin">
+                    <div class="dropdown-link-and-toggle js-dropdown-toggle">
+                        <a href="#administration" data-page="administration" class="nav-link-page">ADMINISTRATION</a>
+                        <div class="dropdown-toggle-arrow">
+                            <span class="dropdown-arrow-icon"></span>
+                        </div>
+                    </div>
+                    <ul class="nav-dropdown-menu administration-menu">
+                        <li><a href="#principal-message" data-page="principal-message">Principal’s Message</a></li>
+                        <li><a href="#competitive-exam" data-page="competitive-exam">Competitive Exam</a></li>
+                        <li><a href="#icse-isc-results" data-page="icse-isc-results">ICSE & ISC Results</a></li>
+                    </ul>
+                </li>
+                <li><a href="#home#facilities-section" data-page="home">FACILITIES</a></li>
+                <li><a href="#photogallery" data-page="photogallery">GALLERY</a></li>
+                <li><a href="#admission" data-page="admission">ADMISSION</a></li>
+                <li><a href="#contact" data-page="contact">CONTACT</a></li>
             </ul>
-
-    </li>
-    <li class="nav-dropdown-wrapper" id="desktop-dropdown-academics">
-        <div class="dropdown-link-and-toggle js-dropdown-toggle">
-            <a href="#home#academics-section" data-page="home" class="nav-link-page">ACADEMICS</a>
-            <div class="dropdown-toggle-arrow">
-                <span class="dropdown-arrow-icon"></span>
-            </div>
-        </div>
-        <ul class="nav-dropdown-menu academics-menu">
-            <li><a href="#alumni" data-page="alumni">Alumni network</a></li>
-            <li><a href="#faculty" data-page="faculty">Faculty & Staff</a></li> 
-            <li><a href="#subjects" data-page="subjects">List of books</a></li>
-            <li><a href="#achievements" data-page="achievements">Achievements</a></li>
-            </ul>
-    </li>
-    
-    <li class="nav-dropdown-wrapper admin-dropdown-wider" id="desktop-dropdown-admin">
-    <div class="dropdown-link-and-toggle js-dropdown-toggle">
-        <a href="#administration" data-page="administration" class="nav-link-page">ADMINISTRATION</a> 
-        <div class="dropdown-toggle-arrow">
-            <span class="dropdown-arrow-icon"></span>
-        </div>
-    </div>
-    <ul class="nav-dropdown-menu administration-menu">
-            <li><a href="#principal-message" data-page="principal-message">Principal’s Message</a></li>
-            <li><a href="#competitive-exam" data-page="competitive-exam">Competitive Exam</a></li>
-            <li><a href="#icse-isc-results" data-page="icse-isc-results">ICSE & ISC Results</a></li>
-            </ul>
-    </li>
-    
-    <li><a href="#home#facilities-section" data-page="home">FACILITIES</a></li>
-    <li><a href="#photogallery" data-page="photogallery">GALLERY</a></li>
-    <li><a href="#admission" data-page="admission">ADMISSION</a></li>
-    <li><a href="#contact" data-page="contact">CONTACT</a></li>
-</ul>
-
-</nav>
-</header>
+        </nav>
+    </header>
 </div>
 
 <nav class="mobile-nav-menu" id="mobile-menu">
     <button class="mobile-menu-close-btn" id="mobile-menu-close" aria-label="Close menu">
-        × 
+        ×
     </button>
     <ul>
         <li><a href="#home" data-page="home">HOME</a></li>
-        
         <li class="nav-dropdown-wrapper" id="mobile-dropdown-knowus">
-        <div class="dropdown-row-wrapper dropdown-link-and-toggle js-mobile-dropdown-toggle"> 
-            <a href="#knowus" data-page="knowus" class="nav-link-page">KNOW US</a>
-            <div class="dropdown-toggle-arrow">
-                <span class="dropdown-arrow-icon"></span>
+            <div class="dropdown-row-wrapper dropdown-link-and-toggle js-mobile-dropdown-toggle">
+                <a href="#knowus" data-page="knowus" class="nav-link-page">KNOW US</a>
+                <div class="dropdown-toggle-arrow">
+                    <span class="dropdown-arrow-icon"></span>
+                </div>
             </div>
-        </div>
-        <ul class="nav-dropdown-menu">
+            <ul class="nav-dropdown-menu">
                 <li><a href="#vision-mission" data-page="vision-mission">Vision & Mission</a></li>
                 <li><a href="#timing" data-page="timing">School Timing</a></li>
                 <li><a href="#groups" data-page="groups">Groups & Clubs</a></li>
                 <li><a href="#rules" data-page="rules">Rules</a></li>
-                </ul>
+            </ul>
         </li>
-
         <li class="nav-dropdown-wrapper" id="mobile-dropdown-academics">
             <div class="dropdown-row-wrapper dropdown-link-and-toggle js-mobile-dropdown-toggle">
                 <a href="#home#academics-section" data-page="home" class="nav-link-page">ACADEMICS</a>
@@ -113,26 +106,24 @@
             </div>
             <ul class="nav-dropdown-menu academics-menu">
                 <li><a href="#alumni" data-page="alumni">Alumni network</a></li>
-                <li><a href="#faculty" data-page="faculty">Faculty & Staff</a></li> 
+                <li><a href="#faculty" data-page="faculty">Faculty & Staff</a></li>
                 <li><a href="#subjects" data-page="subjects">List of books</a></li>
                 <li><a href="#achievements" data-page="achievements">Achievements</a></li>
-                </ul>
+            </ul>
         </li>
-        
         <li class="nav-dropdown-wrapper admin-dropdown-wider" id="mobile-dropdown-admin">
-        <div class="dropdown-row-wrapper dropdown-link-and-toggle js-mobile-dropdown-toggle">
-            <a href="#administration" data-page="administration" class="nav-link-page">ADMINISTRATION</a> 
-            <div class="dropdown-toggle-arrow">
-                <span class="dropdown-arrow-icon"></span>
+            <div class="dropdown-row-wrapper dropdown-link-and-toggle js-mobile-dropdown-toggle">
+                <a href="#administration" data-page="administration" class="nav-link-page">ADMINISTRATION</a>
+                <div class="dropdown-toggle-arrow">
+                    <span class="dropdown-arrow-icon"></span>
+                </div>
             </div>
-        </div>
-        <ul class="nav-dropdown-menu administration-menu">
+            <ul class="nav-dropdown-menu administration-menu">
                 <li><a href="#principal-message" data-page="principal-message">Principal’s Message</a></li>
                 <li><a href="#competitive-exam" data-page="competitive-exam">Competitive Exam</a></li>
                 <li><a href="#icse-isc-results" data-page="icse-isc-results">ICSE & ISC Results</a></li>
-                </ul>
+            </ul>
         </li>
-        
         <li><a href="#home#facilities-section" data-page="home">FACILITIES</a></li>
         <li><a href="#photogallery" data-page="photogallery">GALLERY</a></li>
         <li><a href="#admission" data-page="admission">ADMISSION</a></li>
@@ -142,36 +133,32 @@
 <div class="top-banner-bg">
     <div class="hero-content">
         <h1>Start Your Child Journey with Auxilium</h1>
-        
         <p>
-            Read more about how Bright Star Elias C. graduated with his high school diploma 
+            Read more about how Bright Star Elias C. graduated with his high school diploma
             from Stella High Charter Academy and two associates degrees in the same week!
         </p>
-
-        <a href="#contact" 
-   class="banner-button-style" 
-   data-page="contact">
-    Contact Us
-</a>
+        <a href="#contact" class="banner-button-style" data-page="contact">
+            Contact Us
+        </a>
     </div>
 </div>
 
 <div class="main-content">
-    
+
     <section class="page-section hidden-page" id="home" style="display: none;">
-        
+
         <div class="about-us-main-wrapper" style="padding-top: 80px;">
             <section class="about-us-grid-container-new">
                 <div class="about-us-image-box">
-                    <img src="./images/don_bosco-185970.webp" alt="About Us Photo" class="aboutus-img" />
+                    <img src="./images/know us/don_bosco-185970.webp" alt="About Us Photo" class="aboutus-img" />
                 </div>
                 <div class="about-us-text-box">
                     <h3>The Right Start for a Bright Future</h3>
                     <p>
-                        The Franciscan sisters of St. Elizabeth, gaining spiritual strength from our spiritual mentor St. Elizabeth of Hungary, consider education as an integral formation of the human person for the fulfilment of his/her individual and social responsibilities.
+                        The Right Start for a Bright Future is fundamentally built upon a foundation of strong academics, disciplined character, and an unshakable vision. We believe that by nurturing curiosity and instilling core values today, we are giving every student the essential first step—The Right Start—to unlock their highest potential and guarantee a brilliant, successful tomorrow. This critical foundation also encompasses the development of social responsibility and empathy, ensuring students grow into individuals who understand the importance of community and ethical contribution. It is this unique blend of intellectual rigor and moral guidance that truly prepares them for the complexities ahead.
                     </p>
                     <p>
-                        We aim at developing the leaders of future India, who are intellectually integrated, spiritually moulded, morally upright, physically firm, and socially acceptable. We expect them to champion the cause of justice, love, peace and who are even open for future growth.
+                        Our goal is for every graduate to leave us prepared to embrace challenges, lead with integrity, and make a meaningful, positive impact on society, transforming their potential into tangible achievement.
                     </p>
                 </div>
             </section>
@@ -209,7 +196,7 @@
                             <li>Creative arts and music</li>
                         </ul>
                     </div>
-    
+
                     <div class="academics-card">
                         <div class="card-header-label lp-bg">1-4</div>
                         <h3 class="card-title">Lower Primary (LP)</h3>
@@ -218,9 +205,12 @@
                         </p>
                         <ul class="card-features-list">
                             <li>Interactive classroom sessions</li>
+                            <li>Active learning through projects and group activities</li>
+                            <li>Introduction to basic scientific concepts</li>
+                            <li>Encouragement of critical thinking skills</li>
                         </ul>
                     </div>
-    
+
                     <div class="academics-card">
                         <div class="card-header-label up-bg">5-7</div>
                         <h3 class="card-title">Upper Primary (UP)</h3>
@@ -228,12 +218,13 @@
                             Classes from 5th to 7th, the teachers try to bring out the inner-talents of students and try to make them responsible personalities.
                         </p>
                         <ul class="card-features-list">
-                            <li>Excellence in extra-curricular activities</li>
-                            <li>Noon meal plans available</li>
-                            <li>Holistic development approach</li>
+                            <li>In-depth study of Core Subjects (Math, Science, Social Science, Language)</li>
+                            <li>Introduction to specialized subjects and concepts</li>
+                            <li>Focus on research skills and independent study</li>
+                            <li>Opportunities for student leadership and public speaking</li>
                         </ul>
                     </div>
-    
+
                     <div class="academics-card">
                         <div class="card-header-label hs-bg">8-10</div>
                         <h3 class="card-title">High School (HS)</h3>
@@ -241,13 +232,13 @@
                             Classes from 8th to 10th, with friendly and supportive teachers guiding students towards excellence.
                         </p>
                         <ul class="card-features-list">
-                            <li>Achievements in Kalolsavam</li>
+                            <li>Development of advanced critical analysis and complex problem-solving</li>
                             <li>Outstanding sports records</li>
                             <li>Modern lab facilities</li>
                             <li>Extra-curricular activities</li>
                         </ul>
                     </div>
-                    
+
                     <div class="academics-card">
                         <div class="card-header-label hs-science-bg">+1,+2 SCIENCE</div>
                         <h3 class="card-title">Higher Secondary (Science)</h3>
@@ -278,14 +269,14 @@
                 </div>
             </div>
         </section>
-    
+
         <section class="facilities-section" id="facilities-section">
             <div class="facilities-content-wrapper">
                 <h2 class="facilities-main-heading">Our Facilities</h2>
                 <div class="facilities-cards-container">
                     <div class="facility-card">
                         <div class="facility-image-wrapper">
-                            <img src="./images/physics.jpg" alt="Physics Lab" class="facility-img">
+                            <img src="./images/Facilities/physics.jpg" alt="Physics Lab" class="facility-img">
                         </div>
                         <h3 class="facility-title-overlay">Physics Lab</h3>
                         <div class="card-content">
@@ -298,7 +289,7 @@
 
                     <div class="facility-card">
                         <div class="facility-image-wrapper">
-                            <img src="./images/chemistry.webp" alt="Chemistry Lab" class="facility-img">
+                            <img src="./images/Facilities/chemistry.webp" alt="Chemistry Lab" class="facility-img">
                         </div>
                         <h3 class="facility-title-overlay">Chemistry Lab</h3>
                         <div class="card-content">
@@ -311,7 +302,7 @@
 
                     <div class="facility-card">
                         <div class="facility-image-wrapper">
-                            <img src="./images/biology.jpg" alt="Biology Lab" class="facility-img">
+                            <img src="./images/Facilities/biology.jpg" alt="Biology Lab" class="facility-img">
                         </div>
                         <h3 class="facility-title-overlay">Biology Lab</h3>
                         <div class="card-content">
@@ -324,7 +315,7 @@
 
                     <div class="facility-card">
                         <div class="facility-image-wrapper">
-                            <img src="./images/computerlab.jpg" alt="Computer Lab" class="facility-img">
+                            <img src="./images/Facilities/computerlab.jpg" alt="Computer Lab" class="facility-img">
                         </div>
                         <h3 class="facility-title-overlay">Computer Lab</h3>
                         <div class="card-content">
@@ -337,7 +328,7 @@
 
                     <div class="facility-card">
                         <div class="facility-image-wrapper">
-                            <img src="./images/library.jpg" alt="Library" class="facility-img">
+                            <img src="./images/Facilities/library.jpg" alt="Library" class="facility-img">
                         </div>
                         <h3 class="facility-title-overlay">Library</h3>
                         <div class="card-content">
@@ -350,7 +341,7 @@
 
                     <div class="facility-card">
                         <div class="facility-image-wrapper">
-                            <img src="./images/product_1725386054.jpg" alt="School Bus" class="facility-img">
+                            <img src="./images/Facilities/product_1725386054.jpg" alt="School Bus" class="facility-img">
                         </div>
                         <h3 class="facility-title-overlay">School Bus</h3>
                         <div class="card-content">
@@ -363,7 +354,7 @@
 
                     <div class="facility-card">
                         <div class="facility-image-wrapper">
-                            <img src="./css/images/Facilities/Football ground.jpeg" alt="Football Ground" class="facility-img">
+                            <img src="./images/Facilities/Football ground.jpeg" alt="Football Ground" class="facility-img">
                         </div>
                         <h3 class="facility-title-overlay">Football Ground</h3>
                         <div class="card-content">
@@ -376,7 +367,7 @@
 
                     <div class="facility-card">
                         <div class="facility-image-wrapper">
-                            <img src="./css/images/Facilities/play ground.jpg" alt="Play Ground" class="facility-img">
+                            <img src="./images/Facilities/play ground.jpg" alt="Play Ground" class="facility-img">
                         </div>
                         <h3 class="facility-title-overlay">Play Ground</h3>
                         <div class="card-content">
@@ -389,109 +380,107 @@
 
                     <div class="facility-card">
                         <div class="facility-image-wrapper">
-                            <img src="./css/images/Facilities/smart class.webp" alt="General School Ground" class="facility-img">
+                            <img src="./images/Facilities/smart class.webp" alt="General School Ground" class="facility-img">
                         </div>
                         <h3 class="facility-title-overlay">Smart Class</h3>
                         <div class="card-content">
                             <h3 class="facility-title">Smart Class</h3>
                             <p class="facility-description">
-                                The large general school ground is utilized for morning assembly, annual sports day, major school events, and various outdoor activities, serving as the central hub for mass gatherings.
+                                Our Smart Classrooms leverage interactive whiteboards, multimedia content, and digital tools to transform passive learning into a dynamic, multisensory experience that maximizes student engagement and knowledge retention.
                             </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="activities-section" id="activities-section">
+            <div class="academics-content-wrapper">
+                <h2 class="activities-main-heading">School Activities</h2>
+                <div class="activities-grid-container">
+
+                    <div class="activity-card">
+                        <img src="./images/Activities/charity.webp" alt="Charity Day" class="activity-img">
+                        <div class="activity-overlay">
+                            <h3 class="activity-name">Charity Day</h3>
+                        </div>
+                    </div>
+
+                    <div class="activity-card">
+                        <img src="./images/Activities/youth.jpg" alt="Youth Festival" class="activity-img">
+                        <div class="activity-overlay">
+                            <h3 class="activity-name">Youth Festival</h3>
+                        </div>
+                    </div>
+
+                    <div class="activity-card">
+                        <img src="./images/Activities/Sports-day.jpg" alt="Sports Day" class="activity-img">
+                        <div class="activity-overlay">
+                            <h3 class="activity-name">Sports Day
+                        </div>
+                    </div>
+
+                    <div class="activity-card">
+                        <img src="./images/Activities/annual day.jpg" alt="Annual Day" class="activity-img">
+                        <div class="activity-overlay">
+                            <h3 class="activity-name">Annual Day</h3>
+                        </div>
+                    </div>
+
+                    <div class="activity-card">
+                        <img src="./images/Activities/c70b66fdaa4b3e0d1f5f45493da16d99_cropped_optimized.jpg" alt="Spiritual Growth" class="activity-img">
+                        <div class="activity-overlay">
+                            <h3 class="activity-name">Spiritual Growth</h3>
                         </div>
                     </div>
 
                 </div>
             </div>
         </section>
-    
-        <section class="activities-section" id="activities-section">
-            <div class="academics-content-wrapper">
-                <h2 class="activities-main-heading">School Activities</h2>
-                <div class="activities-grid-container">
-                        
-                        <div class="activity-card">
-                            <img src="./images/charity.webp" alt="Charity Day" class="activity-img">
-                            <div class="activity-overlay">
-                                <h3 class="activity-name">Charity Day</h3>
-                            </div>
-                        </div>
-
-                        <div class="activity-card">
-                            <img src="./images/p1/youth.jpg" alt="Youth Festival" class="activity-img">
-                            <div class="activity-overlay">
-                                <h3 class="activity-name">Youth Festival</h3>
-                            </div>
-                        </div>
-
-                        <div class="activity-card">
-                            <img src="./images/Sports-day.jpg" alt="Sports Day" class="activity-img">
-                            <div class="activity-overlay">
-                                <h3 class="activity-name">Sports Day
-                                </div>
-                        </div>
-
-                        <div class="activity-card">
-                            <img src="./images/annual day.jpg" alt="Annual Day" class="activity-img">
-                            <div class="activity-overlay">
-                                <h3 class="activity-name">Annual Day</h3>
-                            </div>
-                        </div>
-
-                        <div class="activity-card">
-                            <img src="./images/p1/c70b66fdaa4b3e0d1f5f45493da16d99_cropped_optimized.jpg" alt="Spiritual Growth" class="activity-img">
-                            <div class="activity-overlay">
-                                <h3 class="activity-name">Spiritual Growth</h3>
-                            </div>
-                        </div>
-
-                    </div>
-            </div>
-        </section>
     </section>
 
+    <section class="page-section hidden-page" id="knowus" style="display: none;">
 
-   <section class="page-section hidden-page" id="knowus" style="display: none;">
-        
         <div class="knowus-banner-bg">
             <div class="hero-content knowus-header-content">
                 <h1>Know Us</h1>
             </div>
         </div>
-        
+
         <div class="about-us-main-wrapper" style="padding-top: 80px;">
             <section class="about-us-grid-container-new knowus-box-stacker">
-                
+
                 <h2 class="academics-main-heading inside-box-heading">Why Auxilium School</h2>
-                
-                <div class="box-content-wrapper row-default"> 
+
+                <div class="box-content-wrapper row-default">
                     <div class="about-us-image-box">
-                        <img src="./images/images (1).jpeg" alt="Why School" class="aboutus-img" /> 
+                        <img src="./images/Know Us/images.jpeg" alt="Why School" class="aboutus-img" />
                     </div>
                     <div class="about-us-text-box">
                         <p>
-                            The Franciscan sisters of St. Elizabeth, gaining spiritual strength from our spiritual mentor St. Elizabeth of Hungary, consider education as an integral formation of the human person for the fulfilment of his/her individual and social responsibilities.
+                            Choosing Auxilium means selecting an educational experience rooted in the time-tested Salesian Preventive System. This philosophy, inspired by St. John Bosco, is built on Reason, Religion, and Loving Kindness—creating a genuine family atmosphere where every student feels trusted, respected, and safe.
                         </p>
                         <p>
-                            Truth, Morality, Suffering and Service are the corner stones upon which the edifice of the students' personality is being constructed. We aspire to inculcate values of holistic philosophy into the life of the students by promoting his/her Spiritual, Mental, Physical, Social and Environmental health, in a synchronized mode.
+                            We commit to the integral formation of the whole person. Our rigorous academics are seamlessly paired with moral, social, and emotional guidance. We don't just teach subjects; we cultivate students who are intellectually sound, morally upright, and socially committed—prepared to lead with integrity and make a positive contribution to the world.
                         </p>
                     </div>
                 </div>
             </section>
-            
+
             <section class="about-us-grid-container-new knowus-box-stacker">
-                
+
                 <h2 class="academics-main-heading inside-box-heading">Our History</h2>
 
                 <div class="box-content-wrapper row-reverse">
                     <div class="about-us-image-box">
-                        <img src="./images/images.jpeg" alt="School History" class="aboutus-img" /> 
+                        <img src="./images/Know Us/Mazzarello-2.webp" alt="School History" class="aboutus-img" />
                     </div>
                     <div class="about-us-text-box">
                         <p>
-                            Auxilium School, established in 1980, has been dedicated to providing value-based education tailored to meet the challenges of the 21st century. The management and staff are committed to the mission of the school and work together to obtain exceptional results in all spheres.
+                            Auxilium School was founded in 1999 by the Daughters of Mary Help of Christians, commonly known as the Salesian Sisters of Don Bosco. It is a minority institution established and administered by them primarily for the education of the Catholic Community. But members of other communities are also admitted irrespective of caste and creed and their rights of conscience are respected.
                         </p>
                         <p>
-                            Our simple, yet distinctive and firm underlying philosophy reflects the rich Indian educational tradition and core values while being steeped in the rich philosophy of the school, providing a quality education.
+                            The school follows the educative system of Don Bosco based on reason, religion and loving kindness, where the pupil is the protagonist of his/her own formation. The Educating community consisting of parents, teachers, pupils and management work together for the holistic development of the pupil in a family atmosphere.
                         </p>
                     </div>
                 </div>
@@ -505,98 +494,97 @@
                 <h1>Mission and Vision</h1>
             </div>
         </div>
-        
+
         <div class="about-us-main-wrapper">
             <section class="about-us-grid-container-new vm-section-layout">
 
-<div class="box-content-wrapper mission-layout">
-    
-    <div class="about-us-text-box vm-text-box">
-        <h2>Mission</h2> 
-        <p>
-            St. Elizabeth's vision of education aims at forming leaders who are Intellectually Competent, Spiritually Mature, Morally Upright, Psychologically Integrated, Physically Healthy and Socially Acceptable, who will champion the cause of Universal Love, Truth and Peace and who are ever open to further growth.
-        </p>
-    </div>
-    
-    <div class="about-us-image-box vm-image-box">
-        <img src="./images/p1/mission.png" alt="Mission Image" class="aboutus-img" /> 
-    </div>
-    
-</div>
+                <div class="box-content-wrapper mission-layout">
 
-</section>
+                    <div class="about-us-text-box vm-text-box">
+                        <h2>Mission</h2>
+                        <p>
+                            Our Mission is to empower every student through the Salesian Preventive System (Reason, Godliness, and Loving Kindness) to achieve their full potential. We are committed to fostering integral development, ensuring our graduates are confident, ethical leaders prepared to serve and contribute to a more just and humane world.
+                        </p>
+                    </div>
 
-         <section class="about-us-grid-container-new vm-section-layout">
+                    <div class="about-us-image-box vm-image-box">
+                        <img src="./images/mission and vission/mission.png" alt="Mission Image" class="aboutus-img" />
+                    </div>
 
-<div class="box-content-wrapper mission-layout"> 
-    
-    <div class="about-us-image-box vm-image-box">
-        <img src="./images/p1/mission.png" alt="Vision Image" class="aboutus-img" /> 
-    </div>
-    
-    <div class="about-us-text-box vm-text-box">
-        <h2>Vision</h2> 
-        <p> 
-            St. Elizabeth School provides a unique educational experience to every child in a safe and supportive environment that promotes self discipline, motivation and excellence in learning. St. Elizabeth family joins the parents and community to assist the children in developing skill to become interdependent adults who will succeed and contribute responsibility in a global community. 
-        </p> 
-    </div> 
-</div>
+                </div>
 
-</section>
-</div>
-</section>
+            </section>
+
+            <section class="about-us-grid-container-new vm-section-layout">
+
+                <div class="box-content-wrapper mission-layout">
+
+                    <div class="about-us-image-box vm-image-box">
+                        <img src="./images/mission and vission/vission.jpg" alt="Vision Image" class="aboutus-img" />
+                    </div>
+
+                    <div class="about-us-text-box vm-text-box">
+                        <h2>Vision</h2>
+                        <p>
+                            We envisage our pupils to become intellectually enlightened, morally upright, spiritually oriented, emotionally balanced, socially committed, patriotic and accomplished, in a word integrally developed young women and men who will be agents of social transformation in today’s India for a better tomorrow.
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
 
     <section class="page-section hidden-page" id="timing" style="display: none;">
 
-<div class="knowus-banner-bg timing-banner-bg"> 
-    <div class="hero-content knowus-header-content">
-        <h1>School Timing</h1>
-</div>
-</div>
-<div class="about-us-main-wrapper">
-    
-   <div class="timing-detail-boxes-container">
-    
-    <div class="timing-detail-box">
-        <h3 class="timing-sub-heading">School year</h3>
-        <p>
-            The scholastic year is from June to March. The working hours are from 9.50am to 3.50pm. There will be 8 periods a day, each period having duration of 40 minutes. Children are to reach the school by 9.30am.
-        </p>
-    </div>
-    
-    <div class="timing-detail-box">
-        <h3 class="timing-sub-heading">School Assembly</h3>
-        <p>
-            School assembly will be held in the morning of Wednesday. The children should wear special uniform on the assembly day.
-        </p>
-    </div>
-    
-</div>
+        <div class="knowus-banner-bg timing-banner-bg">
+            <div class="hero-content knowus-header-content">
+                <h1>School Timing</h1>
+            </div>
+        </div>
+        <div class="about-us-main-wrapper">
 
-<section class="timing-table-wrapper">
-<h2 class="academics-main-heading timing-table-heading">Pre-Primary,Grade 1–10</h2>
-<table class="timing-table">
-<thead>
-<tr>
-<th class="school-begins-th">Day</th>
-<th class="school-begins-th">School Begins</th>
-<th class="dismissal-th">Dismissal</th>
-</tr>
-</thead>
-<tbody>
-<tr><td>Monday</td><td>9.50am</td><td>3.50pm</td></tr>
-<tr><td>Tuesday</td><td>9.50am</td><td>3.50pm</td></tr>
-<tr><td>Wednesday</td><td>9.50am</td><td>3.50pm</td></tr>
-<tr><td>Thursday</td><td>9.50am</td><td>3.50pm</td></tr>
-<tr><td>Friday</td><td>9.50am</td><td>3.50pm</td></tr>
-</tbody>
-</table>
-</section>
-</div>
-</section>
+            <div class="timing-detail-boxes-container">
+
+                <div class="timing-detail-box">
+                    <h3 class="timing-sub-heading">School year</h3>
+                    <p>
+                        The scholastic year is from June to March. The working hours are from 9.00am to 3.30pm. There will be 8 periods a day, each period having duration of 40 minutes. Children are to reach the school by 8.30am.
+                    </p>
+                </div>
+
+                <div class="timing-detail-box">
+                    <h3 class="timing-sub-heading">School Assembly</h3>
+                    <p>
+                        School assembly will be held in the morning of Wednesday. The children should wear special uniform on the assembly day.
+                    </p>
+                </div>
+
+            </div>
+
+            <section class="timing-table-wrapper">
+                <h2 class="academics-main-heading timing-table-heading">Pre-Primary,Grade 1–10</h2>
+                <table class="timing-table">
+                    <thead>
+                        <tr>
+                            <th class="school-begins-th">Day</th>
+                            <th class="school-begins-th">School Begins</th>
+                            <th class="dismissal-th">Dismissal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Monday</td><td>9.00am</td><td>3.30pm</td></tr>
+                        <tr><td>Tuesday</td><td>9.00am</td><td>3.30pm</td></tr>
+                        <tr><td>Wednesday</td><td>9.00am</td><td>3.30pm</td></tr>
+                        <tr><td>Thursday</td><td>9.00am</td><td>3.30pm</td></tr>
+                        <tr><td>Friday</td><td>9.00am</td><td>3.30pm</td></tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </section>
 
     <section class="page-section hidden-page" id="groups" style="display: none;">
-        
+
         <div class="knowus-banner-bg groups-banner-bg">
             <div class="hero-content knowus-header-content">
                 <h1>GROUPS & CLUBS</h1>
@@ -604,7 +592,7 @@
         </div>
 
         <div class="about-us-main-wrapper">
-            
+
             <section class="about-us-grid-container-new groups-intro-box">
                 <h2 class="groups-intro-heading">Clubs and Houses are the best chances for the students to :</h2>
                 <ul class="groups-features-list">
@@ -617,15 +605,15 @@
                     <li>Team work help students gain self-esteem. By participating in a club students have the opportunity excel in something they enjoy and are good at.</li>
                 </ul>
             </section>
-            
+
             <h2 class="academics-main-heading" style="margin-top: 50px; margin-bottom: 25px;">GROUPS (HOUSES)</h2>
-            
+
             <section class="about-us-grid-container-new groups-club-section">
-                <div class="box-content-wrapper row-reverse"> 
+                <div class="box-content-wrapper row-reverse">
                     <div class="about-us-image-box groups-image-box">
-                        <img src="./css/images/group and house/donbosco house.jpg" alt="Don Bosco Group" class="aboutus-img" /> 
+                        <img src="./css/images/group and house/donbosco house.jpg" alt="Don Bosco Group" class="aboutus-img" />
                     </div>
-                    
+
                     <div class="about-us-text-box groups-text-box">
                         <h3 class="groups-club-title">DON BOSCO HOUSE (DB)</h3>
                         <p class="groups-club-description">
@@ -642,7 +630,7 @@
 
             <section class="about-us-grid-container-new groups-club-section">
                 <div class="box-content-wrapper row-default">
-                    
+
                     <div class="about-us-text-box groups-text-box">
                         <h3 class="groups-club-title">DOMINIC SAVIO HOUSE (DS)</h3>
                         <p class="groups-club-description">
@@ -654,19 +642,19 @@
                             <li>Focus: High achievement and intellectual growth.</li>
                         </ul>
                     </div>
-                    
+
                     <div class="about-us-image-box groups-image-box">
-                        <img src="./css/images/group and house/saint-dominic-savio house.webp" alt="Dominic Savio Group" class="aboutus-img" /> 
+                        <img src="./css/images/group and house/saint-dominic-savio house.webp" alt="Dominic Savio Group" class="aboutus-img" />
                     </div>
                 </div>
             </section>
 
             <section class="about-us-grid-container-new groups-club-section">
-                <div class="box-content-wrapper row-reverse"> 
+                <div class="box-content-wrapper row-reverse">
                     <div class="about-us-image-box groups-image-box">
-                        <img src="./css/images/group and house/mother mary house.jpg" alt="Mother Mary Group" class="aboutus-img" /> 
+                        <img src="./css/images/group and house/mother mary house.jpg" alt="Mother Mary Group" class="aboutus-img" />
                     </div>
-                    
+
                     <div class="about-us-text-box groups-text-box">
                         <h3 class="groups-club-title">MOTHER MARY HOUSE (MM)</h3>
                         <p class="groups-club-description">
@@ -683,7 +671,7 @@
 
             <section class="about-us-grid-container-new groups-club-section">
                 <div class="box-content-wrapper row-default">
-                    
+
                     <div class="about-us-text-box groups-text-box">
                         <h3 class="groups-club-title">LAURA VICCUNA HOUSE (LV)</h3>
                         <p class="groups-club-description">
@@ -695,19 +683,19 @@
                             <li>Focus: Developing moral and ethical leadership.</li>
                         </ul>
                     </div>
-                    
+
                     <div class="about-us-image-box groups-image-box">
-                        <img src="./css/images/group and house/laura-vicuna house.webp" alt="Laura Viccuna Group" class="aboutus-img" /> 
+                        <img src="./css/images/group and house/laura-vicuna house.webp" alt="Laura Viccuna Group" class="aboutus-img" />
                     </div>
                 </div>
             </section>
-            
+
             <h2 class="academics-main-heading" style="margin-top: 50px; margin-bottom: 25px;">CLUBS</h2>
 
 
             <section class="about-us-grid-container-new groups-club-section">
                 <div class="box-content-wrapper row-default">
-                    
+
                     <div class="about-us-text-box groups-text-box">
                         <h3 class="groups-club-title">SCIENCE CLUB</h3>
                         <p class="groups-club-description">
@@ -719,20 +707,20 @@
                             <li>The goal is to learn Science with fun. Children love Science that allows them to perform hands-on experiments.</li>
                         </ul>
                     </div>
-                    
+
                     <div class="about-us-image-box groups-image-box">
-                        <img src="./images/Screenshot 2025-10-07 022755.jpg" alt="Science Club" class="aboutus-img" /> 
+                        <img src="./images/Screenshot 2025-10-07 022755.jpg" alt="Science Club" class="aboutus-img" />
                     </div>
                 </div>
             </section>
-            
+
             <section class="about-us-grid-container-new groups-club-section">
                 <div class="box-content-wrapper row-reverse">
-                    
+
                     <div class="about-us-image-box groups-image-box">
-                        <img src="./images/Screenshot 2025-10-07 022854.jpg" alt="Maths Club" class="aboutus-img" /> 
+                        <img src="./images/Screenshot 2025-10-07 022854.jpg" alt="Maths Club" class="aboutus-img" />
                     </div>
-                    
+
                     <div class="about-us-text-box groups-text-box">
                         <h3 class="groups-club-title">MATHS CLUB</h3>
                         <p class="groups-club-description">
@@ -742,7 +730,7 @@
                             <li>Participation in Math related competitions.</li>
                             <li>Conduct Mathematics quiz.</li>
                             <li>Study of various math based puzzles, software and games.</li>
-                        <li>To develop a scientific attitude and a rational outlook towards life.</li>
+                            <li>To develop a scientific attitude and a rational outlook towards life.</li>
                         </ul>
                     </div>
                 </div>
@@ -750,7 +738,7 @@
 
             <section class="about-us-grid-container-new groups-club-section">
                 <div class="box-content-wrapper row-default">
-                    
+
                     <div class="about-us-text-box groups-text-box">
                         <h3 class="groups-club-title">VIDES CLUB</h3>
                         <p class="groups-club-description">
@@ -763,19 +751,20 @@
                             <li>Promoting human rights and social justice.</li>
                         </ul>
                     </div>
-                    
+
                     <div class="about-us-image-box groups-image-box">
-                        <img src="./images/vides_club_placeholder.jpg" alt="VIDES Club" class="aboutus-img" /> 
+                        <img src="./images/vides_club_placeholder.jpg" alt="VIDES Club" class="aboutus-img" />
                     </div>
                 </div>
             </section>
+
             <section class="about-us-grid-container-new groups-club-section">
                 <div class="box-content-wrapper row-reverse">
-                    
+
                     <div class="about-us-image-box groups-image-box">
-                        <img src="./images/literary_club_placeholder.jpg" alt="Literary Club" class="aboutus-img" /> 
+                        <img src="./images/literary_club_placeholder.jpg" alt="Literary Club" class="aboutus-img" />
                     </div>
-                    
+
                     <div class="about-us-text-box groups-text-box">
                         <h3 class="groups-club-title">LITERARY CLUB</h3>
                         <p class="groups-club-description">
@@ -790,9 +779,10 @@
                     </div>
                 </div>
             </section>
+
             <section class="about-us-grid-container-new groups-club-section">
                 <div class="box-content-wrapper row-default">
-                    
+
                     <div class="about-us-text-box groups-text-box">
                         <h3 class="groups-club-title">ECO CLUB</h3>
                         <p class="groups-club-description">
@@ -803,22 +793,20 @@
                             <li>Organizing campaigns and rallies like 'Say no to Poly Bags', 'Say no to crackers', 'Save Water', 'Save Energy', and 'Green and Clean City'.</li>
                         </ul>
                     </div>
-                    
+
                     <div class="about-us-image-box groups-image-box">
-                        <img src="./images/Screenshot 2025-10-07 022845.jpg" alt="Eco Club" class="aboutus-img" /> 
+                        <img src="./images/Screenshot 2025-10-07 022845.jpg" alt="Eco Club" class="aboutus-img" />
                     </div>
                 </div>
             </section>
-            
-            
 
             <section class="about-us-grid-container-new groups-club-section">
                 <div class="box-content-wrapper row-reverse">
-                    
+
                     <div class="about-us-image-box groups-image-box">
-                        <img src="./images/Screenshot 2025-10-07 022823.jpg" alt="Public Speaking Club" class="aboutus-img" /> 
+                        <img src="./images/Screenshot 2025-10-07 022823.jpg" alt="Public Speaking Club" class="aboutus-img" />
                     </div>
-                    
+
                     <div class="about-us-text-box groups-text-box">
                         <h3 class="groups-club-title">HUMAN RIGHTS CLUB</h3>
                         <p class="groups-club-description">
@@ -839,7 +827,7 @@
 
         </div>
     </section>
-    
+
     <section class="page-section hidden-page" id="faculty" style="display: none;">
         <div class="academics-faculty-banner-bg">
             <div class="hero-content knowus-header-content">
@@ -848,13 +836,13 @@
         </div>
         <div class="about-us-main-wrapper" style="padding-top: 50px; padding-bottom: 80px;">
             <h2 class="academics-main-heading" style="margin-bottom: 30px;">Meet Our Dedicated Team</h2>
-            
+
             <div id="faculty-profiles-container" class="space-y-12">
-                 <p style="color: #444; text-align: center;">Loading faculty profiles...</p>
+                <p style="color: #444; text-align: center;">Loading faculty profiles...</p>
             </div>
         </div>
     </section>
-    
+
     <section class="page-section hidden-page" id="principal-message" style="display: none;">
         <div class="principal-message-banner-bg">
             <div class="hero-content knowus-header-content">
@@ -863,7 +851,7 @@
         </div>
         <div class="about-us-main-wrapper" style="padding-top: 80px; padding-bottom: 50px;">
             <h2 class="academics-main-heading">A Word from the Principal</h2>
-            <div id="principal-message-content" class="principal-content-container"> 
+            <div id="principal-message-content" class="principal-content-container">
                 <p style="color: #444; text-align: center;">Loading message...</p>
             </div>
         </div>
@@ -876,10 +864,10 @@
             </div>
         </div>
         <div class="about-us-main-wrapper competitive-page-wrapper">
-            
+
             <div>
                 <h2 class="academics-main-heading competitive-page-heading">Competitive Exams</h2>
-                
+
                 <div class="exam-competition-box">
                     <div class="exam-competition-image-wrapper">
                         <img src="./images/biology.jpg" alt="Phoenix Talent Exam">
@@ -899,7 +887,7 @@
                         <p>The DCL exam assesses proficiency across multiple subjects and is crucial for students seeking competitive edge in their primary and high school years.</p>
                     </div>
                 </div>
-                
+
                 <div class="exam-competition-box">
                     <div class="exam-competition-image-wrapper">
                         <img src="./images/p1/exam-kids-winner.jpg" alt="Kids Winner Talent Exam">
@@ -909,11 +897,12 @@
                         <p>Targeted at younger students, this examination helps build an early foundation for competitive test-taking and problem-solving skills.</p>
                     </div>
                 </div>
-                
+
             </div>
 
-            <div class="my-12"></div> <div>
-                 <h2 class="academics-main-heading competitive-page-heading">Competitions</h2>
+            <div class="my-12"></div>
+            <div>
+                <h2 class="academics-main-heading competitive-page-heading">Competitions</h2>
 
                 <div class="exam-competition-box">
                     <div class="exam-competition-image-wrapper">
@@ -934,9 +923,9 @@
                         <p>A stimulating quiz event promoting general knowledge, quick thinking, and healthy competition between various schools in the region.</p>
                     </div>
                 </div>
-                
+
             </div>
-            
+
         </div>
     </section>
 
@@ -953,21 +942,21 @@
             </div>
         </div>
     </section>
-    
-   <section class="page-section hidden-page" id="administration" style="display: none;">
-    <div class="administration-banner-bg">
-        <div class="hero-content knowus-header-content">
-            <h1>ADMINISTRATION</h1>
+
+    <section class="page-section hidden-page" id="administration" style="display: none;">
+        <div class="administration-banner-bg">
+            <div class="hero-content knowus-header-content">
+                <h1>ADMINISTRATION</h1>
+            </div>
         </div>
-    </div>
-    <div class="about-us-main-wrapper" style="padding-top: 80px; padding-bottom: 50px;">
-        <h2 class="academics-main-heading">Mandatory Public Disclosure Documents</h2>
-       
-        <div id="disclosure-display-container" class="disclosure-grid-container">
-            <p style="color: #444; text-align: center;">Loading mandatory disclosure documents...</p>
+        <div class="about-us-main-wrapper" style="padding-top: 80px; padding-bottom: 50px;">
+            <h2 class="academics-main-heading">Mandatory Public Disclosure Documents</h2>
+
+            <div id="disclosure-display-container" class="disclosure-grid-container">
+                <p style="color: #444; text-align: center;">Loading mandatory disclosure documents...</p>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <section class="page-section hidden-page" id="achievements" style="display: none;">
         <div class="achievements-banner-bg">
@@ -983,16 +972,16 @@
         </div>
     </section>
 
-    
+
     <section class="page-section hidden-page" id="academic" style="display: none;">
         <div class="about-us-main-wrapper" style="padding-top: 80px;">
             <h2 class="academics-main-heading">ACADEMICS (FULL PAGE)</h2>
             <p style="color: #444; text-align: center; padding-bottom: 50px;">Detailed curriculum, subject details, etc.</p>
         </div>
     </section>
-    
+
     <section class="page-section hidden-page" id="rules" style="display: none;">
-        
+
         <div class="knowus-banner-bg rules-banner-bg">
             <div class="hero-content knowus-header-content">
                 <h1>School Rules and Regulations</h1>
@@ -1001,9 +990,9 @@
 
         <div class="about-us-main-wrapper">
             <h2 class="academics-main-heading rules-center-heading">Rules to Follow</h2>
-            
+
             <div class="rules-accordion-container">
-                
+
                 <div class="accordion-item">
                     <button class="accordion-toggle" data-target="general-rules-content">
                         General Rules
@@ -1011,34 +1000,43 @@
                     </button>
                     <div class="accordion-content" id="general-rules-content">
                         <ul class="rules-list">
-                            <li>The school hours are from 9:20am to 3:35pm from Monday to Friday. The students should reach the school at least 15 minutes prior to the school time.</li>
-                            <li>Students are not allowed to leave the school premises during the school hours without the Principal's permission.</li>
-                            <li>Pupil coming late in the school loses the benefit of the attendance for the day concerned. They will not be allowed to enter the class without the permission of the Principal. If late for more than 5 times in per due warning, parents will have to give explanation to the Principal.</li>
-                            <li>The required percentage of attendance is a must for the pupil to appear for the Annual Examination.</li>
-                            <li>It is the responsibility of parents to see that their children are not prone to leave taking. Leave will be granted only in exceptional cases and application for leave must be obtained unless in an emergency or on medical grounds.</li>
-                            <li>Application for leave for less than 2 days should be submitted to the respective class teachers, while that for a longer period should be submitted to the Principal. If a student is continuously absent for more than 5 days without authorization parents may come and meet the Principal in person.</li>
-                            <li>Application for leave must be signed by parent/guardian and must be sent in advance for sanction. Application on medical grounds must be countersigned by an appropriate medical authority.</li>
-                            <li>Any damage to the property of the school caused by the student will have to be compensated by the parent.</li>
-                            <li>Children suffering from contagious diseases are discouraged from attending the class until they get well.</li>
-                            <li>Withdrawal of the children from classes during school time is not permitted. Parents, who want to take their children to the hospital, have to send their children to school for a session or ½ day, as the case may be, but to send a leave note.</li>
+                            <li>Self - Discipline is necessary to achieve self - direction. School rules are a help to strengthen the pupils' determination for integral growth. They are guidelines to self-development rather than restrictions to it.</li>
+                            <li>Every pupil is expected to be present for the daily assembly.</li>
+                            <li>It is strictly compulsory for every pupil to come to the school in full uniform, neatly dressed and with proper hair cut.</li>
+                            <li>No low waist pants are allowed in the school.</li>
+                            <li>Ornaments or Jewellery of any kind are not allowed in the school. The school does not take responsibility for money or articles that are lost.</li>
+                            <li>Pupils are expected to participate in all the activities of the school and will not be excused from physical exercises or organized games without a doctor's certificate.</li>
+                            <li>Any damage done in classroom or about the premises will have to be made good.</li>
+                            <li>Pupils must speak in English in school campus to facilitate the learning of the language.</li>
+                            <li>No books, newspapers, magazines, cassettes, CDs and pendrives may be brought to school without the consent of the school authorities.</li>
+                            <li>No gifts or donation to the teachers are allowed.</li>
+                            <li>Forgery of parent's signature or altering of marks and ranks will be dealt seriously.</li>
+                            <li>All communications should be addressed to the Principal and not to the class teacher.</li>
                         </ul>
+
                     </div>
                 </div>
-                
+
                 <div class="accordion-item">
                     <button class="accordion-toggle" data-target="conduct-rules-content">
-                        Rules of Conduct
+                        Teachers and Visitors During School Hours
                         <span class="accordion-icon">+</span>
                     </button>
                     <div class="accordion-content" id="conduct-rules-content">
                         <ul class="rules-list">
-                            <li>Students must observe strict discipline and silence during class hours and moving through corridors.</li>
-                            <li>Students must respect all teachers, staff, and elders.</li>
-                            <li>Bullying, fighting, and abusive language are strictly prohibited and will result in disciplinary action.</li>
-                            <li>Students must be punctual for all classes and school activities.</li>
-                            <li>Wearing the school uniform neatly and correctly is mandatory on all school days.</li>
-                            <li>Students are responsible for the safe custody of their books and personal belongings.</li>
-                            </ul>
+                            <li>Teachers and pupils are not allowed to meet the parents or visitors during the school hours.</li>
+                            <li>No one is allowed at lunch time to feed the pupils.</li>
+                            <li>No school transactions will be done through the phone.</li>
+                            <li>The pupils and the staff are forbidden to organize any meeting, raising fund, ticket selling, parties, picnic, class organization and political activities in the school campus.</li>
+                            <li>All the parents should come and receive the progress report and meet the concerned teachers on the day fixed for it.</li>
+                            <li>Parents can meet the teachers on the last working day of every month from 3.30 to 4.00 pm.</li>
+                            <li>Pupils should be courteous to all in the school and outside, in their words and deeds and be considerate towards others.</li>
+                            <li>Pupils shall cooperate with authorities in keeping the premises clean and tidy.</li>
+                            <li>No pupils shall leave the school premises during the school hours without the permission of the principal.</li>
+                            <li>No pupil shall have the mobile phone in the school campus.</li>
+                            <li>The fees once paid will not be refunded.</li>
+                            <li>The students should be present in the school before 9.15 am.</li>
+                        </ul>
                     </div>
                 </div>
 
@@ -1049,44 +1047,52 @@
                     </button>
                     <div class="accordion-content" id="library-rules-content">
                         <ul class="rules-list">
-                            <li>Silence must be observed in the library at all times.</li>
-                            <li>Books must be handled with care. Any damage should be reported immediately.</li>
-                            <li>Students are allowed to borrow a maximum of two books for a period of seven days.</li>
-                            <li>Fines will be charged for overdue books.</li>
-                            <li>Personal books and belongings are not allowed inside the library.</li>
+                            <li>Strict silence should be observed in the library.</li>
+                            <li>No members shall take any printed book or note book into the library.</li>
+                            <li>Books must not be marked or defaced. The pages must not be folded and used as book marks.</li>
+                            <li>Periodicals placed on the magazine racks should not be mishandled. They should be replaced on the racks after use.</li>
+                            <li>Reference books and periodicals will not be issued, but are available for reference within the library time.</li>
+                            <li>Staff and pupils shall make good any book or library property damaged by them. If one book of a set is damaged, the whole set shall be replaced.</li>
+                            <li>Absence from the school shall not be admitted as an excuse for delay in returning books.</li>
+                            <li>Date labels shall not be tampered with.</li>
+                            <li>The librarian may recall any book at any time before the expiry of the normal period of loan.</li>
+                            <li>No staff or pupil is allowed to lend books to anyone in or outside the school.</li>
+                            <li>Library books will not be lent to either pupils or staff during the vacations.</li>
+                            <li>Books when in use must always be lent to be covered. They should not be left about on verandas or in the sun.</li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="accordion-item">
                     <button class="accordion-toggle" data-target="parental-rules-content">
-                        Parental Co-operation
+                        Leave of Absence
                         <span class="accordion-icon">+</span>
                     </button>
                     <div class="accordion-content" id="parental-rules-content">
                         <ul class="rules-list">
-                            <li>Parents must attend all Parent-Teacher Meetings (PTM).</li>
-                            <li>Parents are expected to supervise their child's homework and school preparations daily.</li>
-                            <li>The school diary must be checked daily for notes and notices.</li>
-                            <li>Communication with teachers must be done during specified meeting hours only.</li>
-                            <li>Ensure timely payment of fees and submission of necessary documents.</li>
+                            <li>Absence of the pupils must be supported by a letter signed by the parents or guardian on the day of return to the school.</li>
+                            <li>A pupil absenting himself/herself from the school for 30 working days, without the notice will be removed from the roll. He/she will have to be re-admitted.</li>
+                            <li>If the absence, on account of illness lasts more than 10 days, the application for leave must be accompanied by a medical certificate.</li>
+                            <li>Pupils should be present on the re-opening day after each vacation and on the last working day of every term. Absence on these days without adequate reason will be viewed seriously.</li>
+                            <li>No pupil will be allowed to appear for the final examination if the attendance for the year is inadequate (80%).</li>
+                            <li>A pupil coming late may not enter the class unless he/she brings to the class teacher a note signed by the principal.</li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="accordion-item">
                     <button class="accordion-toggle" data-target="removal-rules-content">
-                        Removal From the Rolls
+                        Admission and Withdrawal
                         <span class="accordion-icon">+</span>
                     </button>
                     <div class="accordion-content" id="removal-rules-content">
                         <ul class="rules-list">
-                            <li>Non-payment of school fees beyond the specified deadline.</li>
-                            <li>Habitual neglect of studies or chronic illness preventing satisfactory progress.</li>
-                            <li>Misconduct considered injurious to the moral tone of the school.</li>
-                            <li>Continuous unauthorized absence from school for more than ten consecutive days.</li>
-                            <li>Parents withdrawing a student must give one month's prior written notice.</li>
-                            </ul>
+                            <li>New pupils should be introduced personally by the parents or guardian who will be responsible to the principal for their regularity and fees.</li>
+                            <li>Pupils coming from recognized schools are required to produce a Transfer Certificate from the institution last attended.</li>
+                            <li>Transfer Certificate will be given only to those who have fully settled their dues and produce a written application from the parents or guardian.</li>
+                            <li>Irregular attendance, habitual want of application, disobedience, any kind of cheating or any serious misbehavior even outside the school will be viewed seriously.</li>
+                            <li>Application for TC should be given 10 days in advance.</li>
+                        </ul>
                     </div>
                 </div>
 
@@ -1108,7 +1114,7 @@
             </div>
         </div>
     </section>
-    
+
     <section class="page-section hidden-page" id="alumni" style="display: none;">
         <div class="alumni-banner-bg">
             <div class="hero-content knowus-header-content">
@@ -1117,11 +1123,11 @@
         </div>
         <div class="about-us-main-wrapper" style="padding-top: 80px;">
             <h2 class="academics-main-heading">Auxilium Alumni Network</h2>
-            
+
             <div id="alumni-profiles-container" class="space-y-6">
-                 <p style="color: #444; text-align: center;">Loading featured alumni...</p>
+                <p style="color: #444; text-align: center;">Loading featured alumni...</p>
             </div>
-            
+
         </div>
     </section>
     <section class="page-section hidden-page" id="subjects" style="display: none;">
@@ -1130,7 +1136,7 @@
                 <h1>SUBJECTS OFFERED</h1>
             </div>
         </div>
-        
+
         <div class="about-us-main-wrapper subjects-main-wrapper" style="padding-top: 50px; padding-bottom: 80px;">
             <h2 class="academics-main-heading">SUBJECTS OFFERED</h2>
 
@@ -1181,7 +1187,7 @@
                     <div class="subject-item">Handwriting - Malayalam, English, Hindi</div>
                 </div>
             </div>
-            
+
             <div class="subject-level-section">
                 <h3 class="subject-level-heading">Upper Primary: Classes VI, VII & VIII</h3>
                 <div class="subject-list-container">
@@ -1200,7 +1206,7 @@
                     <div class="subject-item">Handwriting - English, Malayalam, Hindi</div>
                 </div>
             </div>
-            
+
             <div class="subject-level-section">
                 <h3 class="subject-level-heading">High School: Classes IX & X </h3>
                 <div class="subject-list-container">
@@ -1220,7 +1226,7 @@
 
         </div>
     </section>
-    
+
     <section class="page-section hidden-page" id="exams" style="display: none;">
         <div class="exams-banner-bg">
             <div class="hero-content knowus-header-content">
@@ -1232,108 +1238,108 @@
             <p style="color: #444; text-align: center; padding-bottom: 50px;">Exam schedules and pattern details.</p>
         </div>
     </section>
-    
+
     <section class="page-section hidden-page" id="facilitie" style="display: none;">
         <div class="about-us-main-wrapper" style="padding-top: 80px;">
             <h2 class="academics-main-heading">FACILITIES (FULL PAGE)</h2>
             <p style="color: #444; text-align: center; padding-bottom: 50px;">This page would contain a detailed look at the school's facilities.</p>
         </div>
     </section>
-    
+
     <section class="page-section hidden-page" id="contact" style="display: none;">
         <div class="contact-banner-bg">
             <div class="hero-content knowus-header-content">
                 <h1>CONTACT US</h1>
             </div>
         </div>
-        
+
         <div class="about-us-main-wrapper" style="padding-top: 60px; padding-bottom: 80px;">
-            
+
             <div class="contact-page-grid">
-                
+
                 <div class="contact-map-wrapper">
-                    
+
                     <div class="general-inquiries">
                         <h2 class="inquiries-title">General Inquiries:</h2>
                         <p class="inquiries-text">
                             For general questions, comments, or information about our organization, please contact us. We look forward to hearing from you and will do our best to provide you with the information you need.
                         </p>
-                        
+
                         <div class="contact-item inquiries-item">
-                            <img src="./images/icons/location-icon.png" alt="Location Icon" class="inquiry-icon-img" /> 
+                            <img src="./images/icons/location-icon.png" alt="Location Icon" class="inquiry-icon-img" />
                             <p class="contact-text inquiries-text-detail">59R3+FVG, Karippally,<br>Kerala 670306A</p>
                         </div>
-                        
+
                         <div class="contact-item inquiries-item">
                             <img src="./images/icons/email-icon.png" alt="Email" class="inquiry-icon-img" />
                             <p class="contact-text inquiries-text-detail">mtmhss95@gmail.com</p>
                         </div>
 
                         <div class="contact-item inquiries-item">
-                            <img src="./images/icons/phone-icon.png" alt="Phone Icon" class="inquiry-icon-img" /> 
+                            <img src="./images/icons/phone-icon.png" alt="Phone Icon" class="inquiry-icon-img" />
                             <p class="contact-text inquiries-text-detail">+91 8281817908</p>
                         </div>
-                        
+
                         <div class="contact-item inquiries-item">
-                            <img src="./images/icons/phone-icon.png" alt="WhatsApp Icon" class="inquiry-icon-img" /> 
+                            <img src="./images/icons/phone-icon.png" alt="WhatsApp Icon" class="inquiry-icon-img" />
                             <p class="contact-text inquiries-text-detail">+91 8089113744</p>
                         </div>
                     </div>
-                    
+
                     <div class="contact-map-embed-large">
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2444.588000280506!2d75.31570659376825!3d12.327466990977523!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba461dc4cf1f3bf%3A0x3b75c8ea180a1538!2sAUXILIUM%20SCHOOL%20(ICSE)!5e0!3m2!1sen!2sin!v1759573611211!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
-                
+
                 <div class="contact-form-wrapper">
                     <div id="contactFormContainer" class="contact-container">
-                        
+
                         <h1 class="contact-title">Send a Message</h1>
-                        
-                        <form id="contactForm" class="contact-form-grid" method="POST"> 
-                
+
+                        <form id="contactForm" class="contact-form-grid" method="POST">
+
                             <input type="text" name="name" placeholder="Name" required class="grid-item-name">
                             <input type="email" name="email" placeholder="Email" required class="grid-item-email">
-                
+
                             <input type="tel" name="mobile" placeholder="Mobile" class="grid-item-mobile">
                             <input type="text" name="subject" placeholder="Subject" class="grid-item-subject">
-                            
+
                             <textarea name="message" placeholder="Message" rows="5" required class="grid-item-message"></textarea>
-                            
+
                             <button type="submit" class="submit-button grid-item-submit">Submit</button>
-                            
+
                         </form>
                     </div>
                 </div>
-                
+
             </div>
-            
+
         </div>
     </section>
- <section class="page-section hidden-page" id="photogallery" style="display: none;">
-        
+    <section class="page-section hidden-page" id="photogallery" style="display: none;">
+
         <div class="gallery-banner-bg">
             <div class="hero-content knowus-header-content">
                 <h1>PHOTO & VIDEO GALLERY</h1>
             </div>
         </div>
-        
+
         <div class="about-us-main-wrapper" style="padding-top: 50px; padding-bottom: 80px;">
-            
+
             <h2 class="academics-main-heading" style="margin-bottom: 20px; font-size: 2.2rem; color: #25597f;">Photo Gallery</h2>
-            
-           <div id="photos-container" class="gallery-container-grid"></div>
+
+            <div id="photos-container" class="gallery-container-grid"></div>
             <div id="photo-pagination-controls" class="w-full">
-                </div>
-            
+            </div>
+
             <div class="my-10 border-t border-gray-300"></div>
 
             <h2 class="academics-main-heading" style="margin-bottom: 20px; font-size: 2.2rem; color: #25597f;">Video Gallery</h2>
 
-<div id="videos-container" class="gallery-container-grid"></div>
-            
+            <div id="videos-container" class="gallery-container-grid"></div>
+
             <div id="video-pagination-controls" class="w-full">
-                </div>
+            </div>
         </div>
     </section>
 
@@ -1345,405 +1351,404 @@
         </div>
     </section>
 
-<section class="page-section hidden-page" id="admission" style="display: none;">
-    
-    <div class="admission-banner-bg">
-        <div class="hero-content knowus-header-content">
-            <h1>ADMISSION APPLICATION</h1>
-        </div>
-    </div>
-    
-    <div class="about-us-main-wrapper pt-10 pb-20" style="background-color: #f7f7f7;">
-        
-        <div class="form-container">
-            <header class="text-center mb-6">
-                <h1 class="text-xl font-extrabold text-gray-800 tracking-wider mb-1">AUXILIUM SCHOOL</h1>
-                <p class="text-sm text-gray-600 mb-1">VARAKKAD, KOTTAMALA P.O. - 671 314, Kasaragod, Kerala</p>
-                <p class="text-sm text-gray-600 mb-4">Affiliated to ICSE, Delhi (KE 124)</p>
-            </header>
+    <section class="page-section hidden-page" id="admission" style="display: none;">
 
-            <form id="admissionForm" onsubmit="handleSubmit(event)" enctype="multipart/form-data">
-                
-                <div id="step-1" class="multi-step-content" data-step="1">
-                    <h2 class="text-lg font-bold bg-gray-100 py-2 border-y border-gray-300 text-gray-800 text-center mb-6">
-                        STEP 1: APPLICATION FOR ADMISSION
-                    </h2>
-                    <main class="space-y-4">
-                        <div class="flex items-center space-x-2">
-                            <span class="item-number">1.</span>
-                            <div class="form-label min-w-[4rem] sm:min-w-[12rem]">Name of pupil (Block letters) :</div>
-                            <input type="text" name="pupilName" class="input-line flex-1" placeholder="Enter Full Name" required>
-                            <div class="form-label ml-4 min-w-[5rem]">Aadhar No:</div>
-                            <input type="text" name="pupilAadhar" class="input-line flex-1" placeholder="Enter Aadhar Number">
-                        </div>
-                        
-                        <div class="flex items-center space-x-2">
-                            <span class="item-number">2.</span>
-                            <div class="form-label min-w-[10rem] sm:min-w-[5rem]">Date of Birth :</div>
-                            <input type="date" name="dateOfBirth" class="input-line flex-1 max-w-[12rem] sm:max-w-[16rem]" required>
-                            <span class="flex-1 hidden sm:block"></span>
-                        </div>
-
-                        <div class="flex items-center space-x-2">
-                            <span class="item-number">3.</span>
-                            <div class="form-label min-w-[10rem] sm:min-w-[1rem]">Religion :</div>
-                            <input type="text" name="religion" class="input-line flex-1" placeholder="Enter Religion">
-                            <div class="form-label ml-4 min-w-[3rem]">Caste:</div>
-                            <input type="text" name="caste" class="input-line flex-1" placeholder="Enter Caste">
-                        </div>
-
-                        <div class="space-y-2">
-    <div class="flex items-start space-x-2">
-        <span class="item-number flex-shrink-0 mt-1">4.</span>
-        <div class="flex flex-col w-full mobile-field-align-content"> 
-            
-            <div class="flex items-center space-x-2 flex-1 mb-2">
-                <div class="form-label flex-shrink-0 min-w-[8rem]">Name of Father :</div>
-                <input type="text" name="fatherName" class="input-line flex-1" placeholder="Enter Father's Name" required>
-            </div>
-            
-            <div class="flex items-center space-x-2 flex-1 mb-2">
-                <div class="form-label flex-shrink-0 min-w-[4rem]">Address:</div>
-                <input type="text" name="addressLine1" class="input-line flex-1" placeholder="Enter Full Address" required>
-            </div>
-
-            <div class="flex items-center space-x-2 flex-1">
-                <div class="form-label flex-shrink-0 min-w-[8rem]">Name of Mother :</div>
-                <input type="text" name="motherName" class="input-line flex-1" placeholder="Enter Mother's Name" required>
-            </div>
-            <div class="flex items-center space-x-2 flex-1 opacity-0 pointer-events-none">
-                <div class="form-label min-w-[4rem]"> </div> 
+        <div class="admission-banner-bg">
+            <div class="hero-content knowus-header-content">
+                <h1>ADMISSION APPLICATION</h1>
             </div>
         </div>
-    </div>
-</div>
 
-                        <div class="space-y-4">
-                            <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-2">
-                                <span class="item-number flex-shrink-0">5.</span>
-                                <div class="flex items-center space-x-2 flex-1 mt-2 sm:mt-0">
-                                    <div class="form-label flex-shrink-0 min-w-[9rem]">Occupation of Father :</div>
-                                    <input type="text" name="fatherOccupation" class="input-line flex-1" placeholder="Enter Occupation">
-                                </div>
-                                <div class="flex items-center space-x-2 flex-1 ml-[2.5rem] sm:ml-4 mt-2 sm:mt-0">
-                                    <div class="form-label flex-shrink-0 min-w-[7rem]">Monthly income:</div>
-                                    <input type="text" name="fatherIncome" class="input-line flex-1" placeholder="Enter Income">
-                                </div>
+        <div class="about-us-main-wrapper pt-10 pb-20" style="background-color: #f7f7f7;">
+
+            <div class="form-container">
+                <header class="text-center mb-6">
+                    <h1 class="text-xl font-extrabold text-gray-800 tracking-wider mb-1">AUXILIUM SCHOOL</h1>
+                    <p class="text-sm text-gray-600 mb-1">VARAKKAD, KOTTAMALA P.O. - 671 314, Kasaragod, Kerala</p>
+                    <p class="text-sm text-gray-600 mb-4">Affiliated to ICSE, Delhi (KE 124)</p>
+                </header>
+
+                <form id="admissionForm" onsubmit="handleSubmit(event)" enctype="multipart/form-data">
+
+                    <div id="step-1" class="multi-step-content" data-step="1">
+                        <h2 class="text-lg font-bold bg-gray-100 py-2 border-y border-gray-300 text-gray-800 text-center mb-6">
+                            STEP 1: APPLICATION FOR ADMISSION
+                        </h2>
+                        <main class="space-y-4">
+                            <div class="flex items-center space-x-2">
+                                <span class="item-number">1.</span>
+                                <div class="form-label min-w-[4rem] sm:min-w-[12rem]">Name of pupil (Block letters) :</div>
+                                <input type="text" name="pupilName" class="input-line flex-1" placeholder="Enter Full Name" required>
+                                <div class="form-label ml-4 min-w-[5rem]">Aadhar No:</div>
+                                <input type="text" name="pupilAadhar" class="input-line flex-1" placeholder="Enter Aadhar Number">
                             </div>
 
-                            <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-2 ml-[2.5rem] sm:ml-0">
-                                <span class="item-number opacity-0 pointer-events-none hidden sm:inline">5.</span>
-                                <div class="flex items-center space-x-2 flex-1 mt-2 sm:mt-0">
-                                    <div class="form-label flex-shrink-0 min-w-[9rem]">Occupation of Mother :</div>
-                                    <input type="text" name="motherOccupation" class="input-line flex-1" placeholder="Enter Occupation">
-                                </div>
-                                <div class="flex items-center space-x-2 flex-1 ml-[2.5rem] sm:ml-4 mt-2 sm:mt-0">
-                                    <div class="form-label flex-shrink-0 min-w-[7rem]">Monthly income:</div>
-                                    <input type="text" name="motherIncome" class="input-line flex-1" placeholder="Enter Income">
-                                </div>
+                            <div class="flex items-center space-x-2">
+                                <span class="item-number">2.</span>
+                                <div class="form-label min-w-[10rem] sm:min-w-[5rem]">Date of Birth :</div>
+                                <input type="date" name="dateOfBirth" class="input-line flex-1 max-w-[12rem] sm:max-w-[16rem]" required>
+                                <span class="flex-1 hidden sm:block"></span>
                             </div>
-                        </div>
 
-                        <div class="flex items-center space-x-2">
-                            <span class="item-number">6.</span>
-                            <div class="form-label min-w-[10rem] sm:min-w-[9rem]">Mobile No. of Father :</div>
-                            <input type="tel" name="fatherMobile" class="input-line flex-1" placeholder="Enter Father's Mobile" required>
-                            <div class="form-label ml-4 min-w-[8rem] sm:min-w-[5rem]">Mobile No. of Mother:</div>
-                            <input type="tel" name="motherMobile" class="input-line flex-1" placeholder="Enter Mother's Mobile">
-                        </div>
+                            <div class="flex items-center space-x-2">
+                                <span class="item-number">3.</span>
+                                <div class="form-label min-w-[10rem] sm:min-w-[1rem]">Religion :</div>
+                                <input type="text" name="religion" class="input-line flex-1" placeholder="Enter Religion">
+                                <div class="form-label ml-4 min-w-[3rem]">Caste:</div>
+                                <input type="text" name="caste" class="input-line flex-1" placeholder="Enter Caste">
+                            </div>
 
-                        <div class="flex items-center space-x-2">
-                            <span class="item-number">7.</span>
-                            <div class="form-label min-w-[10rem] sm:min-w-[9rem]">Nationality of Father :</div>
-                            <input type="text" name="fatherNationality" class="input-line flex-1" placeholder="Enter Nationality">
-                            <div class="form-label ml-4 min-w-[8rem] sm:min-w-[5rem]">Nationality of Mother:</div>
-                            <input type="text" name="motherNationality" class="input-line flex-1" placeholder="Enter Nationality">
-                        </div>
+                            <div class="space-y-2">
+                                <div class="flex items-start space-x-2">
+                                    <span class="item-number flex-shrink-0 mt-1">4.</span>
+                                    <div class="flex flex-col w-full mobile-field-align-content">
 
-                        <div class="h-px bg-gray-200 my-4"></div>
+                                        <div class="flex items-center space-x-2 flex-1 mb-2">
+                                            <div class="form-label flex-shrink-0 min-w-[8rem]">Name of Father :</div>
+                                            <input type="text" name="fatherName" class="input-line flex-1" placeholder="Enter Father's Name" required>
+                                        </div>
 
-                        <div class="space-y-4">
-                            <div class="flex items-start space-x-2">
-                                <span class="item-number">8.</span>
-                                <div class="flex flex-col flex-1">
-                                    <div class="flex items-center space-x-2 mb-2">
-                                        <span class="form-label min-w-[1rem]">(a)</span>
-                                        <div class="form-label flex-shrink-0">School in which the pupil was studying previously</div>
-                                        <input type="text" name="previousSchoolName" class="input-line flex-1" placeholder="School Name">
-                                    </div>
-                                    <div class="flex items-center space-x-2 mb-2 ml-[1.5rem] sm:ml-[1.5rem]">
-                                        <span class="form-label min-w-[1rem]">(b)</span>
-                                        <div class="form-label flex-shrink-0">Class to which admission is sought</div>
-                                        <input type="text" name="admissionClass" class="input-line flex-1" placeholder="Class" required>
-                                    </div>
-                                    <div class="flex items-center space-x-2 ml-[1.5rem] sm:ml-[1.5rem]">
-                                        <span class="form-label min-w-[1rem]">(c)</span>
-                                        <div class="form-label flex-shrink-0">Date of leaving that school</div>
-                                        <input type="date" name="leavingDate" class="input-line flex-1 max-w-[12rem] sm:max-w-none">
+                                        <div class="flex items-center space-x-2 flex-1 mb-2">
+                                            <div class="form-label flex-shrink-0 min-w-[4rem]">Address:</div>
+                                            <input type="text" name="addressLine1" class="input-line flex-1" placeholder="Enter Full Address" required>
+                                        </div>
+
+                                        <div class="flex items-center space-x-2 flex-1">
+                                            <div class="form-label flex-shrink-0 min-w-[8rem]">Name of Mother :</div>
+                                            <input type="text" name="motherName" class="input-line flex-1" placeholder="Enter Mother's Name" required>
+                                        </div>
+                                        <div class="flex items-center space-x-2 flex-1 opacity-0 pointer-events-none">
+                                            <div class="form-label min-w-[4rem]"> </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="flex items-center space-x-2">
-                            <span class="item-number">9.</span>
-                            <div class="form-label flex-shrink-0">Number and date of the Transfer Certificate from the last school</div>
-                            <input type="text" name="tcDetails" class="input-line flex-1" placeholder="TC Number and Date">
-                        </div>
+                            <div class="space-y-4">
+                                <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-2">
+                                    <span class="item-number flex-shrink-0">5.</span>
+                                    <div class="flex items-center space-x-2 flex-1 mt-2 sm:mt-0">
+                                        <div class="form-label flex-shrink-0 min-w-[9rem]">Occupation of Father :</div>
+                                        <input type="text" name="fatherOccupation" class="input-line flex-1" placeholder="Enter Occupation">
+                                    </div>
+                                    <div class="flex items-center space-x-2 flex-1 ml-[2.5rem] sm:ml-4 mt-2 sm:mt-0">
+                                        <div class="form-label flex-shrink-0 min-w-[7rem]">Monthly income:</div>
+                                        <input type="text" name="fatherIncome" class="input-line flex-1" placeholder="Enter Income">
+                                    </div>
+                                </div>
 
-                        <div class="space-y-4">
-                            <div class="flex items-start space-x-2">
-                                <span class="item-number">10.</span>
-                                <div class="flex flex-col flex-1">
-                                    <div class="flex items-center space-x-2 mb-2">
-                                        <span class="form-label min-w-[1rem]">(a)</span>
-                                        <div class="form-label flex-shrink-0">What second language the pupil will take if admitted?</div>
-                                        <input type="text" name="secondLanguage" class="input-line flex-1" placeholder="Second Language">
+                                <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-2 ml-[2.5rem] sm:ml-0">
+                                    <span class="item-number opacity-0 pointer-events-none hidden sm:inline">5.</span>
+                                    <div class="flex items-center space-x-2 flex-1 mt-2 sm:mt-0">
+                                        <div class="form-label flex-shrink-0 min-w-[9rem]">Occupation of Mother :</div>
+                                        <input type="text" name="motherOccupation" class="input-line flex-1" placeholder="Enter Occupation">
+                                    </div>
+                                    <div class="flex items-center space-x-2 flex-1 ml-[2.5rem] sm:ml-4 mt-2 sm:mt-0">
+                                        <div class="form-label flex-shrink-0 min-w-[7rem]">Monthly income:</div>
+                                        <input type="text" name="motherIncome" class="input-line flex-1" placeholder="Enter Income">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center space-x-2">
+                                <span class="item-number">6.</span>
+                                <div class="form-label min-w-[10rem] sm:min-w-[9rem]">Mobile No. of Father :</div>
+                                <input type="tel" name="fatherMobile" class="input-line flex-1" placeholder="Enter Father's Mobile" required>
+                                <div class="form-label ml-4 min-w-[8rem] sm:min-w-[5rem]">Mobile No. of Mother:</div>
+                                <input type="tel" name="motherMobile" class="input-line flex-1" placeholder="Enter Mother's Mobile">
+                            </div>
+
+                            <div class="flex items-center space-x-2">
+                                <span class="item-number">7.</span>
+                                <div class="form-label min-w-[10rem] sm:min-w-[9rem]">Nationality of Father :</div>
+                                <input type="text" name="fatherNationality" class="input-line flex-1" placeholder="Enter Nationality">
+                                <div class="form-label ml-4 min-w-[8rem] sm:min-w-[5rem]">Nationality of Mother:</div>
+                                <input type="text" name="motherNationality" class="input-line flex-1" placeholder="Enter Nationality">
+                            </div>
+
+                            <div class="h-px bg-gray-200 my-4"></div>
+
+                            <div class="space-y-4">
+                                <div class="flex items-start space-x-2">
+                                    <span class="item-number">8.</span>
+                                    <div class="flex flex-col flex-1">
+                                        <div class="flex items-center space-x-2 mb-2">
+                                            <span class="form-label min-w-[1rem]">(a)</span>
+                                            <div class="form-label flex-shrink-0">School in which the pupil was studying previously</div>
+                                            <input type="text" name="previousSchoolName" class="input-line flex-1" placeholder="School Name">
+                                        </div>
+                                        <div class="flex items-center space-x-2 mb-2 ml-[1.5rem] sm:ml-[1.5rem]">
+                                            <span class="form-label min-w-[1rem]">(b)</span>
+                                            <div class="form-label flex-shrink-0">Class to which admission is sought</div>
+                                            <input type="text" name="admissionClass" class="input-line flex-1" placeholder="Class" required>
+                                        </div>
+                                        <div class="flex items-center space-x-2 ml-[1.5rem] sm:ml-[1.5rem]">
+                                            <span class="form-label min-w-[1rem]">(c)</span>
+                                            <div class="form-label flex-shrink-0">Date of leaving that school</div>
+                                            <input type="date" name="leavingDate" class="input-line flex-1 max-w-[12rem] sm:max-w-none">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center space-x-2">
+                                <span class="item-number">9.</span>
+                                <div class="form-label flex-shrink-0">Number and date of the Transfer Certificate from the last school</div>
+                                <input type="text" name="tcDetails" class="input-line flex-1" placeholder="TC Number and Date">
+                            </div>
+
+                            <div class="space-y-4">
+                                <div class="flex items-start space-x-2">
+                                    <span class="item-number">10.</span>
+                                    <div class="flex flex-col flex-1">
+                                        <div class="flex items-center space-x-2 mb-2">
+                                            <span class="form-label min-w-[1rem]">(a)</span>
+                                            <div class="form-label flex-shrink-0">What second language the pupil will take if admitted?</div>
+                                            <input type="text" name="secondLanguage" class="input-line flex-1" placeholder="Second Language">
+                                        </div>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="form-label min-w-[1rem]">(b)</span>
+                                            <div class="form-label flex-shrink-0">Mother Tongue</div>
+                                            <input type="text" name="motherTongue" class="input-line flex-1" placeholder="Mother Tongue">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="space-y-3">
+                                <div class="flex items-start space-x-2">
+                                    <span class="item-number">11.</span>
+                                    <div class="form-label flex-shrink-0">Identification Marks</div>
+                                </div>
+                                <div class="ml-[3.5rem] sm:ml-[3.5rem] space-y-2">
+                                    <div class="flex items-center space-x-2">
+                                        <span class="form-label min-w-[1rem]">1)</span>
+                                        <input type="text" name="idMark1" class="input-line flex-1" placeholder="First Mark">
                                     </div>
                                     <div class="flex items-center space-x-2">
-                                        <span class="form-label min-w-[1rem]">(b)</span>
-                                        <div class="form-label flex-shrink-0">Mother Tongue</div>
-                                        <input type="text" name="motherTongue" class="input-line flex-1" placeholder="Mother Tongue">
+                                        <span class="form-label min-w-[1rem]">2)</span>
+                                        <input type="text" name="idMark2" class="input-line flex-1" placeholder="Second Mark">
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="space-y-3">
-                            <div class="flex items-start space-x-2">
-                                <span class="item-number">11.</span>
-                                <div class="form-label flex-shrink-0">Identification Marks</div>
-                            </div>
-                            <div class="ml-[3.5rem] sm:ml-[3.5rem] space-y-2">
-                                <div class="flex items-center space-x-2">
-                                    <span class="form-label min-w-[1rem]">1)</span>
-                                    <input type="text" name="idMark1" class="input-line flex-1" placeholder="First Mark">
+                        </main>
+                        <div class="flex justify-end mt-10">
+                            <button type="button" data-next-step="2" class="multi-step-nav px-8 py-3 bg-indigo-600 text-white font-bold rounded-lg shadow-lg hover:bg-indigo-700 transition duration-200">
+                                Next: Required Documents →
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="step-2" class="multi-step-content hidden" data-step="2">
+                        <h2 class="text-lg font-bold bg-gray-100 py-2 border-y border-gray-300 text-gray-800 text-center mb-6">
+                            STEP 2: REQUIRED DOCUMENTS FOR SUBMISSION
+                        </h2>
+                        <div class="mt-8 pt-4">
+
+                            <p class="text-xs text-gray-600 text-center mb-6 px-4 leading-relaxed">
+                                Applicants are required to upload the following documents: Birth Certificate, Aadhaar Card, Transfer Certificate (TC), Student’s Passport-size Photograph, and Parent’s ID Proof. A valid Passport is mandatory for international students only.
+                            </p>
+
+                            <div class="space-y-3 px-2">
+                                <div class="flex justify-between items-center pb-2 border-b border-gray-100">
+                                    <span class="text-sm text-gray-700 font-medium">1. Birth Certificate</span>
+                                    <label class="upload-label">
+                                        <input type="file" name="file_birth" class="upload-input" onchange="handleFileUpload(event)" accept=".pdf,image/*" required>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                            <polyline points="17 8 12 3 7 8"/>
+                                            <line x1="12" y1="3" x2="12" y2="15"/>
+                                        </svg>
+                                        Upload
+                                        <span class="file-name">No file chosen</span>
+                                    </label>
                                 </div>
-                                <div class="flex items-center space-x-2">
-                                    <span class="form-label min-w-[1rem]">2)</span>
-                                    <input type="text" name="idMark2" class="input-line flex-1" placeholder="Second Mark">
+
+                                <div class="flex justify-between items-center pb-2 border-b border-gray-100">
+                                    <span class="text-sm text-gray-700 font-medium">2. Aadhaar Card</span>
+                                    <label class="upload-label">
+                                        <input type="file" name="file_aadhar" class="upload-input" onchange="handleFileUpload(event)" accept=".pdf,image/*" required>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                            <polyline points="17 8 12 3 7 8"/>
+                                            <line x1="12" y1="3" x2="12" y2="15"/>
+                                        </svg>
+                                        Upload
+                                        <span class="file-name">No file chosen</span>
+                                    </label>
+                                </div>
+
+                                <div class="flex justify-between items-center pb-2 border-b border-gray-100">
+                                    <span class="text-sm text-gray-700 font-medium">3. Transfer Certificate (TC)</span>
+                                    <label class="upload-label">
+                                        <input type="file" name="file_tc" class="upload-input" onchange="handleFileUpload(event)" accept=".pdf,image/*" required>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                            <polyline points="17 8 12 3 7 8"/>
+                                            <line x1="12" y1="3" x2="12" y2="15"/>
+                                        </svg>
+                                        Upload
+                                        <span class="file-name">No file chosen</span>
+                                    </label>
+                                </div>
+
+                                <div class="flex justify-between items-center pb-2 border-b border-gray-100">
+                                    <span class="text-sm text-gray-700 font-medium">4. Student’s Passport-size Photo</span>
+                                    <label class="upload-label">
+                                        <input type="file" name="file_student_photo" class="upload-input" multiple accept="image/*" onchange="handleFileUpload(event)" required>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                            <polyline points="17 8 12 3 7 8"/>
+                                            <line x1="12" y1="3" x2="12" y2="15"/>
+                                        </svg>
+                                        Upload
+                                        <span class="file-name">No file chosen</span>
+                                    </label>
+                                </div>
+
+                                <div class="flex justify-between items-center pb-2 border-b border-gray-100">
+                                    <span class="text-sm text-gray-700 font-medium">5. Passport (for international students only)</span>
+                                    <label class="upload-label">
+                                        <input type="file" name="file_passport" class="upload-input" onchange="handleFileUpload(event)" accept=".pdf,image/*">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                            <polyline points="17 8 12 3 7 8"/>
+                                            <line x1="12" y1="3" x2="12" y2="15"/>
+                                        </svg>
+                                        Upload
+                                        <span class="file-name">No file chosen</span>
+                                    </label>
+                                </div>
+
+                                <div class="flex justify-between items-center pb-2">
+                                    <span class="text-sm text-gray-700 font-medium">6. Parent’s ID Proof</span>
+                                    <label class="upload-label">
+                                        <input type="file" name="file_parent_id" class="upload-input" onchange="handleFileUpload(event)" accept=".pdf,image/*" required>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                            <polyline points="17 8 12 3 7 8"/>
+                                            <line x1="12" y1="3" x2="12" y2="15"/>
+                                        </svg>
+                                        Upload
+                                        <span class="file-name">No file chosen</span>
+                                    </label>
                                 </div>
                             </div>
                         </div>
-                        
-                    </main>
-                    <div class="flex justify-end mt-10">
-                        <button type="button" data-next-step="2" class="multi-step-nav px-8 py-3 bg-indigo-600 text-white font-bold rounded-lg shadow-lg hover:bg-indigo-700 transition duration-200">
-                            Next: Required Documents →
-                        </button>
-                    </div>
-                </div>
-
-                <div id="step-2" class="multi-step-content hidden" data-step="2">
-                    <h2 class="text-lg font-bold bg-gray-100 py-2 border-y border-gray-300 text-gray-800 text-center mb-6">
-                        STEP 2: REQUIRED DOCUMENTS FOR SUBMISSION
-                    </h2>
-                   <div class="mt-8 pt-4">
-                        
-                        <p class="text-xs text-gray-600 text-center mb-6 px-4 leading-relaxed">
-                            Applicants are required to upload the following documents: Birth Certificate, Aadhaar Card, Transfer Certificate (TC), Student’s Passport-size Photograph, and Parent’s ID Proof. A valid Passport is mandatory for international students only.
-                        </p>
-
-                        <div class="space-y-3 px-2">
-                            <div class="flex justify-between items-center pb-2 border-b border-gray-100">
-                                <span class="text-sm text-gray-700 font-medium">1. Birth Certificate</span>
-                                <label class="upload-label">
-                                    <input type="file" name="file_birth" class="upload-input" onchange="handleFileUpload(event)" accept=".pdf,image/*" required>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                                        <polyline points="17 8 12 3 7 8"/>
-                                        <line x1="12" y1="3" x2="12" y2="15"/>
-                                    </svg>
-                                    Upload
-                                    <span class="file-name">No file chosen</span>
-                                </label>
-                            </div>
-
-                            <div class="flex justify-between items-center pb-2 border-b border-gray-100">
-                                <span class="text-sm text-gray-700 font-medium">2. Aadhaar Card</span>
-                                <label class="upload-label">
-                                    <input type="file" name="file_aadhar" class="upload-input" onchange="handleFileUpload(event)" accept=".pdf,image/*" required>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                                        <polyline points="17 8 12 3 7 8"/>
-                                        <line x1="12" y1="3" x2="12" y2="15"/>
-                                    </svg>
-                                    Upload
-                                    <span class="file-name">No file chosen</span>
-                                </label>
-                            </div>
-                            
-                            <div class="flex justify-between items-center pb-2 border-b border-gray-100">
-                                <span class="text-sm text-gray-700 font-medium">3. Transfer Certificate (TC)</span>
-                                <label class="upload-label">
-                                    <input type="file" name="file_tc" class="upload-input" onchange="handleFileUpload(event)" accept=".pdf,image/*" required>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                                        <polyline points="17 8 12 3 7 8"/>
-                                        <line x1="12" y1="3" x2="12" y2="15"/>
-                                    </svg>
-                                    Upload
-                                    <span class="file-name">No file chosen</span>
-                                </label>
-                            </div>
-
-                            <div class="flex justify-between items-center pb-2 border-b border-gray-100">
-                                <span class="text-sm text-gray-700 font-medium">4. Student’s Passport-size Photo</span>
-                                <label class="upload-label">
-                                    <input type="file" name="file_student_photo" class="upload-input" multiple accept="image/*" onchange="handleFileUpload(event)" required>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                                        <polyline points="17 8 12 3 7 8"/>
-                                        <line x1="12" y1="3" x2="12" y2="15"/>
-                                    </svg>
-                                    Upload
-                                    <span class="file-name">No file chosen</span>
-                                </label>
-                            </div>
-
-                            <div class="flex justify-between items-center pb-2 border-b border-gray-100">
-                                <span class="text-sm text-gray-700 font-medium">5. Passport (for international students only)</span>
-                                <label class="upload-label">
-                                    <input type="file" name="file_passport" class="upload-input" onchange="handleFileUpload(event)" accept=".pdf,image/*">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                                        <polyline points="17 8 12 3 7 8"/>
-                                        <line x1="12" y1="3" x2="12" y2="15"/>
-                                    </svg>
-                                    Upload
-                                    <span class="file-name">No file chosen</span>
-                                </label>
-                            </div>
-
-                            <div class="flex justify-between items-center pb-2">
-                                <span class="text-sm text-gray-700 font-medium">6. Parent’s ID Proof</span>
-                                <label class="upload-label">
-                                    <input type="file" name="file_parent_id" class="upload-input" onchange="handleFileUpload(event)" accept=".pdf,image/*" required>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                                        <polyline points="17 8 12 3 7 8"/>
-                                        <line x1="12" y1="3" x2="12" y2="15"/>
-                                    </svg>
-                                    Upload
-                                    <span class="file-name">No file chosen</span>
-                                </label>
-                            </div>
+                        <div class="flex justify-between mt-10">
+                            <button type="button" data-prev-step="1" class="multi-step-nav px-8 py-3 bg-gray-500 text-white font-bold rounded-lg shadow-lg hover:bg-gray-600 transition duration-200">
+                                ← Previous: Application
+                            </button>
+                            <button type="button" data-next-step="3" class="multi-step-nav px-8 py-3 bg-indigo-600 text-white font-bold rounded-lg shadow-lg hover:bg-indigo-700 transition duration-200">
+                                Next: Declaration →
+                            </button>
                         </div>
                     </div>
-                    <div class="flex justify-between mt-10">
-                        <button type="button" data-prev-step="1" class="multi-step-nav px-8 py-3 bg-gray-500 text-white font-bold rounded-lg shadow-lg hover:bg-gray-600 transition duration-200">
-                            ← Previous: Application
-                        </button>
-                        <button type="button" data-next-step="3" class="multi-step-nav px-8 py-3 bg-indigo-600 text-white font-bold rounded-lg shadow-lg hover:bg-indigo-700 transition duration-200">
-                            Next: Declaration →
-                        </button>
-                    </div>
-                </div>
 
-                <div id="step-3" class="multi-step-content hidden" data-step="3">
-                    <h2 class="text-lg font-bold bg-gray-100 py-2 border-y border-gray-300 text-gray-800 text-center mb-6">
-                        STEP 3: DECLARATION
-                    </h2>
-                    <div class="mt-8 pt-4">
-                    
-                        
-                        <div class="flex items-start mb-8 px-2">
-                            <input type="checkbox" id="declaration-agree" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 mt-1" onchange="toggleSubmitButton(this.checked)">
-                            
-                            <label for="declaration-agree" class="text-xs text-gray-700 leading-relaxed ml-3 cursor-pointer">
-                                I declare that the statement given above is correct and that the pupil has not attended any other school besides 
-                                those mentioned above. I agree to abide by the school regulations and the Fee Rules of the school. I declare that the 
-                                name of the pupil and date of birth in Col. 1 & 2 are correct and that I will not ask for a change in the future.
-                            </label>
-                        </div>
-                        
-                        <div class="text-sm text-gray-500 text-center italic mt-12">
-                           By checking the box and clicking 'SUBMIT APPLICATION', I confirm the details provided are correct and complete.
+                    <div id="step-3" class="multi-step-content hidden" data-step="3">
+                        <h2 class="text-lg font-bold bg-gray-100 py-2 border-y border-gray-300 text-gray-800 text-center mb-6">
+                            STEP 3: DECLARATION
+                        </h2>
+                        <div class="mt-8 pt-4">
+
+                            <div class="flex items-start mb-8 px-2">
+                                <input type="checkbox" id="declaration-agree" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 mt-1" onchange="toggleSubmitButton(this.checked)">
+
+                                <label for="declaration-agree" class="text-xs text-gray-700 leading-relaxed ml-3 cursor-pointer">
+                                    I declare that the statement given above is correct and that the pupil has not attended any other school besides
+                                    those mentioned above. I agree to abide by the school regulations and the Fee Rules of the school. I declare that the
+                                    name of the pupil and date of birth in Col. 1 & 2 are correct and that I will not ask for a change in the future.
+                                </label>
+                            </div>
+
+                            <div class="text-sm text-gray-500 text-center italic mt-12">
+                                By checking the box and clicking 'SUBMIT APPLICATION', I confirm the details provided are correct and complete.
+                            </div>
+
                         </div>
 
+                        <div class="flex justify-between mt-10">
+                            <button type="button" data-prev-step="2" class="multi-step-nav px-8 py-3 bg-gray-500 text-white font-bold rounded-lg shadow-lg hover:bg-gray-600 transition duration-200">
+                                ← Previous: Documents
+                            </button>
+                            <button
+                                type="submit"
+                                id="admission-submit-final"
+                                class="px-8 py-3 bg-indigo-600 text-white font-bold rounded-lg shadow-lg transition duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50"
+                                disabled> SUBMIT APPLICATION
+                            </button>
+                        </div>
                     </div>
-                    
-                    <div class="flex justify-between mt-10">
-                        <button type="button" data-prev-step="2" class="multi-step-nav px-8 py-3 bg-gray-500 text-white font-bold rounded-lg shadow-lg hover:bg-gray-600 transition duration-200">
-                            ← Previous: Documents
-                        </button>
-                        <button 
-                            type="submit" 
-                            id="admission-submit-final"
-                            class="px-8 py-3 bg-indigo-600 text-white font-bold rounded-lg shadow-lg transition duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50"
-                            disabled> SUBMIT APPLICATION
-                        </button>
-                    </div>
-                </div>
 
-            </form>
+                </form>
+            </div>
+
         </div>
-        
-    </div>
-</section>
+    </section>
 </div>
 
 
 <footer class="contact-map-footer">
-<div class="footer-container">
-    
-    <div class="footer-col contact-details-col">
-        <h3 class="contact-heading">CONTACT DETAILS</h3>
-        
-        <div class="contact-item">
-            <img src="./images/icons/location-icon.png" alt="Location" class="contact-detail-icon" /> 
-            <p class="contact-text">128/50 K Block Kidwai Nagar Kanpur<br>Opposite Mikky House</p>
+    <div class="footer-container">
+
+        <div class="footer-col contact-details-col">
+            <h3 class="contact-heading">CONTACT DETAILS</h3>
+
+            <div class="contact-item">
+                <img src="./images/icons/location-icon.png" alt="Location" class="contact-detail-icon" />
+                <p class="contact-text">128/50 K Block Kidwai Nagar Kanpur<br>Opposite Mikky House</p>
+            </div>
+
+            <div class="contact-item">
+                <img src="./images/icons/email-icon.png" alt="Email" class="contact-detail-icon" />
+                <p class="contact-text">mtmhss95@gmail.com</p>
+            </div>
+
+            <div class="contact-item">
+                <img src="./images/icons/phone-icon.png" alt="Phone" class="contact-detail-icon" />
+                <p class="contact-text">+91-8933873293, +91-9005104040</p>
+            </div>
+
+            <div class="social-icons-contact">
+                <a href="#" aria-label="Facebook">
+                    <img src="./images/icons/facebok-icon.jpg" alt="Facebook" class="social-image-icon" />
+                </a>
+                <a href="#" aria-label="Twitter">
+                    <img src="./images/icons/instagram-icon.jpg" alt="Instagram" class="social-image-icon" />
+                </a>
+                <a href="#" aria-label="YouTube">
+                    <img src="./images/icons/youtube-icon.jpg" alt="YouTube" class="social-image-icon" />
+                </a>
+                <a href="#" aria-label="LinkedIn">
+                    <img src="./images/icons/whatsapp-icon.jpg" alt="Whatsapp" class="social-image-icon" />
+                </a>
+            </div>
         </div>
 
-        <div class="contact-item">
-            <img src="./images/icons/email-icon.png" alt="Email" class="contact-detail-icon" />
-            <p class="contact-text">mtmhss95@gmail.com</p>
+        <div class="footer-col links-col">
+            <h3 class="footer-heading">USEFUL LINKS</h3>
+            <ul class="quick-links-list">
+                <li><a href="#home" data-page="home">HOME</a></li>
+                <li><a href="#knowus" data-page="knowus">KNOW US</a></li>
+                <li><a href="#home#academics-section" data-page="home">ACADEMICS</a></li>
+                <li><a href="#home#facilities-section" data-page="home">FACILITIES</a></li>
+                <li><a href="#admission" data-page="admission">ADMISSION</a></li>
+            </ul>
         </div>
 
-        <div class="contact-item">
-            <img src="./images/icons/phone-icon.png" alt="Phone" class="contact-detail-icon" />
-            <p class="contact-text">+91-8933873293, +91-9005104040</p>
-        </div>
-        
-        <div class="social-icons-contact">
-            <a href="#" aria-label="Facebook">
-                <img src="./images/icons/facebok-icon.jpg" alt="Facebook" class="social-image-icon" />
-            </a>
-            <a href="#" aria-label="Twitter">
-                <img src="./images/icons/instagram-icon.jpg" alt="Instagram" class="social-image-icon" />
-            </a>
-            <a href="#" aria-label="YouTube">
-                <img src="./images/icons/youtube-icon.jpg" alt="YouTube" class="social-image-icon" />
-            </a>
-            <a href="#" aria-label="LinkedIn">
-                <img src="./images/icons/whatsapp-icon.jpg" alt="Whatsapp" class="social-image-icon" />
-            </a>
+        <div class="footer-col map-col">
+            <h3 class="footer-heading map-heading">SCHOOL MAP</h3>
+            <div class="footer-map-embed">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2444.588000280506!2d75.31570659376825!3d12.327466990977523!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba461dc4cf1f3bf%3A0x3b75c8ea180a1538!2sAUXILIUM%20SCHOOL%20(ICSE)!5e0!3m2!1sen!2sin!v1759573611211!5m2!1sen!2sin" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
         </div>
     </div>
 
-    <div class="footer-col links-col">
-        <h3 class="footer-heading">USEFUL LINKS</h3>
-        <ul class="quick-links-list">
-            <li><a href="#home" data-page="home">HOME</a></li>
-            <li><a href="#knowus" data-page="knowus">KNOW US</a></li>
-            <li><a href="#home#academics-section" data-page="home">ACADEMICS</a></li>
-            <li><a href="#home#facilities-section" data-page="home">FACILITIES</a></li>
-            <li><a href="#admission" data-page="admission">ADMISSION</a></li>
-        </ul>
+    <div class="footer-bottom-bar">
+        <p class="copyright">© Copyright 2025 Auxilium School. All rights reserved.</p>
+        <p class="developer">Web Developed by <a href="#" target="_blank">jithinpjoji@gmail.com</a></p>
     </div>
-    
-    <div class="footer-col map-col">
-        <h3 class="footer-heading map-heading">SCHOOL MAP</h3>
-        <div class="footer-map-embed">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2444.588000280506!2d75.31570659376825!3d12.327466990977523!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba461dc4cf1f3bf%3A0x3b75c8ea180a1538!2sAUXILIUM%20SCHOOL%20(ICSE)!5e0!3m2!1sen!2sin!v1759573611211!5m2!1sen!2sin" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-    </div>
-</div>
-
-<div class="footer-bottom-bar">
-    <p class="copyright">© Copyright 2025 Auxilium School. All rights reserved.</p>
-    <p class="developer">Web Developed by <a href="#" target="_blank">jithinpjoji@gmail.com</a></p>
-</div>
 
 </footer>
 

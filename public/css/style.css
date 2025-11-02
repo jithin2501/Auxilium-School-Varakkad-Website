@@ -487,7 +487,7 @@ img {
 .competitive-exam-banner-bg::before { background-image: url('./images/banner/Competitive\ Exams.jpg'); }
 .results-banner-bg::before { background-image: url('./images/banner/result.jpg'); }
 .achievements-banner-bg::before { background-image: url('./images/banner/achievements.jpg'); }
-.timing-banner-bg::before { background-image: url('./images/banner/school-timing.webp'); } /* New timing image */
+.timing-banner-bg::before { background-image: url('./images/banner/school_time-Photoroom.png'); } /* New timing image */
 .groups-banner-bg::before { background-image: url('./images/banner/group\ and\ club.webp'); }
 .rules-banner-bg::before { background-image: url('./images/banner/rules.webp'); }
 .academics-faculty-banner-bg::before { background-image: url('./images/banner/faculty.jpg'); background-position: center 40%; }

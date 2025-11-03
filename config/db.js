@@ -1,7 +1,6 @@
 // config/db.js
 import mongoose from 'mongoose';
 
-// Removed: dotenv.config();
 
 const connectDB = () => {
     // process.env.MONGO_URI is now provided directly by the Render environment

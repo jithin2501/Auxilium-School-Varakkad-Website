@@ -2,7 +2,6 @@
 import multer from 'multer';
 import { v2 as cloudinary } from 'cloudinary';
 
-dotenv.config();
 
 // --- Cloudinary Config (Extracted from admission.js) ---
 cloudinary.config({

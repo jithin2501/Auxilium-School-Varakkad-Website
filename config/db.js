@@ -1,9 +1,10 @@
 // config/db.js
 import mongoose from 'mongoose';
 
-dotenv.config();
+// Removed: dotenv.config();
 
 const connectDB = () => {
+    // process.env.MONGO_URI is now provided directly by the Render environment
     mongoose.connect(process.env.MONGO_URI)
         .then(() => console.log('✅ Connected to MongoDB'))
         .catch(err => {

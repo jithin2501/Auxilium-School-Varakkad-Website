@@ -1,6 +1,6 @@
 // middleware/authMiddleware.js
 // Extracted from admission.js
-import dotenv from 'dotenv';
+
 dotenv.config();
 
 export const noCache = (req, res, next) => {

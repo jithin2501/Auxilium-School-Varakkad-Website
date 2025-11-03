@@ -1,7 +1,7 @@
 // middleware/uploadMiddleware.js
 import multer from 'multer';
 import { v2 as cloudinary } from 'cloudinary';
-import dotenv from 'dotenv';
+
 dotenv.config();
 
 // --- Cloudinary Config (Extracted from admission.js) ---

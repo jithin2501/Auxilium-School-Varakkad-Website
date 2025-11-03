@@ -299,7 +299,9 @@ img {
 .mobile-nav-menu {
     position: fixed;
     top: 0;
-    width: 45%;
+    /* FIX 1: Increased mobile menu width to show full text (ADMINISTRATION) */
+    width: 75%; 
+    max-width: 350px; /* Added max-width to look good on tablets/larger phones */
     right: 0;
     height: 100vh;
     background-color: white;
@@ -374,6 +376,12 @@ img {
     display: block;
 }
 
+.mobile-nav-menu .dropdown-row-wrapper {
+    /* Ensure the wrapper takes full width for click area */
+    width: 100%; 
+    justify-content: space-between;
+}
+
 .mobile-nav-menu .dropdown-link-and-toggle {
     padding: 12px 0;
     font-size: 1.2rem;
@@ -382,11 +390,26 @@ img {
     text-transform: uppercase;
     transition: background-color 0.2s;
     cursor: pointer;
+    /* Ensure the link text takes space and pushes arrow right */
+    flex-grow: 1; 
+    justify-content: space-between;
 }
+.mobile-nav-menu .dropdown-link-and-toggle a.nav-link-page {
+    padding: 0; /* Remove padding here, handled by the list item */
+    width: max-content;
+}
+
 
 .mobile-nav-menu .dropdown-toggle-arrow {
     margin-left: 5px;
     margin-right: 0;
+    /* FIX 1: Ensure arrow icon is properly visible at the edge */
+    padding: 12px 0; 
+    height: auto;
+    width: 30px; 
+    flex-shrink: 0;
+    margin-top: -12px;
+    margin-bottom: -12px;
 }
 .mobile-nav-menu .dropdown-arrow-icon {
     border-color: black !important;
@@ -543,7 +566,8 @@ filter: brightness(0.7) contrast(1.05);
 
 .hero-content h1 {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(3rem, 6vw, 5.5rem); 
+    /* FIX 2: Adjusted font size for banners to fit better on mobile */
+    font-size: clamp(2.5rem, 8vw, 5.5rem); 
     font-weight: 700;
     color: #fff;
     margin-bottom: 18px; 
@@ -552,7 +576,8 @@ filter: brightness(0.7) contrast(1.05);
 }
 
 .knowus-header-content h1 {
-    font-size: clamp(3rem, 6vw, 5rem);
+    /* Keeping this specific rule, but general h1 rule helps other pages */
+    font-size: clamp(2.5rem, 8vw, 5rem);
 }
 
 .hero-content p {
@@ -1858,6 +1883,11 @@ input[type="date"] {
     color: #1a120b !important;
 }
 
+/* FIX 3: Admission Header Color Fix */
+.multi-step-content h2.text-lg.font-bold {
+    color: #25597f !important; /* Set text to Blue */
+}
+
 .upload-input {
     display: none;
 }
@@ -3026,6 +3056,7 @@ input[type="date"] {
 }
 
 @media (max-width: 768px) {
+    /* FIX 5: Mandatory Disclosure Documents Layout Fix */
     .disclosure-grid-container {
         grid-template-columns: 1fr; 
         gap: 20px;
@@ -3250,7 +3281,7 @@ input[type="date"] {
     }
     
     .hero-content h1 {
-        font-size: clamp(3rem, 7vw, 4.5rem); 
+        font-size: clamp(2.5rem, 7vw, 4.5rem); /* Adjusted here as well */
     }
     .hero-content p {
         font-size: clamp(1rem, 2vw, 1.25rem);
@@ -3480,6 +3511,7 @@ input[type="date"] {
 }
 
 @media (max-width: 640px) {
+    /* FIX 4: Admission Form Mobile Layout/Size Fix */
     .multi-step-content main {
         padding-left: 0 !important;
         padding-right: 0 !important;
@@ -3491,13 +3523,16 @@ input[type="date"] {
     }
     
     .multi-step-content main .flex,
-    .multi-step-content main .flex-col {
+    .multi-step-content main .flex-col,
+    .multi-step-content main .items-center {
         flex-direction: column !important;
         align-items: flex-start !important;
     }
+    /* End of FIX 4 primary flex overrides */
 
     .item-number {
         margin-bottom: 5px;
+        align-self: flex-start !important;
     }
 
     .form-label {
@@ -3505,6 +3540,7 @@ input[type="date"] {
         margin: 0 0 2px 0 !important;
         font-size: 0.9rem;
         font-weight: 600;
+        align-self: flex-start !important;
     }
 
     .input-line {
@@ -3533,7 +3569,8 @@ input[type="date"] {
         margin-bottom: 0 !important;
         padding-bottom: 0 !important;
     }
-
+    
+    /* Ensure sub-sections within Item 4 stack correctly */
     .space-y-2 > .flex.flex-col > .flex {
         flex-direction: column !important;
         width: 100%;
@@ -3563,6 +3600,34 @@ input[type="date"] {
 
     .space-y-2 > .flex.flex-col > .flex:nth-child(2) > .flex-1:nth-child(2) {
         display: none !important;
+    }
+    /* End of Item 4 Fixes */
+    
+    /* Fix for Item 5: Remove confusing horizontal structure */
+    .space-y-4 > .flex.flex-col.sm\:flex-row {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        margin-bottom: 20px; /* Add some space between 5.a and 5.b */
+    }
+    /* Target the second row of item 5 (Mother's details) to ensure proper spacing */
+    .ml-\[2\.5rem\].sm\:ml-0 { 
+        margin-left: 0 !important;
+        margin-top: 20px !important; 
+    }
+    /* Ensure all field groups within Item 5 stack */
+    .space-y-4 .flex.items-center.space-x-2.flex-1 {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        width: 100%;
+        margin-top: 5px;
+    }
+    .space-y-4 .flex.items-center.space-x-2.flex-1 .form-label {
+        margin-bottom: 0;
+        min-width: 100%;
+    }
+    .space-y-4 .ml-\[2\.5rem\],
+    .space-y-4 .sm\:ml-4 {
+        margin-left: 0 !important;
     }
 
     .multi-step-content main .ml-\[2\.5rem\],
@@ -3612,6 +3677,12 @@ input[type="date"] {
     .space-y-2 + .flex {
         margin-top: 0 !important;
         padding-top: 0 !important;
+    }
+    /* End of FIX 4: Admission Form Mobile Layout/Size Fix */
+    
+    /* General fix for enrollment form overall size */
+    .form-container {
+        padding: 1.5rem 1rem;
     }
 }
 

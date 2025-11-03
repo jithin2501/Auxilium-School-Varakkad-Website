@@ -3795,19 +3795,15 @@ input[type="date"] {
 .text-right.mt-6 a.text-sm.font-semibold {
     /* Center the button on desktop/large screen if container allows */
     display: inline-block; 
-    
-    /* Enforce Requested Colors/Style */
     background-color: #25597f !important; /* Blue Background Color */
     color: #fff !important; /* White Text */
-    
-    /* Remove hover effects */
     transition: none !important; 
     box-shadow: none !important;
 }
 
 .text-right.mt-6 a.text-sm.font-semibold:hover {
-    background-color: #25597f !important; /* Keep blue on hover */
-    transform: none !important; /* No movement on hover */
+    background-color: #25597f !important; 
+    transform: none !important; 
 }
 
 
@@ -3819,73 +3815,90 @@ input[type="date"] {
         padding: 0 5px; 
         margin-bottom: 20px !important; 
     }
+    /* ... (rest of the header styles remain the same) ... */
 
-    .form-container header h1 {
-        font-size: 1.2rem !important; 
+
+    /* 🆕 Upload List Item Layout Fix (To match the screenshot) */
+    /* This targets the container holding the upload button and the status text */
+    #step-2 .flex.justify-between.items-center {
+        /* OVERRIDE: Reverts to horizontal flex layout (screenshot format) */
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        
+        /* Ensure the border and padding are visually separated */
+        border-bottom: 1px solid #e0e0e0;
+        padding-bottom: 15px !important;
+        margin-bottom: 10px !important;
+        padding-top: 5px !important; 
+        width: 100%;
+    }
+    
+    /* Ensure the document title remains on its own line */
+    #step-2 .text-sm.text-gray-700.font-medium {
+        width: 100%;
         margin-bottom: 5px;
-        line-height: 1.3;
-        color: #1a120b !important;
+    }
+    
+    /* 3. UPLOAD BUTTON & STATUS CONTAINER */
+    /* This targets the inner container holding the upload button and status text */
+    #step-2 .flex.justify-end {
+        width: 100%; /* Ensure it spans the width */
+        justify-content: space-between !important;
+        align-items: center !important;
     }
 
-    .form-container header p {
-        font-size: 0.85rem !important;
-        line-height: 1.3;
-        color: #444 !important;
-        padding: 0 5px;
+
+    /* --- 4. UPLOAD BUTTON SIZE (Reduced Height) --- */
+    #step-2 .upload-label {
+        /* Reduced height for mobile view */
+        padding: 6px 10px !important; 
+        font-size: 0.8rem !important; 
+        font-weight: 500;
+        width: auto !important; /* Allow the button to size based on content */
+        justify-content: center; 
+        margin-top: 0; /* Remove top margin from previous fix */
     }
 
-    /* 🆕 NEW GAP: Add spacing after the main step 1 content */
+    /* Update file-name/status text appearance */
+    #step-2 .file-name,
+    #step-2 .text-green-600 { /* Assuming 'No file chosen' uses a similar class or general status class */
+        font-size: 0.9rem !important;
+        margin-left: 10px !important;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+
+    /* --- REST OF THE MOBILE LAYOUT FIXES (Simplified) --- */
+
+    /* 🆕 GAP: Add spacing after the main step 1 content */
     #step-1 {
         margin-bottom: 30px !important;
         padding-bottom: 10px !important;
     }
 
-
     /* --- 2. "NEXT" BUTTON STYLING (Centered Blue Button) --- */
     .text-right.mt-6 {
         text-align: center; 
         width: 100%; 
-        margin-top: 25px !important; /* Increased margin to create gap between button and step content below */
-        margin-bottom: 25px !important; /* Gap before Step 2 heading/content */
+        margin-top: 25px !important; 
+        margin-bottom: 25px !important; 
     }
     
     .text-right.mt-6 a.text-sm.font-semibold {
-        /* Mobile Specific Centering */
         display: block !important; 
         max-width: 90%;
         margin: 10px auto 0 auto;
-        
-        /* Mobile Sizing */
         padding: 8px 15px !important; 
         font-size: 0.95rem; 
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.5px;
     }
-    
-    /* --- 3. UPLOAD BUTTON SIZE (Make it smaller and full width for click) --- */
-    #step-2 .upload-label {
-        padding: 8px 10px !important; 
-        font-size: 0.8rem !important; 
-        font-weight: 500;
-        width: 100% !important; 
-        justify-content: center; 
-        margin-top: 5px; 
-    }
 
-    .file-name {
-        font-size: 0.75rem !important;
-        margin-left: 5px !important;
-        max-width: 50% !important; 
-        white-space: normal;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-    }
-
-    /* --- 4. DECLARATION TEXT READABILITY (Ensure visibility) --- */
+    /* 5. DECLARATION TEXT READABILITY */
     .multi-step-content p {
         color: #1a120b !important; 
         font-size: 0.95rem !important; 

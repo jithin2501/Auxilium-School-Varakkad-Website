@@ -3090,10 +3090,10 @@ input[type="date"] {
 .disclosure-item-title {
     flex-grow: 1;
     text-align: left;
-    margin-right: 10px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-right: 10px;
 }
 
 .disclosure-item-action {
@@ -3559,6 +3559,18 @@ input[type="date"] {
 }
 
 @media (max-width: 640px) {
+    /* 1. ADMINISTRATION BANNER FIX (Ensures the 'N' is inside and centered) */
+    .administration-banner-bg .hero-content h1 {
+        /* This smaller size (2.2rem) should ensure the entire capitalized word fits horizontally. */
+        font-size: 2.2rem !important; 
+        
+        /* Ensure the element itself is perfectly centered and uses minimal internal padding */
+        text-align: center !important;
+        padding: 0 5px !important; 
+        width: 100% !important;
+        margin: 0 auto !important;
+    }
+    
     /* FIX: Admission Form Mobile Layout/Size Overhaul */
     .multi-step-content main {
         padding-left: 0 !important;
@@ -3570,7 +3582,7 @@ input[type="date"] {
         padding-right: 0 !important;
     }
     
-    /* Overrides Tailwind flex/items settings for smaller screens on all numbered rows */
+    /* Overrides Tailwind flex/items settings for all numbered rows */
     .multi-step-content main .flex:not(.items-start),
     .multi-step-content main .flex-col,
     .multi-step-content main .items-center {

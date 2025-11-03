@@ -3573,6 +3573,7 @@ input[type="date"] {
         padding: 0 5px !important; 
         width: 100% !important;
         margin: 0 auto !important;
+        white-space: normal;
     }
     
     /* FIX: Admission Form Mobile Layout/Size Overhaul */
@@ -3782,5 +3783,93 @@ input[type="date"] {
         max-width: 450px; 
         margin: 0 auto; 
         height: 350px; 
+    }
+}
+
+
+/* ========================================================= */
+/* --- NEW MOBILE-SPECIFIC FORM FIXES (Your Request) --- */
+/* ========================================================= */
+
+@media (max-width: 640px) {
+
+    /* --- 1. ADMISSION HEADER (Center Text) --- */
+    .form-container header {
+        text-align: center;
+        padding: 0 5px; 
+    }
+
+    .form-container header h1 {
+        /* School Name (smaller size to fit) */
+        font-size: 1.2rem !important; 
+        margin-bottom: 5px;
+        line-height: 1.3;
+        color: #1a120b !important;
+    }
+
+    .form-container header p {
+        /* Address & Affiliation */
+        font-size: 0.85rem !important;
+        line-height: 1.3;
+        color: #444 !important;
+        padding: 0 5px;
+    }
+
+
+    /* --- 2. "NEXT" BUTTON STYLING (Centered Blue Button) --- */
+    .text-right.mt-6 {
+        text-align: center; 
+        width: 100%; /* Ensure container centers properly */
+        margin-top: 15px !important;
+    }
+    
+    .text-right.mt-6 a.text-sm.font-semibold {
+        /* Target the 'Next: Required Documents →' link */
+        display: block !important; /* Use block to span width for centering */
+        max-width: 90%;
+        margin: 10px auto 0 auto;
+        text-align: center;
+        background-color: #25597f !important; /* Blue Background Color */
+        color: #fff !important; /* White Text */
+        padding: 8px 15px !important; /* Smaller padding for mobile */
+        border-radius: 6px;
+        font-size: 0.95rem; 
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        transition: background-color 0.3s ease;
+    }
+
+    /* --- 3. UPLOAD BUTTON SIZE (Make it smaller and full width for click) --- */
+    #step-2 .upload-label {
+        /* Apply to the button itself */
+        padding: 8px 10px !important; /* Adjusted padding */
+        font-size: 0.8rem !important; /* Text size */
+        font-weight: 500;
+        width: 100% !important; /* Full width for easy tapping */
+        justify-content: center; /* Center content inside */
+        margin-top: 5px; 
+    }
+
+    .file-name {
+        font-size: 0.75rem !important;
+        margin-left: 5px !important;
+        /* Allow file name to wrap on mobile */
+        max-width: 50% !important; 
+        white-space: normal;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    /* --- 4. DECLARATION TEXT READABILITY (Ensure visibility) --- */
+    .multi-step-content p {
+        /* Target general paragraphs, assuming declaration is one of them */
+        color: #1a120b !important; /* Dark text color */
+        font-size: 0.95rem !important; /* Good readable size */
+        line-height: 1.5;
+        padding: 0 5px; 
     }
 }

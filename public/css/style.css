@@ -1845,7 +1845,11 @@ filter: brightness(0.7) contrast(1.05);
     margin: 0 auto; 
 }
 
-/* New CSS to match the style in the provided image for Admission form inputs */
+/* 🆕 FIX: Ensure header details are dark/visible on admission page */
+.form-container header h1,
+.form-container header p {
+    color: #1a120b !important;
+}
 
 .admission-line-break {
     width: 100%;
@@ -1933,7 +1937,7 @@ input[type="date"] {
 
 /* FIX 3: Admission Header Color Fix */
 .multi-step-content h2.text-lg.font-bold {
-    color: #25597f !important; /* Set text to Blue */
+    color: #25597f !important; /* Set step headings to Blue */
 }
 
 .upload-input {

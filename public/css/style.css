@@ -580,6 +580,13 @@ filter: brightness(0.7) contrast(1.05);
     font-size: clamp(2.5rem, 8vw, 5rem);
 }
 
+.administration-banner-bg .hero-content h1 {
+    /* New rule to ensure ADMINISTRATION text stays centered on mobile */
+    text-align: center;
+    width: 100%;
+}
+
+
 .hero-content p {
     font-family:Arial, Helvetica, sans-serif;
     font-size: clamp(1rem, 2vw, 1.25rem);
@@ -1821,6 +1828,32 @@ filter: brightness(0.7) contrast(1.05);
     border-radius: 0.75rem;
     border: 1px solid #e5e7eb;
     margin: 0 auto; 
+}
+
+/* New CSS to match the style in the provided image for Admission form inputs */
+
+.admission-line-break {
+    width: 100%;
+    height: 1px;
+    background-color: #e5e7eb;
+    margin: 15px 0;
+}
+
+.admission-item-row {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px 0;
+}
+
+.admission-item-row .item-number {
+    margin-bottom: 5px;
+}
+
+.admission-item-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 .input-line {
@@ -3522,7 +3555,8 @@ input[type="date"] {
         padding-right: 0 !important;
     }
     
-    .multi-step-content main .flex,
+    /* Overrides Tailwind flex/items settings for smaller screens */
+    .multi-step-content main .flex:not(.items-start),
     .multi-step-content main .flex-col,
     .multi-step-content main .items-center {
         flex-direction: column !important;
@@ -3542,13 +3576,25 @@ input[type="date"] {
         font-weight: 600;
         align-self: flex-start !important;
     }
+    /* Hide the twin elements from the main form rows to match the image structure */
+    .flex-1.hidden.sm\:block {
+        display: none !important;
+    }
 
     .input-line {
         max-width: 100% !important;
         width: 100%;
         margin: 5px 0 10px 0;
     }
-
+    /* Apply border line to separate fields (like the images show) */
+    .multi-step-content main > div:not(:last-child) > .item-number {
+        /* This targets the main numbered row containers */
+        border-bottom: 1px solid #e5e7eb;
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+        width: 100%;
+    }
+    
     .multi-step-content main > .flex > .flex-1,
     .multi-step-content main .space-y-4 > .flex:nth-child(1) > .flex-1,
     .multi-step-content main .space-y-4 > .flex-1,

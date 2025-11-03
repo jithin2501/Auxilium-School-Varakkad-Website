@@ -493,13 +493,20 @@ async function loadAlumniProfiles() {
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const data = await response.json();
         
+        // 🎯 NEW: Transformation for Alumni Image
+        const alumniTransform = "w_150,h_150,c_fill,q_auto,f_auto,g_face";
+
         if (data.success && data.profiles.length > 0) {
             container.innerHTML = data.profiles.map(alumnus => {
+                
+                // Inject the transformation into the URL path
+                let imageUrl = alumnus.cloudinaryUrl.replace('/upload/', `/upload/${alumniTransform}/`);
+
                 return `
                     <div class="alumni-profile-wrapper">
                         <div class="alumni-info-card">
                             <div class="alumni-image-container">
-                                <img src="${alumnus.cloudinaryUrl}" alt="${alumnus.name}" class="alumni-profile-img" /> 
+                                <img src="${imageUrl}" alt="${alumnus.name}" class="alumni-profile-img" /> 
                             </div>
                          <h4 class="alumni-name">${alumnus.name}</h4> 
                          <p class="alumni-achievement">${alumnus.titleOrAchievement}</p>
@@ -528,13 +535,22 @@ function createFacultyHtml(faculty, index) {
     const isReverse = index % 2 !== 0; 
     const layoutClass = isReverse ? 'reverse' : ''; 
     const animationClass = isReverse ? 'animate-right' : 'animate-left'; 
+    
+    // 🎯 NEW: Transformation for Faculty Image (w:350, h:350 for the card)
+    const facultyTransform = "w_350,h_350,c_fill,q_auto,f_auto,g_face";
+    let imageUrl = (faculty.cloudinaryUrl || './images/placeholder-staff.jpg');
+    
+    // Only apply transformation if it's a Cloudinary URL
+    if (imageUrl.includes('/upload/')) {
+         imageUrl = imageUrl.replace('/upload/', `/upload/${facultyTransform}/`);
+    }
 
     return `
         <section class="faculty-section-layout">
             <div class="faculty-box-content-wrapper ${layoutClass} ${animationClass} js-animate-on-scroll"> 
                 
                 <div class="faculty-image-box">
-                    <img src="${faculty.cloudinaryUrl || './images/placeholder-staff.jpg'}" alt="${faculty.name} Photo" /> 
+                    <img src="${imageUrl}" alt="${faculty.name} Photo" /> 
                 </div>
                 
                 <div class="faculty-text-box">
@@ -623,13 +639,26 @@ async function loadPublicGallery(type, page = 1) {
     const visibleItems = items.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
    if (visibleItems.length > 0) {
+       
+        // 🎯 NEW: Transformation for Gallery Photos (500x500 square and optimized)
+        const photoTransform = "w_500,h_500,c_fill,q_auto,f_auto"; 
+
         container.innerHTML = `
             <div class="gallery-wrapper">
                 <div class="gallery-grid">
                 ${visibleItems.map(item => {
+                    
+                    let mediaUrl = item.cloudinaryUrl;
+
+                    if (item.type === 'photo') {
+                        // Inject the transformation string into the URL path
+                        mediaUrl = mediaUrl.replace('/upload/', `/upload/${photoTransform}/`);
+                    } 
+                    // Note: Video URLs are left as original Cloudinary URLs.
+                    
                     const mediaTag = item.type === 'photo'
-                        ? `<img src="${item.cloudinaryUrl}" alt="${item.title}" class="gallery-media-img">`
-                        : `<video controls playsinline preload="metadata" src="${item.cloudinaryUrl}" class="gallery-media-img"></video>`;
+                        ? `<img src="${mediaUrl}" alt="${item.title}" class="gallery-media-img">`
+                        : `<video controls playsinline preload="metadata" src="${mediaUrl}" class="gallery-media-img"></video>`;
                     
                     return `
                         <div class="gallery-content-card">
@@ -708,6 +737,14 @@ async function loadPrincipalMessageContent() {
         
         if (data.success && profile) {
             
+            // 🎯 NEW: Transformation for Principal Photo (max width 450px, optimized)
+            const principalPhotoTransform = "w_450,c_fill,q_auto,f_auto"; 
+            let imageUrl = profile.cloudinaryUrl;
+
+            if (imageUrl.includes('/upload/')) {
+                 imageUrl = imageUrl.replace('/upload/', `/upload/${principalPhotoTransform}/`);
+            }
+            
             const tenureText = (profile.fromYear || profile.toYear) ? 
                                 `<span class="principal-tenure-detail">${profile.fromYear || 'N/A'} - ${profile.toYear || 'Present'}</span>` : 
                                 '';
@@ -718,7 +755,7 @@ async function loadPrincipalMessageContent() {
             container.innerHTML = `
                 <div class="principal-content-box new-format-layout">
                     <div class="principal-image-box new-format-image">
-                        <img src="${profile.cloudinaryUrl || './images/principal_meghana_placeholder.jpg'}" 
+                        <img src="${imageUrl || './images/principal_meghana_placeholder.jpg'}" 
                              alt="${profile.principalName}" 
                              class="principal-img new-format-img" />
                     </div>
@@ -765,19 +802,27 @@ async function loadAchievements() {
         const data = await response.json();
         
         const achievements = data.achievements || []; 
+        
+        // 🎯 NEW: Transformation for Achievement Images (400x400 square and optimized)
+        const achievementTransform = "w_400,h_400,c_fill,q_auto,f_auto";
 
         if (data.success && achievements.length > 0) {
-            container.innerHTML = achievements.map(ach => `
-                <div class="achievement-card">
-                    <div class="achievement-image-box">
-                        <img src="${ach.cloudinaryUrl}" alt="${ach.title}" class="achievement-img" onerror="this.src='./images/placeholder-achievement.jpg';">
+            container.innerHTML = achievements.map(ach => {
+                
+                let imageUrl = ach.cloudinaryUrl.replace('/upload/', `/upload/${achievementTransform}/`);
+                
+                return `
+                    <div class="achievement-card">
+                        <div class="achievement-image-box">
+                            <img src="${imageUrl}" alt="${ach.title}" class="achievement-img" onerror="this.src='./images/placeholder-achievement.jpg';">
+                        </div>
+                        <div class="achievement-content">
+                            <h3 class="achievement-title">${ach.title}</h3>
+                            <p class="achievement-description">${ach.description}</p>
+                        </div>
                     </div>
-                    <div class="achievement-content">
-                        <h3 class="achievement-title">${ach.title}</h3>
-                        <p class="achievement-description">${ach.description}</p>
-                    </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
             
         } else {
             container.innerHTML = '<p style="color: #444; text-align: center; grid-column: 1 / -1;">No school or student achievements have been added yet.</p>';
@@ -804,6 +849,9 @@ async function loadResults() {
         const data = await response.json();
         
         const allResults = data.results || []; 
+        
+        // 🎯 NEW: Transformation for Result Photos (150x150, face-aware, optimized)
+        const resultTransform = "w_150,h_150,c_fill,g_face,q_auto,f_auto"; 
 
         if (data.success && allResults.length > 0) {
             let icseResults = allResults.filter(r => r.type === 'ICSE');
@@ -819,17 +867,22 @@ async function loadResults() {
                     <div class="result-section-wrapper">
                         <h3 class="result-section-title ${type.toLowerCase()}-color">${title}</h3>
                         <div class="result-cards-grid">
-                            ${results.map(r => `
-                                <div class="result-card-item">
-                                    <div class="result-photo-container ${type.toLowerCase()}-border">
-                                        <img src="${r.cloudinaryUrl}" alt="${r.studentName}" class="result-photo" onerror="this.src='./images/placeholder-student.jpg';">
+                            ${results.map(r => {
+                                // Inject transformation into the image URL
+                                let imageUrl = r.cloudinaryUrl.replace('/upload/', `/upload/${resultTransform}/`);
+                                
+                                return `
+                                    <div class="result-card-item">
+                                        <div class="result-photo-container ${type.toLowerCase()}-border">
+                                            <img src="${imageUrl}" alt="${r.studentName}" class="result-photo" onerror="this.src='./images/placeholder-student.jpg';">
+                                        </div>
+                                        <div class="result-info">
+                                            <p class="result-name">${r.studentName}</p>
+                                            <p class="result-percentage ${type.toLowerCase()}-text-color">${r.percentage.toFixed(2)}%</p>
+                                        </div>
                                     </div>
-                                    <div class="result-info">
-                                        <p class="result-name">${r.studentName}</p>
-                                        <p class="result-percentage ${type.toLowerCase()}-text-color">${r.percentage.toFixed(2)}%</p>
-                                    </div>
-                                </div>
-                            `).join('')}
+                                `;
+                            }).join('')}
                         </div>
                     </div>
                 `;

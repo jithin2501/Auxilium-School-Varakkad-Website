@@ -580,12 +580,25 @@ filter: brightness(0.7) contrast(1.05);
     font-size: clamp(2.5rem, 8vw, 5rem);
 }
 
+.administration-banner-bg .hero-content {
+    /* Target the content wrapper for maximum centering effect */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    max-width: 100%; /* Ensure it uses the full width available */
+}
+
 .administration-banner-bg .hero-content h1 {
-    /* FIX: Added important to override any inline styles or utility classes causing off-center text */
+    /* FIX: Force text to use full width and center its text content */
     text-align: center !important;
     width: 100% !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding: 0 5vw; /* Add padding just to prevent overflow on very narrow devices */
+    white-space: normal; /* Allow text wrapping */
 }
 
 

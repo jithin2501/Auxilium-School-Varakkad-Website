@@ -447,7 +447,7 @@ img {
     justify-content: center;
     align-items: flex-start;
     padding-top: 11.5%; 
-    filter: brightness(0.8) contrast(1.05);
+
 }
 /* MODIFIED: Removed 'filter: brightness(1.1) contrast(1.05);' from here */
 .knowus-banner-bg, .vision-mission-banner-bg, .contact-banner-bg, .admission-banner-bg, .gallery-banner-bg,
@@ -500,7 +500,9 @@ img {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.3);
+    /* CHANGE brightness(0.7) to a smaller number like 0.4 */
+    filter: brightness(0.7) blur(1px) contrast(1.05); 
+    background-color: rgba(0, 0, 0, 0.3); /* This adds a dark overlay */
     z-index: 1;
 }
 
@@ -524,11 +526,9 @@ img {
     background-position: center;
     background-repeat: no-repeat;
     
-    /* This applies the brightness/contrast filter to the image on the pseudo-element */
-    filter: brightness(0.6) contrast(1.05); 
-    
-    /* This applies the dark overlay on top of the filtered image */
-    background-color: rgba(0, 0, 0, 0.9); 
+filter: brightness(0.7) contrast(1.05); 
+    /* CHANGED: Black overlay opacity increased to 0.8 for maximum darkness */
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 1;
 }
 

@@ -167,7 +167,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     const formContainer = document.getElementById('contactFormContainer');
     const contactForm = document.getElementById('contactForm');
-    const API_BASE = 'http://localhost:3000'; 
 
     if (contactForm && formContainer) {
         contactForm.addEventListener('submit', async function(event) {
@@ -345,7 +344,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // =========================================================================
 // FUNCTION TO HANDLE PAGE VISIBILITY AND CONTENT LOADING
 // =========================================================================
-const API_BASE = 'http://localhost:3000';
+const API_BASE = '';
 
 function getCleanHash() {
     const fullHash = window.location.hash || '#home';

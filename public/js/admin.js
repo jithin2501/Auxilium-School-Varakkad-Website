@@ -1,6 +1,6 @@
 // public/js/admin.js
 
-const API_BASE = 'http://localhost:3000'; // Set API_BASE to the server root for consistency
+const API_BASE = ''; // Set API_BASE to the server root for consistency
 let currentUserRole = null; // Variable to store the user's role
 
 document.addEventListener('DOMContentLoaded', () => {

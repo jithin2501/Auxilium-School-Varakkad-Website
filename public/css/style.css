@@ -581,9 +581,11 @@ filter: brightness(0.7) contrast(1.05);
 }
 
 .administration-banner-bg .hero-content h1 {
-    /* New rule to ensure ADMINISTRATION text stays centered on mobile */
-    text-align: center;
-    width: 100%;
+    /* FIX: Added important to override any inline styles or utility classes causing off-center text */
+    text-align: center !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
 }
 
 
@@ -3544,7 +3546,7 @@ input[type="date"] {
 }
 
 @media (max-width: 640px) {
-    /* FIX 4: Admission Form Mobile Layout/Size Fix */
+    /* FIX: Admission Form Mobile Layout/Size Overhaul */
     .multi-step-content main {
         padding-left: 0 !important;
         padding-right: 0 !important;
@@ -3555,24 +3557,35 @@ input[type="date"] {
         padding-right: 0 !important;
     }
     
-    /* Overrides Tailwind flex/items settings for smaller screens */
+    /* Overrides Tailwind flex/items settings for smaller screens on all numbered rows */
     .multi-step-content main .flex:not(.items-start),
     .multi-step-content main .flex-col,
     .multi-step-content main .items-center {
         flex-direction: column !important;
         align-items: flex-start !important;
+        gap: 0 !important;
     }
-    /* End of FIX 4 primary flex overrides */
+    
+    /* Ensure the main outer container for numbered items stacks correctly */
+    .multi-step-content main > div {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        width: 100%;
+        margin-bottom: 15px !important;
+    }
 
     .item-number {
         margin-bottom: 5px;
         align-self: flex-start !important;
+        /* Ensure it's treated as a block for correct spacing/sizing */
+        display: block !important; 
+        margin-right: 0 !important;
     }
 
     .form-label {
         min-width: 100% !important;
         margin: 0 0 2px 0 !important;
-        font-size: 0.9rem;
+        font-size: 0.95rem; /* Keep this size legible */
         font-weight: 600;
         align-self: flex-start !important;
     }
@@ -3584,152 +3597,94 @@ input[type="date"] {
     .input-line {
         max-width: 100% !important;
         width: 100%;
-        margin: 5px 0 10px 0;
+        /* Adjusted margin for tighter stacking as per image */
+        margin: 0 0 5px 0; 
+        padding: 0.25rem 0;
     }
     /* Apply border line to separate fields (like the images show) */
-    .multi-step-content main > div:not(:last-child) > .item-number {
-        /* This targets the main numbered row containers */
-        border-bottom: 1px solid #e5e7eb;
-        padding-bottom: 15px;
-        margin-bottom: 15px;
-        width: 100%;
-    }
-    
-    .multi-step-content main > .flex > .flex-1,
-    .multi-step-content main .space-y-4 > .flex:nth-child(1) > .flex-1,
-    .multi-step-content main .space-y-4 > .flex-1,
-    .multi-step-content main .space-y-3 > .flex-1,
-    .space-y-2 > .flex.flex-col {
-        margin-left: 0 !important;
-        width: 100%;
-        align-items: flex-start !important;
-        text-align: left !important; 
-    }
-
-    .multi-step-content main > .flex > .flex-1 {
-        margin-top: -5px;
-        padding-left: 0 !important;
-    }
-
-    .space-y-2 {
-        margin-bottom: 0 !important;
+    .multi-step-content main > div {
+        /* Clear any old border rules */
+        border-bottom: none !important;
         padding-bottom: 0 !important;
-    }
-    
-    /* Ensure sub-sections within Item 4 stack correctly */
-    .space-y-2 > .flex.flex-col > .flex {
-        flex-direction: column !important;
-        width: 100%;
-        margin-bottom: 0px;
-        align-items: flex-start !important; 
+        margin-bottom: 0 !important;
+        padding: 15px 0 5px 0 !important;
     }
 
-    .space-y-2 > .flex.flex-col > .flex > .flex-1 {
+    /* Add separator lines between the numbered sections explicitly, except after the last one */
+    .multi-step-content main > div:not(:last-child) {
+        border-bottom: 1px solid #e5e7eb !important;
+        margin-bottom: 0 !important; 
+        padding-bottom: 15px !important;
+    }
+    /* Reset padding for the first item (1) as the image shows no top padding */
+    .multi-step-content main > div:first-child {
+        padding-top: 0 !important;
+    }
+
+    /* Apply new stacking logic consistently */
+    .multi-step-content main .flex,
+    .multi-step-content main .space-x-2 {
+        flex-direction: column !important;
+        align-items: flex-start !important;
         width: 100% !important;
         margin-left: 0 !important;
-        padding-left: 0 !important; 
-        margin-bottom: 10px;
-        align-items: flex-start !important; 
+        margin-right: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        gap: 0 !important;
+    }
+
+    /* Handling inline groups like Item 1 (Name and Aadhar) and Item 3 (Religion and Caste) */
+    .multi-step-content main .flex:nth-child(1) .flex-1, /* Item 1: Name */
+    .multi-step-content main .flex:nth-child(1) .ml-4,  /* Item 1: Aadhar */
+    .multi-step-content main .flex:nth-child(3) .flex-1, /* Item 3: Religion */
+    .multi-step-content main .flex:nth-child(3) .ml-4 {  /* Item 3: Caste */
+        /* Force these inline pairs to stack by making them full width */
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-top: 10px !important; /* Add separation between the inline fields that are now stacked */
     }
     
-    .space-y-2 > .flex.flex-col, 
-    .space-y-2 > .flex.flex-col > .flex, 
-    .space-y-2 > .flex.flex-col > .flex > .flex-1 
-    {
-        padding-left: 0 !important; 
-        margin-left: 0 !important;
+    /* Ensure the fields following a numbered item start cleanly */
+    .multi-step-content main > div > .flex:first-child {
+        margin-top: 0 !important;
+    }
+    
+    /* Ensure the nested fields in Item 4 stack correctly */
+    .space-y-2 > .flex.flex-col > .flex {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+        margin-bottom: 5px !important;
     }
 
     .space-y-2 > .flex.flex-col > .flex:nth-child(2) {
-        margin-top: 0px !important;
+        margin-top: 10px !important;
     }
 
-    .space-y-2 > .flex.flex-col > .flex:nth-child(2) > .flex-1:nth-child(2) {
-        display: none !important;
-    }
-    /* End of Item 4 Fixes */
-    
-    /* Fix for Item 5: Remove confusing horizontal structure */
-    .space-y-4 > .flex.flex-col.sm\:flex-row {
-        flex-direction: column !important;
-        align-items: flex-start !important;
-        margin-bottom: 20px; /* Add some space between 5.a and 5.b */
-    }
-    /* Target the second row of item 5 (Mother's details) to ensure proper spacing */
-    .ml-\[2\.5rem\].sm\:ml-0 { 
-        margin-left: 0 !important;
-        margin-top: 20px !important; 
-    }
-    /* Ensure all field groups within Item 5 stack */
-    .space-y-4 .flex.items-center.space-x-2.flex-1 {
-        flex-direction: column !important;
-        align-items: flex-start !important;
-        width: 100%;
-        margin-top: 5px;
-    }
-    .space-y-4 .flex.items-center.space-x-2.flex-1 .form-label {
-        margin-bottom: 0;
-        min-width: 100%;
-    }
-    .space-y-4 .ml-\[2\.5rem\],
-    .space-y-4 .sm\:ml-4 {
-        margin-left: 0 !important;
-    }
-
-    .multi-step-content main .ml-\[2\.5rem\],
-    .multi-step-content main .sm\:ml-4,
-    .space-y-4 .ml-\[3\.5rem\],
-    .space-y-4 .ml-\[1\.5rem\],
-    .space-y-4 .ml-4 {
-        margin-left: 0 !important;
-        width: 100%;
-    }
-
-    .space-y-4 .ml-\[1\.5rem\] .flex-shrink-0,
-    .space-y-4 .ml-\[3\.5rem\] .flex-shrink-0 {
-        min-width: 2rem;
-    }
-
-    #step-2 .flex.justify-between.items-center {
-        flex-direction: column;
-        align-items: flex-start;
-        padding-bottom: 15px !important;
-    }
-
-    #step-2 .upload-label {
-        width: 100%;
-        margin-top: 8px;
-        justify-content: space-between;
-        min-height: 40px;
-    }
-
-    .upload-label .file-name {
-        max-width: 60%;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        margin-left: 0.5rem;
-    }
-
-    .space-y-2 .mb-2 {
-        margin-bottom: 0 !important;
-    }
-
-    .space-y-2 .flex.flex-col.sm\:flex-row {
-        margin-bottom: 0 !important;
-        padding-bottom: 0 !important;
-    }
-
-    .space-y-2 + .flex {
-        margin-top: 0 !important;
-        padding-top: 0 !important;
-    }
-    /* End of FIX 4: Admission Form Mobile Layout/Size Fix */
-    
     /* General fix for enrollment form overall size */
     .form-container {
         padding: 1.5rem 1rem;
     }
+    
+    /* Fix for Step 2 Upload Section (to stack elements cleanly as per image) */
+    #step-2 .flex.justify-between.items-center {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        border-bottom: 1px solid #e0e0e0;
+        padding-bottom: 15px !important;
+        margin-bottom: 10px !important;
+        width: 100%;
+    }
+    #step-2 .flex.justify-between.items-center:last-child {
+        border-bottom: none;
+    }
+    #step-2 .text-sm.text-gray-700.font-medium {
+        margin-bottom: 5px;
+    }
+    #step-2 .upload-label {
+        width: 100%;
+    }
+    
 }
 
 

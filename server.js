@@ -2,6 +2,8 @@
 import express from 'express';
 import cors from 'cors';
 import session from 'express-session';
+// <-- NEW/MODIFIED: Import the session store package
+import MongoDBStore from 'connect-mongodb-session'; 
 import passport from 'passport';
 import LocalStrategy from 'passport-local';
 import path from 'path';
@@ -11,18 +13,26 @@ import { fileURLToPath } from 'url';
 import connectDB from './config/db.js';
 import { User } from './models/User.js';
 import publicRoutes from './routes/publicRoutes.js';
-import adminRoutes from './routes/adminRoutes.js'; // This is where the new routes are imported
+import adminRoutes from './routes/adminRoutes.js'; 
 
 // --- Setup paths and environment ---
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// <-- NEW/MODIFIED: Initialize the store function
+const MongoStore = MongoDBStore(session); 
+
 // 1. Database Connection
 connectDB();
+
+// <-- NEW/MODIFIED: Create the persistent store instance
+const sessionStore = new MongoStore({
+    uri: process.env.MONGO_URI,
+    collection: 'adminSessions', // Sessions will be stored in a new collection called 'adminSessions'
+});
 
 // 2. Core Middleware Configuration
 app.set('view engine', 'ejs');
@@ -36,6 +46,8 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    // <-- MODIFIED: Use the persistent MongoStore instead of MemoryStore
+    store: sessionStore, 
     cookie: { secure: false, maxAge: 86400000 }
 }));
 app.use(passport.initialize());
@@ -47,12 +59,9 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // 4. Route Mounting
-// The `adminRoutes` and `publicRoutes` automatically handle the new API endpoints 
-// (e.g., POST /admin/principal-message and GET /principal-message) as defined in the 
-// preceding controller and route file updates.
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/', publicRoutes); // Mount all public routes (includes /principal-message)
-app.use('/admin', adminRoutes); // Mount all admin routes (includes /admin/principal-message)
+app.use('/', publicRoutes); 
+app.use('/admin', adminRoutes); 
 
 // 5. Start Server
 app.listen(PORT, () => {

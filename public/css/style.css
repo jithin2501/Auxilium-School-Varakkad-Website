@@ -3791,16 +3791,36 @@ input[type="date"] {
 /* --- NEW MOBILE-SPECIFIC FORM FIXES (Your Request) --- */
 /* ========================================================= */
 
+/* NEW GLOBAL/DESKTOP STYLING FOR 'NEXT' BUTTON (No hover, Blue BG) */
+.text-right.mt-6 a.text-sm.font-semibold {
+    /* Center the button on desktop/large screen if container allows */
+    display: inline-block; 
+    
+    /* Enforce Requested Colors/Style */
+    background-color: #25597f !important; /* Blue Background Color */
+    color: #fff !important; /* White Text */
+    
+    /* Remove hover effects */
+    transition: none !important; 
+    box-shadow: none !important;
+}
+
+.text-right.mt-6 a.text-sm.font-semibold:hover {
+    background-color: #25597f !important; /* Keep blue on hover */
+    transform: none !important; /* No movement on hover */
+}
+
+
 @media (max-width: 640px) {
 
     /* --- 1. ADMISSION HEADER (Center Text) --- */
     .form-container header {
         text-align: center;
         padding: 0 5px; 
+        margin-bottom: 20px !important; 
     }
 
     .form-container header h1 {
-        /* School Name (smaller size to fit) */
         font-size: 1.2rem !important; 
         margin-bottom: 5px;
         line-height: 1.3;
@@ -3808,53 +3828,54 @@ input[type="date"] {
     }
 
     .form-container header p {
-        /* Address & Affiliation */
         font-size: 0.85rem !important;
         line-height: 1.3;
         color: #444 !important;
         padding: 0 5px;
     }
 
+    /* 🆕 NEW GAP: Add spacing after the main step 1 content */
+    #step-1 {
+        margin-bottom: 30px !important;
+        padding-bottom: 10px !important;
+    }
+
 
     /* --- 2. "NEXT" BUTTON STYLING (Centered Blue Button) --- */
     .text-right.mt-6 {
         text-align: center; 
-        width: 100%; /* Ensure container centers properly */
-        margin-top: 15px !important;
+        width: 100%; 
+        margin-top: 25px !important; /* Increased margin to create gap between button and step content below */
+        margin-bottom: 25px !important; /* Gap before Step 2 heading/content */
     }
     
     .text-right.mt-6 a.text-sm.font-semibold {
-        /* Target the 'Next: Required Documents →' link */
-        display: block !important; /* Use block to span width for centering */
+        /* Mobile Specific Centering */
+        display: block !important; 
         max-width: 90%;
         margin: 10px auto 0 auto;
-        text-align: center;
-        background-color: #25597f !important; /* Blue Background Color */
-        color: #fff !important; /* White Text */
-        padding: 8px 15px !important; /* Smaller padding for mobile */
-        border-radius: 6px;
+        
+        /* Mobile Sizing */
+        padding: 8px 15px !important; 
         font-size: 0.95rem; 
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        transition: background-color 0.3s ease;
     }
-
+    
     /* --- 3. UPLOAD BUTTON SIZE (Make it smaller and full width for click) --- */
     #step-2 .upload-label {
-        /* Apply to the button itself */
-        padding: 8px 10px !important; /* Adjusted padding */
-        font-size: 0.8rem !important; /* Text size */
+        padding: 8px 10px !important; 
+        font-size: 0.8rem !important; 
         font-weight: 500;
-        width: 100% !important; /* Full width for easy tapping */
-        justify-content: center; /* Center content inside */
+        width: 100% !important; 
+        justify-content: center; 
         margin-top: 5px; 
     }
 
     .file-name {
         font-size: 0.75rem !important;
         margin-left: 5px !important;
-        /* Allow file name to wrap on mobile */
         max-width: 50% !important; 
         white-space: normal;
         overflow: hidden;
@@ -3866,9 +3887,8 @@ input[type="date"] {
 
     /* --- 4. DECLARATION TEXT READABILITY (Ensure visibility) --- */
     .multi-step-content p {
-        /* Target general paragraphs, assuming declaration is one of them */
-        color: #1a120b !important; /* Dark text color */
-        font-size: 0.95rem !important; /* Good readable size */
+        color: #1a120b !important; 
+        font-size: 0.95rem !important; 
         line-height: 1.5;
         padding: 0 5px; 
     }

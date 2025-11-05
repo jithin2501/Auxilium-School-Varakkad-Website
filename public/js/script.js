@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     function setupRouting() {
-        // Target all main navigation and footer links that use the hash (#) for navigation
+        // Target all main navigation and footer links that use data-page for navigation
         const pageLinks = document.querySelectorAll('.nav-links a[data-page], .quick-links-list a[data-page], .contact-button[data-page]');
         
         pageLinks.forEach(link => {
@@ -78,7 +78,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // CRITICAL: We only want to preventDefault on actual page navigation links,
                 // not the dropdown toggle links handled by the click logic below.
-                // The main click logic in index.html is handling the pushState, so this is mostly a fallback.
                 
                 const isDropdownToggle = this.closest('.js-dropdown-toggle');
 
@@ -87,13 +86,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     const targetHref = this.getAttribute('href');
                     
-                    if (targetHref.startsWith('#')) {
-                        window.history.pushState(null, null, targetHref);
-                        
-                        if (typeof window.initializePublicRouting === 'function') {
-                            window.initializePublicRouting();
-                        }
-                    }
+                    // 🎯 UPDATE: The logic below is redundant as the main listener handles the pushState now.
+                    // However, we ensure that if a link using data-page is clicked, routing happens.
+                    
+                    // We rely on the generic 'a[data-page]' listener at the bottom 
+                    // of script.js to perform the pushState and routing.
+                    // This section remains for legacy compatibility but is less crucial now.
                 }
             });
         });
@@ -107,20 +105,21 @@ document.addEventListener('DOMContentLoaded', function() {
     // This function now primarily handles simple anchors inside content (e.g., #rules-accordion) 
     // or ensures internal links inside a section point back to the home page if needed.
     function setupAnchorLinks() {
-        // Target non-primary navigation links that start with #
+        // Target internal links that start with # (simple anchors)
         const internalLinks = document.querySelectorAll('a[href^="#"]:not([data-page])');
         
         internalLinks.forEach(link => {
             link.addEventListener('click', function(event) {
                 const fullHref = this.getAttribute('href'); 
                 
-                // If it's a deep link used inside content (like #academics-section or #facilities-section without the #home prefix),
-                // we should redirect to the correct home page hash and scroll.
+                // 🎯 UPDATE: Internal anchors now use relative paths like 'home/academics-section'
+                // If it's a deep link using the OLD hash format (like #academics-section), redirect to the new format.
                 if (fullHref.startsWith('#academics-section') || fullHref.startsWith('#facilities-section') || fullHref.startsWith('#activities-section')) {
                     event.preventDefault(); 
                     const targetSectionId = fullHref.substring(1); // e.g., 'academics-section'
                     const newHash = `#home#${targetSectionId}`; 
                     
+                    // We keep the old hash format redirection logic but ensure it uses history pushState with the hash.
                     window.history.pushState(null, null, newHash);
                     
                     if (typeof window.initializePublicRouting === 'function') {
@@ -134,32 +133,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     setupAnchorLinks();
-
-    // ----------------------------------------------------
-    // ACCORDION RULES LOGIC (FIXES ACCORDION BUTTONS) - Replaced by logic from index.html
-    // ----------------------------------------------------
-    /*
-    const accordionToggles = document.querySelectorAll('.accordion-toggle');
-
-    accordionToggles.forEach(toggle => {
-        toggle.addEventListener('click', function() {
-            const contentId = this.getAttribute('data-target');
-            const content = document.getElementById(contentId);
-            
-            this.classList.toggle('active');
-            
-            if (content.classList.contains('open')) {
-                content.classList.remove('open');
-            } else {
-                document.querySelectorAll('.accordion-content.open').forEach(openContent => {
-                    openContent.classList.remove('open');
-                    openContent.previousElementSibling.classList.remove('active');
-                });
-                content.classList.add('open');
-            }
-        });
-    });
-    */
 
     // ----------------------------------------------------
     // CONTACT FORM LOGIC (API Submission)
@@ -212,11 +185,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ----------------------------------------------------
-    // DROPDOWN CLICK/ARROW ROTATION LOGIC (Replaced by logic from index.html)
-    // ----------------------------------------------------
-
-    // NOTE: Admission form logic (window.handleSubmit, handleFileUpload) is now in index.html
 });
 
 // =========================================================================
@@ -232,7 +200,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Listener on the main clickable DIV (.js-dropdown-toggle)
         toggle.addEventListener('click', function(event) {
             
-            // Check if the click directly landed on the ARROW ICON or its wrapper.
+            // Check if the click directly landed on the LINK TEXT or the ARROW ICON.
             const clickedLink = event.target.closest('a.nav-link-page');
             const clickedArrowArea = event.target.closest('.dropdown-toggle-arrow');
 
@@ -245,7 +213,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.closest('.nav-dropdown-wrapper').classList.remove('open');
                 
             } else if (clickedArrowArea) {
-                // CASE 2: Clicked the ARROW ICON
+                // CASE 2: Clicked the ARROW ICON (or the DIV containing the arrow)
                 event.stopPropagation(); // Stop propagation for the document listener
                 
                 const parentWrapper = this.closest('.nav-dropdown-wrapper');
@@ -346,23 +314,73 @@ document.addEventListener('DOMContentLoaded', function() {
 // =========================================================================
 const API_BASE = '';
 
-function getCleanHash() {
-    const fullHash = window.location.hash || '#home';
-    // Remove the leading #
-    let hash = fullHash.substring(1);
-    // Find the primary page ID (e.g., 'home' from '#home#section-id')
-    const anchorIndex = hash.indexOf('#');
-    if (anchorIndex !== -1) {
-        hash = hash.substring(0, anchorIndex);
+/**
+ * 🎯 UPDATED: Extracts the primary page ID and optional secondary anchor ID 
+ * from the URL path or hash, converting relative paths to the internal hash format.
+ * * New URL format example: http://localhost:3000/home/academics-section
+ * -> Internal Hash: #home#academics-section
+ * * Old URL format example: http://localhost:3000/#knowus
+ * -> Internal Hash: #knowus
+ */
+function getInternalHash() {
+    // 1. Get the current URL path (e.g., '/home/academics-section' or just '/')
+    const path = window.location.pathname.startsWith('/') ? window.location.pathname.substring(1) : window.location.pathname;
+    
+    // 2. Get the current URL hash (e.g., '#section-id')
+    const hash = window.location.hash;
+
+    // Determine the target content based on the path
+    let targetContent = 'home'; // Default page ID
+
+    // Check path first (handles links like 'knowus' or 'home/academics-section')
+    if (path && path !== '/') {
+        // Split by '/'
+        const parts = path.split('/');
+        
+        // The first part is the primary page ID (e.g., 'home' from 'home/academics-section')
+        let primaryPageId = parts[0]; 
+        
+        // The optional second part is the internal anchor (e.g., 'academics-section')
+        let sectionAnchor = parts.length > 1 ? parts[1] : '';
+
+        // Construct the full internal hash format: #pageID#anchorID
+        // Example: #home#academics-section
+        targetContent = primaryPageId;
+        if (sectionAnchor) {
+            targetContent += `#${sectionAnchor}`;
+        }
+        
+    } else if (hash.length > 1) {
+         // If path is '/', use the hash if present (handles old style direct hash links like #knowus)
+         targetContent = hash.substring(1); 
     }
-    // Check if the hash is actually a recognized page ID, otherwise default to home
-    const pageElement = document.getElementById(hash);
-    return pageElement && pageElement.classList.contains('page-section') ? hash : 'home';
+    
+    // Split into page ID and potential anchor ID
+    const hashParts = targetContent.split('#');
+    let pageId = hashParts[0];
+    const sectionAnchor = hashParts.length > 1 ? hashParts.slice(1).join('#') : null;
+
+    // Check if the page ID is recognized, otherwise default to 'home'
+    const pageElement = document.getElementById(pageId);
+    pageId = pageElement && pageElement.classList.contains('page-section') ? pageId : 'home';
+    
+    // Reconstruct and return the CLEAN internal hash (e.g., #home or #home#section-id)
+    let internalHash = `#${pageId}`;
+    if (sectionAnchor) {
+        internalHash += `#${sectionAnchor}`;
+    }
+    
+    return internalHash;
 }
 
+
 function initializePublicRouting() {
-    const targetPageId = getCleanHash();
-    const isHomePage = targetPageId === 'home';
+    // 🎯 Use the new function to get the clean internal hash format
+    const internalHash = getInternalHash();
+    
+    // Extract the primary page ID (e.g., 'home' from '#home#section-id')
+    const primaryPageId = internalHash.split('#')[1];
+    const isHomePage = primaryPageId === 'home';
     
     // 1. Hide all page sections
     document.querySelectorAll('.page-section').forEach(section => {
@@ -370,11 +388,11 @@ function initializePublicRouting() {
     });
     
     // 2. Show the target page section
-    const targetSection = document.getElementById(targetPageId);
+    const targetSection = document.getElementById(primaryPageId);
     if (targetSection) {
         targetSection.style.display = 'block';
     } else {
-        // Fallback to home page if hash is invalid/missing
+        // Fallback to home page if ID is invalid/missing
         document.getElementById('home').style.display = 'block';
         return; 
     }
@@ -389,34 +407,34 @@ function initializePublicRouting() {
 
 
     // 4. Trigger specific data loads for dynamic sections
-    if (targetPageId === 'principal-message' && typeof window.loadPrincipalMessageContent === 'function') {
+    if (primaryPageId === 'principal-message' && typeof window.loadPrincipalMessageContent === 'function') {
         window.loadPrincipalMessageContent();
-    } else if (targetPageId === 'alumni' && typeof window.loadAlumniProfiles === 'function') {
+    } else if (primaryPageId === 'alumni' && typeof window.loadAlumniProfiles === 'function') {
         window.loadAlumniProfiles();
-    } else if (targetPageId === 'faculty' && typeof window.loadFacultyProfiles === 'function') {
+    } else if (primaryPageId === 'faculty' && typeof window.loadFacultyProfiles === 'function') {
         window.loadFacultyProfiles();
-    } else if (targetPageId === 'photogallery' && typeof window.loadPublicGallery === 'function') {
+    } else if (primaryPageId === 'photogallery' && typeof window.loadPublicGallery === 'function') {
         // Load both photo and video galleries
         loadPublicGallery('photo'); 
         loadPublicGallery('video');
     } 
     // 🆕 NEW: Add calls for Achievements and Results
-    else if (targetPageId === 'achievements' && typeof window.loadAchievements === 'function') {
+    else if (primaryPageId === 'achievements' && typeof window.loadAchievements === 'function') {
         window.loadAchievements();
     }
-    else if (targetPageId === 'icse-isc-results' && typeof window.loadResults === 'function') {
+    else if (primaryPageId === 'icse-isc-results' && typeof window.loadResults === 'function') {
         window.loadResults();
     }
     // Call for Disclosure Documents (now part of administration-page)
-    else if (targetPageId === 'administration' && typeof window.loadDisclosures === 'function') {
+    else if (primaryPageId === 'administration' && typeof window.loadDisclosures === 'function') {
         window.loadDisclosures();
     }
     // 🆕 NEW: Call for Rules Accordion Setup
-    else if (targetPageId === 'rules' && typeof window.setupRulesAccordion === 'function') {
+    else if (primaryPageId === 'rules' && typeof window.setupRulesAccordion === 'function') {
         window.setupRulesAccordion(); 
     }
     // 🆕 NEW: Call for Admission Multi-step setup
-    else if (targetPageId === 'admission' && typeof window.setupAdmissionMultiStepForm === 'function') {
+    else if (primaryPageId === 'admission' && typeof window.setupAdmissionMultiStepForm === 'function') {
         window.setupAdmissionMultiStepForm(); 
     }
     
@@ -424,15 +442,22 @@ function initializePublicRouting() {
     document.querySelectorAll('.nav-dropdown-wrapper').forEach(wrapper => {
         wrapper.classList.remove('open');
     });
+    
+    // 6. 🎯 CRITICAL: Set the internal hash to trigger the anchor scroll logic.
+    // We use history.replaceState to put the hash into the URL without triggering hashchange again.
+    // This allows the use of the `handleAnchorScroll` function later.
+    window.history.replaceState(null, null, internalHash);
 }
 window.initializePublicRouting = initializePublicRouting; // Expose globally
+
 
 // 5. Attach event listeners
 document.addEventListener('DOMContentLoaded', () => {
     // FIX 1: Initial call on DOMContentLoaded
     initializePublicRouting(); 
     
-    // 🎯 CRITICAL FIX: Set up listener for clicks on internal navigation links using data-page
+    // 🎯 CRITICAL UPDATE: Set up listener for clicks on internal navigation links using data-page
+    // These links now use paths like '/knowus' or '/home/academics-section'
     document.querySelectorAll('a[data-page]').forEach(anchor => {
         anchor.addEventListener('click', (e) => {
             // Check if the click is on the dropdown toggle arrow area (which should handle toggle only).
@@ -443,17 +468,25 @@ document.addEventListener('DOMContentLoaded', () => {
                  e.preventDefault();
             }
             
-            // Use the full HREF as the target hash (e.g., #home#academics-section)
-            const targetHash = anchor.getAttribute('href'); 
+            // Use the full HREF as the target path/link (e.g., 'home/academics-section')
+            const targetHref = anchor.getAttribute('href'); 
             
             // Only push state and route if we prevented default browser action (i.e., it was a navigation click)
-            if (e.defaultPrevented || anchor.href.includes('#')) {
-                 window.history.pushState(null, null, targetHash);
+            if (e.defaultPrevented) {
+                 // Convert path (e.g., 'home/academics-section') to internal URL with hash
+                 // The actual browser URL should be updated to the path, while the internal routing logic 
+                 // uses the hash after the pushState.
+                 
+                 // Push the clean path to the browser history (without the leading # if present)
+                 const cleanPath = targetHref.startsWith('#') ? targetHref.substring(1) : targetHref;
+                 window.history.pushState(null, null, `/${cleanPath}`);
+                 
                  initializePublicRouting();
             }
             
             // After routing, call handleAnchorScroll to jump to the subsection if one exists.
             if (typeof window.handleAnchorScroll === 'function') {
+                // Use 'instant' scroll for direct navigation clicks
                 window.handleAnchorScroll('instant'); 
             } else {
                 // Default scroll to top if anchor scrolling isn't ready
@@ -463,7 +496,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// FIX 3: Ensure function runs every time the URL hash changes (critical for back/forward buttons)
+// FIX 3: Ensure function runs every time the URL hash changes (critical for back/forward buttons on deep links)
+// Note: This only runs if the browser explicitly adds a hash (e.g., clicking a link *inside* the page)
 window.addEventListener('hashchange', () => {
     initializePublicRouting();
     // Re-run handleAnchorScroll with default 'smooth' behavior for back/forward buttons
@@ -476,12 +510,23 @@ window.addEventListener('hashchange', () => {
     }
 });
 
+// 🎯 CRITICAL NEW: Handle browser BACK/FORWARD buttons (popstate)
+window.addEventListener('popstate', () => {
+    initializePublicRouting();
+    // Use smooth scroll when navigating history
+    if (typeof window.handleAnchorScroll === 'function') {
+        window.handleAnchorScroll('smooth'); 
+    } else {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+});
+
 
 // =========================================================================
 // ALL DATA FETCH AND RENDER LOGIC 
 // =========================================================================
 
-// ... [Existing loadAlumniProfiles function] ...
+// ... [loadAlumniProfiles function] ...
 async function loadAlumniProfiles() {
     const container = document.getElementById('alumni-profiles-container');
     if (!container) return; 
@@ -529,7 +574,7 @@ async function loadAlumniProfiles() {
 window.loadAlumniProfiles = loadAlumniProfiles;
 
 
-// ... [Existing loadFacultyProfiles function] ...
+// ... [loadFacultyProfiles function] ...
 function createFacultyHtml(faculty, index) {
     const isReverse = index % 2 !== 0; 
     const layoutClass = isReverse ? 'reverse' : ''; 
@@ -611,7 +656,7 @@ async function loadFacultyProfiles() {
 window.loadFacultyProfiles = loadFacultyProfiles; 
 
 
-// ... [Existing loadPublicGallery function] ...
+// ... [loadPublicGallery function] ...
 async function loadPublicGallery(type, page = 1) {
   const container = document.getElementById(type === 'photo' ? 'photos-container' : 'videos-container');
   const controlsContainer = document.getElementById(type === 'photo' ? 'photo-pagination-controls' : 'video-pagination-controls');
@@ -716,7 +761,7 @@ async function loadPublicGallery(type, page = 1) {
 }
 window.loadPublicGallery = loadPublicGallery;
 
-// ... [Existing loadPrincipalMessageContent function] ...
+// ... [loadPrincipalMessageContent function] ...
 async function loadPrincipalMessageContent() {
     const container = document.getElementById('principal-message-content');
     if (!container) return; 
@@ -786,7 +831,7 @@ async function loadPrincipalMessageContent() {
 }
 window.loadPrincipalMessageContent = loadPrincipalMessageContent; 
 
-// ... [Existing loadAchievements function] ...
+// ... [loadAchievements function] ...
 async function loadAchievements() {
     const container = document.getElementById('achievements-display-container');
     if (!container) return; 
@@ -833,7 +878,7 @@ async function loadAchievements() {
 }
 window.loadAchievements = loadAchievements;
 
-// ... [Existing loadResults function] ...
+// ... [loadResults function] ...
 async function loadResults() {
     const container = document.getElementById('results-display-container');
     if (!container) return; 
@@ -902,7 +947,7 @@ async function loadResults() {
 }
 window.loadResults = loadResults;
 
-// ... [Existing loadDisclosures function] ...
+// ... [loadDisclosures function] ...
 const DISCLOSURE_TYPES_PUBLIC = [
     'Affiliation',
     'NOC', // NEW TYPE
@@ -1058,7 +1103,7 @@ function toggleAccordionHandler() {
 window.setupRulesAccordion = setupRulesAccordion;
 
 
-// ... [Existing window.handleFileUpload function] ...
+// ... [window.handleFileUpload function] ...
 window.handleFileUpload = function(event) {
     const fileInput = event.target;
     const fileNameDisplay = fileInput.parentElement.querySelector('.file-name');
@@ -1098,7 +1143,7 @@ function renderModal(title, message, isSuccess) {
     document.body.insertAdjacentHTML('beforeend', modalHtml);
 }
 
-// ... [Existing window.handleSubmit function] ...
+// ... [window.handleSubmit function] ...
 window.handleSubmit = async function(event) {
     event.preventDefault(); 
     
@@ -1378,8 +1423,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // 🆕 CRITICAL FIX: Add check for multi-step form element existence 
     // to ensure setup only runs if the feature is present
     if (document.getElementById('admissionForm') && document.querySelector('.multi-step-content')) {
-        // If the admission page is the current hash, run setup right away
-        if (window.location.hash.startsWith('#admission')) {
+        const currentPath = window.location.pathname.startsWith('/') ? window.location.pathname.substring(1) : window.location.pathname;
+        if (currentPath.startsWith('admission')) {
             setupAdmissionMultiStepForm();
         }
     }

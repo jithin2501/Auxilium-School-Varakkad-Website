@@ -1,0 +1,231 @@
+/* ========================================================= */
+/* --- 3. HERO / BANNER STYLES --- */
+/* ========================================================= */
+
+.top-banner-bg {
+    width: 100%;
+    height: 100vh;
+    background-image: url('./images/103.JPG'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    z-index: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 11.5%; 
+
+}
+.knowus-banner-bg, .vision-mission-banner-bg, .contact-banner-bg, .admission-banner-bg, .gallery-banner-bg,
+.alumni-banner-bg, .subjects-banner-bg, .academics-faculty-banner-bg, .administration-banner-bg,
+.competitive-exam-banner-bg, 
+.principal-message-banner-bg, 
+.results-banner-bg, 
+.achievements-banner-bg,
+.timing-banner-bg,
+.groups-banner-bg,
+.rules-banner-bg {
+    width: 100%;
+    height: 75vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    z-index: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* ADDED: Ensure no image is loaded directly on the main container to avoid conflicts */
+    background-image: none !important;
+}
+
+/* ADDED: Individual background images and the new timing-banner-bg class, now defined with background-image/filter on ::before to separate it from the text */
+.knowus-banner-bg::before { background-image: url('./images/banner/6.jpg'); }
+.vision-mission-banner-bg::before { background-image: url('./images/banner/vision\ mission.jpg'); }
+.contact-banner-bg::before { background-image: url('./images/banner/contact.webp'); }
+.admission-banner-bg::before { background-image: url('./images/banner/admission.jpg'); }
+.gallery-banner-bg::before { background-image: url('./images/banner/gallery.jpg!sw800'); }
+.alumni-banner-bg::before { background-image: url('./images/banner/alumini\ network.jpg'); }
+.subjects-banner-bg::before { background-image: url('./images/banner/book.jpg'); }
+.administration-banner-bg::before { background-image: url('./images/banner/ADMINISTRATION.jpg'); }
+.principal-message-banner-bg::before { background-image: url('./images/banner/Principal\'s\ Message.avif'); background-position: center 40%; }
+.competitive-exam-banner-bg::before { background-image: url('./images/banner/Competitive\ Exams.jpg'); }
+.results-banner-bg::before { background-image: url('./images/banner/result.jpg'); }
+.achievements-banner-bg::before { background-image: url('./images/banner/achievements.jpg'); }
+.timing-banner-bg::before { background-image: url('./images/banner/school_time-Photoroom.png'); } /* New timing image */
+.groups-banner-bg::before { background-image: url('./images/banner/group\ and\ club.webp'); }
+.rules-banner-bg::before { background-image: url('./images/banner/rules.webp'); }
+.academics-faculty-banner-bg::before { background-image: url('./images/banner/faculty.jpg'); background-position: center 40%; }
+
+
+.top-banner-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* CHANGE brightness(0.7) to a smaller number like 0.4 */
+    filter: brightness(0.7) blur(1px) contrast(1.05); 
+    background-color: rgba(0, 0, 0, 0.3); /* This adds a dark overlay */
+    z-index: 1;
+}
+
+/* MODIFIED: Combined all ::before rules. Now includes the filter and dark overlay, applied only to the background image layer. */
+.knowus-banner-bg::before, .vision-mission-banner-bg::before, .contact-banner-bg::before, .admission-banner-bg::before, .gallery-banner-bg::before,
+.alumni-banner-bg::before, .subjects-banner-bg::before, .academics-faculty-banner-bg::before, .administration-banner-bg::before,
+.competitive-exam-banner-bg::before, 
+.principal-message-banner-bg::before, 
+.results-banner-bg::before, 
+.achievements-banner-bg::before,
+.timing-banner-bg::before,
+.groups-banner-bg::before,
+.rules-banner-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+filter: brightness(0.7) contrast(1.05); 
+    /* CHANGED: Black overlay opacity increased to 0.8 for maximum darkness */
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 90%;
+    padding: 20px;
+}
+
+.hero-content h1 {
+    font-family: 'Playfair Display', serif;
+    /* FIX 2: Adjusted font size for banners to fit better on mobile */
+    font-size: clamp(2.5rem, 8vw, 5.5rem); 
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 18px; 
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4); 
+    line-height: 1.2;
+}
+
+.knowus-header-content h1 {
+    /* Keeping this specific rule, but general h1 rule helps other pages */
+    font-size: clamp(2.5rem, 8vw, 5rem);
+}
+
+.administration-banner-bg .hero-content {
+    /* Target the content wrapper for maximum centering effect */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    max-width: 100%; /* Ensure it uses the full width available */
+}
+
+.administration-banner-bg .hero-content h1 {
+    /* FIX: Force text to use full width and center its text content */
+    text-align: center !important;
+    width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding: 0 5vw; /* Add padding just to prevent overflow on very narrow devices */
+    white-space: normal; /* Allow text wrapping */
+}
+
+
+.hero-content p {
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: #f0f0f0; 
+    max-width: 700px; 
+    margin: 0 auto 35px; 
+    line-height: 1.6;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); 
+    font-weight: 400;
+}
+
+.hero-quote {
+    display: none; 
+}
+
+.banner-button-style {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: #25597f; 
+    color: #fff; 
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    border-radius: 8px;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.banner-button-style:hover {
+    background-color: #25597f; 
+    transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); 
+}
+
+.contact-button {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: #25597f;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    border-radius: 8px;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.contact-button:hover {
+    background-color: #1a4fbf;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.contact-button.photo-gallery-button {
+    align-self: flex-start;
+    margin-top: 15px;
+    background-color: #6b5843;
+}
+
+.contact-button.photo-gallery-button:hover {
+    background-color: #4f3d2f;
+}
+
+/* --- RESPONSIVENESS (Hero) --- */
+@media (max-width: 992px) {
+    .hero-content h1 {
+        font-size: clamp(2.5rem, 7vw, 4.5rem); /* Adjusted here as well */
+    }
+    .hero-content p {
+        font-size: clamp(1rem, 2vw, 1.25rem);
+    }
+    .top-banner-bg {
+        align-items: center;
+        padding-top: 1; 
+    }
+}
+@media(max-width:640px){
+  .admission-banner-bg::before{
+      filter: brightness(0.55) !important;
+  }
+}

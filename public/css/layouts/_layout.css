@@ -1,0 +1,125 @@
+/* ========================================================= */
+/* --- 4. ABOUT US / KNOW US / STATS STYLES (Layouts) --- */
+/* ========================================================= */
+
+.main-content {
+    position: relative;
+    z-index: 10;
+}
+
+.about-us-main-wrapper {
+    max-width: 1400px;
+    margin: 0 auto 60px;
+    padding: 0 20px;
+    background-color: #f0f2f5;
+}
+
+/* --- A. GRID CONTAINER (THE WHITE BOX) --- */
+
+.about-us-grid-container-new {
+    display: flex;
+    gap: 30px;
+    padding: 40px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    align-items: stretch;
+    flex-direction: row-reverse; 
+    width: 100%;
+    margin: 30px 0; 
+}
+
+/* --- B. KNOW US FIXES (Headings Inside Boxes) --- */
+
+.about-us-grid-container-new.knowus-box-stacker {
+    flex-direction: column;
+    gap: 0; 
+}
+
+.box-content-wrapper {
+    display: flex;
+    width: 100%;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.box-content-wrapper.row-default {
+    flex-direction: row; 
+}
+
+.box-content-wrapper.row-reverse {
+    flex-direction: row-reverse; 
+}
+
+.academics-main-heading.inside-box-heading {
+    text-align: center;
+    width: 100%;
+    padding-top: 0;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+.hidden-page { display: none; }
+.knowus-section-title, .knowus-history-title { display: none; }
+.knowus-section-row, .knowus-section-reverse { display: none; }
+
+
+/* --- C. IMAGE/TEXT SUB-SECTIONS --- */
+
+.about-us-image-box {
+    width: 400px;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.about-us-image-box .aboutus-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.about-us-text-box {
+    flex: 2;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    color: #444;
+}
+
+.about-us-text-box h3 {
+    margin-top: 10px;
+    font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #25597f;
+    margin-bottom: 15px;
+}
+
+.about-us-text-box p {
+    font-family: 'Roboto', Arial, sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 1em;
+}
+
+/* --- RESPONSIVENESS (Layout) --- */
+@media (max-width: 992px) {
+    .about-us-grid-container-new {
+        flex-direction: column;
+    }
+    .about-us-image-box {
+        flex: 1 1 100%;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 90%; 
+        height: 400px;
+    }
+    .about-us-text-box {
+        flex: 1 1 100%;
+    }
+    .box-content-wrapper {
+        flex-direction: column !important;
+    }
+}

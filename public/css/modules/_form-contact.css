@@ -1,0 +1,194 @@
+/* ========================================================= */
+/* --- CONTACT PAGE STYLES --- */
+/* ========================================================= */
+
+/* 1. Page Grid Layout */
+.contact-page-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 30px;
+    align-items: stretch; 
+    margin: 30px 0;
+}
+
+.contact-form-wrapper,
+.contact-map-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* --- New Inquiries Section Styles --- */
+.general-inquiries {
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px; 
+    margin-bottom: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); 
+    color: #444; 
+}
+
+.inquiries-title {
+    font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #25597f; 
+    margin-bottom: 15px;
+}
+
+.inquiries-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: #444;
+}
+
+.inquiries-item {
+    display: flex;
+    align-items: center; 
+    margin-bottom: 15px;
+}
+
+.inquiries-item .contact-text {
+    color: #1a120b; 
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 1.4;
+}
+
+.inquiries-item .contact-text.underline {
+    text-decoration: none; 
+    text-decoration-color: #25597f;
+}
+
+.inquiry-icon-img {
+    width: 30px; 
+    height: 30px;
+    margin-right: 12px;
+    flex-shrink: 0;
+    object-fit: cover;
+    border-radius: 50%; 
+    border: 2px solid #1a120b; 
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); 
+}
+
+/* --- Map Styles --- */
+.contact-map-embed-large {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    background-color: #fff;
+    height: 380px; 
+    min-height: 350px;
+}
+
+.contact-map-embed-large iframe {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* 2. Form Container */
+.contact-container {
+    width: 100%;
+    padding: 30px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-title {
+    font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #25597f; 
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+/* 3. Form Grid Layout */
+.contact-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    grid-template-rows: min-content min-content 150px min-content; 
+    gap: 15px; 
+    width: 100%;
+    flex-grow: 1; 
+}
+
+.contact-form-grid input,
+.contact-form-grid textarea,
+.contact-form-grid .submit-button {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 0;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
+    background-color: #fcfcfc; 
+    border-radius: 6px;
+    resize: none; 
+    color: #1a120b !important;
+}
+
+.grid-item-message {
+    grid-column: span 2;
+    min-height: 100px; 
+}
+
+.grid-item-submit {
+    grid-column: span 2;
+    background-color: white;
+    color: #25597f; 
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border: none;
+    cursor: pointer;
+    align-self: end; 
+    margin-bottom: 0; 
+}
+
+.grid-item-submit:hover {
+    background-color: white; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* --- RESPONSIVENESS (Contact) --- */
+@media (max-width: 992px) {
+    .contact-page-grid {
+        grid-template-columns: 1fr; 
+        gap: 40px;
+    }
+
+    .contact-map-embed-large {
+        height: 350px;
+        min-height: 350px;
+    }
+
+    .contact-form-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(6, min-content) min-content; 
+        gap: 10px;
+    }
+
+    .grid-item-name,
+    .grid-item-email,
+    .grid-item-mobile,
+    .grid-item-subject,
+    .grid-item-message,
+    .grid-item-submit {
+        grid-column: span 1;
+        grid-row: unset;
+    }
+
+    .grid-item-message {
+        min-height: 100px;
+    }
+}

@@ -1,0 +1,1079 @@
+/* ========================================================= */
+/* --- 8. PAGE SPECIFIC LAYOUTS (VM & TIMING) --- */
+/* ========================================================= */
+
+/* Vision & Mission Layout */
+.vm-section-layout {
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    padding-top: 40px;
+    margin-bottom: 30px;
+}
+
+.vm-heading-left {
+    font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #25597f;
+    margin-bottom: 5px;
+    text-align: left;
+    width: 100%;
+    padding-left: 40px;
+    position: static;
+    top: 20px;
+    left: 0;
+    z-index: 1;
+    margin-top: 60px;
+}
+
+.vm-section-layout .box-content-wrapper {
+    width: 100%;
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.vm-section-layout .about-us-image-box {
+    width: 400px;
+    height: 400px;
+    flex-shrink: 0;
+}
+
+.vm-section-layout .about-us-text-box.vm-text-box {
+    flex: 2;
+    padding: 0;
+    color: #444;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.vm-text-box h2 {
+    font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
+    font-size: 2.8rem; 
+    font-weight: 700; 
+    color: #25597f; 
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding-top: 0;
+    text-align: left; 
+}
+.mission-layout {
+    flex-direction: row; 
+}
+
+.vision-layout {
+    flex-direction: row-reverse; 
+}
+
+/* --- A. TIMING MAIN CONTAINER & HEADING --- */
+
+.academics-main-heading.timing-main-heading {
+    color: #3b749d; 
+    text-align: center;
+    margin-bottom: 40px;
+    margin-top: 0;
+}
+
+.timing-detail-boxes-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px; 
+    margin: 30px auto 0;
+    max-width: 1400px;
+    padding: 0;
+    width: 100%;
+    align-items: stretch;
+}
+
+.timing-detail-box {
+    flex: 1 1 50%; 
+    padding: 30px 40px; 
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); 
+    display: flex;
+    flex-direction: column;
+}
+
+.timing-detail-box p { 
+    color: #444; 
+}
+
+
+/* --- B. SUB-HEADING STYLING --- */
+
+.timing-sub-heading {
+    font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #25597f;
+    margin-bottom: 10px;
+    border-left: none;
+    padding-left: 0;
+    margin-top: 0;
+}
+
+/* --- NEW TIMING TABLE STYLES --- */
+.timing-table-wrapper {
+    max-width: 1400px;
+    margin: 30px auto 60px; 
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    padding: 30px 40px;
+}
+
+.timing-table-heading {
+    color: #25597f;
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+.timing-table {
+    width: 100%;
+    border-collapse: separate; 
+    border-spacing: 0;
+    text-align: center;
+    color: #1a120b;
+    font-family: 'Roboto', sans-serif;
+}
+
+.timing-table th, .timing-table td {
+    padding: 15px 10px;
+    border: 1px solid #e0e0e0;
+    font-size: 1rem;
+}
+
+.timing-table thead tr {
+    background-color: #25597f; 
+    color: #fff;
+}
+
+.timing-table th {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-color: #25597f;
+}
+
+.timing-table thead th:first-child {
+    border-top-left-radius: 8px;
+}
+.timing-table thead th:last-child {
+    border-top-right-radius: 8px;
+}
+
+.timing-table tbody tr:nth-child(even) {
+    background-color: #f8f8f8; 
+}
+
+.timing-table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 8px;
+}
+.timing-table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 8px;
+}
+
+.timing-table tbody td {
+    color: #444;
+}
+
+.timing-table tbody tr:first-child td {
+    border-top: none;
+}
+
+/* ========================================================= */
+/* --- NEW GROUPS & CLUBS STYLES --- */
+/* ========================================================= */
+
+.groups-intro-box {
+    flex-direction: column !important;
+    padding: 50px;
+    margin-bottom: 30px !important;
+}
+
+.groups-intro-heading {
+    font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #3b749d; 
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.groups-features-list {
+    list-style: disc;
+    padding-left: 25px;
+    text-align: left;
+}
+
+.groups-features-list li {
+    font-size: 1rem;
+    color: #444;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.groups-club-section {
+    margin-bottom: 30px !important;
+}
+
+.groups-club-section .box-content-wrapper {
+    align-items: flex-start;
+}
+
+.groups-club-title {
+    font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #25597f; 
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.groups-club-description {
+    font-size: 1rem;
+    color: #444;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.groups-club-features {
+    list-style: disc;
+    padding-left: 20px;
+    text-align: left;
+}
+
+.groups-club-features li {
+    font-size: 0.95rem;
+    color: #444;
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+
+/* ========================================================= */
+/* --- NEW RULES ACCORDION STYLES --- */
+/* ========================================================= */
+
+.rules-center-heading {
+    color: #3b749d; 
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.rules-accordion-container {
+    max-width: 1300px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    padding: 0;
+}
+
+.accordion-item {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.accordion-item:last-child {
+    border-bottom: none;
+}
+
+.accordion-toggle {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    padding: 18px 25px;
+    font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1a120b; 
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.accordion-toggle:hover {
+    background-color: #f5f5f5;
+}
+
+.accordion-toggle.active {
+    background-color: #fafafa;
+    color: #25597f; 
+}
+
+.accordion-icon {
+    font-size: 1.5rem;
+    color: #25597f;
+    transition: transform 0.3s ease;
+    line-height: 1;
+}
+
+.accordion-toggle.active .accordion-icon {
+    transform: rotate(45deg); 
+}
+
+.accordion-content {
+    background-color: #ffffff;
+    overflow: hidden;
+    max-height: 0; 
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+    padding: 0 25px; 
+}
+
+.accordion-content.open {
+    max-height: 1000px; 
+    padding: 15px 25px 25px 25px;
+}
+
+.rules-list {
+    list-style: disc;
+    padding-left: 0px;
+    margin-left: 20px; 
+    margin-top: 10px;
+}
+
+.rules-list li {
+    font-size: 1rem;
+    color: #444; 
+    line-height: 1.7;
+    margin-bottom: 12px;
+}
+
+/* ========================================================= */
+/* --- NEW: SUBJECTS OFFERED STYLES --- */
+/* ========================================================= */
+
+.subjects-main-wrapper {
+    max-width: 1300px;
+}
+
+.subject-level-section {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    padding: 30px;
+    margin-bottom: 40px;
+    border-left: none;
+}
+
+.subject-level-heading {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #25597f; 
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #e0e0e0;
+    text-align: center;
+}
+
+.subject-list-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    list-style: none !important; 
+    padding-left: 0;
+}
+
+.subject-item {
+    padding: 10px 15px;
+    background-color: #f7f7f7;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #444;
+    border: 1px solid #e0e0e0;
+    transition: background-color 0.2s;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    text-align: center; 
+    min-height: 45px;
+    list-style: none !important; 
+    position: relative; 
+}
+
+.subject-item::before {
+    content: none !important;
+}
+
+.subject-item:hover {
+    background-color: #e6f0ff;
+    border-color: #a4caff;
+}
+
+/* ========================================================= */
+/* --- 12. NEW ALUMNI PROFILE STYLES --- */
+/* ========================================================= */
+
+.alumni-profile-wrapper {
+    position: relative;
+    display: flex;
+    gap: 40px;
+    padding: 30px;
+    border: 2px solid white;
+    background: #fff;
+    border-radius: 12px;
+    align-items: flex-start;
+    margin-bottom: 30px;
+    color: #444; 
+}
+
+.alumni-info-card {
+    flex: 0 0 250px; 
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-right: 1px solid #e0e0e0;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.alumni-image-container {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    background: #25597f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.alumni-profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    /* REMOVED 4px solid #fff border, setting it to none/transparent */
+    border: 4px solid transparent; 
+    position: relative;
+    z-index: 2;
+}
+
+.alumni-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #1a120b;
+    margin-bottom: 5px;
+}
+
+.alumni-achievement {
+    font-size: 1rem;
+    color: #25597f; 
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.alumni-year {
+    font-size: 0.95rem;
+    color: #6b7280; 
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.alumni-contact-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.alumni-contact-icons img {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+.alumni-contact-icons img:hover {
+    opacity: 1;
+}
+
+.alumni-description-box {
+    flex: 1;
+    padding: 0; 
+}
+
+.alumni-description-box h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1a120b;
+    margin-top: 0; 
+    margin-bottom: 15px;
+}
+
+.alumni-description-box p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #444;
+}
+
+/* ======================================================================
+    NEW: PRINCIPAL MESSAGE STYLES (FINAL IMAGE FORMAT)
+    ======================================================================
+*/
+
+.principal-content-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.principal-content-box {
+    display: flex;
+    gap: 40px;
+    padding: 0; 
+    background: transparent; 
+    border-radius: 0;
+    box-shadow: none;
+    align-items: flex-start; 
+    color: #444;
+}
+
+.principal-content-box.new-format-layout {
+    display: flex;
+    flex-direction: row; 
+    align-items: flex-start; 
+    padding: 60px 0; 
+}
+
+.principal-image-box.new-format-image {
+    flex: 0 0 45%;
+    max-width: 450px;
+    text-align: left;
+    margin: 0;
+    line-height: 0;
+}
+
+.principal-img.new-format-img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px; 
+    border: none; 
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+.principal-quote-box.new-format-quote {
+    flex: 1;
+    padding: 0;
+    padding-left: 20px; 
+    text-align: justify;
+}
+
+.principal-message-text-wrapper {
+    position: relative;
+}
+
+.principal-long-quote {
+    font-family: 'Roboto', serif;
+    font-size: 1.15rem; 
+    line-height: 1.9; 
+    color: #1a120b;
+    margin: 0;
+    padding-right: 40px;
+    padding-top: 10px; 
+    position: relative; 
+    clear: both; 
+}
+
+.start-quote-lg {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem; 
+    color: #25597f; 
+    line-height: 1;
+    display: block; 
+    float: left; 
+    margin-right: 15px;
+    margin-top: -30px; 
+    font-weight: 700;
+}
+
+.end-quote-lg {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    color: #25597f;
+    font-weight: 700;
+    line-height: 0; 
+    position: absolute; 
+    right: 40px; 
+    bottom: 5px; 
+    float: none;
+    display: inline-block;
+    transform: none; 
+}
+
+.principal-signature-box {
+    width: 100%;
+    text-align: left;
+    margin-top: 30px; 
+    position: relative;
+    padding-right: 0;
+    clear: both;
+}
+
+.principal-name-signature {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1a120b; 
+    text-align: left;
+    margin-top: 10px;
+    margin-bottom: 0;
+    display: inline; 
+}
+
+.principal-tenure-detail {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #444;
+    display: block; 
+    text-align: left;
+    margin-top: 5px;
+}
+
+
+/* ======================================================================
+    FACULTY PAGE CUSTOM CSS
+    ======================================================================
+*/
+
+.faculty-section-layout {
+    margin-bottom: 40px;
+}
+
+.faculty-box-content-wrapper {
+    display: grid;
+    /* Enforce Image Left, Text Right for ALL boxes on desktop */
+    grid-template-columns: 1fr 2fr; 
+    gap: 40px;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    background-color: #ffffff;
+    overflow: hidden; 
+    transition: all 0.5s ease; 
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+
+/* --- CRITICAL LAYOUT ENFORCEMENT (Image Left, Text Right for all) --- */
+.faculty-box-content-wrapper .faculty-image-box {
+    order: 0; /* Ensure image is on the left */
+}
+.faculty-box-content-wrapper .faculty-text-box {
+    order: 1; /* Ensure text is on the right */
+}
+.faculty-box-content-wrapper.reverse {
+    /* Reset reverse class effects if present */
+    grid-template-columns: 1fr 2fr; 
+}
+
+/* --- HOVER EFFECT REMOVAL --- */
+.faculty-box-content-wrapper:hover {
+    transform: none; /* Removes the lift effect */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* Reverts to default non-hover shadow */
+}
+
+.faculty-text-box {
+    color: #444;
+}
+
+.faculty-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1a120b;
+    margin-bottom: 5px;
+}
+
+.faculty-subj-qual {
+    font-size: 1.1rem;
+    color: #25597f; 
+    font-weight: 500;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.faculty-quote {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #333;
+    font-style: italic;
+
+    /* Enforce Left Border for ALL */
+    border-left: 4px solid #f97316 !important; 
+    padding-left: 15px !important;
+    margin-top: 10px;
+
+    /* Ensure other borders/alignment are removed/reset */
+    border-right: none !important;
+    padding-right: 0 !important;
+    text-align: left !important;
+}
+
+.faculty-box-content-wrapper.reverse .faculty-quote {
+    /* Explicitly override the .reverse version to match the non-reverse version */
+    border-left: 44px solid #f97316 !important; 
+    border-right: none !important;
+    padding-left: 15px !important;
+    padding-right: 0 !important;
+    text-align: left !important;
+}
+
+.faculty-image-box {
+    width: 350px;
+    height: 350px;
+    flex-shrink: 0; 
+    
+    border: 5px solid white;
+    
+    overflow: hidden; 
+    line-height: 0; 
+
+    display: block;
+    margin: 0 auto;
+    
+    border-radius: 8px; 
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+.faculty-image-box img {
+    width: 100%;
+    height: 100%;
+    
+    display: block;
+    object-fit: cover;
+    aspect-ratio: 1/1; 
+    
+    border-radius: 8px; 
+    transform: scale(0.95);
+    opacity: 0;
+    transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+}
+
+.faculty-box-content-wrapper.animated .faculty-image-box img {
+    transform: scale(1); 
+    opacity: 1; 
+    transition: transform 0.8s ease-out, opacity 0.8s ease-out; 
+}
+
+/* ======================================================================
+    NEW: EXAM/COMPETITION HORIZONTAL BOX STYLES (Full Width)
+    ====================================================================== 
+*/
+.exam-competition-box {
+    display: flex;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); 
+    overflow: hidden;
+    margin-bottom: 35px; 
+    cursor: default; 
+    align-items: flex-start; 
+}
+
+.exam-competition-box:hover {
+    transform: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); 
+}
+
+.exam-competition-image-wrapper {
+    flex-shrink: 0;
+    width: 350px; 
+    height: 350px; 
+    overflow: hidden;
+}
+
+.exam-competition-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.exam-competition-content {
+    flex-grow: 1;
+    padding: 20px 20px 15px 20px;
+}
+
+.exam-competition-content h4 {
+    font-size: 1.7rem; 
+    font-weight: 700;
+    color: #25597f; 
+    margin-bottom: 10px;
+    margin-top: 0; 
+}
+
+.exam-competition-content p {
+    font-size: 1.1rem; 
+    line-height: 1.6;
+    color: #444;
+}
+
+.competitive-page-heading {
+    text-align: center !important;
+    margin-bottom: 45px; 
+    margin-top: 0; 
+    font-size: 2.5rem !important; 
+    border-bottom: none !important; 
+    padding-bottom: 0 !important; 
+}
+
+.competitive-page-wrapper {
+    padding-top: 80px; 
+    padding-bottom: 50px;
+}
+
+.about-us-main-wrapper p.text-gray-700.mb-8 {
+    font-size: 1.1rem;
+    line-height: 1.7; 
+}
+
+/* ========================================================= */
+/* --- 8. MANDATORY DISCLOSURE DOCUMENTS STYLES --- */
+/* ========================================================= */
+
+.disclosure-grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 30px;
+    margin-top: 40px; 
+    align-items: stretch; 
+}
+
+.disclosure-section-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    padding: 30px;
+    height: 100%; 
+    display: flex; 
+    flex-direction: column;
+}
+
+.disclosure-section-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #25597f; 
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #e0e0e0;
+    text-align: left; 
+}
+
+.disclosure-list-group {
+    list-style: none;
+    padding-left: 0;
+    flex-grow: 1; 
+}
+
+.disclosure-item-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 10px;
+    background-color: #f7f7f7;
+    border-radius: 6px;
+    margin-bottom: 10px;
+ 
+    transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    color: #444;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.disclosure-item-link:hover {
+    background-color: #e6f0ff; 
+    border-left-color: #25597f; 
+    color: #1a120b;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+}
+
+.disclosure-item-icon {
+    font-size: 1.2rem;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+
+.disclosure-item-title {
+    flex-grow: 1;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 10px;
+}
+
+.disclosure-item-action {
+    color: #25597f;
+    font-size: 0.9rem;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+/* --- RESPONSIVENESS (Page Specific) --- */
+@media (max-width: 768px) {
+    .alumni-profile-wrapper {
+        flex-direction: column;
+        gap: 20px;
+        border-right: none;
+    }
+    .alumni-info-card {
+        flex: 1 1 100%;
+        width: 100%;
+    }
+    .alumni-description-box {
+        padding: 0;
+    }
+    .principal-content-box.new-format-layout {
+        flex-direction: column;
+        align-items: center; 
+        padding: 40px 20px;
+    }
+
+    .principal-image-box.new-format-image {
+        flex: 1 1 100%;
+        max-width: 300px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 30px;
+        order: 1;
+    }
+
+    .principal-quote-box.new-format-quote {
+        order: 2;
+        padding-left: 0;
+        text-align: left;
+    }
+
+    .principal-long-quote {
+        padding-right: 0;
+        text-align: left;
+    }
+
+    .start-quote-lg {
+        font-size: 3rem;
+        margin-top: -15px;
+    }
+
+    .end-quote-lg {
+        display: none !important;
+    }
+
+    .principal-signature-box {
+        text-align: left;
+    }
+
+    .principal-name-signature,
+    .principal-tenure-detail {
+        text-align: left;
+        display: block;
+    }
+
+    .principal-tenure-detail {
+        margin-top: 0; 
+    }
+    
+    .faculty-box-content-wrapper,
+    .faculty-box-content-wrapper.reverse {
+        grid-template-columns: 1fr; 
+        gap: 20px;
+        flex-direction: column;
+    }
+
+    .faculty-image-box {
+        width: 200px;
+        height: 200px;
+        margin: 0 auto;
+    }
+    .faculty-quote,
+    .faculty-box-content-wrapper.reverse .faculty-quote {
+        border-right: none;
+        border-left: 4px solid #f97316;
+        padding-right: 0;
+        padding-left: 15px;
+    }
+    
+    /* FIX 5: Mandatory Disclosure Documents Layout Fix */
+    .disclosure-grid-container {
+        grid-template-columns: 1fr; 
+        gap: 20px;
+    }
+    .disclosure-section-card {
+        padding: 20px;
+    }
+    .disclosure-section-title {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .exam-competition-box {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .exam-competition-image-wrapper {
+        width: 100%; 
+        height: 220px; 
+    }
+    .exam-competition-content {
+        padding: 15px;
+    }
+    .exam-competition-content h4 {
+        font-size: 1.2rem;
+    }
+    .exam-competition-content p {
+        font-size: 0.9rem;
+    }
+    .subject-list-container {
+        grid-template-columns: 1fr;
+    }
+    .subject-level-heading {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .vm-heading-left {
+        position: static; 
+        padding-left: 0; 
+        text-align: center; 
+        margin-bottom: 25px;
+    }
+
+    .timing-detail-boxes-container {
+        flex-direction: column;
+        gap: 20px;
+        padding: 0 20px 20px 20px;
+    }
+
+    .groups-intro-box {
+        padding: 30px 20px;
+    }
+    .groups-features-list {
+        padding-left: 15px;
+    }
+
+    .rules-accordion-container {
+        max-width: 100%;
+        margin: 20px 0;
+    }
+    .accordion-toggle {
+        padding: 15px 20px;
+        font-size: 1.1rem;
+    }
+    .accordion-content {
+        padding: 0 20px;
+    }
+    .accordion-content.open {
+        padding: 15px 25px 25px 25px;
+    }
+}

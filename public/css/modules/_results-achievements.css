@@ -1,0 +1,310 @@
+/* ========================================================= */
+/* --- 5. GALLERY LAYOUT STYLES --- */
+/* ========================================================= */
+
+.gallery-wrapper {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 25px;
+    padding: 20px; 
+}
+
+.gallery-content-card {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.gallery-media-box-custom {
+    width: 100%;
+    padding-top: 100%; /* RESTORED: This forces a 1:1 aspect ratio (square) */
+    position: relative;
+    overflow: hidden;
+    border: 2px solid white;
+    background-color: black;
+    /* Removed min-height from previous attempt */
+}
+
+.gallery-media-img {
+    position: absolute; /* RESTORED */
+    top: 0;           /* RESTORED */
+    left: 0;          /* RESTORED */
+    width: 100%;
+    height: 100%;     /* RESTORED: Make it fill the square container */
+    object-fit: cover; /* RESTORED: Images and videos fill/crop by default */
+    display: block;
+}
+
+.gallery-title-custom {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1a120b;
+    padding: 0 15px;
+    margin-bottom: 5px;
+}
+.gallery-media-box-custom video.gallery-media-img {
+    object-fit: contain; /* OVERRIDE: Forces video to fit entirely inside the square */
+}
+
+.gallery-caption-custom {
+    font-size: 0.95rem;
+    color: #444;
+    padding: 0 15px;
+}
+
+/* ========================================================= */
+/* --- NEW: GALLERY PAGINATION STYLES --- */
+/* ========================================================= */
+
+.pagination-center-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.pagination-button {
+    padding: 10px 20px;
+    background-color: #25597f;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, opacity 0.2s;
+}
+
+.pagination-button:hover:not([disabled]) {
+    background-color: #1c4dbe;
+}
+
+.pagination-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.pagination-text {
+    font-size: 1.1rem;
+    color: black;
+    font-weight: 500;
+}
+
+.current-page-number {
+    color: black;
+    font-weight: 700;
+}
+
+/* ========================================================= */
+/* 🆕 NEW SECTION: ACHIEVEMENTS PAGE STYLES */
+/* ========================================================= */
+
+#achievements-display-container {
+    max-width: 1400px;
+    margin: 40px auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    padding: 10px 0;
+}
+
+.achievement-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    cursor: default;
+    color: #444; 
+}
+
+
+.achievement-image-box {
+    width: 100%;
+    height: 0; 
+    padding-top: 100%; 
+    position: relative;
+    overflow: hidden; 
+    background-color: #f0f0f0;
+}
+
+.achievement-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important; 
+    height: 100% !important;
+    min-width: 100%; 
+    max-width: 100%;
+    object-fit: cover; 
+    display: block; 
+}
+
+.achievement-content {
+    padding: 20px 20px 30px;
+}
+
+.achievement-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #25597f; 
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.achievement-description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #6b7280;
+}
+
+/* ========================================================= */
+/* 🆕 NEW SECTION: ICSE & ISC RESULTS PAGE STYLES */
+/* ========================================================= */
+
+.result-section-wrapper {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.result-section-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    padding-bottom: 5px;
+    border-bottom: 3px solid;
+    display: inline-block; 
+}
+
+.icse-color {
+    color: #25597f; 
+    border-color: #25597f;
+}
+.isc-color {
+    color: #10b981; 
+    border-color: #10b981;
+}
+
+.result-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 30px;
+    justify-content: center;
+}
+
+.result-card-item {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 35px 15px 45px 15px;
+    text-align: center;
+    transition: none;
+    cursor: default;
+}
+
+.result-card-item:hover {
+    transform: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); 
+}
+
+.result-photo-container {
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 20px; 
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid #f0f2f5; 
+    box-shadow: 0 0 0 4px #fff; 
+}
+.icse-border { border-color: #25597f !important; }
+.isc-border { border-color: #10b981 !important; }
+
+
+.result-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.result-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #1a120b;
+    margin-bottom: 8px; 
+}
+
+.result-percentage {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+}
+.icse-text-color { color: #25597f; }
+.isc-text-color { color: #10b981; }
+
+/* --- RESPONSIVENESS (Media & Results) --- */
+@media (max-width: 900px) {
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 992px) {
+    #achievements-display-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .achievement-image-box {
+        height: 0; 
+        padding-top: 100%; 
+    }
+    .result-cards-grid {
+        grid-template-columns: repeat(2, 1fr); 
+    }
+}
+@media (max-width: 768px) {
+    .result-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 600px) {
+  .gallery-grid { grid-template-columns: 1fr; }
+  .achievement-image-box {
+      height: 0;
+      padding-top: 100%; 
+  }
+  .result-cards-grid {
+      grid-template-columns: 1fr;
+  }
+  .achievement-content {
+      padding: 15px 15px 20px;
+  }
+  
+  .result-card-item {
+      padding: 25px 15px 35px 15px; 
+  }
+  .result-photo-container {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 15px;
+  }
+  .result-name {
+      font-size: 1.1rem;
+  }
+  .result-percentage {
+      font-size: 1.8rem;
+  }
+}

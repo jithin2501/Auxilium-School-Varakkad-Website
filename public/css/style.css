@@ -3662,12 +3662,42 @@ input[type="date"] {
         padding-bottom: 15px;
         margin-bottom: 15px;
     }
+
+    /* CRITICAL FIX 4: Control Upload Button and Icon Size in Step 2 */
     .upload-label {
-        width: 100%;
+        /* Ensure the label takes full width below the document name */
+        width: 100%; 
+        max-width: 100%;
+        
+        /* Control inner alignment and appearance */
+        justify-content: flex-start; 
+        align-items: center;
+        padding: 10px 15px;
         font-size: 1rem;
         height: auto;
-        padding: 10px 15px;
-        max-width: 100%;
+    }
+
+    /* Shrink the icon size to prevent overflow */
+    #step-2 .upload-label svg {
+        width: 24px; 
+        height: 24px;
+        margin-right: 8px;
+        flex-shrink: 0; /* Prevent icon from shrinking */
+    }
+    
+    /* Ensure the text and file name are contained and don't push the icon */
+    #step-2 .upload-label span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 0.9rem;
+    }
+    
+    /* Explicitly fix the file-name span alignment and shrinking */
+    #step-2 .upload-label .file-name {
+        flex-shrink: 1; 
+        max-width: 120px; 
+        margin-left: 5px; 
     }
     
     .admission-item-row .admission-item-content {

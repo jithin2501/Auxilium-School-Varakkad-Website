@@ -3342,6 +3342,8 @@ input[type="date"] {
     .box-content-wrapper {
         flex-direction: column !important;
     }
+    
+    /* FOOTER MODIFICATIONS START (992px) */
     .footer-container {
         grid-template-columns: 1fr 1fr;
         gap: 30px;
@@ -3350,9 +3352,23 @@ input[type="date"] {
     .links-col, .map-col {
         padding-top: 10px;
     }
-    .map-col {
-        grid-column: span 2;
+    
+    /* 1. Remove Map & Reorder */
+    .footer-container .map-col {
+        display: none; /* New: Hide the map column entirely */
     }
+    
+    /* 2. Reorder for phone view (Quick Links first, then Contact Details) */
+    .footer-container .links-col {
+        order: 1; /* New: Make Quick Links the first item */
+        grid-column: span 1; /* Ensure links take only one column */
+    }
+    .footer-container .contact-col {
+        order: 2; /* New: Make Contact Details the second item */
+        grid-column: span 1; /* Ensure contact details take only one column */
+    }
+    /* FOOTER MODIFICATIONS END (992px) */
+
     .nav-links ul {
         gap: 18px;
         font-size: 1rem;
@@ -3560,4 +3576,45 @@ input[type="date"] {
     .result-cards-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+    
+    /* FOOTER MODIFICATIONS START (768px) */
+    .footer-container {
+        grid-template-columns: 1fr; /* Ensures single column layout */
+        padding-bottom: 20px;
+    }
+    
+    /* Hide map (already hidden at 992px, but good to be explicit for 768px as well if we didn't rely on 992px) */
+    .footer-container .map-col {
+        display: none; 
+    }
+    
+    /* Ensure order is maintained (Quick Links, then Contact Details) */
+    .footer-container .links-col {
+        order: 1; 
+        grid-column: span 1;
+    }
+    .footer-container .contact-col {
+        order: 2; 
+        grid-column: span 1;
+    }
+    
+    .footer-bottom-bar {
+        /* New: Center the copyright text (phone view) */
+        justify-content: center; 
+        flex-direction: column; 
+        text-align: center;
+    }
+
+    /* New: Hide the developer credit in the phone view */
+    .footer-bottom-bar .developer {
+        display: none;
+    }
+    
+    .footer-bottom-bar .copyright {
+        /* Ensure copyright is centered if it had specific alignment */
+        width: 100%;
+        text-align: center;
+        font-size: 0.9rem; 
+    }
+    /* FOOTER MODIFICATIONS END (768px) */
 }

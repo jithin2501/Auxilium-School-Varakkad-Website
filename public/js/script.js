@@ -16,27 +16,28 @@ document.addEventListener('DOMContentLoaded', function() {
     checkScroll();
     
     // ----------------------------------------------------
-    // Anchor Scroll Logic
+    // Path-based Anchor Scroll Logic (Updated)
     // ----------------------------------------------------
 
     /**
-     * Checks the URL hash for a secondary anchor (e.g., #page-id#section-id) 
+     * Checks the URL pathname for a secondary anchor (e.g., /home/section-id) 
      * and scrolls the target element into view.
-     * Exposed globally in index.html to be called after page content loads.
      * @param {string} [behavior='smooth'] - The scroll behavior ('smooth' or 'instant').
      */
     window.handleAnchorScroll = function(behavior = 'smooth') {
-        const fullHash = window.location.hash;
-        // Find the index of the second '#' to isolate the section ID
-        const secondHashIndex = fullHash.indexOf('#', 1);
+        const fullPath = window.location.pathname;
+        const parts = fullPath.split('/');
+        
+        // Check for a secondary path segment (e.g., 'academics-section' in /home/academics-section)
+        const anchorId = parts.length > 2 ? parts[2] : ''; 
         const headerHeight = header.offsetHeight + 10; // Fixed header height + extra margin
 
-        if (secondHashIndex !== -1) {
-            const anchorId = fullHash.substring(secondHashIndex + 1);
+        if (anchorId) {
             const targetElement = document.getElementById(anchorId);
 
             if (targetElement) {
                 // Ensure the target is within the currently visible page section
+                // We check if the target's parent is visible
                 if (targetElement.closest('.page-section') && targetElement.closest('.page-section').style.display !== 'none') {
                      
                     // 🎯 CRITICAL FIX: Calculate scroll position considering the fixed header offset
@@ -44,125 +45,67 @@ document.addEventListener('DOMContentLoaded', function() {
                      
                     window.scrollTo({ 
                         top: targetPosition, 
-                        // Use the passed behavior ('instant' for clicks, 'smooth' for back/forward)
                         behavior: behavior 
                     }); 
                 }
             }
-        } else if (fullHash.length > 1) {
-            // If it's a primary page hash (e.g., #knowus or #home), scroll instantly.
+        } else if (fullPath.length > 1) {
+            // If it's a primary page path (e.g., /knowus or /home), scroll instantly.
             window.scrollTo({ top: 0, behavior: 'instant' });
         }
     }
     
     // ----------------------------------------------------
-    // SINGLE-PAGE APPLICATION (SPA) ROUTING LOGIC (Legacy)
+    // SINGLE-PAGE APPLICATION (SPA) ROUTING LOGIC (Refactored for Paths)
     // ----------------------------------------------------
 
-    // This function is mostly redundant but kept for compatibility.
-    window.showPage = function(pageName, skipScrollToTop = false) {
-        if (typeof window.initializePublicRouting === 'function') {
-            window.initializePublicRouting();
-        }
-        // Use default smooth scroll for non-header-click scenarios
-        window.handleAnchorScroll(); 
-    }
-
-
     function setupRouting() {
-        // Target all main navigation and footer links that use the hash (#) for navigation
-        const pageLinks = document.querySelectorAll('.nav-links a[data-page], .quick-links-list a[data-page], .contact-button[data-page]');
+        // Target all main navigation and footer links that use the data-page attribute
+        const pageLinks = document.querySelectorAll('a[data-page]');
         
         pageLinks.forEach(link => {
             link.addEventListener('click', function(event) {
                 
-                // CRITICAL: We only want to preventDefault on actual page navigation links,
-                // not the dropdown toggle links handled by the click logic below.
-                // The main click logic in index.html is handling the pushState, so this is mostly a fallback.
+                // CRITICAL: Prevent default browser navigation
+                event.preventDefault(); 
                 
-                const isDropdownToggle = this.closest('.js-dropdown-toggle');
-
-                if (!isDropdownToggle) {
-                    event.preventDefault(); 
+                const targetHref = this.getAttribute('href');
+                
+                // Only push state if the href starts with '/' (a defined path)
+                if (targetHref.startsWith('/')) {
                     
-                    const targetHref = this.getAttribute('href');
+                    window.history.pushState(null, null, targetHref);
                     
-                    if (targetHref.startsWith('#')) {
-                        window.history.pushState(null, null, targetHref);
-                        
-                        if (typeof window.initializePublicRouting === 'function') {
-                            window.initializePublicRouting();
-                        }
+                    if (typeof window.initializePublicRouting === 'function') {
+                        window.initializePublicRouting();
                     }
+                    
+                    // Call handleAnchorScroll to jump to the subsection if one exists.
+                    window.handleAnchorScroll('instant');
+                    
+                    // Close all navigation dropdowns when a page is successfully routed
+                    document.querySelectorAll('.nav-dropdown-wrapper').forEach(wrapper => {
+                        wrapper.classList.remove('open');
+                    });
                 }
             });
         });
 
-        // Ensure anchor scrolling runs on load/refresh if the URL already has one
+        // Ensure anchor scrolling runs on load/refresh if the URL already has a sub-path
         window.handleAnchorScroll();
     }
     
     setupRouting();
     
-    // This function now primarily handles simple anchors inside content (e.g., #rules-accordion) 
-    // or ensures internal links inside a section point back to the home page if needed.
+    // This function handles simple in-page anchors (e.g. accordion toggles) 
+    // and is now left to default browser behavior since the main navigation is handled above.
     function setupAnchorLinks() {
-        // Target non-primary navigation links that start with #
-        const internalLinks = document.querySelectorAll('a[href^="#"]:not([data-page])');
-        
-        internalLinks.forEach(link => {
-            link.addEventListener('click', function(event) {
-                const fullHref = this.getAttribute('href'); 
-                
-                // If it's a deep link used inside content (like #academics-section or #facilities-section without the #home prefix),
-                // we should redirect to the correct home page hash and scroll.
-                if (fullHref.startsWith('#academics-section') || fullHref.startsWith('#facilities-section') || fullHref.startsWith('#activities-section')) {
-                    event.preventDefault(); 
-                    const targetSectionId = fullHref.substring(1); // e.g., 'academics-section'
-                    const newHash = `#home#${targetSectionId}`; 
-                    
-                    window.history.pushState(null, null, newHash);
-                    
-                    if (typeof window.initializePublicRouting === 'function') {
-                        window.initializePublicRouting();
-                    }
-                    // Use smooth scroll here as this is a secondary click
-                    window.handleAnchorScroll('smooth');
-                } 
-                // For all other simple anchors (like #rules-accordion) let the browser handle default jump.
-            });
-        });
+        // No change needed here, as the links in index.html were either paths or non-navigational links.
     }
     setupAnchorLinks();
 
     // ----------------------------------------------------
-    // ACCORDION RULES LOGIC (FIXES ACCORDION BUTTONS) - Replaced by logic from index.html
-    // ----------------------------------------------------
-    /*
-    const accordionToggles = document.querySelectorAll('.accordion-toggle');
-
-    accordionToggles.forEach(toggle => {
-        toggle.addEventListener('click', function() {
-            const contentId = this.getAttribute('data-target');
-            const content = document.getElementById(contentId);
-            
-            this.classList.toggle('active');
-            
-            if (content.classList.contains('open')) {
-                content.classList.remove('open');
-            } else {
-                document.querySelectorAll('.accordion-content.open').forEach(openContent => {
-                    openContent.classList.remove('open');
-                    openContent.previousElementSibling.classList.remove('active');
-                });
-                content.classList.add('open');
-            }
-        });
-    });
-    */
-
-    // ----------------------------------------------------
-    // CONTACT FORM LOGIC (API Submission)
+    // CONTACT FORM LOGIC (API Submission) - No change needed
     // ----------------------------------------------------
     
     const formContainer = document.getElementById('contactFormContainer');
@@ -213,17 +156,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ----------------------------------------------------
-    // DROPDOWN CLICK/ARROW ROTATION LOGIC (Replaced by logic from index.html)
+    // DROPDOWN CLICK/ARROW ROTATION LOGIC - No change needed
     // ----------------------------------------------------
 
-    // NOTE: Admission form logic (window.handleSubmit, handleFileUpload) is now in index.html
-});
-
-// =========================================================================
-// NEW DROPDOWN CLICK LOGIC (Corrected to split navigation and toggle)
-// =========================================================================
-
-document.addEventListener('DOMContentLoaded', function() {
     const dropdownToggles = document.querySelectorAll('.nav-links .js-dropdown-toggle');
     const allDropdownWrappers = document.querySelectorAll('.nav-links .nav-dropdown-wrapper');
 
@@ -238,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (clickedLink) {
                 // CASE 1: Clicked the LINK TEXT
-                // The standard data-page listeners handle the navigation.
+                // The standard data-page listeners handle the navigation above.
                 event.stopPropagation();
                 
                 // CRITICAL: Close the dropdown immediately when the link is clicked to navigate away.
@@ -278,25 +213,22 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     });
-});
-
-// =========================================================================
-// NEW MOBILE MENU TOGGLE LOGIC (FIXED)
-// =========================================================================
-document.addEventListener('DOMContentLoaded', function() {
+    
+    // ----------------------------------------------------
+    // NEW MOBILE MENU TOGGLE LOGIC (FIXED) - No change needed
+    // ----------------------------------------------------
+    
     const toggleButton = document.getElementById('hamburger-toggle');
     const mobileMenu = document.getElementById('mobile-menu');
-    const closeButton = document.getElementById('mobile-menu-close'); // ADDED Close Button reference
+    const closeButton = document.getElementById('mobile-menu-close');
     const mobileDropdownToggles = document.querySelectorAll('.mobile-nav-menu .js-mobile-dropdown-toggle');
     
-    // Function to close the menu
     const closeMobileMenu = () => {
         if (toggleButton) toggleButton.classList.remove('open');
         if (mobileMenu) mobileMenu.classList.remove('open');
         document.body.style.overflow = '';
     };
 
-    // --- 1. Hamburger Menu Toggle ---
     if (toggleButton && mobileMenu) {
         toggleButton.addEventListener('click', () => {
              if (mobileMenu.classList.contains('open')) {
@@ -309,18 +241,15 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- 2. Close Button Listener ---
     if (closeButton) {
         closeButton.addEventListener('click', closeMobileMenu);
     }
 
-    // --- 3. Mobile Dropdown Toggle (for nested menus inside the sidebar) ---
     mobileDropdownToggles.forEach(toggle => {
         toggle.addEventListener('click', (e) => {
             e.stopPropagation();
             const parentWrapper = toggle.closest('.nav-dropdown-wrapper');
             
-            // Close all other dropdowns in the mobile menu
             mobileDropdownToggles.forEach(otherToggle => {
                 const otherWrapper = otherToggle.closest('.nav-dropdown-wrapper');
                 if (otherWrapper !== parentWrapper) {
@@ -328,40 +257,39 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
 
-            // Toggle the current dropdown
             parentWrapper.classList.toggle('open');
         });
     });
     
-    // --- 4. Close Menu on Link Click (in sidebar) ---
     mobileMenu.querySelectorAll('a[data-page]').forEach(link => {
         link.addEventListener('click', function() {
-            // Wait briefly for page routing to complete before closing the menu
             setTimeout(closeMobileMenu, 100); 
         });
     });
+
+    // NOTE: The original `setupRouting` now handles both desktop and mobile link clicks.
 });
+
 // =========================================================================
-// FUNCTION TO HANDLE PAGE VISIBILITY AND CONTENT LOADING
+// FUNCTION TO HANDLE PAGE VISIBILITY AND CONTENT LOADING (Refactored for Paths)
 // =========================================================================
 const API_BASE = '';
 
-function getCleanHash() {
-    const fullHash = window.location.hash || '#home';
-    // Remove the leading #
-    let hash = fullHash.substring(1);
-    // Find the primary page ID (e.g., 'home' from '#home#section-id')
-    const anchorIndex = hash.indexOf('#');
-    if (anchorIndex !== -1) {
-        hash = hash.substring(0, anchorIndex);
-    }
-    // Check if the hash is actually a recognized page ID, otherwise default to home
-    const pageElement = document.getElementById(hash);
-    return pageElement && pageElement.classList.contains('page-section') ? hash : 'home';
+function getCleanPath() {
+    // Get the path and clean it up, e.g., '/home/academics-section' -> 'home'
+    const fullPath = window.location.pathname.startsWith('/') ? window.location.pathname.substring(1) : window.location.pathname;
+    
+    // Split the path (e.g., 'home/academics-section' -> ['home', 'academics-section'])
+    const parts = fullPath.split('/');
+    const primaryPath = parts[0] || 'home'; 
+
+    // Check if the primaryPath is actually a recognized page ID, otherwise default to home
+    const pageElement = document.getElementById(primaryPath);
+    return pageElement && pageElement.classList.contains('page-section') ? primaryPath : 'home';
 }
 
 function initializePublicRouting() {
-    const targetPageId = getCleanHash();
+    const targetPageId = getCleanPath();
     const isHomePage = targetPageId === 'home';
     
     // 1. Hide all page sections
@@ -374,7 +302,7 @@ function initializePublicRouting() {
     if (targetSection) {
         targetSection.style.display = 'block';
     } else {
-        // Fallback to home page if hash is invalid/missing
+        // Fallback to home page if path is invalid/missing
         document.getElementById('home').style.display = 'block';
         return; 
     }
@@ -396,34 +324,26 @@ function initializePublicRouting() {
     } else if (targetPageId === 'faculty' && typeof window.loadFacultyProfiles === 'function') {
         window.loadFacultyProfiles();
     } else if (targetPageId === 'photogallery' && typeof window.loadPublicGallery === 'function') {
-        // Load both photo and video galleries
         loadPublicGallery('photo'); 
         loadPublicGallery('video');
     } 
-    // 🆕 NEW: Add calls for Achievements and Results
     else if (targetPageId === 'achievements' && typeof window.loadAchievements === 'function') {
         window.loadAchievements();
     }
     else if (targetPageId === 'icse-isc-results' && typeof window.loadResults === 'function') {
         window.loadResults();
     }
-    // Call for Disclosure Documents (now part of administration-page)
     else if (targetPageId === 'administration' && typeof window.loadDisclosures === 'function') {
         window.loadDisclosures();
     }
-    // 🆕 NEW: Call for Rules Accordion Setup
     else if (targetPageId === 'rules' && typeof window.setupRulesAccordion === 'function') {
         window.setupRulesAccordion(); 
     }
-    // 🆕 NEW: Call for Admission Multi-step setup
     else if (targetPageId === 'admission' && typeof window.setupAdmissionMultiStepForm === 'function') {
         window.setupAdmissionMultiStepForm(); 
     }
     
-    // 5. Close all navigation dropdowns when a page is successfully routed
-    document.querySelectorAll('.nav-dropdown-wrapper').forEach(wrapper => {
-        wrapper.classList.remove('open');
-    });
+    // 5. Navigation dropdown closing logic is now in setupRouting click listener
 }
 window.initializePublicRouting = initializePublicRouting; // Expose globally
 
@@ -432,43 +352,28 @@ document.addEventListener('DOMContentLoaded', () => {
     // FIX 1: Initial call on DOMContentLoaded
     initializePublicRouting(); 
     
-    // 🎯 CRITICAL FIX: Set up listener for clicks on internal navigation links using data-page
+    // **CRITICAL CHANGE**: The logic for a[data-page] clicks has been moved to setupRouting 
+    // to handle the pushState and initial route processing.
+    
+    // Also, ensure a clean initial path if the URL is just '/'
+    if (window.location.pathname === '/') {
+        history.replaceState(null, null, '/home');
+    }
+
+    // The logic below is removed as it's handled in setupRouting now:
+    /*
     document.querySelectorAll('a[data-page]').forEach(anchor => {
-        anchor.addEventListener('click', (e) => {
-            // Check if the click is on the dropdown toggle arrow area (which should handle toggle only).
-            const isDropdownToggleWrapper = anchor.closest('.js-dropdown-toggle');
-            
-            // CRITICAL FIX: Prevent default if it's a sub-menu item or a direct navigation link
-            if (!isDropdownToggleWrapper) {
-                 e.preventDefault();
-            }
-            
-            // Use the full HREF as the target hash (e.g., #home#academics-section)
-            const targetHash = anchor.getAttribute('href'); 
-            
-            // Only push state and route if we prevented default browser action (i.e., it was a navigation click)
-            if (e.defaultPrevented || anchor.href.includes('#')) {
-                 window.history.pushState(null, null, targetHash);
-                 initializePublicRouting();
-            }
-            
-            // After routing, call handleAnchorScroll to jump to the subsection if one exists.
-            if (typeof window.handleAnchorScroll === 'function') {
-                window.handleAnchorScroll('instant'); 
-            } else {
-                // Default scroll to top if anchor scrolling isn't ready
-                window.scrollTo({ top: 0, behavior: 'instant' });
-            }
-        });
+        // ... (removed click listener for simplified path-based routing) ...
     });
+    */
 });
 
-// FIX 3: Ensure function runs every time the URL hash changes (critical for back/forward buttons)
-window.addEventListener('hashchange', () => {
+// FIX 3: Set up listener for browser back/forward buttons (popstate)
+window.addEventListener('popstate', () => {
     initializePublicRouting();
     // Re-run handleAnchorScroll with default 'smooth' behavior for back/forward buttons
     if (typeof window.handleAnchorScroll === 'function') {
-        // Use smooth scroll for hashchange (browser history navigation)
+        // Use smooth scroll for popstate (browser history navigation)
         window.handleAnchorScroll('smooth'); 
     } else {
         // Default scroll to top if not handling sub-anchors
@@ -478,10 +383,10 @@ window.addEventListener('hashchange', () => {
 
 
 // =========================================================================
-// ALL DATA FETCH AND RENDER LOGIC 
+// ALL DATA FETCH AND RENDER LOGIC (No major logic changes, just ensuring API_BASE is correct)
 // =========================================================================
 
-// ... [Existing loadAlumniProfiles function] ...
+// ... [loadAlumniProfiles, createFacultyHtml, setupScrollAnimation, loadFacultyProfiles] ...
 async function loadAlumniProfiles() {
     const container = document.getElementById('alumni-profiles-container');
     if (!container) return; 
@@ -529,7 +434,6 @@ async function loadAlumniProfiles() {
 window.loadAlumniProfiles = loadAlumniProfiles;
 
 
-// ... [Existing loadFacultyProfiles function] ...
 function createFacultyHtml(faculty, index) {
     const isReverse = index % 2 !== 0; 
     const layoutClass = isReverse ? 'reverse' : ''; 
@@ -611,7 +515,6 @@ async function loadFacultyProfiles() {
 window.loadFacultyProfiles = loadFacultyProfiles; 
 
 
-// ... [Existing loadPublicGallery function] ...
 async function loadPublicGallery(type, page = 1) {
   const container = document.getElementById(type === 'photo' ? 'photos-container' : 'videos-container');
   const controlsContainer = document.getElementById(type === 'photo' ? 'photo-pagination-controls' : 'video-pagination-controls');
@@ -673,8 +576,6 @@ async function loadPublicGallery(type, page = 1) {
         `;
         
         // 🎯 CRITICAL FIX: Anchor the scroll to the main content title area.
-        // This ensures the banner is visible when navigating from the header, 
-        // but stabilizes the scroll below the banner during pagination.
         const targetElement = document.querySelector('.about-us-main-wrapper .academics-main-heading');
         
         if (targetElement) {
@@ -716,7 +617,6 @@ async function loadPublicGallery(type, page = 1) {
 }
 window.loadPublicGallery = loadPublicGallery;
 
-// ... [Existing loadPrincipalMessageContent function] ...
 async function loadPrincipalMessageContent() {
     const container = document.getElementById('principal-message-content');
     if (!container) return; 
@@ -786,7 +686,6 @@ async function loadPrincipalMessageContent() {
 }
 window.loadPrincipalMessageContent = loadPrincipalMessageContent; 
 
-// ... [Existing loadAchievements function] ...
 async function loadAchievements() {
     const container = document.getElementById('achievements-display-container');
     if (!container) return; 
@@ -833,7 +732,6 @@ async function loadAchievements() {
 }
 window.loadAchievements = loadAchievements;
 
-// ... [Existing loadResults function] ...
 async function loadResults() {
     const container = document.getElementById('results-display-container');
     if (!container) return; 
@@ -902,7 +800,6 @@ async function loadResults() {
 }
 window.loadResults = loadResults;
 
-// ... [Existing loadDisclosures function] ...
 const DISCLOSURE_TYPES_PUBLIC = [
     'Affiliation',
     'NOC', // NEW TYPE
@@ -1058,7 +955,7 @@ function toggleAccordionHandler() {
 window.setupRulesAccordion = setupRulesAccordion;
 
 
-// ... [Existing window.handleFileUpload function] ...
+// ... [window.handleFileUpload function] ...
 window.handleFileUpload = function(event) {
     const fileInput = event.target;
     const fileNameDisplay = fileInput.parentElement.querySelector('.file-name');
@@ -1098,7 +995,7 @@ function renderModal(title, message, isSuccess) {
     document.body.insertAdjacentHTML('beforeend', modalHtml);
 }
 
-// ... [Existing window.handleSubmit function] ...
+// ... [window.handleSubmit function] ...
 window.handleSubmit = async function(event) {
     event.preventDefault(); 
     
@@ -1180,10 +1077,10 @@ window.handleSubmit = async function(event) {
 
 
 // =========================================================================
-// NEW: MULTI-STEP ADMISSION FORM LOGIC (Modified validateStep)
+// NEW: MULTI-STEP ADMISSION FORM LOGIC 
 // =========================================================================
 let currentStep = 1;
-const stepContainers = document.querySelectorAll('.multi-step-content'); // Re-declare outside DOMContentLoaded for global scope access
+const stepContainers = document.querySelectorAll('.multi-step-content'); 
 
 /**
  * Validates the required fields for the current step.
@@ -1256,8 +1153,6 @@ function validateStep(step) {
 
 /**
  * Executes specific setup logic when the declaration step is shown.
- * * 🚩 CRITICAL FIX: The onchange listener here is updated to clear setCustomValidity
- * which prevents the "Please check this box" error on final submission.
  */
 function setupDeclarationStep() {
     const declarationCheckbox = document.getElementById('declaration-agree');
@@ -1301,7 +1196,7 @@ window.setupDeclarationStep = setupDeclarationStep;
  * @param {number} step - The step number to display.
  */
 function showStep(step) {
-    const stepContainers = document.querySelectorAll('.multi-step-content'); // Define locally too to ensure access
+    const stepContainers = document.querySelectorAll('.multi-step-content'); 
     stepContainers.forEach(container => {
         if (parseInt(container.dataset.step) === step) {
             container.classList.remove('hidden');
@@ -1316,7 +1211,6 @@ function showStep(step) {
         }
     });
     currentStep = step;
-    // 🎯 FIX: REMOVED window.scrollTo({ top: 0, behavior: 'smooth' }); to stop jumping
 }
 
 /**
@@ -1361,8 +1255,6 @@ function setupAdmissionMultiStepForm() {
                 if (validateStep(currentStep)) {
                     showStep(nextStep);
                 } 
-                // Note: If validation fails, the custom validity message will be displayed 
-                // by the browser's reportValidity() call inside validateStep().
             } else if (prevStep) {
                 // Moving backward: just switch the step without validation
                 showStep(prevStep);
@@ -1375,12 +1267,8 @@ window.setupAdmissionMultiStepForm = setupAdmissionMultiStepForm; // Expose glob
 
 // Call the setup function when the DOM content is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
-    // 🆕 CRITICAL FIX: Add check for multi-step form element existence 
-    // to ensure setup only runs if the feature is present
-    if (document.getElementById('admissionForm') && document.querySelector('.multi-step-content')) {
-        // If the admission page is the current hash, run setup right away
-        if (window.location.hash.startsWith('#admission')) {
-            setupAdmissionMultiStepForm();
-        }
+    // Ensure that if the path is '/admission', the form setup runs.
+    if (window.location.pathname.includes('/admission') && document.getElementById('admissionForm') && document.querySelector('.multi-step-content')) {
+        setupAdmissionMultiStepForm();
     }
 });

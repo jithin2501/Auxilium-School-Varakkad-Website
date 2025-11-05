@@ -3528,33 +3528,35 @@ input[type="date"] {
     
     /* --- Admission Form Mobile Fixes (User Requests) --- */
 
-    /* 1. Center header text and add gap below */
+    /* 1. Center header text and add gap below (Kept from previous, still valid) */
     .form-container header {
         text-align: center;
         /* Add gap after the header block */
         margin-bottom: 2.5rem; /* Increased gap */
     }
     
-    /* 2. Add gap between field number and content */
-    .admission-item-row {
-        /* Adds space above and below each numbered item row */
-        padding: 15px 0; /* Increased vertical padding */
+    /* 2. Add gap and spacing between field number and content (Step 1) */
+    #step-1 .flex.items-center.space-x-2,
+    #step-1 .space-y-2 .flex.items-start.space-x-2,
+    #step-1 .space-y-4 .flex.items-start.space-x-2 {
+        /* Increased vertical padding on the main containers for better gap */
+        padding: 12px 0; 
+        border-bottom: 1px dotted #ccc; /* Optional: Add a subtle separator line */
     }
 
-    /* 3. General alignment and layout for items */
+    /* Adjust the spacing for the item number */
     .admission-item-row .item-number {
-        /* Ensure number doesn't move and adds space to the right */
-        margin-right: 10px; /* Increased gap */
+        margin-right: 10px; 
         min-width: 2rem;
         text-align: right;
     }
     
-    /* 4. Remove 'Next' button from Step 1 on mobile */
+    /* 3. Remove 'Next' button from Step 1 on mobile */
     #step-1 .multi-step-nav[data-next-step="2"] {
         display: none !important;
     }
 
-    /* 5. Center Step 2 content and add vertical gap */
+    /* 4. Center Step 2 content and add vertical gap */
     #step-2 {
         padding-top: 25px; 
         padding-bottom: 25px;
@@ -3563,28 +3565,45 @@ input[type="date"] {
         text-align: center;
     }
     
-    /* 6. Ensure all Step 2 descriptive text is visible (remove horizontal overflow/clipping) */
+    /* 5. FIX: Ensure all Step 2 descriptive text is visible */
     #step-2 .text-xs.text-gray-600.text-center.mb-6.px-4.leading-relaxed {
-        /* Remove max-width/padding constraints if they cause clipping */
+        /* Remove margin/padding constraints that might hide text */
         max-width: 100%;
-        padding-left: 0;
-        padding-right: 0;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        white-space: normal; /* Ensure text wraps */
+        text-align: left; /* Make it left-aligned for better reading on small screen */
+        color: #444 !important; /* Ensure text is dark and visible */
+        font-size: 0.8rem;
     }
 
-    /* 7. Remove 'Previous' and 'Next' buttons from Step 2 on mobile */
+    /* 6. Remove 'Previous' and 'Next' buttons from Step 2 on mobile */
     #step-2 .multi-step-nav {
         display: none !important;
     }
 
-    /* 8. Center Step 3 content, add vertical gap, and ensure text visibility */
+    /* 7. Center Step 3 content, add vertical gap */
     #step-3 {
         padding-top: 25px;
         padding-bottom: 25px;
     }
-    /* Ensure the declaration text and checkbox are not hidden */
-    #step-3 .flex.items-start.mb-8.px-2 {
+    
+    /* 8. FIX: Ensure all Step 3 declaration text is visible */
+    #step-3 .flex.items-start.mb-8.px-2,
+    #step-3 .text-sm.text-gray-500.text-center.italic.mt-12 {
+        /* Remove horizontal padding/margin causing text clipping */
         padding-left: 0 !important;
         padding-right: 0 !important;
+        text-align: left; /* Align text left for better readability */
+        color: #444 !important; /* Ensure visibility for both blocks */
+        font-size: 0.9rem; /* Slightly larger text */
+    }
+    
+    /* Ensure the declaration label text is visible */
+    #step-3 label.text-xs.text-gray-700.leading-relaxed.ml-3.cursor-pointer {
+        color: #444 !important;
+        white-space: normal;
+        font-size: 0.9rem; 
     }
     
     /* 9. Remove 'Previous' button from Step 3 on mobile */
@@ -3594,21 +3613,18 @@ input[type="date"] {
 
     /* 10. Style and size the final 'SUBMIT APPLICATION' button */
     #admission-submit-final {
-        /* Make button bigger */
         width: 100% !important; 
         padding: 15px 20px !important;
         font-size: 1.1rem !important;
-        /* Blue background and White text as requested */
-        background-color: #25597f !important; /* Blue color */
-        color: white !important; /* White text */
+        background-color: #25597f !important; 
+        color: white !important; 
         
-        /* Ensure hover/focus states also use the correct blue */
         --tw-bg-opacity: 1 !important;
-        background-color: rgba(37, 89, 127, var(--tw-bg-opacity)) !important; /* #25597f */
+        background-color: rgba(37, 89, 127, var(--tw-bg-opacity)) !important; 
         --tw-ring-color: rgba(37, 89, 127, 0.5) !important;
     }
     #admission-submit-final:hover {
-        background-color: #1a4f72 !important; /* Slightly darker blue on hover */
+        background-color: #1a4f72 !important; 
     }
 
     /* Push submit button to full width */
@@ -3660,39 +3676,27 @@ input[type="date"] {
         margin-top: 15px;
     }
     
-    /* --- FIX FOR OVERSIZED UPLOAD ICONS (Image 99571a35.jpg) --- */
-    /* Target the upload button/label and constrain its internal size */
     .upload-label {
-        /* Remove the effect of the large default arrow icon if it's based on font size */
         font-size: 1rem;
         height: auto;
         padding: 10px 15px;
-        /* Ensure the button doesn't stretch beyond reasonable width */
         max-width: 100%;
     }
     
-    /* Assuming the arrow icon is part of the upload card structure, we need to constrain the container */
-    .upload-card-wrapper { /* Assuming there is a wrapper element around the upload label/icon */
+    .upload-card-wrapper { 
         width: 100%;
         padding: 15px 0;
     }
     
-    /* Target the icon specifically (you may need to adjust the class name if it's different, 
-       but often large icons are set by a parent's font-size or a direct icon class.) 
-       Since the icon isn't directly styled here, let's constrain the text elements */
-    
     .upload-label svg,
     .upload-label i,
-    .upload-label .upload-icon { /* Adjusting default icon/SVG size */
+    .upload-label .upload-icon { 
         width: 20px;
         height: 20px;
-        /* Reset any large font settings if the icon is font-based */
         font-size: 1.5rem !important; 
     }
     
-    /* Since we don't have the HTML structure, the simplest fix is to limit the height of the elements */
     .upload-label {
-        /* Reverting any unintended vertical stretch on mobile upload containers */
         height: 50px; 
         border: 1px solid #ccc;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -3700,7 +3704,6 @@ input[type="date"] {
         justify-content: flex-start;
         align-items: center;
     }
-    /* --- End Admission Form Mobile Fixes (Existing CSS) --- */
     
     .exam-competition-box {
         flex-direction: column;

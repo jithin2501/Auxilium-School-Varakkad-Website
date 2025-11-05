@@ -1,15 +1,16 @@
-// controllers/publicController.js
 import { ContactMessage } from '../models/ContactMessage.js';
 import { Application } from '../models/Application.js';
 import { GalleryItem } from '../models/GalleryItem.js';
 import { Alumnus } from '../models/Alumnus.js';
-import { Faculty } from '../models/Faculty.js'; 
-import { PrincipalMessage } from '../models/PrincipalMessage.js'; 
-import { Achievement } from '../models/Achievement.js'; 
-import { Result } from '../models/Result.js'; 
-import { DisclosureDocument } from '../models/DisclosureDocument.js'; // NEW IMPORT: Disclosure Document Model
+import { Faculty } from '../models/Faculty.js';
+import { PrincipalMessage } from '../models/PrincipalMessage.js';
+import { Achievement } from '../models/Achievement.js';
+import { Result } from '../models/Result.js';
+import { DisclosureDocument } from '../models/DisclosureDocument.js';
 import { uploadToCloudinary, deleteFromCloudinary } from '../middleware/uploadMiddleware.js';
-import { transporter } from '../config/nodemailer.js'; // <- ADDED: Import Nodemailer Transporter
+
+// ✅ REPLACE nodemailer import
+import { sendMail } from "../config/gmailTransporter.js";
 
 // --- Contact Form (POST /api/contact) ---
 export const submitContact = async (req, res) => {
@@ -17,14 +18,13 @@ export const submitContact = async (req, res) => {
         const { name, email, mobile, subject, message } = req.body;
         if (!name || !email || !message)
             return res.status(400).json({ success: false, message: 'Missing required fields: name, email, or message.' });
-        
+
         const msg = new ContactMessage(req.body);
         await msg.save();
-        
-        // --- START EMAIL NOTIFICATION CODE (Contact Form) ---
-        const mailOptions = {
-            from: process.env.EMAIL_USER,
-            to: 'jithinpjoji@gmail.com', 
+
+        // ✅ EMAIL via Gmail API
+        await sendMail({
+            to: 'jithinpjoji@gmail.com',
             subject: `New Contact Message: ${subject || 'No Subject'}`,
             html: `
                 <p><strong>Name:</strong> ${name}</p>
@@ -36,16 +36,7 @@ export const submitContact = async (req, res) => {
                 <p style="white-space: pre-wrap;">${message}</p>
                 <p><small>Submitted on: ${new Date().toLocaleString()}</small></p>
             `
-        };
-
-        transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                console.error("Nodemailer Error (Contact):", error);
-            } else {
-                console.log("Contact Email Sent:", info.response);
-            }
         });
-        // --- END EMAIL NOTIFICATION CODE ---
 
         res.json({ success: true, message: 'Message saved and email notification sent!' });
     } catch (err) {
@@ -89,17 +80,16 @@ export const submitApplication = async (req, res) => {
 
         await appData.save();
 
-        // --- START EMAIL NOTIFICATION CODE (Admission Form) ---
-        // Generates clickable links for uploaded files
         const fileList = filesInfo.map(f => `
             <p style="margin: 5px 0 0 0;">
                 <strong>${f.fieldname.replace('file_', '').replace('_', ' ')}:</strong> 
                 <a href="${f.cloudinaryUrl}" target="_blank">${f.originalname}</a>
-            </p>`).join('');
-        
-        const mailOptions = {
-            from: process.env.EMAIL_USER,
-            to: 'jithinpjoji@gmail.com', 
+            </p>
+        `).join('');
+
+        // ✅ EMAIL via Gmail API
+        await sendMail({
+            to: 'jithinpjoji@gmail.com',
             subject: `NEW ADMISSION: ${formData.pupilName} (${formData.admissionClass})`,
             html: `
                 <h3>New Admission Application Received</h3>
@@ -113,17 +103,8 @@ export const submitApplication = async (req, res) => {
                 <br>
                 <p><small>View full application details in the Admin Panel.</small></p>
             `
-        };
-
-        transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                console.error("Nodemailer Error (Admission):", error);
-            } else {
-                console.log("Admission Email Sent:", info.response);
-            }
         });
-        // --- END EMAIL NOTIFICATION CODE ---
-        
+
         res.json({ success: true, message: 'Application saved and email notification sent!', appId: appData._id });
     } catch (err) {
         console.error(err);
@@ -134,7 +115,6 @@ export const submitApplication = async (req, res) => {
         res.status(500).json({ success: false, message: 'Error submitting application' });
     }
 };
-
 // --- Public Gallery (GET /gallery) ---
 export const getPublicGallery = async (req, res) => {
     try {

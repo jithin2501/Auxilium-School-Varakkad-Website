@@ -1,17 +1,14 @@
 // config/nodemailer.js
 import nodemailer from 'nodemailer';
 
-// Switched to Port 587 (STARTTLS) configuration
+// Switched to non-standard Port 2525 (a common fallback for Port 587/STARTTLS)
 export const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
-    port: 587,
-    secure: false, // Must be false for port 587
+    port: 2525, // Non-standard port often left open on cloud hosts
+    secure: false, // Must be false for port 2525 (uses STARTTLS implicitly)
     auth: { 
         user: process.env.EMAIL_USER, 
-        pass: process.env.EMAIL_PASS 
+        pass: process.env.EMAIL_PASS // MUST be the Gmail App Password
     },
-    // CRITICAL: Explicitly enable TLS/STARTTLS protocol
-    tls: {
-        rejectUnauthorized: false // Sometimes needed in strict network environments
-    }
+    timeout: 10000 
 });

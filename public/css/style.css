@@ -3726,3 +3726,42 @@ input[type="date"] {
         font-size: 0.9rem;
     }
 }
+/* ---- UNIVERSAL MOBILE FIX FOR ADMISSION FORM ---- */
+
+@media(max-width: 640px) {
+  #admission input,
+  #admission select,
+  #admission textarea {
+      width: 100% !important;
+      max-width: 100% !important;
+  }
+
+  #admission .form-label {
+      width: 100% !important;
+      min-width: auto !important;
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+  }
+
+  #admission .flex {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      gap: 6px !important;
+  }
+
+  #admission .item-number {
+      margin-bottom: 4px;
+  }
+
+  /* Let Tailwind & manual CSS stop fighting */
+  #admission * {
+      flex-wrap: wrap !important;
+  }
+}
+
+/* Soft overlay for mobile clarity */
+@media(max-width:640px){
+  .admission-banner-bg::before{
+      filter: brightness(0.55) !important;
+  }
+}

@@ -3527,7 +3527,6 @@ input[type="date"] {
 @media (max-width: 640px) {
     
     /* --- CRITICAL FIX 5: Force Steps 2 and 3 to hide initially on mobile --- */
-    /* This ensures the multi-step form does not show as one long page. */
     #step-2.multi-step-content:not(.active),
     #step-3.multi-step-content:not(.active) {
         display: none !important;
@@ -3555,7 +3554,7 @@ input[type="date"] {
     #step-1 .flex.items-center.space-x-2,
     #step-1 .space-y-2 .flex.items-start.space-x-2,
     #step-1 .space-y-4 .flex.items-start.space-x-2 {
-        flex-direction: column !important; 
+        flex-direction: column !important; /* Force the main question item to stack */
         align-items: flex-start !important;
         padding: 12px 0; 
         border-bottom: 1px dotted #ccc; 
@@ -3640,11 +3639,11 @@ input[type="date"] {
         margin-bottom: 5px;
     }
 
-    /* --- Navigation Stacking & Fixing Hidden Buttons (CRITICAL FIX) --- */
+    /* --- Navigation Stacking & Fixing Hidden Buttons --- */
     
-    /* CRITICAL FIX 6: Ensure ALL nav buttons are visible and stacked full-width */
+    /* CRITICAL FIX 3: Re-enable and Stack Navigation Buttons (Required for usability) */
     .multi-step-nav {
-        display: block !important; /* Ensure buttons are not hidden */
+        display: block !important; 
         width: 100% !important; 
         margin-top: 10px !important; 
         order: 1; 

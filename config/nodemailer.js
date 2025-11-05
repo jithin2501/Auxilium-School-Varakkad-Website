@@ -1,7 +1,5 @@
 // config/nodemailer.js
 import nodemailer from 'nodemailer';
-import dotenv from 'dotenv';
-dotenv.config();
 
 // Extracted from admission.js
 export const transporter = nodemailer.createTransport({

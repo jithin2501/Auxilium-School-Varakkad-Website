@@ -1,0 +1,56 @@
+/* ========================================================= */
+/* --- 4. ABOUT US / KNOW US / STATS STYLES (Cards) --- */
+/* ========================================================= */
+
+/* --- D. STATS CARDS --- */
+
+.aboutus-stats-cards-row-new {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin: 0;
+}
+
+.aboutus-stats-card-new {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.10);
+    padding: 32px 10px;
+    flex: 1 1 0;
+    min-width: 0;
+    text-align: center;
+    border-top: 6px solid #25597f;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 150px;
+    position: relative;
+}
+
+.aboutus-stats-value {
+    font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: #25597f;
+    margin-bottom: 8px;
+}
+
+.aboutus-stats-label {
+    font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
+    font-size: 1.2rem;
+    color: #444;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+/* --- RESPONSIVENESS (Cards) --- */
+@media (max-width: 768px) {
+    .aboutus-stats-cards-row-new {
+        flex-direction: column;
+    }
+    .aboutus-stats-card-new {
+        min-height: 120px;
+        padding: 20px 10px;
+    }
+}

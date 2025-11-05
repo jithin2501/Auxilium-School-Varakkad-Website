@@ -1828,6 +1828,8 @@ filter: brightness(0.7) contrast(1.05);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
+/* ... (Existing CSS content from Sections 1-3) ... */
+
 /* ========================================================= */
 /* --- 4. ADMISSION FORM STYLES --- */
 /* ========================================================= */
@@ -2508,7 +2510,7 @@ input[type="date"] {
 
 .faculty-box-content-wrapper.reverse .faculty-quote {
     /* Explicitly override the .reverse version to match the non-reverse version */
-    border-left: 4px solid #f97316 !important; 
+    border-left: 44px solid #f97316 !important; 
     border-right: none !important;
     padding-left: 15px !important;
     padding-right: 0 !important;
@@ -3498,8 +3500,6 @@ input[type="date"] {
         min-height: 120px;
         padding: 20px 10px;
     }
-    /* ... (Rest of non-footer/non-form 768px styles) ... */
-    
     /* --- FOOTER MODIFICATIONS (768px) --- */
     .footer-container {
         grid-template-columns: 1fr; 
@@ -3531,23 +3531,21 @@ input[type="date"] {
         padding: 1.5rem 1rem;
     }
     
+    /* Ensure general form fields stack cleanly */
     .admission-item-row .admission-item-content {
-        /* Force two-column layouts inside rows to stack vertically */
         flex-direction: column;
     }
     
-    /* Ensure all complex nested elements take full width */
     .admission-item-row .admission-item-content > div {
         width: 100% !important;
         margin-right: 0 !important; 
-        margin-bottom: 10px; /* Add spacing between stacked fields */
+        margin-bottom: 10px;
     }
     
     .admission-item-row {
         padding: 5px 0;
     }
 
-    /* Adjust font size for better fit on phone screens */
     .form-label, 
     .item-number {
         font-size: 0.9rem;
@@ -3558,17 +3556,56 @@ input[type="date"] {
         font-size: 0.9rem;
     }
     
-    /* For fields like Religion and Caste (which are in the same parent element as Label) */
     .admission-item-content > span {
          display: block;
          margin-bottom: 5px;
          font-size: 0.9rem;
     }
 
-    /* Target the button to ensure it looks good */
     .admission-form-button { 
         width: 100%;
         margin-top: 15px;
+    }
+    
+    /* --- FIX FOR OVERSIZED UPLOAD ICONS (Image 99571a35.jpg) --- */
+    /* Target the upload button/label and constrain its internal size */
+    .upload-label {
+        /* Remove the effect of the large default arrow icon if it's based on font size */
+        font-size: 1rem;
+        height: auto;
+        padding: 10px 15px;
+        /* Ensure the button doesn't stretch beyond reasonable width */
+        max-width: 100%;
+    }
+    
+    /* Assuming the arrow icon is part of the upload card structure, we need to constrain the container */
+    .upload-card-wrapper { /* Assuming there is a wrapper element around the upload label/icon */
+        width: 100%;
+        padding: 15px 0;
+    }
+    
+    /* Target the icon specifically (you may need to adjust the class name if it's different, 
+       but often large icons are set by a parent's font-size or a direct icon class.) 
+       Since the icon isn't directly styled here, let's constrain the text elements */
+    
+    .upload-label svg,
+    .upload-label i,
+    .upload-label .upload-icon { /* Adjusting default icon/SVG size */
+        width: 20px;
+        height: 20px;
+        /* Reset any large font settings if the icon is font-based */
+        font-size: 1.5rem !important; 
+    }
+    
+    /* Since we don't have the HTML structure, the simplest fix is to limit the height of the elements */
+    .upload-label {
+        /* Reverting any unintended vertical stretch on mobile upload containers */
+        height: 50px; 
+        border: 1px solid #ccc;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
     }
     /* --- End Admission Form Mobile Fixes --- */
     

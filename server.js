@@ -67,10 +67,9 @@ app.use('/', publicRoutes);
 app.use('/admin', adminRoutes); 
 
 
-// 🎯 CRITICAL FIX: SPA FALLBACK ROUTE (Corrected syntax: app.get('/*', ...) )
-// This route must be the LAST one defined. It catches any URL (like /knowus or /admission)
-// that did not match a file in 'public' or any explicit API/backend route above.
-app.get('/*', (req, res) => {
+// 🎯 CRITICAL FIX: SPA FALLBACK ROUTE (Using named parameter to avoid PathError)
+// This route must be the LAST one defined. It catches any non-matching path.
+app.get('/:all*', (req, res) => {
     // Send the single index.html file for all remaining requests, 
     // letting the client-side JavaScript router handle the content display.
     res.sendFile(path.join(__dirname, 'public', 'index.html'));

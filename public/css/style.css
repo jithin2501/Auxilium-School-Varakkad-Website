@@ -3525,7 +3525,100 @@ input[type="date"] {
 }
 
 @media (max-width: 640px) {
-    /* --- Admission Form Mobile Fixes --- */
+    
+    /* --- Admission Form Mobile Fixes (User Requests) --- */
+
+    /* 1. Center header text and add gap below */
+    .form-container header {
+        text-align: center;
+        /* Add gap after the header block */
+        margin-bottom: 2.5rem; /* Increased gap */
+    }
+    
+    /* 2. Add gap between field number and content */
+    .admission-item-row {
+        /* Adds space above and below each numbered item row */
+        padding: 15px 0; /* Increased vertical padding */
+    }
+
+    /* 3. General alignment and layout for items */
+    .admission-item-row .item-number {
+        /* Ensure number doesn't move and adds space to the right */
+        margin-right: 10px; /* Increased gap */
+        min-width: 2rem;
+        text-align: right;
+    }
+    
+    /* 4. Remove 'Next' button from Step 1 on mobile */
+    #step-1 .multi-step-nav[data-next-step="2"] {
+        display: none !important;
+    }
+
+    /* 5. Center Step 2 content and add vertical gap */
+    #step-2 {
+        padding-top: 25px; 
+        padding-bottom: 25px;
+    }
+    #step-2 .multi-step-content h2.text-lg.font-bold {
+        text-align: center;
+    }
+    
+    /* 6. Ensure all Step 2 descriptive text is visible (remove horizontal overflow/clipping) */
+    #step-2 .text-xs.text-gray-600.text-center.mb-6.px-4.leading-relaxed {
+        /* Remove max-width/padding constraints if they cause clipping */
+        max-width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    /* 7. Remove 'Previous' and 'Next' buttons from Step 2 on mobile */
+    #step-2 .multi-step-nav {
+        display: none !important;
+    }
+
+    /* 8. Center Step 3 content, add vertical gap, and ensure text visibility */
+    #step-3 {
+        padding-top: 25px;
+        padding-bottom: 25px;
+    }
+    /* Ensure the declaration text and checkbox are not hidden */
+    #step-3 .flex.items-start.mb-8.px-2 {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    
+    /* 9. Remove 'Previous' button from Step 3 on mobile */
+    #step-3 .multi-step-nav[data-prev-step="2"] {
+        display: none !important;
+    }
+
+    /* 10. Style and size the final 'SUBMIT APPLICATION' button */
+    #admission-submit-final {
+        /* Make button bigger */
+        width: 100% !important; 
+        padding: 15px 20px !important;
+        font-size: 1.1rem !important;
+        /* Blue background and White text as requested */
+        background-color: #25597f !important; /* Blue color */
+        color: white !important; /* White text */
+        
+        /* Ensure hover/focus states also use the correct blue */
+        --tw-bg-opacity: 1 !important;
+        background-color: rgba(37, 89, 127, var(--tw-bg-opacity)) !important; /* #25597f */
+        --tw-ring-color: rgba(37, 89, 127, 0.5) !important;
+    }
+    #admission-submit-final:hover {
+        background-color: #1a4f72 !important; /* Slightly darker blue on hover */
+    }
+
+    /* Push submit button to full width */
+    #step-3 .flex.justify-between.mt-10 {
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    /* --- End Admission Form Mobile Fixes (User Requests) --- */
+    /* --- Admission Form Mobile Fixes (Existing CSS) --- */
     
     .form-container {
         padding: 1.5rem 1rem;
@@ -3607,7 +3700,7 @@ input[type="date"] {
         justify-content: flex-start;
         align-items: center;
     }
-    /* --- End Admission Form Mobile Fixes --- */
+    /* --- End Admission Form Mobile Fixes (Existing CSS) --- */
     
     .exam-competition-box {
         flex-direction: column;

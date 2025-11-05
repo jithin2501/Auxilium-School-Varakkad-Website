@@ -3543,6 +3543,11 @@ input[type="date"] {
         padding: 12px 0; 
         border-bottom: 1px dotted #ccc; /* Optional: Add a subtle separator line */
     }
+    /* Remove bottom border from the very last field in step 1 if necessary */
+    #step-1 main.space-y-4 > .space-y-3 {
+        border-bottom: none !important;
+    }
+
 
     /* Adjust the spacing for the item number */
     .admission-item-row .item-number {
@@ -3563,40 +3568,67 @@ input[type="date"] {
     }
     #step-2 .multi-step-content h2.text-lg.font-bold {
         text-align: center;
+        margin-bottom: 25px; /* Added gap below heading */
     }
     
-    /* 5. FIX: Ensure all Step 2 descriptive text is visible */
+    /* 5. FIX: Ensure all Step 2 descriptive text is visible AND add gap below it */
     #step-2 .text-xs.text-gray-600.text-center.mb-6.px-4.leading-relaxed {
-        /* Remove margin/padding constraints that might hide text */
         max-width: 100%;
         padding-left: 0 !important;
         padding-right: 0 !important;
-        white-space: normal; /* Ensure text wraps */
-        text-align: left; /* Make it left-aligned for better reading on small screen */
-        color: #444 !important; /* Ensure text is dark and visible */
-        font-size: 0.8rem;
+        white-space: normal; 
+        text-align: left; 
+        color: #444 !important; 
+        font-size: 0.9rem; /* Increased size slightly for readability */
+        margin-bottom: 30px !important; /* Increased gap after text */
+    }
+    
+    /* 6. FIX: Ensure file names (1. Birth Certificate, etc.) are visible and add gap between them */
+    #step-2 .space-y-3.px-2 {
+        padding: 0 !important; /* Remove container padding if it exists */
+    }
+    #step-2 .flex.justify-between.items-center.pb-2 {
+        border-bottom: 1px solid #e0e0e0;
+        padding-bottom: 15px; /* Add space below line */
+        margin-bottom: 15px; /* Add space between fields */
+    }
+    #step-2 .flex.justify-between.items-center.pb-2:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+    }
+    #step-2 .text-sm.text-gray-700.font-medium {
+        color: #1a120b !important; /* Force dark text color for visibility */
+        font-size: 1rem;
     }
 
-    /* 6. Remove 'Previous' and 'Next' buttons from Step 2 on mobile */
+    /* 7. Remove 'Previous' and 'Next' buttons from Step 2 on mobile */
     #step-2 .multi-step-nav {
         display: none !important;
     }
 
-    /* 7. Center Step 3 content, add vertical gap */
+    /* 8. Center Step 3 content, add vertical gap */
     #step-3 {
         padding-top: 25px;
         padding-bottom: 25px;
     }
+    #step-3 h2.text-lg.font-bold {
+        margin-bottom: 25px; /* Added gap below heading */
+    }
     
-    /* 8. FIX: Ensure all Step 3 declaration text is visible */
-    #step-3 .flex.items-start.mb-8.px-2,
-    #step-3 .text-sm.text-gray-500.text-center.italic.mt-12 {
-        /* Remove horizontal padding/margin causing text clipping */
+    /* 9. FIX: Ensure all Step 3 declaration text is visible and add gap between declaration and confirmation */
+    #step-3 .flex.items-start.mb-8.px-2 {
         padding-left: 0 !important;
         padding-right: 0 !important;
-        text-align: left; /* Align text left for better readability */
-        color: #444 !important; /* Ensure visibility for both blocks */
-        font-size: 0.9rem; /* Slightly larger text */
+        text-align: left;
+        margin-bottom: 40px !important; /* Increased gap after declaration text/checkbox */
+    }
+    #step-3 .text-sm.text-gray-500.text-center.italic.mt-12 {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        text-align: left; /* Align confirmation text left */
+        color: #444 !important; 
+        font-size: 0.9rem; 
+        margin-top: 0 !important; /* Remove default top margin */
     }
     
     /* Ensure the declaration label text is visible */
@@ -3606,12 +3638,12 @@ input[type="date"] {
         font-size: 0.9rem; 
     }
     
-    /* 9. Remove 'Previous' button from Step 3 on mobile */
+    /* 10. Remove 'Previous' button from Step 3 on mobile */
     #step-3 .multi-step-nav[data-prev-step="2"] {
         display: none !important;
     }
 
-    /* 10. Style and size the final 'SUBMIT APPLICATION' button */
+    /* 11. Style and size the final 'SUBMIT APPLICATION' button */
     #admission-submit-final {
         width: 100% !important; 
         padding: 15px 20px !important;

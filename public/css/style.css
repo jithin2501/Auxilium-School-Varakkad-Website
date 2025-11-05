@@ -3526,6 +3526,19 @@ input[type="date"] {
 
 @media (max-width: 640px) {
     
+    /* --- CRITICAL FIX 5: Force Steps 2 and 3 to hide initially on mobile --- */
+    #step-2.multi-step-content:not(.active),
+    #step-3.multi-step-content:not(.active) {
+        display: none !important;
+    }
+    
+    /* Ensure the visible step's display property is un-touched by other rules */
+    #step-1.multi-step-content.active, 
+    #step-2.multi-step-content.active,
+    #step-3.multi-step-content.active {
+        display: block !important;
+    }
+
     /* --- Admission Form Mobile Fixes (General Container & Navigation) --- */
 
     .form-container {
@@ -3596,10 +3609,12 @@ input[type="date"] {
         width: 100%;
     }
     
-    /* Fix for sub-inputs to ensure full width */
-    .mobile-field-align-content .input-line {
+    /* Input fields and date inputs must take full width */
+    .input-line, 
+    input[type="date"] {
         flex: 1 1 100% !important;
         width: 100% !important;
+        max-width: 100% !important;
         margin-left: 0 !important;
         margin-top: 0;
     }
@@ -3653,7 +3668,7 @@ input[type="date"] {
         order: 0; 
     }
     
-    /* --- Step 2 & 3 Mobile Layout Cleanup --- */
+    /* --- Step 2 & 3 Mobile Layout Cleanup (Uploads) --- */
     
     #step-2 .flex.justify-between.items-center.pb-2 {
         flex-direction: column;
@@ -3700,13 +3715,11 @@ input[type="date"] {
         margin-left: 5px; 
     }
     
+    /* --- Other General Mobile Fixes (from original code block) --- */
+    
     .admission-item-row .admission-item-content {
         flex-direction: column;
     }
-    
-    /* --- Other General Mobile Fixes (from original code block) --- */
-    
-    /* Ensure general form fields stack cleanly */
     .admission-item-row .admission-item-content > div {
         width: 100% !important;
         margin-right: 0 !important; 
@@ -3718,5 +3731,4 @@ input[type="date"] {
     .input-line, .input-dotted {
         font-size: 0.9rem;
     }
-    /* ... (rest of the original @media 640px block rules) ... */
 }

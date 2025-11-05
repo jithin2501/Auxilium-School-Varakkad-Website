@@ -1,0 +1,12 @@
+# render.yaml
+# Add or update the static_sites section
+
+static_sites:
+  - name: auxilium-school  # Use your actual service name here
+    # ... other configurations (build command, publish path, etc.)
+    
+    # CRITICAL FIX: Add the routes section for SPA fallback
+    routes:
+      - type: rewrite
+        source: /[^.]+
+        destination: /index.html

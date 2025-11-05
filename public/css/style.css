@@ -1106,17 +1106,20 @@ filter: brightness(0.7) contrast(1.05);
 .activities-grid-container {
     max-width: 1400px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 20px; 
+    /* 1. MODIFIED: Change grid to a single column (1fr) on desktop */
+    grid-template-columns: 1fr; 
+    gap: 30px; /* Increased gap for separation in single column */
     justify-content: center;
     padding: 10px;
+    display: grid; /* Ensure it remains a grid to use the template-columns */
 }
 
 .activity-card {
     position: relative;
     overflow: hidden;
-    height: 450px; 
+    /* 2. MODIFIED: Use padding-top for a 1:1 square ratio based on 100% width */
+    height: 0; 
+    padding-top: 100%; 
     border-radius: 12px; 
     cursor: pointer;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
@@ -1141,7 +1144,8 @@ filter: brightness(0.7) contrast(1.05);
 
 
 .activity-card:hover {
-    transform: scale(1.05);
+    /* Reduced hover scale since the cards are full width */
+    transform: scale(1.01); 
     z-index: 50;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     filter: brightness(1.2) contrast(1.1);
@@ -3284,8 +3288,11 @@ input[type="date"] {
     .academics-cards-container {
         grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
     }
+    
+    /* MODIFIED: Activities section layout for 1200px and below to match desktop change */
     .activities-grid-container {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr); /* Two columns on larger tablets/smaller desktops */
+        gap: 20px;
     }
     .activity-card:hover {
         transform: scale(1.04);
@@ -3440,16 +3447,17 @@ input[type="date"] {
     }
 
     .activities-grid-container {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(1, 1fr); /* MODIFIED: Enforce single column on mobile */
     }
     .activity-card {
-        height: 350px; 
+        height: 0; /* MODIFIED: Uses padding-top for square ratio */
+        padding-top: 100%;
     }
     .activity-name {
         font-size: 1.4rem; 
     }
     .activity-card:hover {
-        transform: scale(1.03);
+        transform: scale(1.01);
     }
 
     .faculty-box-content-wrapper,

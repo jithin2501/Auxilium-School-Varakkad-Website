@@ -3537,18 +3537,17 @@ input[type="date"] {
         margin-bottom: 2.5rem; 
     }
     
-    /* --- CRITICAL FIX 1: Force all Step 1 rows to wrap and stack --- */
+    /* --- CRITICAL FIX 1: Force all Step 1 rows to stack vertically --- */
     #step-1 .flex.items-center.space-x-2,
     #step-1 .space-y-2 .flex.items-start.space-x-2,
     #step-1 .space-y-4 .flex.items-start.space-x-2 {
-        flex-direction: column; /* Force the main row items to stack (e.g., Question 1 number/text) */
-        align-items: flex-start;
+        flex-direction: column !important; /* Force the main question item to stack (e.g., Question 1 number/text) */
+        align-items: flex-start !important;
         padding: 12px 0; 
         border-bottom: 1px dotted #ccc; 
-        width: 100%; /* Ensure container uses full width */
+        width: 100%; 
     }
     
-    /* Remove bottom border from the very last field in step 1 */
     #step-1 main.space-y-4 > .space-y-3 {
         border-bottom: none !important;
     }
@@ -3561,23 +3560,18 @@ input[type="date"] {
         min-width: unset;
     }
     
-    /* --- CRITICAL FIX 2: Ensure inner fields and labels stack vertically and take full width --- */
+    /* --- CRITICAL FIX 2: Ensure inner fields and labels stack and take full width --- */
 
     /* Target the container for sub-rows (Questions 1, 3, 5, 7, 8, 9, 10, 11) */
-    .form-container main .flex-1 {
+    .form-container main .flex-1,
+    .form-container main .flex-col,
+    .form-container main .flex.flex-col {
         flex: 1 1 100% !important; 
         max-width: 100% !important; 
         width: 100%;
         margin-left: 0 !important;
         margin-right: 0 !important;
-        /* Remove margin-top as main question text handles separation */
         margin-top: 0 !important;
-    }
-    
-    /* Target the Date of Birth row to ensure the field takes full width */
-    #step-1 .flex.items-center.space-x-2 input[type="date"] {
-        flex: 1 1 100% !important;
-        max-width: 100% !important;
     }
     
     /* Force inner field groups (like Name/Address/Mother Name) to stack */
@@ -3588,14 +3582,14 @@ input[type="date"] {
     
     /* Target inner rows inside question 4/5/7/8/10 to force labels above inputs */
     .mobile-field-align-content .flex.items-center.space-x-2 {
-        flex-direction: column !important;
+        flex-direction: column !important; /* Force internal flex items to stack */
         align-items: flex-start !important;
         margin-bottom: 15px; /* Add vertical space between sub-fields */
     }
     
     /* Ensure the sub-labels take up one line and inputs are below them */
     .mobile-field-align-content .form-label.flex-shrink-0 {
-        flex: 1 1 100%;
+        flex: 1 1 100% !important; /* Label takes full width */
         margin-right: 0 !important;
         margin-bottom: 5px; /* Space between label and input line */
         min-width: unset !important;
@@ -3607,6 +3601,7 @@ input[type="date"] {
         flex: 1 1 100% !important;
         width: 100% !important;
         margin-left: 0 !important;
+        margin-top: 0;
     }
     
     /* Hide the transparent placeholder in the Father/Mother section (Rule 4) */
@@ -3679,7 +3674,7 @@ input[type="date"] {
         flex-direction: column;
     }
     
-    /* --- Other General Mobile Fixes (Keep the rest of your original @media 640px block) --- */
+    /* --- Other General Mobile Fixes (from original code block) --- */
     
     /* Ensure general form fields stack cleanly */
     .admission-item-row .admission-item-content > div {
@@ -3688,6 +3683,9 @@ input[type="date"] {
         margin-bottom: 10px;
     }
     .form-label, .item-number {
+        font-size: 0.9rem;
+    }
+    .input-line, .input-dotted {
         font-size: 0.9rem;
     }
     /* ... (rest of the original @media 640px block rules) ... */

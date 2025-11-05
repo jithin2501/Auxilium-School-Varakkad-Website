@@ -580,6 +580,28 @@ filter: brightness(0.7) contrast(1.05);
     font-size: clamp(2.5rem, 8vw, 5rem);
 }
 
+.administration-banner-bg .hero-content {
+    /* Target the content wrapper for maximum centering effect */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    max-width: 100%; /* Ensure it uses the full width available */
+}
+
+.administration-banner-bg .hero-content h1 {
+    /* FIX: Force text to use full width and center its text content */
+    text-align: center !important;
+    width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding: 0 5vw; /* Add padding just to prevent overflow on very narrow devices */
+    white-space: normal; /* Allow text wrapping */
+}
+
+
 .hero-content p {
     font-family:Arial, Helvetica, sans-serif;
     font-size: clamp(1rem, 2vw, 1.25rem);
@@ -1823,6 +1845,36 @@ filter: brightness(0.7) contrast(1.05);
     margin: 0 auto; 
 }
 
+/* 🆕 FIX: Ensure header details are dark/visible on admission page */
+.form-container header h1,
+.form-container header p {
+    color: #1a120b !important;
+}
+
+.admission-line-break {
+    width: 100%;
+    height: 1px;
+    background-color: #e5e7eb;
+    margin: 15px 0;
+}
+
+.admission-item-row {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px 0;
+}
+
+.admission-item-row .item-number {
+    margin-bottom: 5px;
+}
+
+.admission-item-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
 .input-line {
     border: none;
     border-bottom: 1px solid #9ca3af;
@@ -1885,7 +1937,7 @@ input[type="date"] {
 
 /* FIX 3: Admission Header Color Fix */
 .multi-step-content h2.text-lg.font-bold {
-    color: #25597f !important; /* Set text to Blue */
+    color: #25597f !important; /* Set step headings to Blue */
 }
 
 .upload-input {
@@ -3042,10 +3094,10 @@ input[type="date"] {
 .disclosure-item-title {
     flex-grow: 1;
     text-align: left;
-    margin-right: 10px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-right: 10px;
 }
 
 .disclosure-item-action {
@@ -3511,7 +3563,20 @@ input[type="date"] {
 }
 
 @media (max-width: 640px) {
-    /* FIX 4: Admission Form Mobile Layout/Size Fix */
+    /* 1. ADMINISTRATION BANNER FIX (Ensures the 'N' is inside and centered) */
+    .administration-banner-bg .hero-content h1 {
+        /* This smaller size (2.2rem) should ensure the entire capitalized word fits horizontally. */
+        font-size: 2.2rem !important; 
+        
+        /* Ensure the element itself is perfectly centered and uses minimal internal padding */
+        text-align: center !important;
+        padding: 0 5px !important; 
+        width: 100% !important;
+        margin: 0 auto !important;
+        white-space: normal;
+    }
+    
+    /* FIX: Admission Form Mobile Layout/Size Overhaul */
     .multi-step-content main {
         padding-left: 0 !important;
         padding-right: 0 !important;
@@ -3522,235 +3587,108 @@ input[type="date"] {
         padding-right: 0 !important;
     }
     
-    .multi-step-content main .flex,
+    /* Overrides Tailwind flex/items settings for all numbered rows */
+    .multi-step-content main .flex:not(.items-start),
     .multi-step-content main .flex-col,
     .multi-step-content main .items-center {
         flex-direction: column !important;
         align-items: flex-start !important;
-    }
-    /* End of FIX 4 primary flex overrides */
-
-    .item-number {
-        margin-bottom: 5px;
-        align-self: flex-start !important;
+        gap: 0 !important;
     }
 
-    .form-label {
-        min-width: 100% !important;
-        margin: 0 0 2px 0 !important;
-        font-size: 0.9rem;
-        font-weight: 600;
-        align-self: flex-start !important;
-    }
-
-    .input-line {
-        max-width: 100% !important;
-        width: 100%;
-        margin: 5px 0 10px 0;
-    }
-
-    .multi-step-content main > .flex > .flex-1,
-    .multi-step-content main .space-y-4 > .flex:nth-child(1) > .flex-1,
-    .multi-step-content main .space-y-4 > .flex-1,
-    .multi-step-content main .space-y-3 > .flex-1,
-    .space-y-2 > .flex.flex-col {
-        margin-left: 0 !important;
-        width: 100%;
+    /* CRITICAL FIX: Ensure fields that were designed to be 'inline' on desktop 
+       remain 'inline' on mobile by forcing a row layout for their container. */
+    .multi-step-content main .flex:nth-child(1), /* Item 1: Name / Aadhar */
+    .multi-step-content main .flex:nth-child(3), /* Item 3: Religion / Caste */
+    .multi-step-content main .flex:nth-child(6), /* Item 6: Father / Mother Mobile No. */
+    .multi-step-content main .flex:nth-child(7) { /* Item 7: Father / Mother Nationality */
+        /* Re-enable flex for row layout */
+        flex-direction: row !important;
+        flex-wrap: wrap; /* Allow wrapping if space is tight */
         align-items: flex-start !important;
-        text-align: left !important; 
-    }
-
-    .multi-step-content main > .flex > .flex-1 {
-        margin-top: -5px;
-        padding-left: 0 !important;
-    }
-
-    .space-y-2 {
-        margin-bottom: 0 !important;
-        padding-bottom: 0 !important;
-    }
-    
-    /* Ensure sub-sections within Item 4 stack correctly */
-    .space-y-2 > .flex.flex-col > .flex {
-        flex-direction: column !important;
+        gap: 0 !important;
         width: 100%;
-        margin-bottom: 0px;
-        align-items: flex-start !important; 
-    }
-
-    .space-y-2 > .flex.flex-col > .flex > .flex-1 {
-        width: 100% !important;
-        margin-left: 0 !important;
-        padding-left: 0 !important; 
-        margin-bottom: 10px;
-        align-items: flex-start !important; 
-    }
-    
-    .space-y-2 > .flex.flex-col, 
-    .space-y-2 > .flex.flex-col > .flex, 
-    .space-y-2 > .flex.flex-col > .flex > .flex-1 
-    {
-        padding-left: 0 !important; 
-        margin-left: 0 !important;
-    }
-
-    .space-y-2 > .flex.flex-col > .flex:nth-child(2) {
-        margin-top: 0px !important;
-    }
-
-    .space-y-2 > .flex.flex-col > .flex:nth-child(2) > .flex-1:nth-child(2) {
-        display: none !important;
-    }
-    /* End of Item 4 Fixes */
-    
-    /* Fix for Item 5: Remove confusing horizontal structure */
-    .space-y-4 > .flex.flex-col.sm\:flex-row {
-        flex-direction: column !important;
-        align-items: flex-start !important;
-        margin-bottom: 20px; /* Add some space between 5.a and 5.b */
-    }
-    /* Target the second row of item 5 (Mother's details) to ensure proper spacing */
-    .ml-\[2\.5rem\].sm\:ml-0 { 
-        margin-left: 0 !important;
-        margin-top: 20px !important; 
-    }
-    /* Ensure all field groups within Item 5 stack */
-    .space-y-4 .flex.items-center.space-x-2.flex-1 {
-        flex-direction: column !important;
-        align-items: flex-start !important;
-        width: 100%;
-        margin-top: 5px;
-    }
-    .space-y-4 .flex.items-center.space-x-2.flex-1 .form-label {
-        margin-bottom: 0;
-        min-width: 100%;
-    }
-    .space-y-4 .ml-\[2\.5rem\],
-    .space-y-4 .sm\:ml-4 {
-        margin-left: 0 !important;
-    }
-
-    .multi-step-content main .ml-\[2\.5rem\],
-    .multi-step-content main .sm\:ml-4,
-    .space-y-4 .ml-\[3\.5rem\],
-    .space-y-4 .ml-\[1\.5rem\],
-    .space-y-4 .ml-4 {
-        margin-left: 0 !important;
-        width: 100%;
-    }
-
-    .space-y-4 .ml-\[1\.5rem\] .flex-shrink-0,
-    .space-y-4 .ml-\[3\.5rem\] .flex-shrink-0 {
-        min-width: 2rem;
-    }
-
-    #step-2 .flex.justify-between.items-center {
-        flex-direction: column;
-        align-items: flex-start;
-        padding-bottom: 15px !important;
-    }
-
-    #step-2 .upload-label {
-        width: 100%;
-        margin-top: 8px;
-        justify-content: space-between;
-        min-height: 40px;
-    }
-
-    .upload-label .file-name {
-        max-width: 60%;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        margin-left: 0.5rem;
-    }
-
-    .space-y-2 .mb-2 {
-        margin-bottom: 0 !important;
-    }
-
-    .space-y-2 .flex.flex-col.sm\:flex-row {
-        margin-bottom: 0 !important;
-        padding-bottom: 0 !important;
-    }
-
-    .space-y-2 + .flex {
-        margin-top: 0 !important;
+        /* Overrides the margin from the 'column' fix above */
+        margin-top: 0 !important; 
         padding-top: 0 !important;
     }
-    /* End of FIX 4: Admission Form Mobile Layout/Size Fix */
-    
-    /* General fix for enrollment form overall size */
-    .form-container {
-        padding: 1.5rem 1rem;
-    }
-}
 
-
-@media (max-width: 600px) {
-    .academics-cards-container,
-    .facilities-cards-container {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-    .facility-card {
-        min-height: 350px;
-    }
-    .academics-card {
-        min-height: auto;
-    }
-    .top-header-bar {
-        background: rgba(0, 0, 0, 0.2);
-    }
-    .footer-container {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-
-    .vm-section-layout .box-content-wrapper {
-        flex-direction: column !important; 
-    }
-    .vm-section-layout .about-us-image-box {
-        width: 100%; 
-        height: 300px; 
-    }
-
-    .timing-table-wrapper {
-        padding: 20px 10px;
-        margin: 20px auto 40px; 
-    }
-    .timing-table th, .timing-table td {
-        padding: 10px 5px;
-        font-size: 0.9rem;
-    }
-
-    .timing-detail-boxes-container {
-        flex-direction: column;
-        gap: 20px;
-        padding: 0 20px 20px 20px;
-    }
-
-    .activities-grid-container {
-        grid-template-columns: 1fr;
-        gap: 20px; 
-        padding: 10px; 
-    }
-    .activities-section {
-        padding: 50px 20px;
-        padding-top: 130px;
-        margin-top: -50px;
-    }
-    .activities-main-heading {
-        padding: 0 10px; 
-    }
-    .activity-card:hover {
-        transform: scale(1.02);
+    /* Force the sub-elements (label+input) of the inline rows to be 50% width and wrap */
+    .multi-step-content main .flex:nth-child(1) .flex-1,
+    .multi-step-content main .flex:nth-child(1) .ml-4,
+    .multi-step-content main .flex:nth-child(3) .flex-1,
+    .multi-step-content main .flex:nth-child(3) .ml-4,
+    .multi-step-content main .flex:nth-child(6) .flex-1:nth-of-type(2), /* Father's Mobile */
+    .multi-step-content main .flex:nth-child(6) .ml-4, /* Mother's Mobile Label */
+    .multi-step-content main .flex:nth-child(6) .flex-1:nth-of-type(3), /* Mother's Mobile Input */
+    .multi-step-content main .flex:nth-child(7) .flex-1:nth-of-type(2), /* Father's Nat. */
+    .multi-step-content main .flex:nth-child(7) .ml-4, /* Mother's Nat. Label */
+    .multi-step-content main .flex:nth-child(7) .flex-1:nth-of-type(3) { /* Mother's Nat. Input */
+        width: 48% !important; /* Forces a two-column effect */
+        margin-left: 0 !important; 
+        margin-top: 0 !important;
     }
     
-    .activity-card {
+    /* Fix for Item 1 Label Spacing */
+    .multi-step-content main .flex:nth-child(1) .form-label.min-w-\[4rem\] {
+        width: 45% !important; /* Give Aadhar label some width */
+    }
+
+    /* Fix for Item 6/7 Mobile/Nationality numbers to flow correctly */
+    .multi-step-content main .flex:nth-child(6) .ml-4,
+    .multi-step-content main .flex:nth-child(7) .ml-4 {
+        /* Ensure the label is aligned with the element it labels */
+        align-self: flex-start; 
+        margin-left: 0 !important; 
+        margin-right: 5px !important;
+    }
+
+    /* Ensure Father/Mother Name/Address (Item 4) still stacks cleanly */
+    .space-y-2 > .flex.flex-col.w-full.mobile-field-align-content > .flex {
+        flex-direction: row !important; /* This is the correct desktop layout for this item */
+        flex-wrap: wrap;
+    }
+    .space-y-2 > .flex.flex-col.w-full.mobile-field-align-content .form-label.flex-shrink-0 {
+        width: auto !important;
+        margin-right: 5px !important;
+    }
+    .space-y-2 > .flex.flex-col.w-full.mobile-field-align-content .input-line.flex-1 {
+        flex-grow: 1;
+    }
+
+
+    /* --- REST OF THE MOBILE LAYOUT FIXES (Simplified) --- */
+
+    /* 🆕 GAP: Add spacing after the main step 1 content */
+    #step-1 {
+        margin-bottom: 30px !important;
+        padding-bottom: 10px !important;
+    }
+
+    /* --- 2. "NEXT" BUTTON STYLING (Centered Blue Button) --- */
+    .text-right.mt-6 {
+        text-align: center; 
         width: 100%; 
-        max-width: 450px; 
-        margin: 0 auto; 
-        height: 350px; 
+        margin-top: 25px !important; 
+        margin-bottom: 25px !important; 
+    }
+    
+    .text-right.mt-6 a.text-sm.font-semibold {
+        display: block !important; 
+        max-width: 90%;
+        margin: 10px auto 0 auto;
+        padding: 8px 15px !important; 
+        font-size: 0.95rem; 
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    /* 5. DECLARATION TEXT READABILITY */
+    .multi-step-content p {
+        color: #1a120b !important; 
+        font-size: 0.95rem !important; 
+        line-height: 1.5;
+        padding: 0 5px; 
     }
 }

@@ -3591,78 +3591,101 @@ input[type="date"] {
     .multi-step-content main .flex:not(.items-start),
     .multi-step-content main .flex-col,
     .multi-step-content main .items-center {
+        /* Default mobile behaviour is column, but we'll override explicitly below */
         flex-direction: column !important;
         align-items: flex-start !important;
         gap: 0 !important;
     }
 
     /* CRITICAL FIXES FOR INLINE FIELDS (Items 1, 3, 6, 7) */
+    /* Select all parent containers for fields that must be side-by-side */
     .multi-step-content main .flex:nth-child(1), /* Item 1: Name / Aadhar */
     .multi-step-content main .flex:nth-child(3), /* Item 3: Religion / Caste */
     .multi-step-content main .flex:nth-child(6), /* Item 6: Father / Mother Mobile No. */
     .multi-step-content main .flex:nth-child(7) { /* Item 7: Father / Mother Nationality */
-        /* Re-enable row layout for two columns */
+        display: flex !important;
         flex-direction: row !important;
-        flex-wrap: wrap; 
+        flex-wrap: wrap !important; /* Allow wrapping if space is tight */
         align-items: flex-start !important;
-        gap: 0 !important;
-        width: 100%;
-        margin-top: 0 !important; 
-        padding-top: 0 !important;
-    }
-
-    /* Target the container of the first field in the pair */
-    .multi-step-content main .flex:nth-child(1) .flex-1,
-    .multi-step-content main .flex:nth-child(3) .flex-1,
-    .multi-step-content main .flex:nth-child(6) .flex-1:nth-of-type(2), /* Father's Mobile Input */
-    .multi-step-content main .flex:nth-child(7) .flex-1:nth-of-type(2) { /* Father's Nat. Input */
-        width: 49% !important; /* Forces a two-column effect */
-        margin-left: 0 !important; 
-        margin-top: 0 !important;
-        flex-shrink: 0;
-    }
-    
-    /* Target the container of the second field in the pair */
-    .multi-step-content main .flex:nth-child(1) .ml-4, /* Aadhar Label */
-    .multi-step-content main .flex:nth-child(3) .ml-4, /* Caste Label */
-    .multi-step-content main .flex:nth-child(6) .ml-4, /* Mother Mobile Label */
-    .multi-step-content main .flex:nth-child(7) .ml-4 { /* Mother Nat. Label */
-        width: 49% !important; 
-        margin-left: 2% !important; /* Add a small gap */
-        margin-top: 0 !important;
-        flex-shrink: 0;
-    }
-
-    /* Target the input fields inside the second column containers */
-    .multi-step-content main .flex:nth-child(6) .flex-1:nth-of-type(3), /* Mother's Mobile Input */
-    .multi-step-content main .flex:nth-child(7) .flex-1:nth-of-type(3) { /* Mother's Nat. Input */
-        /* This element is the input that immediately follows the ml-4 label above. 
-           We need to style it specifically to occupy the remaining horizontal space. */
-        width: 49% !important;
-        margin-left: 2% !important;
-        margin-top: 5px !important;
-        flex-shrink: 0;
-        order: 10; /* Push it below the first label if needed, but here it forces alignment */
-    }
-
-    /* Item 1: Name and Aadhar - special handling for the inputs to take 100% width, below the labels */
-    .multi-step-content main .flex:nth-child(1) > .form-label {
-        width: 49% !important; /* Name label & Aadhar label share space */
-        margin-bottom: 5px; 
-    }
-    .multi-step-content main .flex:nth-child(1) .input-line.flex-1 {
-        /* Force inputs to be full width when they are the primary element after a numbered list item. 
-           This style needs to be applied to the surrounding flex items. */
         width: 100% !important;
-        margin-top: 0;
+        gap: 0 !important;
+        padding-bottom: 15px !important;
+        border-bottom: 1px solid #e5e7eb !important;
     }
     
-    /* Reset margins for Item 4 (Father/Mother Name/Address) to stack cleanly */
-    .space-y-2 > .flex.flex-col.w-full.mobile-field-align-content > .flex {
-        flex-direction: column !important; 
+    /* Item 2 (Date of Birth) - needs to be reset as a single column group */
+    .multi-step-content main .flex:nth-child(2) {
+        display: flex !important;
+        flex-direction: column !important;
         align-items: flex-start !important;
-        flex-wrap: nowrap;
-        margin-bottom: 10px;
+        width: 100% !important;
+        padding-bottom: 15px !important;
+        border-bottom: 1px solid #e5e7eb !important;
+    }
+    .multi-step-content main .flex:nth-child(2) .input-line.flex-1 {
+        max-width: 100% !important;
+    }
+    
+
+    /* --- FIRST COLUMN: Label + Input --- */
+    /* Targets the first major flex container (which includes the label) in the row, e.g., Name/Religion/Father Mobile/Father Nationality */
+    .multi-step-content main .flex:nth-child(1) > .form-label:nth-child(2), /* Name Label */
+    .multi-step-content main .flex:nth-child(3) > .form-label:nth-child(2), /* Religion Label */
+    .multi-step-content main .flex:nth-child(6) > .form-label:nth-child(2), /* Father Mobile Label */
+    .multi-step-content main .flex:nth-child(7) > .form-label:nth-child(2) { /* Father Nat. Label */
+        width: 48% !important;
+        margin-left: 0 !important;
+        flex-shrink: 0;
+    }
+    .multi-step-content main .flex:nth-child(1) > .input-line:nth-child(3), /* Name Input */
+    .multi-step-content main .flex:nth-child(3) > .input-line:nth-child(3), /* Religion Input */
+    .multi-step-content main .flex:nth-child(6) > .input-line:nth-child(4), /* Father Mobile Input */
+    .multi-step-content main .flex:nth-child(7) > .input-line:nth-child(4) { /* Father Nat. Input */
+        width: 48% !important;
+        margin-left: 0 !important;
+        flex-shrink: 0;
+    }
+    
+
+    /* --- SECOND COLUMN: Label + Input --- */
+    /* Targets the second label in the row, e.g., Aadhar/Caste/Mother Mobile/Mother Nationality */
+    .multi-step-content main .flex:nth-child(1) > .form-label.ml-4, /* Aadhar Label */
+    .multi-step-content main .flex:nth-child(3) > .form-label.ml-4, /* Caste Label */
+    .multi-step-content main .flex:nth-child(6) > .form-label.ml-4, /* Mother Mobile Label */
+    .multi-step-content main .flex:nth-child(7) > .form-label.ml-4 { /* Mother Nat. Label */
+        width: 48% !important;
+        margin-left: 2% !important; /* Gap */
+        flex-shrink: 0;
+    }
+    .multi-step-content main .flex:nth-child(1) > .input-line:nth-child(5), /* Aadhar Input */
+    .multi-step-content main .flex:nth-child(3) > .input-line:nth-child(5), /* Caste Input */
+    .multi-step-content main .flex:nth-child(6) > .input-line:nth-child(6), /* Mother Mobile Input */
+    .multi-step-content main .flex:nth-child(7) > .input-line:nth-child(6) { /* Mother Nat. Input */
+        width: 48% !important;
+        margin-left: 2% !important; /* Gap */
+        flex-shrink: 0;
+    }
+
+    /* Reset Item 4 (Father/Mother Name/Address) - Needs to revert to single-column stacking of its internal groups */
+    .space-y-2 > .flex.flex-col.w-full.mobile-field-align-content {
+        /* Ensure the main block for Item 4 fills width and stacks internal divs */
+        width: 100% !important; 
+        display: block !important;
+        margin: 0 !important;
+    }
+    .space-y-2 > .flex.flex-col.w-full.mobile-field-align-content > .flex {
+        /* Internal rows inside Item 4 now stack vertically on mobile */
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        width: 100% !important;
+        margin-top: 10px !important;
+        margin-bottom: 5px !important;
+    }
+    .space-y-2 > .flex.flex-col.w-full.mobile-field-align-content > .flex > div {
+        /* All child labels and inputs take full width inside their stacked container */
+        width: 100% !important;
+        margin-left: 0 !important;
     }
     .space-y-2 > .flex.flex-col.w-full.mobile-field-align-content .form-label.flex-shrink-0 {
         width: 100% !important;
@@ -3674,111 +3697,153 @@ input[type="date"] {
     }
 
 
-    /* Ensure the fields following a numbered item start cleanly */
-    .multi-step-content main > div > .flex:first-child {
-        margin-top: 0 !important;
+    /* Final touches for alignment and cleanup */
+    .item-number {
+        align-self: flex-start !important;
     }
-    
-    /* Ensure the nested fields in Item 4 stack correctly */
-    .space-y-2 > .flex.flex-col > .flex {
-        margin-top: 0 !important;
+
+    .multi-step-content main > div {
+        padding-top: 15px !important;
+        margin-bottom: 0 !important;
+    }
+    .multi-step-content main > div:first-child {
         padding-top: 0 !important;
-        margin-bottom: 5px !important;
-    }
-
-    .space-y-2 > .flex.flex-col > .flex:nth-child(2) {
-        margin-top: 10px !important;
-    }
-
-    /* General fix for enrollment form overall size */
-    .form-container {
-        padding: 1.5rem 1rem;
     }
     
-    /* Fix for Step 2 Upload Section (to stack elements cleanly as per image) */
-    #step-2 .flex.justify-between.items-center {
-        /* OVERRIDE: Reverts to horizontal flex layout (screenshot format) */
+    .multi-step-content main .flex:nth-child(4) { /* Item 4 cleanup */
+        padding-bottom: 0 !important;
+        border-bottom: none !important;
+    }
+    
+    /* Ensure the Occupation/Income row (Item 5) is side-by-side as per desktop view */
+    .multi-step-content main .space-y-4 > .flex:nth-child(1), /* Father Occupation/Income */
+    .multi-step-content main .space-y-4 > .flex:nth-child(2) { /* Mother Occupation/Income */
+        display: flex !important;
         flex-direction: row !important;
-        align-items: center !important;
-        justify-content: space-between !important;
-        
-        /* Ensure the border and padding are visually separated */
-        border-bottom: 1px solid #e0e0e0;
-        padding-bottom: 15px !important;
-        margin-bottom: 10px !important;
-        padding-top: 5px !important; 
-        width: 100%;
+        flex-wrap: wrap !important;
+        align-items: flex-start !important;
+        width: 100% !important;
+        padding-top: 0 !important;
+        border-bottom: none !important;
+    }
+    .multi-step-content main .space-y-4 > .flex > .flex-1:nth-child(1) { /* Left Column */
+        width: 48% !important;
+        margin-left: 0 !important;
+    }
+    .multi-step-content main .space-y-4 > .flex > .flex-1:nth-child(2) { /* Right Column */
+        width: 48% !important;
+        margin-left: 4% !important;
+    }
+    .multi-step-content main .space-y-4 > .flex .form-label.flex-shrink-0 {
+        width: 100% !important;
+    }
+    .multi-step-content main .space-y-4 .ml-\[2\.5rem\] { /* Remove indent on mobile */
+        margin-left: 0 !important;
+    }
+
+    /* Fix for Step 8: Previous School/Admission Class/Date Left */
+    .multi-step-content main .space-y-4 > .flex.items-start:nth-child(1) { /* Item 8 parent */
+        display: block !important;
+    }
+    .multi-step-content main .space-y-4 > .flex.items-start:nth-child(1) > .flex-col {
+        width: 100% !important;
+    }
+    .multi-step-content main .space-y-4 > .flex.items-start:nth-child(1) > .flex-col > .flex {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        width: 100% !important;
+        margin-left: 0 !important;
+    }
+    .multi-step-content main .space-y-4 > .flex.items-start:nth-child(1) .form-label.flex-shrink-0 {
+        width: 100% !important;
+    }
+    .multi-step-content main .space-y-4 > .flex.items-start:nth-child(1) .input-line {
+        max-width: 100% !important;
+    }
+    .multi-step-content main .space-y-4 > .flex.items-start:nth-child(1) .ml-\[1\.5rem\] {
+        margin-left: 0 !important;
     }
     
-    /* Ensure the document title remains on its own line */
-    #step-2 .text-sm.text-gray-700.font-medium {
-        width: 100%;
-        margin-bottom: 5px;
+    /* Item 9 and 10 should remain single column */
+    .multi-step-content main .flex:nth-child(9),
+    .multi-step-content main .flex:nth-child(10) {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        width: 100% !important;
+    }
+    .multi-step-content main .space-y-4 > .flex.items-start:nth-child(10) > .flex-col > .flex {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        width: 100% !important;
+        margin-left: 0 !important;
+    }
+    .multi-step-content main .space-y-4 > .flex.items-start:nth-child(10) .form-label.flex-shrink-0 {
+        width: 100% !important;
+    }
+    .multi-step-content main .space-y-4 > .flex.items-start:nth-child(10) .input-line {
+        max-width: 100% !important;
+    }
+    .multi-step-content main .space-y-4 > .flex.items-start:nth-child(10) .ml-\[1\.5rem\] {
+        margin-left: 0 !important;
     }
     
-    /* 3. UPLOAD BUTTON & STATUS CONTAINER */
-    /* This targets the inner container holding the upload button and status text */
-    #step-2 .flex.justify-end {
-        width: 100%; /* Ensure it spans the width */
-        justify-content: space-between !important;
-        align-items: center !important;
+    /* Item 11: Identification Marks */
+    .multi-step-content main .space-y-3 {
+        width: 100% !important;
     }
-
-
-    /* --- 4. UPLOAD BUTTON SIZE (Reduced Height) --- */
-    #step-2 .upload-label {
-        /* Reduced height for mobile view */
-        padding: 6px 10px !important; 
-        font-size: 0.8rem !important; 
-        font-weight: 500;
-        width: auto !important; /* Allow the button to size based on content */
-        justify-content: center; 
-        margin-top: 0; /* Remove top margin from previous fix */
+    .multi-step-content main .space-y-3 > .ml-\[3\.5rem\] {
+        margin-left: 0 !important;
+        width: 100%;
     }
-
-    /* Update file-name/status text appearance */
-    #step-2 .file-name,
-    #step-2 .text-green-600 { /* Assuming 'No file chosen' uses a similar class or general status class */
-        font-size: 0.9rem !important;
-        margin-left: 10px !important;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+    .multi-step-content main .space-y-3 > .ml-\[3\.5rem\] .flex {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        width: 100% !important;
+    }
+    .multi-step-content main .space-y-3 > .ml-\[3\.5rem\] .form-label.min-w-\[1rem\] {
+        width: 100% !important;
+    }
+    .multi-step-content main .space-y-3 > .ml-\[3\.5rem\] .input-line {
+        width: 100% !important;
     }
 
 
     /* --- REST OF THE MOBILE LAYOUT FIXES (Simplified) --- */
-
+    
     /* 🆕 GAP: Add spacing after the main step 1 content */
     #step-1 {
         margin-bottom: 30px !important;
         padding-bottom: 10px !important;
     }
-
-    /* --- 2. "NEXT" BUTTON STYLING (Centered Blue Button) --- */
-    .text-right.mt-6 {
-        text-align: center; 
-        width: 100%; 
-        margin-top: 25px !important; 
-        margin-bottom: 25px !important; 
-    }
     
-    .text-right.mt-6 a.text-sm.font-semibold {
-        display: block !important; 
-        max-width: 90%;
-        margin: 10px auto 0 auto;
-        padding: 8px 15px !important; 
-        font-size: 0.95rem; 
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-
     /* 5. DECLARATION TEXT READABILITY */
     .multi-step-content p {
         color: #1a120b !important; 
         font-size: 0.95rem !important; 
         line-height: 1.5;
         padding: 0 5px; 
+    }
+    
+    /* Navigation button alignment */
+    .flex.justify-end.mt-10,
+    .flex.justify-between.mt-10 {
+        width: 100% !important;
+        justify-content: space-between !important;
+        padding: 0 5px;
+    }
+    .multi-step-nav {
+        font-size: 0.85rem !important;
+        padding: 10px 15px !important;
+    }
+    .input-line {
+        width: 100% !important;
+    }
+    
+    .form-label {
+        font-weight: 600;
+        margin-bottom: 2px !important;
     }
 }

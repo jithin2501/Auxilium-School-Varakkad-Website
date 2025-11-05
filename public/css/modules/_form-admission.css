@@ -547,20 +547,43 @@ input[type="date"] {
         margin-bottom: 10px !important;
     }
 
-    /* Q11 Identification Marks */
+    /* 🆕 Q11 Identification Marks (FIX ALIGNMENT) */
     .form-row-q11-wrapper {
+        /* Treat this wrapper like a standard stacking row */
         padding: 12px 0; 
         border-bottom: 1px dotted #ccc; 
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
     }
+    /* Ensure the main title for Q11 stacks correctly */
+    .form-row-q11-main {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        width: 100% !important;
+        margin-bottom: 5px !important; /* Space between main title and mark list */
+    }
+    /* Eliminate the desktop margin and force full width for the marks container */
     .form-q11-marks-wrapper {
-        margin-left: 0 !important;
-        width: 100%;
+        margin-left: 0 !important; /* CRITICAL FIX: Removes the 3.5rem desktop indentation */
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0.5rem !important;
     }
+    /* Ensure each mark sub-row stacks cleanly */
     .form-subrow-q11 {
         flex-direction: column !important;
         align-items: flex-start !important;
-        width: 100%;
-        margin-bottom: 5px;
+        width: 100% !important;
+        margin-bottom: 5px !important;
+    }
+    /* Adjust the mark number label (1) and (2) */
+    .form-subrow-q11 > .form-label.label-q11-mark-num {
+        width: 100% !important;
+        min-width: unset !important;
+        margin-bottom: 4px;
     }
 
     /* --- Navigation & Submit --- */

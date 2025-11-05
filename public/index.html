@@ -1352,339 +1352,344 @@
 
     <section class="page-section hidden-page" id="admission" style="display: none;">
 
-        <div class="admission-banner-bg">
-            <div class="hero-content knowus-header-content">
-                <h1>ADMISSION APPLICATION</h1>
-            </div>
+    <div class="admission-banner-bg">
+        <div class="hero-content knowus-header-content">
+            <h1>ADMISSION APPLICATION</h1>
         </div>
+    </div>
 
-        <div class="about-us-main-wrapper pt-10 pb-20" style="background-color: #f7f7f7;">
+    <div class="about-us-main-wrapper pt-10 pb-20" style="background-color: #f7f7f7;">
 
-            <div class="form-container">
-                <header class="text-center mb-6">
-                    <h1 class="text-xl font-extrabold text-gray-800 tracking-wider mb-1">AUXILIUM SCHOOL</h1>
-                    <p class="text-sm text-gray-600 mb-1">VARAKKAD, KOTTAMALA P.O. - 671 314, Kasaragod, Kerala</p>
-                    <p class="text-sm text-gray-600 mb-4">Affiliated to ICSE, Delhi (KE 124)</p>
-                </header>
+        <div class="form-container">
+            <header class="admission-header">
+                <h1 class="header-title">AUXILIUM SCHOOL</h1>
+                <p class="header-subtext">VARAKKAD, KOTTAMALA P.O. - 671 314, Kasaragod, Kerala</p>
+                <p class="header-subtext header-subtext-bottom">Affiliated to ICSE, Delhi (KE 124)</p>
+            </header>
 
-                <form id="admissionForm" onsubmit="handleSubmit(event)" enctype="multipart/form-data">
+            <form id="admissionForm" onsubmit="handleSubmit(event)" enctype="multipart/form-data">
 
-                    <div id="step-1" class="multi-step-content" data-step="1">
-                        <h2 class="text-lg font-bold bg-gray-100 py-2 border-y border-gray-300 text-gray-800 text-center mb-6">
-                            STEP 1: APPLICATION FOR ADMISSION
-                        </h2>
-                        <main class="space-y-4">
-                            <div class="flex items-center space-x-2">
-                                <span class="item-number">1.</span>
-                                <div class="form-label min-w-[4rem] sm:min-w-[12rem]">Name of pupil (Block letters) :</div>
-                                <input type="text" name="pupilName" class="input-line flex-1" placeholder="Enter Full Name" required>
-                                <div class="form-label ml-4 min-w-[5rem]">Aadhar No:</div>
-                                <input type="text" name="pupilAadhar" class="input-line flex-1" placeholder="Enter Aadhar Number">
-                            </div>
-
-                            <div class="flex items-center space-x-2">
-                                <span class="item-number">2.</span>
-                                <div class="form-label min-w-[10rem] sm:min-w-[5rem]">Date of Birth :</div>
-                                <input type="date" name="dateOfBirth" class="input-line flex-1 max-w-[12rem] sm:max-w-[16rem]" required>
-                                <span class="flex-1 hidden sm:block"></span>
-                            </div>
-
-                            <div class="flex items-center space-x-2">
-                                <span class="item-number">3.</span>
-                                <div class="form-label min-w-[10rem] sm:min-w-[1rem]">Religion :</div>
-                                <input type="text" name="religion" class="input-line flex-1" placeholder="Enter Religion">
-                                <div class="form-label ml-4 min-w-[3rem]">Caste:</div>
-                                <input type="text" name="caste" class="input-line flex-1" placeholder="Enter Caste">
-                            </div>
-
-                            <div class="space-y-2">
-                                <div class="flex items-start space-x-2">
-                                    <span class="item-number flex-shrink-0 mt-1">4.</span>
-                                    <div class="flex flex-col w-full mobile-field-align-content">
-
-                                        <div class="flex items-center space-x-2 flex-1 mb-2">
-                                            <div class="form-label flex-shrink-0 min-w-[8rem]">Name of Father :</div>
-                                            <input type="text" name="fatherName" class="input-line flex-1" placeholder="Enter Father's Name" required>
-                                        </div>
-
-                                        <div class="flex items-center space-x-2 flex-1 mb-2">
-                                            <div class="form-label flex-shrink-0 min-w-[4rem]">Address:</div>
-                                            <input type="text" name="addressLine1" class="input-line flex-1" placeholder="Enter Full Address" required>
-                                        </div>
-
-                                        <div class="flex items-center space-x-2 flex-1">
-                                            <div class="form-label flex-shrink-0 min-w-[8rem]">Name of Mother :</div>
-                                            <input type="text" name="motherName" class="input-line flex-1" placeholder="Enter Mother's Name" required>
-                                        </div>
-                                        <div class="flex items-center space-x-2 flex-1 opacity-0 pointer-events-none">
-                                            <div class="form-label min-w-[4rem]"> </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="space-y-4">
-                                <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-2">
-                                    <span class="item-number flex-shrink-0">5.</span>
-                                    <div class="flex items-center space-x-2 flex-1 mt-2 sm:mt-0">
-                                        <div class="form-label flex-shrink-0 min-w-[9rem]">Occupation of Father :</div>
-                                        <input type="text" name="fatherOccupation" class="input-line flex-1" placeholder="Enter Occupation">
-                                    </div>
-                                    <div class="flex items-center space-x-2 flex-1 ml-[2.5rem] sm:ml-4 mt-2 sm:mt-0">
-                                        <div class="form-label flex-shrink-0 min-w-[7rem]">Monthly income:</div>
-                                        <input type="text" name="fatherIncome" class="input-line flex-1" placeholder="Enter Income">
-                                    </div>
-                                </div>
-
-                                <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-2 ml-[2.5rem] sm:ml-0">
-                                    <span class="item-number opacity-0 pointer-events-none hidden sm:inline">5.</span>
-                                    <div class="flex items-center space-x-2 flex-1 mt-2 sm:mt-0">
-                                        <div class="form-label flex-shrink-0 min-w-[9rem]">Occupation of Mother :</div>
-                                        <input type="text" name="motherOccupation" class="input-line flex-1" placeholder="Enter Occupation">
-                                    </div>
-                                    <div class="flex items-center space-x-2 flex-1 ml-[2.5rem] sm:ml-4 mt-2 sm:mt-0">
-                                        <div class="form-label flex-shrink-0 min-w-[7rem]">Monthly income:</div>
-                                        <input type="text" name="motherIncome" class="input-line flex-1" placeholder="Enter Income">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="flex items-center space-x-2">
-                                <span class="item-number">6.</span>
-                                <div class="form-label min-w-[10rem] sm:min-w-[9rem]">Mobile No. of Father :</div>
-                                <input type="tel" name="fatherMobile" class="input-line flex-1" placeholder="Enter Father's Mobile" required>
-                                <div class="form-label ml-4 min-w-[8rem] sm:min-w-[5rem]">Mobile No. of Mother:</div>
-                                <input type="tel" name="motherMobile" class="input-line flex-1" placeholder="Enter Mother's Mobile">
-                            </div>
-
-                            <div class="flex items-center space-x-2">
-                                <span class="item-number">7.</span>
-                                <div class="form-label min-w-[10rem] sm:min-w-[9rem]">Nationality of Father :</div>
-                                <input type="text" name="fatherNationality" class="input-line flex-1" placeholder="Enter Nationality">
-                                <div class="form-label ml-4 min-w-[8rem] sm:min-w-[5rem]">Nationality of Mother:</div>
-                                <input type="text" name="motherNationality" class="input-line flex-1" placeholder="Enter Nationality">
-                            </div>
-
-                            <div class="h-px bg-gray-200 my-4"></div>
-
-                            <div class="space-y-4">
-                                <div class="flex items-start space-x-2">
-                                    <span class="item-number">8.</span>
-                                    <div class="flex flex-col flex-1">
-                                        <div class="flex items-center space-x-2 mb-2">
-                                            <span class="form-label min-w-[1rem]">(a)</span>
-                                            <div class="form-label flex-shrink-0">School in which the pupil was studying previously</div>
-                                            <input type="text" name="previousSchoolName" class="input-line flex-1" placeholder="School Name">
-                                        </div>
-                                        <div class="flex items-center space-x-2 mb-2 ml-[1.5rem] sm:ml-[1.5rem]">
-                                            <span class="form-label min-w-[1rem]">(b)</span>
-                                            <div class="form-label flex-shrink-0">Class to which admission is sought</div>
-                                            <input type="text" name="admissionClass" class="input-line flex-1" placeholder="Class" required>
-                                        </div>
-                                        <div class="flex items-center space-x-2 ml-[1.5rem] sm:ml-[1.5rem]">
-                                            <span class="form-label min-w-[1rem]">(c)</span>
-                                            <div class="form-label flex-shrink-0">Date of leaving that school</div>
-                                            <input type="date" name="leavingDate" class="input-line flex-1 max-w-[12rem] sm:max-w-none">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="flex items-center space-x-2">
-                                <span class="item-number">9.</span>
-                                <div class="form-label flex-shrink-0">Number and date of the Transfer Certificate from the last school</div>
-                                <input type="text" name="tcDetails" class="input-line flex-1" placeholder="TC Number and Date">
-                            </div>
-
-                            <div class="space-y-4">
-                                <div class="flex items-start space-x-2">
-                                    <span class="item-number">10.</span>
-                                    <div class="flex flex-col flex-1">
-                                        <div class="flex items-center space-x-2 mb-2">
-                                            <span class="form-label min-w-[1rem]">(a)</span>
-                                            <div class="form-label flex-shrink-0">What second language the pupil will take if admitted?</div>
-                                            <input type="text" name="secondLanguage" class="input-line flex-1" placeholder="Second Language">
-                                        </div>
-                                        <div class="flex items-center space-x-2">
-                                            <span class="form-label min-w-[1rem]">(b)</span>
-                                            <div class="form-label flex-shrink-0">Mother Tongue</div>
-                                            <input type="text" name="motherTongue" class="input-line flex-1" placeholder="Mother Tongue">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="space-y-3">
-                                <div class="flex items-start space-x-2">
-                                    <span class="item-number">11.</span>
-                                    <div class="form-label flex-shrink-0">Identification Marks</div>
-                                </div>
-                                <div class="ml-[3.5rem] sm:ml-[3.5rem] space-y-2">
-                                    <div class="flex items-center space-x-2">
-                                        <span class="form-label min-w-[1rem]">1)</span>
-                                        <input type="text" name="idMark1" class="input-line flex-1" placeholder="First Mark">
-                                    </div>
-                                    <div class="flex items-center space-x-2">
-                                        <span class="form-label min-w-[1rem]">2)</span>
-                                        <input type="text" name="idMark2" class="input-line flex-1" placeholder="Second Mark">
-                                    </div>
-                                </div>
-                            </div>
-
-                        </main>
-                        <div class="flex justify-end mt-10">
-                            <button type="button" data-next-step="2" class="multi-step-nav px-8 py-3 bg-indigo-600 text-white font-bold rounded-lg shadow-lg hover:bg-indigo-700 transition duration-200">
-                                Next: Required Documents →
-                            </button>
+                <div id="step-1" class="multi-step-content" data-step="1">
+                    <h2 class="step-heading">
+                        STEP 1: APPLICATION FOR ADMISSION
+                    </h2>
+                    <main class="admission-main-content">
+                        
+                        <div class="form-row-desktop form-row-item-1">
+                            <span class="item-number">1.</span>
+                            <div class="form-label label-q1-name">Name of pupil (Block letters) :</div>
+                            <input type="text" name="pupilName" class="input-line input-full-width" placeholder="Enter Full Name" required>
+                            <div class="form-label label-q1-aadhar">Aadhar No:</div>
+                            <input type="text" name="pupilAadhar" class="input-line input-full-width" placeholder="Enter Aadhar Number">
                         </div>
+
+                        <div class="form-row-desktop form-row-item-2">
+                            <span class="item-number">2.</span>
+                            <div class="form-label label-q2-dob">Date of Birth :</div>
+                            <input type="date" name="dateOfBirth" class="input-line input-date-width" required>
+                            <span class="flex-spacer"></span>
+                        </div>
+
+                        <div class="form-row-desktop form-row-item-3">
+                            <span class="item-number">3.</span>
+                            <div class="form-label label-q3-religion">Religion :</div>
+                            <input type="text" name="religion" class="input-line input-full-width" placeholder="Enter Religion">
+                            <div class="form-label label-q3-caste">Caste:</div>
+                            <input type="text" name="caste" class="input-line input-full-width" placeholder="Enter Caste">
+                        </div>
+
+                        <div class="parent-details-group">
+                            <div class="form-row-parent-wrapper">
+                                <span class="item-number item-number-parent">4.</span>
+                                <div class="mobile-field-align-content">
+                                    
+                                    <div class="form-subrow-q4 form-subrow-q4-father">
+                                        <div class="form-label label-q4-father">Name of Father :</div>
+                                        <input type="text" name="fatherName" class="input-line input-full-width" placeholder="Enter Father's Name" required>
+                                    </div>
+
+                                    <div class="form-subrow-q4 form-subrow-q4-address">
+                                        <div class="form-label label-q4-address">Address:</div>
+                                        <input type="text" name="addressLine1" class="input-line input-full-width" placeholder="Enter Full Address" required>
+                                    </div>
+
+                                    <div class="form-subrow-q4 form-subrow-q4-mother">
+                                        <div class="form-label label-q4-mother">Name of Mother :</div>
+                                        <input type="text" name="motherName" class="input-line input-full-width" placeholder="Enter Mother's Name" required>
+                                    </div>
+                                    <div class="form-subrow-q4 form-subrow-q4-spacer">
+                                        <div class="form-label label-q4-spacer"> </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row-q5-wrapper">
+                            <div class="form-row-desktop form-row-item-5">
+                                <span class="item-number">5.</span>
+                                <div class="form-row-multi-column">
+                                    
+                                    <div class="column-left">
+                                        <div class="form-row-sub-item">
+                                            <div class="form-label label-q5-father-occ">Occupation of Father :</div>
+                                            <input type="text" name="fatherOccupation" class="input-line input-full-width" placeholder="Enter Occupation">
+                                        </div>
+                                        <div class="form-row-sub-item margin-top-1">
+                                            <div class="form-label label-q5-mother-occ">Occupation of Mother :</div>
+                                            <input type="text" name="motherOccupation" class="input-line input-full-width" placeholder="Enter Occupation">
+                                        </div>
+                                    </div>
+
+                                    <div class="column-right">
+                                        <div class="form-row-sub-item">
+                                            <div class="form-label label-q5-income">Monthly income:</div>
+                                            <input type="text" name="fatherIncome" class="input-line input-full-width" placeholder="Enter Income">
+                                        </div>
+                                        <div class="form-row-sub-item margin-top-1">
+                                            <div class="form-label label-q5-income">Monthly income:</div>
+                                            <input type="text" name="motherIncome" class="input-line input-full-width" placeholder="Enter Income">
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row-desktop form-row-item-6">
+                            <span class="item-number">6.</span>
+                            <div class="form-label label-q6-father-mob">Mobile No. of Father :</div>
+                            <input type="tel" name="fatherMobile" class="input-line input-full-width" placeholder="Enter Father's Mobile" required>
+                            <div class="form-label label-q6-mother-mob">Mobile No. of Mother:</div>
+                            <input type="tel" name="motherMobile" class="input-line input-full-width" placeholder="Enter Mother's Mobile">
+                        </div>
+
+                        <div class="form-row-desktop form-row-item-7">
+                            <span class="item-number">7.</span>
+                            <div class="form-label label-q7-father-nat">Nationality of Father :</div>
+                            <input type="text" name="fatherNationality" class="input-line input-full-width" placeholder="Enter Nationality">
+                            <div class="form-label label-q7-mother-nat">Nationality of Mother:</div>
+                            <input type="text" name="motherNationality" class="input-line input-full-width" placeholder="Enter Nationality">
+                        </div>
+
+                        <div class="admission-line-break"></div>
+
+                        <div class="form-row-q8-wrapper">
+                            <div class="form-row-q8-main">
+                                <span class="item-number">8.</span>
+                                <div class="form-q8-content-aligned"> <div class="form-subrow-q8-aligned">
+                                        <span class="form-label label-q8-sub-num">(a)</span>
+                                        <div class="form-label label-q8-a">School in which the pupil was studying previously</div>
+                                        <input type="text" name="previousSchoolName" class="input-line input-full-width" placeholder="School Name">
+                                    </div>
+                                    <div class="form-subrow-q8-aligned">
+                                        <span class="form-label label-q8-sub-num">(b)</span>
+                                        <div class="form-label label-q8-b">Class to which admission is sought</div>
+                                        <input type="text" name="admissionClass" class="input-line input-full-width" placeholder="Class" required>
+                                    </div>
+                                    <div class="form-subrow-q8-aligned">
+                                        <span class="form-label label-q8-sub-num">(c)</span>
+                                        <div class="form-label label-q8-c">Date of leaving that school</div>
+                                        <input type="date" name="leavingDate" class="input-line input-full-width">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row-desktop form-row-item-9">
+                            <span class="item-number">9.</span>
+                            <div class="form-label label-q9-tc">Number and date of the Transfer Certificate from the last school</div>
+                            <input type="text" name="tcDetails" class="input-line input-full-width" placeholder="TC Number and Date">
+                        </div>
+
+                        <div class="form-row-q10-wrapper">
+                            <div class="form-row-q10-main">
+                                <span class="item-number">10.</span>
+                                <div class="form-q10-content-aligned"> <div class="form-subrow-q10-aligned">
+                                        <span class="form-label label-q10-sub-num">(a)</span>
+                                        <div class="form-label label-q10-a">What second language the pupil will take if admitted?</div>
+                                        <input type="text" name="secondLanguage" class="input-line input-full-width" placeholder="Second Language">
+                                    </div>
+                                    <div class="form-subrow-q10-aligned">
+                                        <span class="form-label label-q10-sub-num">(b)</span>
+                                        <div class="form-label label-q10-b">Mother Tongue</div>
+                                        <input type="text" name="motherTongue" class="input-line input-full-width" placeholder="Mother Tongue">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row-q11-wrapper">
+                            <div class="form-row-q11-main">
+                                <span class="item-number">11.</span>
+                                <div class="form-label label-q11-main">Identification Marks</div>
+                            </div>
+                            <div class="form-q11-marks-wrapper">
+                                <div class="form-subrow-q11">
+                                    <span class="form-label label-q11-mark-num">1)</span>
+                                    <input type="text" name="idMark1" class="input-line input-full-width" placeholder="First Mark">
+                                </div>
+                                <div class="form-subrow-q11">
+                                    <span class="form-label label-q11-mark-num">2)</span>
+                                    <input type="text" name="idMark2" class="input-line input-full-width" placeholder="Second Mark">
+                                </div>
+                            </div>
+                        </div>
+
+                    </main>
+                    <div class="form-nav-desktop form-nav-end">
+                        <button type="button" data-next-step="2" class="multi-step-nav btn-next-step">
+                            Next: Required Documents →
+                        </button>
                     </div>
+                </div>
 
-                    <div id="step-2" class="multi-step-content hidden" data-step="2">
-                        <h2 class="text-lg font-bold bg-gray-100 py-2 border-y border-gray-300 text-gray-800 text-center mb-6">
-                            STEP 2: REQUIRED DOCUMENTS FOR SUBMISSION
-                        </h2>
-                        <div class="mt-8 pt-4">
+                <div id="step-2" class="multi-step-content hidden" data-step="2">
+                    <h2 class="step-heading">
+                        STEP 2: REQUIRED DOCUMENTS FOR SUBMISSION
+                    </h2>
+                    <div class="document-section-content">
 
-                            <p class="text-xs text-gray-600 text-center mb-6 px-4 leading-relaxed">
-                                Applicants are required to upload the following documents: Birth Certificate, Aadhaar Card, Transfer Certificate (TC), Student’s Passport-size Photograph, and Parent’s ID Proof. A valid Passport is mandatory for international students only.
-                            </p>
+                        <p class="document-section-p">
+                            Applicants are required to upload the following documents: Birth Certificate, Aadhaar Card, Transfer Certificate (TC), Student’s Passport-size Photograph, and Parent’s ID Proof. A valid Passport is mandatory for international students only.
+                        </p>
 
-                            <div class="space-y-3 px-2">
-                                <div class="flex justify-between items-center pb-2 border-b border-gray-100">
-                                    <span class="text-sm text-gray-700 font-medium">1. Birth Certificate</span>
-                                    <label class="upload-label">
-                                        <input type="file" name="file_birth" class="upload-input" onchange="handleFileUpload(event)" accept=".pdf,image/*" required>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                                            <polyline points="17 8 12 3 7 8"/>
-                                            <line x1="12" y1="3" x2="12" y2="15"/>
-                                        </svg>
-                                        Upload
-                                        <span class="file-name">No file chosen</span>
-                                    </label>
-                                </div>
-
-                                <div class="flex justify-between items-center pb-2 border-b border-gray-100">
-                                    <span class="text-sm text-gray-700 font-medium">2. Aadhaar Card</span>
-                                    <label class="upload-label">
-                                        <input type="file" name="file_aadhar" class="upload-input" onchange="handleFileUpload(event)" accept=".pdf,image/*" required>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                                            <polyline points="17 8 12 3 7 8"/>
-                                            <line x1="12" y1="3" x2="12" y2="15"/>
-                                        </svg>
-                                        Upload
-                                        <span class="file-name">No file chosen</span>
-                                    </label>
-                                </div>
-
-                                <div class="flex justify-between items-center pb-2 border-b border-gray-100">
-                                    <span class="text-sm text-gray-700 font-medium">3. Transfer Certificate (TC)</span>
-                                    <label class="upload-label">
-                                        <input type="file" name="file_tc" class="upload-input" onchange="handleFileUpload(event)" accept=".pdf,image/*" required>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                                            <polyline points="17 8 12 3 7 8"/>
-                                            <line x1="12" y1="3" x2="12" y2="15"/>
-                                        </svg>
-                                        Upload
-                                        <span class="file-name">No file chosen</span>
-                                    </label>
-                                </div>
-
-                                <div class="flex justify-between items-center pb-2 border-b border-gray-100">
-                                    <span class="text-sm text-gray-700 font-medium">4. Student’s Passport-size Photo</span>
-                                    <label class="upload-label">
-                                        <input type="file" name="file_student_photo" class="upload-input" multiple accept="image/*" onchange="handleFileUpload(event)" required>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                                            <polyline points="17 8 12 3 7 8"/>
-                                            <line x1="12" y1="3" x2="12" y2="15"/>
-                                        </svg>
-                                        Upload
-                                        <span class="file-name">No file chosen</span>
-                                    </label>
-                                </div>
-
-                                <div class="flex justify-between items-center pb-2 border-b border-gray-100">
-                                    <span class="text-sm text-gray-700 font-medium">5. Passport (for international students only)</span>
-                                    <label class="upload-label">
-                                        <input type="file" name="file_passport" class="upload-input" onchange="handleFileUpload(event)" accept=".pdf,image/*">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                                            <polyline points="17 8 12 3 7 8"/>
-                                            <line x1="12" y1="3" x2="12" y2="15"/>
-                                        </svg>
-                                        Upload
-                                        <span class="file-name">No file chosen</span>
-                                    </label>
-                                </div>
-
-                                <div class="flex justify-between items-center pb-2">
-                                    <span class="text-sm text-gray-700 font-medium">6. Parent’s ID Proof</span>
-                                    <label class="upload-label">
-                                        <input type="file" name="file_parent_id" class="upload-input" onchange="handleFileUpload(event)" accept=".pdf,image/*" required>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                                            <polyline points="17 8 12 3 7 8"/>
-                                            <line x1="12" y1="3" x2="12" y2="15"/>
-                                        </svg>
-                                        Upload
-                                        <span class="file-name">No file chosen</span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex justify-between mt-10">
-                            <button type="button" data-prev-step="1" class="multi-step-nav px-8 py-3 bg-gray-500 text-white font-bold rounded-lg shadow-lg hover:bg-gray-600 transition duration-200">
-                                ← Previous: Application
-                            </button>
-                            <button type="button" data-next-step="3" class="multi-step-nav px-8 py-3 bg-indigo-600 text-white font-bold rounded-lg shadow-lg hover:bg-indigo-700 transition duration-200">
-                                Next: Declaration →
-                            </button>
-                        </div>
-                    </div>
-
-                    <div id="step-3" class="multi-step-content hidden" data-step="3">
-                        <h2 class="text-lg font-bold bg-gray-100 py-2 border-y border-gray-300 text-gray-800 text-center mb-6">
-                            STEP 3: DECLARATION
-                        </h2>
-                        <div class="mt-8 pt-4">
-
-                            <div class="flex items-start mb-8 px-2">
-                                <input type="checkbox" id="declaration-agree" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 mt-1" onchange="toggleSubmitButton(this.checked)">
-
-                                <label for="declaration-agree" class="text-xs text-gray-700 leading-relaxed ml-3 cursor-pointer">
-                                    I declare that the statement given above is correct and that the pupil has not attended any other school besides
-                                    those mentioned above. I agree to abide by the school regulations and the Fee Rules of the school. I declare that the
-                                    name of the pupil and date of birth in Col. 1 & 2 are correct and that I will not ask for a change in the future.
+                        <div class="document-list-wrapper">
+                            <div class="document-upload-row">
+                                <span class="document-label">1. Birth Certificate</span>
+                                <label class="upload-label">
+                                    <input type="file" name="file_birth" class="upload-input" onchange="handleFileUpload(event)" accept=".pdf,image/*" required>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                        <polyline points="17 8 12 3 7 8"/>
+                                        <line x1="12" y1="3" x2="12" y2="15"/>
+                                    </svg>
+                                    Upload
+                                    <span class="file-name">No file chosen</span>
                                 </label>
                             </div>
 
-                            <div class="text-sm text-gray-500 text-center italic mt-12">
-                                By checking the box and clicking 'SUBMIT APPLICATION', I confirm the details provided are correct and complete.
+                            <div class="document-upload-row">
+                                <span class="document-label">2. Aadhaar Card</span>
+                                <label class="upload-label">
+                                    <input type="file" name="file_aadhar" class="upload-input" onchange="handleFileUpload(event)" accept=".pdf,image/*" required>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                        <polyline points="17 8 12 3 7 8"/>
+                                        <line x1="12" y1="3" x2="12" y2="15"/>
+                                    </svg>
+                                    Upload
+                                    <span class="file-name">No file chosen</span>
+                                </label>
                             </div>
 
-                        </div>
+                            <div class="document-upload-row">
+                                <span class="document-label">3. Transfer Certificate (TC)</span>
+                                <label class="upload-label">
+                                    <input type="file" name="file_tc" class="upload-input" onchange="handleFileUpload(event)" accept=".pdf,image/*" required>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                        <polyline points="17 8 12 3 7 8"/>
+                                        <line x1="12" y1="3" x2="12" y2="15"/>
+                                    </svg>
+                                    Upload
+                                    <span class="file-name">No file chosen</span>
+                                </label>
+                            </div>
 
-                        <div class="flex justify-between mt-10">
-                            <button type="button" data-prev-step="2" class="multi-step-nav px-8 py-3 bg-gray-500 text-white font-bold rounded-lg shadow-lg hover:bg-gray-600 transition duration-200">
-                                ← Previous: Documents
-                            </button>
-                            <button
-                                type="submit"
-                                id="admission-submit-final"
-                                class="px-8 py-3 bg-indigo-600 text-white font-bold rounded-lg shadow-lg transition duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50"
-                                disabled> SUBMIT APPLICATION
-                            </button>
+                            <div class="document-upload-row">
+                                <span class="document-label">4. Student’s Passport-size Photo</span>
+                                <label class="upload-label">
+                                    <input type="file" name="file_student_photo" class="upload-input" multiple accept="image/*" onchange="handleFileUpload(event)" required>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                        <polyline points="17 8 12 3 7 8"/>
+                                        <line x1="12" y1="3" x2="12" y2="15"/>
+                                    </svg>
+                                    Upload
+                                    <span class="file-name">No file chosen</span>
+                                </label>
+                            </div>
+
+                            <div class="document-upload-row">
+                                <span class="document-label">5. Passport (for international students only)</span>
+                                <label class="upload-label">
+                                    <input type="file" name="file_passport" class="upload-input" onchange="handleFileUpload(event)" accept=".pdf,image/*">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                        <polyline points="17 8 12 3 7 8"/>
+                                        <line x1="12" y1="3" x2="12" y2="15"/>
+                                    </svg>
+                                    Upload
+                                    <span class="file-name">No file chosen</span>
+                                </label>
+                            </div>
+
+                            <div class="document-upload-row document-upload-last">
+                                <span class="document-label">6. Parent’s ID Proof</span>
+                                <label class="upload-label">
+                                    <input type="file" name="file_parent_id" class="upload-input" onchange="handleFileUpload(event)" accept=".pdf,image/*" required>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                        <polyline points="17 8 12 3 7 8"/>
+                                        <line x1="12" y1="3" x2="12" y2="15"/>
+                                    </svg>
+                                    Upload
+                                    <span class="file-name">No file chosen</span>
+                                </label>
+                            </div>
                         </div>
                     </div>
+                    
+                    <div class="form-nav-desktop form-nav-middle">
+                        <button type="button" data-prev-step="1" class="multi-step-nav btn-prev-step">
+                            ← Previous: Application
+                        </button>
+                        <button type="button" data-next-step="3" class="multi-step-nav btn-next-step">
+                            Next: Declaration →
+                        </button>
+                    </div>
+                </div>
 
-                </form>
-            </div>
+                <div id="step-3" class="multi-step-content hidden" data-step="3">
+                    <h2 class="step-heading">
+                        STEP 3: DECLARATION
+                    </h2>
+                    <div class="declaration-content">
 
+                        <div class="declaration-checkbox-wrapper">
+                            <input type="checkbox" id="declaration-agree" class="declaration-checkbox" onchange="toggleSubmitButton(this.checked)">
+
+                            <label for="declaration-agree" class="declaration-text">
+                                I declare that the statement given above is correct and that the pupil has not attended any other school besides
+                                those mentioned above. I agree to abide by the school regulations and the Fee Rules of the school. I declare that the
+                                name of the pupil and date of birth in Col. 1 & 2 are correct and that I will not ask for a change in the future.
+                            </label>
+                        </div>
+
+                        <div class="declaration-note">
+                            By checking the box and clicking 'SUBMIT APPLICATION', I confirm the details provided are correct and complete.
+                        </div>
+
+                    </div>
+
+                    <div class="form-nav-desktop form-nav-final">
+                        <button type="button" data-prev-step="2" class="multi-step-nav btn-prev-step">
+                            ← Previous: Documents
+                        </button>
+                        <button
+                            type="submit"
+                            id="admission-submit-final"
+                            class="btn-submit-final"
+                            disabled> SUBMIT APPLICATION
+                        </button>
+                    </div>
+                </div>
+
+            </form>
         </div>
-    </section>
+
+    </div>
+</section>
 </div>
 
 

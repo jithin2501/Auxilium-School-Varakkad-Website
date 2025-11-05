@@ -1,49 +1,74 @@
 /* ========================================================= */
-/* --- 4. ADMISSION FORM STYLES --- */
+/* --- 4. ADMISSION FORM STYLES (PURE CSS MAPPING) --- */
 /* ========================================================= */
 
+/* Import Inter font for form elements if needed (though Roboto is in base) */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+
+.admission-wrapper-bg {
+    padding-top: 40px; 
+    padding-bottom: 80px;
+    background-color: #f7f7f7; /* Background color for the section wrapper */
+}
 
 .form-container {
     max-width: 900px;
     width: 98%;
     background-color: white;
-    padding: 2.5rem 1.5rem;
+    padding: 2.5rem 1.5rem; /* 40px 24px */
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-    border-radius: 0.75rem;
+    border-radius: 0.75rem; /* 12px */
     border: 1px solid #e5e7eb;
     margin: 0 auto; 
 }
 
-/* 🆕 FIX: Ensure header details are dark/visible on admission page */
-.form-container header h1,
-.form-container header p {
+/* Header */
+.admission-header {
+    text-align: center;
+    margin-bottom: 1.5rem; /* mb-6 */
+}
+.admission-header h1,
+.admission-header p {
     color: #1a120b !important;
 }
-
-.admission-line-break {
-    width: 100%;
-    height: 1px;
-    background-color: #e5e7eb;
-    margin: 15px 0;
+.header-title {
+    font-size: 1.25rem; /* text-xl */
+    font-weight: 800; /* font-extrabold */
+    letter-spacing: 0.05em; /* tracking-wider */
+    margin-bottom: 0.25rem; /* mb-1 */
+    color: #1a120b;
+}
+.header-subtext {
+    font-size: 0.875rem; /* text-sm */
+    color: #4b5563; /* text-gray-600 */
+    margin-bottom: 0.25rem; /* mb-1 */
+}
+.header-subtext-bottom {
+    margin-bottom: 1rem; /* mb-4 */
 }
 
-.admission-item-row {
+/* Steps and Headings */
+.step-heading {
+    font-size: 1.125rem; /* text-lg */
+    font-weight: 700; /* font-bold */
+    background-color: #f3f4f6; /* bg-gray-100 */
+    padding: 0.5rem 0;
+    border-top: 1px solid #d1d5db; /* border-y border-gray-300 */
+    border-bottom: 1px solid #d1d5db;
+    color: #25597f !important; 
+    text-align: center;
+    margin-bottom: 1.5rem; /* mb-6 */
+}
+.multi-step-content.hidden {
+    display: none;
+}
+.admission-main-content {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    padding: 10px 0;
+    gap: 1rem; /* space-y-4 */
 }
 
-.admission-item-row .item-number {
-    margin-bottom: 5px;
-}
-
-.admission-item-content {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
+/* --- Shared Form Elements --- */
 
 .input-line {
     border: none;
@@ -53,65 +78,283 @@
     transition: border-color 0.2s;
     font-size: 0.95rem;
     color: #1a120b !important; 
+    flex-grow: 1; /* flex-1 */
 }
 .input-line:focus {
     outline: none;
     border-bottom: 2px solid #4f46e5;
-}
-
-.signature-line {
-    border: none;
-    background-color: transparent;
-    width: 100%;
-    padding: 0.25rem 0;
-    font-size: 0.95rem;
-    cursor: default;
-    color: #1a120b; 
-}
-
-.input-dotted {
-    border: none;
-    border-bottom: 1px dotted #9ca3af; 
-    padding: 0 0.1rem;
-    text-align: center;
-    font-size: 0.95rem;
-    transition: border-color 0.2s;
-    color: #1a120b !important; 
-}
-.input-dotted:focus {
-    outline: none;
-    border-bottom: 2px solid #4f46e5; 
-}
-input[readonly] {
-    cursor: default;
-    background-color: transparent;
 }
 input[type="date"] {
     -webkit-appearance: none;
     appearance: none;
     background: transparent;
 }
-
-
 .form-label {
     font-size: 0.95rem;
     color: #1f2937;
     font-weight: 500;
+    flex-shrink: 0;
 }
 .item-number {
     font-weight: 600;
     min-width: 2rem;
     margin-right: 0.5rem;
     color: #1a120b !important;
+    flex-shrink: 0;
+}
+.admission-line-break {
+    width: 100%;
+    height: 1px;
+    background-color: #e5e7eb;
+    margin: 1rem 0;
+}
+.flex-spacer {
+    flex-grow: 1;
+    display: block;
+    visibility: hidden;
 }
 
-/* FIX 3: Admission Header Color Fix */
-.multi-step-content h2.text-lg.font-bold {
-    color: #25597f !important; /* Set step headings to Blue */
+/* --- DESKTOP LAYOUT (Default: >640px) --- */
+
+.form-row-desktop {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* space-x-2 */
 }
 
-.upload-input {
-    display: none;
+/* Q1 Name/Aadhar */
+.form-row-item-1 > .form-label:nth-of-type(1) { min-width: 12rem; } 
+.form-row-item-1 > .form-label:nth-of-type(2) { margin-left: 1rem; min-width: 5rem; } 
+
+/* Q2 DOB */
+.form-row-item-2 > .form-label { min-width: 5rem; }
+.form-row-item-2 > .input-date-width { max-width: 16rem; }
+
+/* Q3 Religion/Caste */
+.form-row-item-3 > .form-label:nth-of-type(1) { min-width: 1rem; } 
+.form-row-item-3 > .form-label:nth-of-type(2) { margin-left: 1rem; min-width: 3rem; } 
+
+/* Q4 Parent Details */
+.parent-details-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.form-row-parent-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+.item-number-parent { margin-top: 0.25rem; }
+.mobile-field-align-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.form-subrow-q4 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.form-subrow-q4-mother { margin-bottom: 0; }
+.form-subrow-q4-spacer {
+    opacity: 0;
+    pointer-events: none;
+    display: none; 
+}
+.label-q4-father, .label-q4-mother { min-width: 8rem; }
+.label-q4-address { min-width: 4rem; }
+
+/* 🆕 Q5 Occupation/Income FIX DESKTOP ALIGNMENT */
+.form-row-q5-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.form-row-multi-column {
+    display: flex;
+    width: 100%;
+    gap: 1rem; /* Space between the two columns (Left: Occupation, Right: Income) */
+    flex-grow: 1; /* Allow columns to take available space next to item number */
+}
+.column-left, .column-right {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 50%;
+    gap: 0.5rem; /* Vertical space between rows in a column */
+}
+.form-row-sub-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+}
+.margin-top-1 {
+    margin-top: 0.5rem; /* Small vertical margin between Father's/Mother's pairs */
+}
+.label-q5-father-occ, .label-q5-mother-occ { min-width: 9rem; }
+.label-q5-income { min-width: 7rem; }
+
+
+/* Q6 Mobile/Q7 Nationality */
+.form-row-item-6 > .form-label:nth-of-type(1) { min-width: 9rem; }
+.form-row-item-6 > .form-label:nth-of-type(2) { margin-left: 1rem; min-width: 5rem; }
+.form-row-item-7 > .form-label:nth-of-type(1) { min-width: 9rem; }
+.form-row-item-7 > .form-label:nth-of-type(2) { margin-left: 1rem; min-width: 5rem; }
+
+/* Q8/Q10 Nested Fields (Desktop structure) */
+.form-row-q8-wrapper, .form-row-q10-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.form-row-q8-main, .form-row-q10-main {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+/* 🆕 Q8 & Q10 Nested Field Vertical Alignment FIX DESKTOP ALIGNMENT */
+.form-q8-content-aligned, 
+.form-q10-content-aligned {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    /* Adjust alignment of sub-fields (a, b, c) under the main question */
+    margin-top: 0.25rem; 
+}
+.form-subrow-q8-aligned, 
+.form-subrow-q10-aligned {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    margin-left: 0 !important; 
+    padding-left: 0 !important;
+}
+.label-q8-sub-num, .label-q10-sub-num { min-width: 1rem; }
+.form-subrow-q8-aligned > .form-label:nth-of-type(2),
+.form-subrow-q10-aligned > .form-label:nth-of-type(2) {
+    flex-shrink: 0;
+}
+
+
+/* Q11 Identification Marks (Desktop structure) */
+.form-row-q11-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+.form-row-q11-main {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+.form-q11-marks-wrapper {
+    margin-left: 3.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.form-subrow-q11 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.label-q11-mark-num { min-width: 1rem; }
+
+
+/* --- Navigation Buttons (Desktop) --- */
+
+.form-nav-desktop {
+    display: flex;
+    margin-top: 2.5rem;
+    justify-content: flex-end;
+}
+.form-nav-middle {
+    justify-content: space-between;
+}
+.form-nav-final {
+    justify-content: space-between;
+}
+.multi-step-nav {
+    padding: 0.75rem 2rem;
+    background-color: #4f46e5;
+    color: white;
+    font-weight: 700;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s;
+    border: none;
+    cursor: pointer;
+}
+.btn-next-step:hover {
+    background-color: #4338ca;
+}
+.btn-prev-step {
+    background-color: #6b7280;
+}
+.btn-prev-step:hover {
+    background-color: #4b5563;
+}
+.btn-submit-final {
+    padding: 0.75rem 2rem;
+    background-color: #4f46e5;
+    color: white;
+    font-weight: 700;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+    border: none;
+    cursor: pointer;
+    transform-origin: center;
+}
+.btn-submit-final:not([disabled]):hover {
+    transform: scale(1.02);
+}
+.btn-submit-final:not([disabled]):active {
+    transform: scale(0.98);
+}
+.btn-submit-final:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* --- Step 2: Document Uploads --- */
+.document-section-content {
+    margin-top: 2rem;
+    padding-top: 1rem;
+}
+.document-section-p {
+    font-size: 0.75rem;
+    color: #4b5563;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding: 0 1rem;
+    line-height: 1.625;
+}
+.document-list-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0 0.5rem;
+}
+.document-upload-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #f3f4f6;
+}
+.document-upload-last {
+    border-bottom: none;
+}
+.document-label {
+    font-size: 0.875rem;
+    color: #374151;
+    font-weight: 500;
 }
 .upload-label {
     cursor: pointer;
@@ -126,13 +369,13 @@ input[type="date"] {
     font-size: 0.8rem;
     transition: background-color 0.15s, transform 0.1s;
 }
-.upload-label:hover {
-    background-color: #f3f4f6; 
+.upload-label:hover { background-color: #f3f4f6; } 
+.upload-input { display: none; }
+.upload-icon {
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.25rem;
 }
-.upload-label:active {
-    transform: scale(0.98);
-}
-
 .file-name {
     font-size: 0.8rem;
     color: #10b981; 
@@ -143,253 +386,235 @@ input[type="date"] {
     white-space: nowrap;
 }
 
-.spinner {
-    border: 4px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    border-top: 4px solid white;
-    width: 1.5rem;
-    height: 1.5rem;
-    animation: spin 1s linear infinite;
-    margin-right: 0.5rem;
+/* --- Step 3: Declaration --- */
+.declaration-content {
+    margin-top: 2rem;
+    padding-top: 1rem;
 }
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+.declaration-checkbox-wrapper {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    padding: 0 0.5rem;
+}
+.declaration-checkbox {
+    height: 1rem;
+    width: 1rem;
+    color: #4f46e5;
+    border: 1px solid #d1d5db;
+    border-radius: 0.25rem;
+    margin-top: 0.25rem;
+    flex-shrink: 0;
+}
+.declaration-text {
+    font-size: 0.75rem;
+    color: #374151;
+    line-height: 1.625;
+    margin-left: 0.75rem;
+    cursor: pointer;
+}
+.declaration-note {
+    font-size: 0.875rem;
+    color: #6b7280;
+    text-align: center;
+    font-style: italic;
+    margin-top: 3rem;
 }
 
-/* --- RESPONSIVENESS (Admission Form - Extensive Mobile Fixes) --- */
+
+/* ========================================================= */
+/* --- MOBILE RESPONSIVENESS (max-width: 640px) --- */
+/* ========================================================= */
 
 @media (max-width: 640px) {
     
-    /* --- CRITICAL FIX 5: Force Steps 2 and 3 to hide initially on mobile --- */
+    .form-container {
+        padding: 1.5rem 1rem;
+    }
+    
+    .admission-header {
+        text-align: center;
+        margin-bottom: 2.5rem; 
+    }
+    
+    /* CRITICAL FIX: Hide Steps 2 and 3 initially */
     #step-2.multi-step-content:not(.active),
     #step-3.multi-step-content:not(.active) {
         display: none !important;
     }
-    
-    /* Ensure the visible step's display property is un-touched by other rules */
     #step-1.multi-step-content.active, 
     #step-2.multi-step-content.active,
     #step-3.multi-step-content.active {
         display: block !important;
     }
 
-    /* --- Admission Form Mobile Fixes (General Container & Navigation) --- */
+    /* UNIVERSAL FORM FIELD STACKING & FULL WIDTH */
 
-    .form-container {
-        padding: 1.5rem 1rem;
-    }
-    
-    .form-container header {
-        text-align: center;
-        margin-bottom: 2.5rem; 
-    }
-    
-    /* --- CRITICAL FIX 1: Force all Step 1 rows to stack vertically --- */
-    #step-1 .flex.items-center.space-x-2,
-    #step-1 .space-y-2 .flex.items-start.space-x-2,
-    #step-1 .space-y-4 .flex.items-start.space-x-2 {
-        flex-direction: column !important; /* Force the main question item to stack */
+    /* Force most flex rows to stack, eliminating horizontal space-x */
+    #admission .form-row-desktop,
+    #admission .form-row-desktop > .form-label,
+    .form-row-q8-main, 
+    .form-row-q10-main {
+        flex-direction: column !important; 
         align-items: flex-start !important;
         padding: 12px 0; 
         border-bottom: 1px dotted #ccc; 
         width: 100%; 
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        gap: 0 !important;
     }
-    
-    #step-1 main.space-y-4 > .space-y-3 {
-        border-bottom: none !important;
+    .input-line, .input-date-width {
+        flex-grow: unset !important;
+        max-width: 100% !important;
+        width: 100% !important;
     }
-    
-    /* Ensure the item number is visually separated but on its own line */
+    .form-label, .item-number {
+        width: 100% !important;
+        min-width: auto !important;
+        font-size: 0.9rem;
+        margin-bottom: 4px;
+        margin-right: 0 !important;
+        margin-left: 0 !important;
+    }
     .item-number {
         font-size: 1rem;
-        margin-right: 0;
-        margin-bottom: 5px;
-        min-width: unset;
-    }
-    
-    /* --- CRITICAL FIX 2: Ensure inner fields and labels stack and take full width --- */
-
-    /* Target the container for sub-rows (Questions 1, 3, 5, 7, 8, 9, 10, 11) */
-    .form-container main .flex-1,
-    .form-container main .flex-col,
-    .form-container main .flex.flex-col {
-        flex: 1 1 100% !important; 
-        max-width: 100% !important; 
-        width: 100%;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-        margin-top: 0 !important;
-    }
-    
-    /* Force inner field groups (like Name/Address/Mother Name) to stack */
-    .mobile-field-align-content {
-        flex-direction: column;
-        width: 100%;
-    }
-    
-    /* Target inner rows inside question 4/5/7/8/10 to force labels above inputs */
-    .mobile-field-align-content .flex.items-center.space-x-2 {
-        flex-direction: column !important; /* Force internal flex items to stack */
-        align-items: flex-start !important;
-        margin-bottom: 15px; /* Add vertical space between sub-fields */
-    }
-    
-    /* Ensure the sub-labels take up one line and inputs are below them */
-    .mobile-field-align-content .form-label.flex-shrink-0 {
-        flex: 1 1 100% !important; /* Label takes full width */
-        margin-right: 0 !important;
-        margin-bottom: 5px; /* Space between label and input line */
-        min-width: unset !important;
-        width: 100%;
-    }
-    
-    /* Input fields and date inputs must take full width */
-    .input-line, 
-    input[type="date"] {
-        flex: 1 1 100% !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        margin-left: 0 !important;
         margin-top: 0;
     }
     
-    /* Hide the transparent placeholder in the Father/Mother section (Rule 4) */
-    .mobile-field-align-content .opacity-0.pointer-events-none {
-        display: none !important;
+    /* Fix specific rows that shouldn't have a border */
+    #step-1 main.admission-main-content > .parent-details-group,
+    #step-1 main.admission-main-content > .form-row-q5-wrapper {
+        border-bottom: none !important;
     }
     
-    /* Question 11 (Identification Marks) specific stacking */
-    #step-1 .space-y-3 .ml-\[3\.5rem\].space-y-2 {
-        margin-left: 0 !important;
-        padding-left: 0;
-        width: 100%;
-    }
-    #step-1 .space-y-3 .ml-\[3\.5rem\].space-y-2 .flex.items-center.space-x-2 {
+    /* --- Complex Fields (Q4, Q5, Q8, Q10, Q11) --- */
+
+    /* Q4 Parent Sub-Rows */
+    .form-row-parent-wrapper {
         flex-direction: column !important;
         align-items: flex-start !important;
+        padding: 12px 0; 
+        border-bottom: 1px dotted #ccc; 
+    }
+    .mobile-field-align-content {
+        width: 100%;
+    }
+    .form-subrow-q4 {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        width: 100%;
         margin-bottom: 10px;
     }
-    #step-1 .space-y-3 .ml-\[3\.5rem\].space-y-2 .form-label.min-w-\[1rem\] {
+    .form-subrow-q4-spacer { display: none !important; }
+
+    /* Q5 Occupation/Income FIX MOBILE STACKING */
+    .form-row-q5-wrapper { border-bottom: none !important; }
+    .form-row-multi-column { 
+        flex-direction: column !important;
+        gap: 0 !important;
+        width: 100% !important;
+    }
+    .column-left, .column-right {
+        flex-direction: column !important;
+        flex: 1 1 100% !important;
+        width: 100% !important;
+        gap: 0 !important;
+    }
+    .form-row-sub-item {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        width: 100% !important;
+        margin-bottom: 10px;
+    }
+    .margin-top-1 {
+        margin-top: 10px !important;
+    }
+
+    /* Q8 & Q10 Nested Lists (FIX ALIGNMENT) */
+    .form-q8-content-aligned, 
+    .form-q10-content-aligned {
+        width: 100% !important;
+        flex-direction: column !important;
+        margin-top: 5px !important;
+    }
+    .form-subrow-q8-aligned, 
+    .form-subrow-q10-aligned {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-bottom: 10px !important;
+    }
+
+    /* Q11 Identification Marks */
+    .form-row-q11-wrapper {
+        padding: 12px 0; 
+        border-bottom: 1px dotted #ccc; 
+    }
+    .form-q11-marks-wrapper {
+        margin-left: 0 !important;
+        width: 100%;
+    }
+    .form-subrow-q11 {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        width: 100%;
         margin-bottom: 5px;
     }
 
-    /* --- Navigation Stacking & Fixing Hidden Buttons --- */
-    
-    /* CRITICAL FIX 3: Re-enable and Stack Navigation Buttons (Required for usability) */
-    .multi-step-nav {
-        display: block !important; 
-        width: 100% !important; 
-        margin-top: 10px !important; 
-        order: 1; 
+    /* --- Navigation & Submit --- */
+    .form-nav-desktop {
+        flex-direction: column-reverse; /* Put Submit on top */
+        margin-top: 1rem; 
+        gap: 10px;
     }
-    
-    /* Use column-reverse to put 'Previous' button on top of 'Next/Submit' if both exist */
-    #step-2 .flex.justify-between.mt-10,
-    #step-3 .flex.justify-between.mt-10 {
-        flex-direction: column-reverse; 
-    }
-
-    #admission-submit-final {
-        width: 100% !important; 
+    .multi-step-nav, .btn-submit-final {
+        width: 100% !important;
         padding: 15px 20px !important;
         font-size: 1.1rem !important;
-        background-color: #25597f !important; 
-        color: white !important; 
-        margin-top: 0 !important;
-        order: 0; 
     }
-    
-    /* --- Step 2 & 3 Mobile Layout Cleanup (Uploads) --- */
-    
-    #step-2 .flex.justify-between.items-center.pb-2 {
-        flex-direction: column;
-        align-items: flex-start;
-        border-bottom: 1px solid #e0e0e0;
-        padding-bottom: 15px;
-        margin-bottom: 15px;
+    .btn-submit-final {
+        order: -1; /* Push submit to top */
+        margin-top: 0 !important;
+        margin-bottom: 10px;
+        background-color: #25597f !important; 
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+    .btn-prev-step {
+        margin-bottom: 10px;
     }
 
-    /* CRITICAL FIX 4: Control Upload Button and Icon Size in Step 2 */
+    /* --- Step 2: Documents Uploads --- */
+    .document-upload-row {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    .document-label {
+        margin-bottom: 5px;
+    }
     .upload-label {
         width: 100%; 
         max-width: 100%;
         justify-content: flex-start; 
-        align-items: center;
         padding: 10px 15px;
         font-size: 1rem;
-        height: auto;
     }
-
-    /* Shrink the icon size to prevent overflow */
-    #step-2 .upload-label svg {
-        width: 24px; 
-        height: 24px;
+    .upload-icon {
+        width: 24px !important; 
+        height: 24px !important;
         margin-right: 8px;
-        flex-shrink: 0; 
     }
-    
-    /* Ensure the text and file name are contained and don't push the icon */
-    #step-2 .upload-label span {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        font-size: 0.9rem;
-    }
-    
-    /* Explicitly fix the file-name span alignment and shrinking */
-    #step-2 .upload-label .file-name {
+    .file-name {
         flex-shrink: 1; 
         max-width: 120px; 
         margin-left: 5px; 
-    }
-    
-    /* --- Other General Mobile Fixes (from original code block) --- */
-    
-    .admission-item-row .admission-item-content {
-        flex-direction: column;
-    }
-    .admission-item-row .admission-item-content > div {
-        width: 100% !important;
-        margin-right: 0 !important; 
-        margin-bottom: 10px;
-    }
-    .form-label, .item-number {
         font-size: 0.9rem;
     }
-    .input-line, .input-dotted {
-        font-size: 0.9rem;
+    .declaration-checkbox-wrapper {
+        padding: 0;
     }
-}
-/* ---- UNIVERSAL MOBILE FIX FOR ADMISSION FORM ---- */
-
-@media(max-width: 640px) {
-  #admission input,
-  #admission select,
-  #admission textarea {
-      width: 100% !important;
-      max-width: 100% !important;
-  }
-
-  #admission .form-label {
-      width: 100% !important;
-      min-width: auto !important;
-      font-size: 0.9rem;
-      margin-bottom: 4px;
-  }
-
-  #admission .flex {
-      flex-direction: column !important;
-      align-items: flex-start !important;
-      gap: 6px !important;
-  }
-
-  #admission .item-number {
-      margin-bottom: 4px;
-  }
-
-  /* Let Tailwind & manual CSS stop fighting */
-  #admission * {
-      flex-wrap: wrap !important;
-  }
 }

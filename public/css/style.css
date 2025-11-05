@@ -1106,20 +1106,19 @@ filter: brightness(0.7) contrast(1.05);
 .activities-grid-container {
     max-width: 1400px;
     margin: 0 auto;
-    /* 1. MODIFIED: Change grid to a single column (1fr) on desktop */
-    grid-template-columns: 1fr; 
-    gap: 30px; /* Increased gap for separation in single column */
+    /* REVERTED TO ORIGINAL DESKTOP LAYOUT (5 columns) */
+    display: grid; 
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px; 
     justify-content: center;
     padding: 10px;
-    display: grid; /* Ensure it remains a grid to use the template-columns */
 }
 
 .activity-card {
     position: relative;
     overflow: hidden;
-    /* 2. MODIFIED: Use padding-top for a 1:1 square ratio based on 100% width */
-    height: 0; 
-    padding-top: 100%; 
+    /* REVERTED TO ORIGINAL DESKTOP HEIGHT (not square) */
+    height: 450px; 
     border-radius: 12px; 
     cursor: pointer;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
@@ -1144,8 +1143,7 @@ filter: brightness(0.7) contrast(1.05);
 
 
 .activity-card:hover {
-    /* Reduced hover scale since the cards are full width */
-    transform: scale(1.01); 
+    transform: scale(1.05);
     z-index: 50;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     filter: brightness(1.2) contrast(1.1);
@@ -3288,11 +3286,8 @@ input[type="date"] {
     .academics-cards-container {
         grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
     }
-    
-    /* MODIFIED: Activities section layout for 1200px and below to match desktop change */
     .activities-grid-container {
-        grid-template-columns: repeat(2, 1fr); /* Two columns on larger tablets/smaller desktops */
-        gap: 20px;
+        grid-template-columns: repeat(3, 1fr);
     }
     .activity-card:hover {
         transform: scale(1.04);
@@ -3349,8 +3344,6 @@ input[type="date"] {
     .box-content-wrapper {
         flex-direction: column !important;
     }
-    
-    /* FOOTER MODIFICATIONS START (992px) */
     .footer-container {
         grid-template-columns: 1fr 1fr;
         gap: 30px;
@@ -3359,22 +3352,17 @@ input[type="date"] {
     .links-col, .map-col {
         padding-top: 10px;
     }
-    
-    /* 1. Remove Map & Reorder */
-    .footer-container .map-col {
+    .map-col {
         display: none; /* New: Hide the map column entirely */
     }
-    
-    /* 2. Reorder for phone view (Quick Links first, then Contact Details) */
     .footer-container .links-col {
         order: 1; /* New: Make Quick Links the first item */
-        grid-column: span 1; /* Ensure links take only one column */
+        grid-column: span 1; 
     }
     .footer-container .contact-col {
         order: 2; /* New: Make Contact Details the second item */
-        grid-column: span 1; /* Ensure contact details take only one column */
+        grid-column: span 1; 
     }
-    /* FOOTER MODIFICATIONS END (992px) */
 
     .nav-links ul {
         gap: 18px;
@@ -3446,18 +3434,23 @@ input[type="date"] {
         min-height: 100px;
     }
 
+    /* --- ACTIVITIES MODIFICATION FOR PHONE/TABLET VIEW (992px) --- */
     .activities-grid-container {
-        grid-template-columns: repeat(1, 1fr); /* MODIFIED: Enforce single column on mobile */
+        grid-template-columns: repeat(1, 1fr); /* FORCED: Single column for mobile view */
+        gap: 20px; /* Adjust gap to look better in a single column */
     }
     .activity-card {
-        height: 0; /* MODIFIED: Uses padding-top for square ratio */
-        padding-top: 100%;
-    }
-    .activity-name {
-        font-size: 1.4rem; 
+        height: 0; /* REMOVE fixed height */
+        padding-top: 100%; /* FORCED: Square aspect ratio (1:1) */
+        transition: transform 0.4s ease-out, box-shadow 0.4s ease-out, z-index 0s 0.4s, filter 0.4s ease-out; 
     }
     .activity-card:hover {
-        transform: scale(1.01);
+        transform: scale(1.01); /* Reduced hover scale for single column */
+    }
+    /* --- END ACTIVITIES MODIFICATION --- */
+    
+    .activity-name {
+        font-size: 1.4rem; 
     }
 
     .faculty-box-content-wrapper,
@@ -3591,7 +3584,7 @@ input[type="date"] {
         padding-bottom: 20px;
     }
     
-    /* Hide map (already hidden at 992px, but good to be explicit for 768px as well if we didn't rely on 992px) */
+    /* Hide map (already hidden at 992px) */
     .footer-container .map-col {
         display: none; 
     }

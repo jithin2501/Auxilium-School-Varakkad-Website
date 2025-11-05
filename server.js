@@ -67,9 +67,10 @@ app.use('/', publicRoutes);
 app.use('/admin', adminRoutes); 
 
 
-// 🎯 CRITICAL FIX: SPA FALLBACK ROUTE (Using named parameter to avoid PathError)
-// This route must be the LAST one defined. It catches any non-matching path.
-app.get('/:all*', (req, res) => {
+// 🎯 CRITICAL FIX: SPA FALLBACK ROUTE (The ultimate workaround)
+// We use a regular expression that matches any path. This bypasses the string parser error.
+// The [^] matches any character including a newline.
+app.get(/[^]*/, (req, res) => {
     // Send the single index.html file for all remaining requests, 
     // letting the client-side JavaScript router handle the content display.
     res.sendFile(path.join(__dirname, 'public', 'index.html'));

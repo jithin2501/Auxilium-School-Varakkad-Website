@@ -3596,64 +3596,154 @@ input[type="date"] {
         gap: 0 !important;
     }
 
-    /* CRITICAL FIX: Ensure fields that were designed to be 'inline' on desktop 
-       remain 'inline' on mobile by forcing a row layout for their container. */
+    /* CRITICAL FIXES FOR INLINE FIELDS (Items 1, 3, 6, 7) */
     .multi-step-content main .flex:nth-child(1), /* Item 1: Name / Aadhar */
     .multi-step-content main .flex:nth-child(3), /* Item 3: Religion / Caste */
     .multi-step-content main .flex:nth-child(6), /* Item 6: Father / Mother Mobile No. */
     .multi-step-content main .flex:nth-child(7) { /* Item 7: Father / Mother Nationality */
-        /* Re-enable flex for row layout */
+        /* Re-enable row layout for two columns */
         flex-direction: row !important;
-        flex-wrap: wrap; /* Allow wrapping if space is tight */
+        flex-wrap: wrap; 
         align-items: flex-start !important;
         gap: 0 !important;
         width: 100%;
-        /* Overrides the margin from the 'column' fix above */
         margin-top: 0 !important; 
         padding-top: 0 !important;
     }
 
-    /* Force the sub-elements (label+input) of the inline rows to be 50% width and wrap */
+    /* Target the container of the first field in the pair */
     .multi-step-content main .flex:nth-child(1) .flex-1,
-    .multi-step-content main .flex:nth-child(1) .ml-4,
     .multi-step-content main .flex:nth-child(3) .flex-1,
-    .multi-step-content main .flex:nth-child(3) .ml-4,
-    .multi-step-content main .flex:nth-child(6) .flex-1:nth-of-type(2), /* Father's Mobile */
-    .multi-step-content main .flex:nth-child(6) .ml-4, /* Mother's Mobile Label */
-    .multi-step-content main .flex:nth-child(6) .flex-1:nth-of-type(3), /* Mother's Mobile Input */
-    .multi-step-content main .flex:nth-child(7) .flex-1:nth-of-type(2), /* Father's Nat. */
-    .multi-step-content main .flex:nth-child(7) .ml-4, /* Mother's Nat. Label */
-    .multi-step-content main .flex:nth-child(7) .flex-1:nth-of-type(3) { /* Mother's Nat. Input */
-        width: 48% !important; /* Forces a two-column effect */
+    .multi-step-content main .flex:nth-child(6) .flex-1:nth-of-type(2), /* Father's Mobile Input */
+    .multi-step-content main .flex:nth-child(7) .flex-1:nth-of-type(2) { /* Father's Nat. Input */
+        width: 49% !important; /* Forces a two-column effect */
         margin-left: 0 !important; 
+        margin-top: 0 !important;
+        flex-shrink: 0;
+    }
+    
+    /* Target the container of the second field in the pair */
+    .multi-step-content main .flex:nth-child(1) .ml-4, /* Aadhar Label */
+    .multi-step-content main .flex:nth-child(3) .ml-4, /* Caste Label */
+    .multi-step-content main .flex:nth-child(6) .ml-4, /* Mother Mobile Label */
+    .multi-step-content main .flex:nth-child(7) .ml-4 { /* Mother Nat. Label */
+        width: 49% !important; 
+        margin-left: 2% !important; /* Add a small gap */
+        margin-top: 0 !important;
+        flex-shrink: 0;
+    }
+
+    /* Target the input fields inside the second column containers */
+    .multi-step-content main .flex:nth-child(6) .flex-1:nth-of-type(3), /* Mother's Mobile Input */
+    .multi-step-content main .flex:nth-child(7) .flex-1:nth-of-type(3) { /* Mother's Nat. Input */
+        /* This element is the input that immediately follows the ml-4 label above. 
+           We need to style it specifically to occupy the remaining horizontal space. */
+        width: 49% !important;
+        margin-left: 2% !important;
+        margin-top: 5px !important;
+        flex-shrink: 0;
+        order: 10; /* Push it below the first label if needed, but here it forces alignment */
+    }
+
+    /* Item 1: Name and Aadhar - special handling for the inputs to take 100% width, below the labels */
+    .multi-step-content main .flex:nth-child(1) > .form-label {
+        width: 49% !important; /* Name label & Aadhar label share space */
+        margin-bottom: 5px; 
+    }
+    .multi-step-content main .flex:nth-child(1) .input-line.flex-1 {
+        /* Force inputs to be full width when they are the primary element after a numbered list item. 
+           This style needs to be applied to the surrounding flex items. */
+        width: 100% !important;
+        margin-top: 0;
+    }
+    
+    /* Reset margins for Item 4 (Father/Mother Name/Address) to stack cleanly */
+    .space-y-2 > .flex.flex-col.w-full.mobile-field-align-content > .flex {
+        flex-direction: column !important; 
+        align-items: flex-start !important;
+        flex-wrap: nowrap;
+        margin-bottom: 10px;
+    }
+    .space-y-2 > .flex.flex-col.w-full.mobile-field-align-content .form-label.flex-shrink-0 {
+        width: 100% !important;
+        margin-right: 0 !important;
+        margin-bottom: 2px;
+    }
+    .space-y-2 > .flex.flex-col.w-full.mobile-field-align-content .input-line.flex-1 {
+        width: 100%;
+    }
+
+
+    /* Ensure the fields following a numbered item start cleanly */
+    .multi-step-content main > div > .flex:first-child {
         margin-top: 0 !important;
     }
     
-    /* Fix for Item 1 Label Spacing */
-    .multi-step-content main .flex:nth-child(1) .form-label.min-w-\[4rem\] {
-        width: 45% !important; /* Give Aadhar label some width */
+    /* Ensure the nested fields in Item 4 stack correctly */
+    .space-y-2 > .flex.flex-col > .flex {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+        margin-bottom: 5px !important;
     }
 
-    /* Fix for Item 6/7 Mobile/Nationality numbers to flow correctly */
-    .multi-step-content main .flex:nth-child(6) .ml-4,
-    .multi-step-content main .flex:nth-child(7) .ml-4 {
-        /* Ensure the label is aligned with the element it labels */
-        align-self: flex-start; 
-        margin-left: 0 !important; 
-        margin-right: 5px !important;
+    .space-y-2 > .flex.flex-col > .flex:nth-child(2) {
+        margin-top: 10px !important;
     }
 
-    /* Ensure Father/Mother Name/Address (Item 4) still stacks cleanly */
-    .space-y-2 > .flex.flex-col.w-full.mobile-field-align-content > .flex {
-        flex-direction: row !important; /* This is the correct desktop layout for this item */
-        flex-wrap: wrap;
+    /* General fix for enrollment form overall size */
+    .form-container {
+        padding: 1.5rem 1rem;
     }
-    .space-y-2 > .flex.flex-col.w-full.mobile-field-align-content .form-label.flex-shrink-0 {
-        width: auto !important;
-        margin-right: 5px !important;
+    
+    /* Fix for Step 2 Upload Section (to stack elements cleanly as per image) */
+    #step-2 .flex.justify-between.items-center {
+        /* OVERRIDE: Reverts to horizontal flex layout (screenshot format) */
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        
+        /* Ensure the border and padding are visually separated */
+        border-bottom: 1px solid #e0e0e0;
+        padding-bottom: 15px !important;
+        margin-bottom: 10px !important;
+        padding-top: 5px !important; 
+        width: 100%;
     }
-    .space-y-2 > .flex.flex-col.w-full.mobile-field-align-content .input-line.flex-1 {
-        flex-grow: 1;
+    
+    /* Ensure the document title remains on its own line */
+    #step-2 .text-sm.text-gray-700.font-medium {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+    
+    /* 3. UPLOAD BUTTON & STATUS CONTAINER */
+    /* This targets the inner container holding the upload button and status text */
+    #step-2 .flex.justify-end {
+        width: 100%; /* Ensure it spans the width */
+        justify-content: space-between !important;
+        align-items: center !important;
+    }
+
+
+    /* --- 4. UPLOAD BUTTON SIZE (Reduced Height) --- */
+    #step-2 .upload-label {
+        /* Reduced height for mobile view */
+        padding: 6px 10px !important; 
+        font-size: 0.8rem !important; 
+        font-weight: 500;
+        width: auto !important; /* Allow the button to size based on content */
+        justify-content: center; 
+        margin-top: 0; /* Remove top margin from previous fix */
+    }
+
+    /* Update file-name/status text appearance */
+    #step-2 .file-name,
+    #step-2 .text-green-600 { /* Assuming 'No file chosen' uses a similar class or general status class */
+        font-size: 0.9rem !important;
+        margin-left: 10px !important;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
 

@@ -883,7 +883,7 @@
     background-color: #f7f7f7;
     border-radius: 6px;
     margin-bottom: 10px;
- 
+   
     transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
     color: #444;
     font-size: 1rem;
@@ -964,9 +964,17 @@
         margin-top: -15px;
     }
 
+    /* *** FIXED: Removed display: none !important; to show closing quote on mobile *** */
     .end-quote-lg {
-        display: none !important;
+        /* display: none !important; */ /* REMOVED TO FIX ISSUE */
+        font-size: 3rem; /* Adjusted for smaller screen */
+        position: relative;
+        right: 0;
+        bottom: 0;
+        float: right; /* Allow it to float to the end of the text block */
+        transform: translate(0, 10px); /* Adjust position slightly */
     }
+    /* ********************************************************************************* */
 
     .principal-signature-box {
         text-align: left;

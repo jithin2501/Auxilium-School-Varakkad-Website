@@ -281,30 +281,36 @@
     }
 }
 @media (max-width: 600px) {
-  .gallery-grid { grid-template-columns: 1fr; }
-  .achievement-image-box {
-      height: 0;
-      padding-top: 100%; 
-  }
-  .result-cards-grid {
-      grid-template-columns: 1fr;
-  }
-  .achievement-content {
-      padding: 15px 15px 20px;
-  }
-  
-  .result-card-item {
-      padding: 25px 15px 35px 15px; 
-  }
-  .result-photo-container {
-      width: 100px;
-      height: 100px;
-      margin-bottom: 15px;
-  }
-  .result-name {
-      font-size: 1.1rem;
-  }
-  .result-percentage {
-      font-size: 1.8rem;
-  }
+    /* *** UPDATED for single column layout on phone view *** */
+    #achievements-display-container {
+        grid-template-columns: 1fr; 
+    }
+    /* ****************************************************** */
+    
+    .gallery-grid { grid-template-columns: 1fr; }
+    .achievement-image-box {
+        height: 0;
+        padding-top: 100%; 
+    }
+    .result-cards-grid {
+        grid-template-columns: 1fr;
+    }
+    .achievement-content {
+        padding: 15px 15px 20px;
+    }
+    
+    .result-card-item {
+        padding: 25px 15px 35px 15px; 
+    }
+    .result-photo-container {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 15px;
+    }
+    .result-name {
+        font-size: 1.1rem;
+    }
+    .result-percentage {
+        font-size: 1.8rem;
+    }
 }

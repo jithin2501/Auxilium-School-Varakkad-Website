@@ -1106,7 +1106,6 @@ filter: brightness(0.7) contrast(1.05);
 .activities-grid-container {
     max-width: 1400px;
     margin: 0 auto;
-    /* REVERTED TO ORIGINAL DESKTOP LAYOUT (5 columns) */
     display: grid; 
     grid-template-columns: repeat(5, 1fr);
     gap: 20px; 
@@ -1117,7 +1116,6 @@ filter: brightness(0.7) contrast(1.05);
 .activity-card {
     position: relative;
     overflow: hidden;
-    /* REVERTED TO ORIGINAL DESKTOP HEIGHT (not square) */
     height: 450px; 
     border-radius: 12px; 
     cursor: pointer;
@@ -3344,6 +3342,8 @@ input[type="date"] {
     .box-content-wrapper {
         flex-direction: column !important;
     }
+    
+    /* --- FOOTER MODIFICATIONS (992px) --- */
     .footer-container {
         grid-template-columns: 1fr 1fr;
         gap: 30px;
@@ -3353,16 +3353,17 @@ input[type="date"] {
         padding-top: 10px;
     }
     .map-col {
-        display: none; /* New: Hide the map column entirely */
+        display: none; /* Hide map on mobile/tablet */
     }
     .footer-container .links-col {
-        order: 1; /* New: Make Quick Links the first item */
+        order: 1; /* Quick Links first */
         grid-column: span 1; 
     }
     .footer-container .contact-col {
-        order: 2; /* New: Make Contact Details the second item */
+        order: 2; /* Contact Details second */
         grid-column: span 1; 
     }
+    /* --- END FOOTER MODIFICATIONS --- */
 
     .nav-links ul {
         gap: 18px;
@@ -3437,7 +3438,7 @@ input[type="date"] {
     /* --- ACTIVITIES MODIFICATION FOR PHONE/TABLET VIEW (992px) --- */
     .activities-grid-container {
         grid-template-columns: repeat(1, 1fr); /* FORCED: Single column for mobile view */
-        gap: 20px; /* Adjust gap to look better in a single column */
+        gap: 20px; 
     }
     .activity-card {
         height: 0; /* REMOVE fixed height */
@@ -3445,7 +3446,7 @@ input[type="date"] {
         transition: transform 0.4s ease-out, box-shadow 0.4s ease-out, z-index 0s 0.4s, filter 0.4s ease-out; 
     }
     .activity-card:hover {
-        transform: scale(1.01); /* Reduced hover scale for single column */
+        transform: scale(1.01); 
     }
     /* --- END ACTIVITIES MODIFICATION --- */
     
@@ -3497,125 +3498,106 @@ input[type="date"] {
         min-height: 120px;
         padding: 20px 10px;
     }
-    .principal-content-box {
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-    }
-    .principal-quote-box {
-        text-align: center;
-        padding: 0;
-    }
-    .start-quote, .end-quote {
-        display: none;
-    }
+    /* ... (Rest of non-footer/non-form 768px styles) ... */
     
-    .principal-image-box.new-format-image {
-        max-width: 300px; 
-        margin-left: auto;
-        margin-right: auto;
-        margin-bottom: 30px;
-        order: 1;
-    }
-    
-    .contact-map-wrapper {
-        min-height: auto;
-    }
-    .contact-map-embed-large {
-        height: 300px; 
-        min-height: 300px;
-    }
-
-    .principal-content-box.new-format-layout {
-        flex-direction: column;
-        align-items: center; 
-        padding: 40px 20px;
-    }
-
-    .principal-image-box.new-format-image {
-        flex: 1 1 100%;
-        max-width: 300px;
-        margin-left: auto;
-        margin-right: auto;
-        margin-bottom: 30px;
-        order: 1;
-    }
-
-    .principal-quote-box.new-format-quote {
-        order: 2;
-        padding-left: 0;
-        text-align: left;
-    }
-
-    .principal-long-quote {
-        padding-right: 0;
-        text-align: left;
-    }
-
-    .start-quote-lg {
-        font-size: 3rem;
-        margin-top: -15px;
-    }
-
-    .end-quote-lg {
-        display: none !important;
-    }
-
-    .principal-signature-box {
-        text-align: left;
-    }
-
-    .principal-name-signature,
-    .principal-tenure-detail {
-        text-align: left;
-        display: block;
-    }
-
-    .principal-tenure-detail {
-        margin-top: 0; 
-    }
-    .result-cards-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    /* FOOTER MODIFICATIONS START (768px) */
+    /* --- FOOTER MODIFICATIONS (768px) --- */
     .footer-container {
-        grid-template-columns: 1fr; /* Ensures single column layout */
+        grid-template-columns: 1fr; 
         padding-bottom: 20px;
     }
-    
-    /* Hide map (already hidden at 992px) */
     .footer-container .map-col {
         display: none; 
     }
-    
-    /* Ensure order is maintained (Quick Links, then Contact Details) */
-    .footer-container .links-col {
-        order: 1; 
-        grid-column: span 1;
-    }
-    .footer-container .contact-col {
-        order: 2; 
-        grid-column: span 1;
-    }
-    
     .footer-bottom-bar {
-        /* New: Center the copyright text (phone view) */
         justify-content: center; 
         flex-direction: column; 
         text-align: center;
     }
-
-    /* New: Hide the developer credit in the phone view */
     .footer-bottom-bar .developer {
-        display: none;
+        display: none; /* Hide developer link */
     }
-    
     .footer-bottom-bar .copyright {
-        /* Ensure copyright is centered if it had specific alignment */
         width: 100%;
         text-align: center;
         font-size: 0.9rem; 
     }
-    /* FOOTER MODIFICATIONS END (768px) */
+    /* --- END FOOTER MODIFICATIONS --- */
+}
+
+@media (max-width: 640px) {
+    /* --- Admission Form Mobile Fixes --- */
+    
+    .form-container {
+        padding: 1.5rem 1rem;
+    }
+    
+    .admission-item-row .admission-item-content {
+        /* Force two-column layouts inside rows to stack vertically */
+        flex-direction: column;
+    }
+    
+    /* Ensure all complex nested elements take full width */
+    .admission-item-row .admission-item-content > div {
+        width: 100% !important;
+        margin-right: 0 !important; 
+        margin-bottom: 10px; /* Add spacing between stacked fields */
+    }
+    
+    .admission-item-row {
+        padding: 5px 0;
+    }
+
+    /* Adjust font size for better fit on phone screens */
+    .form-label, 
+    .item-number {
+        font-size: 0.9rem;
+    }
+    
+    .input-line,
+    .input-dotted {
+        font-size: 0.9rem;
+    }
+    
+    /* For fields like Religion and Caste (which are in the same parent element as Label) */
+    .admission-item-content > span {
+         display: block;
+         margin-bottom: 5px;
+         font-size: 0.9rem;
+    }
+
+    /* Target the button to ensure it looks good */
+    .admission-form-button { 
+        width: 100%;
+        margin-top: 15px;
+    }
+    /* --- End Admission Form Mobile Fixes --- */
+    
+    .exam-competition-box {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .exam-competition-image-wrapper {
+        width: 100%; 
+        height: 220px; 
+    }
+    .exam-competition-content {
+        padding: 15px;
+    }
+    .exam-competition-content h4 {
+        font-size: 1.2rem;
+    }
+    .exam-competition-content p {
+        font-size: 0.9rem;
+    }
+    
+    .result-cards-grid {
+        grid-template-columns: 1fr;
+    }
+    .achievement-content {
+        padding: 15px 15px 20px;
+    }
+    
+    .result-card-item {
+        padding: 25px 15px 35px 15px; 
+    }
 }

@@ -59,9 +59,23 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // 4. Route Mounting
+// All requests that match a file in the 'public' folder will be served here (e.g., /index.html, /css/style.css)
 app.use(express.static(path.join(__dirname, 'public')));
+
+// API and backend routes
 app.use('/', publicRoutes); 
 app.use('/admin', adminRoutes); 
+
+
+// 🎯 CRITICAL FIX: SPA FALLBACK ROUTE
+// This route must be the LAST one defined. It catches any URL (like /knowus or /admission)
+// that did not match a file in 'public' or any explicit API/backend route above.
+app.get('*', (req, res) => {
+    // Send the single index.html file for all remaining requests, 
+    // letting the client-side JavaScript router handle the content display.
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 
 // 5. Start Server
 app.listen(PORT, () => {

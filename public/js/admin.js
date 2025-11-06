@@ -1472,6 +1472,7 @@ window.viewAdmission = async function(appId) {
                     ${renderDocLink('Transfer Certificate', app.documents?.file_tc)}
                     ${renderDocLink('Student Photo (View Multiple)', app.documents?.file_student_photo)}
                     ${renderDocLink('Parent ID Proof', app.documents?.file_parent_id)}
+                    ${renderDocLink('Passport (International)', app.documents?.file_passport)}
                 </div>
             </div>
         `;
@@ -1483,19 +1484,22 @@ window.viewAdmission = async function(appId) {
     }
 };
 
-// FIX: Updated renderDocLink to correctly show PDF or Image links in the modal
+// FIX: Updated renderDocLink to force download (download attribute)
 function renderDocLink(label, url) {
     if (!url) return `<div class="text-gray-400">${label}: Not Uploaded</div>`;
     
-    // Check if the URL indicates a PDF file (Cloudinary URLs for PDFs often contain f_pdf)
+    // Check if the URL indicates a PDF file 
     const isPdf = url.toLowerCase().includes('.pdf') || url.toLowerCase().includes('f_pdf');
     const icon = isPdf ? '📄 PDF' : '🖼️ Image';
-    const linkText = isPdf ? 'View PDF / Download' : 'View Image / Download';
+    
+    // 🎯 CRITICAL CHANGE: Force download for both PDFs and images
+    const linkText = 'Download Document';
 
     return `
         <div>
             <p class="text-gray-700 font-medium">${label}</p>
-            <a href="${url}" target="_blank" class="text-indigo-600 underline text-sm flex items-center space-x-2">
+            <a href="${url}" target="_blank" download
+               class="text-indigo-600 underline text-sm flex items-center space-x-2">
                 <span>${icon}</span>
                 <span>${linkText}</span>
             </a>

@@ -7,18 +7,19 @@ const router = Router();
 
 // Public API endpoints
 router.post('/api/contact', controller.submitContact);
-router.post('/api/submit-application', admissionUpload.fields(admissionFileFields), controller.submitApplication);
+router.post('/api/submit-application', admissionUpload.fields(admissionFileFields), controller.submitApplication); 
 
-// Signed URL endpoint for private PDFs
-router.get('/api/signed-pdf/:publicId', controller.getSignedPdfUrl);
-
-// Public Data Endpoints
+// Public Data Endpoints (UPDATED: All prefixed with /api)
 router.get('/api/gallery', controller.getPublicGallery);
 router.get('/api/alumni', controller.getPublicAlumni);
-router.get('/api/faculty', controller.getFaculty);
-router.get('/api/principal-message', controller.getPublicPrincipalMessage);
+router.get('/api/faculty', controller.getFaculty); 
+router.get('/api/principal-message', controller.getPublicPrincipalMessage); 
+
+// --- NEW: PUBLIC ACHIEVEMENTS & RESULTS ROUTES ---
 router.get('/api/achievements', controller.getPublicAchievements);
 router.get('/api/results', controller.getPublicResults);
+
+// --- NEW: PUBLIC DISCLOSURE ROUTE ---
 router.get('/api/disclosure', controller.getPublicDisclosures);
 
 export default router;

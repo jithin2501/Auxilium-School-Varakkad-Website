@@ -7,10 +7,9 @@ import { Faculty } from '../models/Faculty.js';
 import { PrincipalMessage } from '../models/PrincipalMessage.js';
 import { Achievement } from '../models/Achievement.js';
 import { Result } from '../models/Result.js';
-import { DisclosureDocument } from '../models/DisclosureDocument.js';
+import { DisclosureDocument } from '../models/DisclosureDocument.js'; // NEW IMPORT: Disclosure Document Model
 import { uploadToCloudinary, deleteFromCloudinary } from '../middleware/uploadMiddleware.js';
-import { transporter } from '../config/nodemailer.js';
-import { v2 as cloudinary } from 'cloudinary';
+import { transporter } from '../config/nodemailer.js'; // <- ADDED: Import Nodemailer Transporter
 
 // --- Contact Form (POST /api/contact) ---
 export const submitContact = async (req, res) => {
@@ -62,31 +61,40 @@ export const submitApplication = async (req, res) => {
         for (const field in uploadedFiles) {
             for (const file of uploadedFiles[field]) {
 
+                // 🎯 Detect PDF file
                 const isPdf = file.mimetype.includes('pdf');
 
+                // ✅ FIX: Ensure PDFs download as .pdf and retain filename
                 const uploadOptions = {
                     resource_type: isPdf ? 'raw' : 'image',
-                    access_mode: 'authenticated',   // 👈 PRIVATE storage
-                    type: 'authenticated',
-                    use_filename: true,
-                    unique_filename: false,
-                    format: isPdf ? 'pdf' : undefined
+                    access_mode: 'public',
+                    use_filename: true,          // keep original filename
+                    unique_filename: false,      // prevent random hash
+                    format: isPdf ? 'pdf' : undefined  // ensure .pdf extension
                 };
 
                 // Upload to Cloudinary
                 const result = await uploadToCloudinary(file.buffer, `admissions/${field}`, file.mimetype, uploadOptions);
                 uploadedPublicIds.push(result.public_id);
 
+                // 🛑 Fix Cloudinary PDF URL path (raw instead of image)
+                let fileUrl = result.secure_url;
+                if (isPdf) {
+                    fileUrl = fileUrl.replace('/image/upload/', '/raw/upload/');
+                }
+
                 filesInfo.push({
                     fieldname: field,
                     originalname: file.originalname,
                     mimetype: file.mimetype,
                     size: file.size,
+                    cloudinaryUrl: fileUrl,
                     cloudinaryPublicId: result.public_id
                 });
             }
         }
 
+        // Save admission application
         const appData = new Application({
             pupilName: formData.pupilName,
             dateOfBirth: formData.dateOfBirth,
@@ -99,7 +107,37 @@ export const submitApplication = async (req, res) => {
 
         await appData.save();
 
-        res.json({ success: true, message: 'Application saved successfully!', appId: appData._id });
+        // --- EMAIL NOTIFICATION (Admission Form) ---
+        const fileList = filesInfo.map(f => `
+            <p style="margin: 5px 0 0 0;">
+                <strong>${f.fieldname.replace('file_', '').replace('_', ' ')}:</strong>
+                <a href="${f.cloudinaryUrl}" target="_blank">${f.originalname}</a>
+            </p>`).join('');
+
+        const mailOptions = {
+            from: process.env.EMAIL_USER,
+            to: 'jithinpjoji@gmail.com',
+            subject: `NEW ADMISSION: ${formData.pupilName} (${formData.admissionClass})`,
+            html: `
+                <h3>New Admission Application Received</h3>
+                <p><strong>Pupil Name:</strong> ${formData.pupilName}</p>
+                <p><strong>Class Applied:</strong> ${formData.admissionClass}</p>
+                <p><strong>Father's Mobile:</strong> ${formData.fatherMobile}</p>
+                <p><strong>Date of Birth:</strong> ${formData.dateOfBirth}</p>
+                <br>
+                <h4>Uploaded Documents:</h4>
+                ${fileList}
+                <br>
+                <p><small>View full application details in the Admin Panel.</small></p>
+            `
+        };
+
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) console.error("Nodemailer Error (Admission):", error);
+            else console.log("Admission Email Sent:", info.response);
+        });
+
+        res.json({ success: true, message: 'Application saved and email notification sent!', appId: appData._id });
     } catch (err) {
         console.error(err);
         if (uploadedPublicIds.length > 0) {
@@ -107,25 +145,6 @@ export const submitApplication = async (req, res) => {
             await deleteFromCloudinary(uploadedPublicIds);
         }
         res.status(500).json({ success: false, message: 'Error submitting application' });
-    }
-};
-
-// --- Generate Signed PDF URL (Private Secure Access) ---
-export const getSignedPdfUrl = async (req, res) => {
-    try {
-        const { publicId } = req.params;
-        if (!publicId) return res.status(400).json({ success: false, message: 'Missing publicId parameter.' });
-
-        const url = cloudinary.utils.private_download_url(publicId, 'pdf', {
-            resource_type: 'raw',
-            type: 'authenticated',
-            expires_at: Math.floor(Date.now() / 1000) + 3600 // 1 hour
-        });
-
-        res.json({ success: true, url });
-    } catch (err) {
-        console.error('Error generating signed link:', err);
-        res.status(500).json({ success: false, message: 'Error creating signed URL.' });
     }
 };
 

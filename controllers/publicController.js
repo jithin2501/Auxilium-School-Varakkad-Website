@@ -3,10 +3,10 @@ import { ContactMessage } from '../models/ContactMessage.js';
 import { Application } from '../models/Application.js';
 import { GalleryItem } from '../models/GalleryItem.js';
 import { Alumnus } from '../models/Alumnus.js';
-import { Faculty } from '../models/Faculty.js'; 
-import { PrincipalMessage } from '../models/PrincipalMessage.js'; 
-import { Achievement } from '../models/Achievement.js'; 
-import { Result } from '../models/Result.js'; 
+import { Faculty } from '../models/Faculty.js';
+import { PrincipalMessage } from '../models/PrincipalMessage.js';
+import { Achievement } from '../models/Achievement.js';
+import { Result } from '../models/Result.js';
 import { DisclosureDocument } from '../models/DisclosureDocument.js'; // NEW IMPORT: Disclosure Document Model
 import { uploadToCloudinary, deleteFromCloudinary } from '../middleware/uploadMiddleware.js';
 import { transporter } from '../config/nodemailer.js'; // <- ADDED: Import Nodemailer Transporter
@@ -17,14 +17,14 @@ export const submitContact = async (req, res) => {
         const { name, email, mobile, subject, message } = req.body;
         if (!name || !email || !message)
             return res.status(400).json({ success: false, message: 'Missing required fields: name, email, or message.' });
-        
+
         const msg = new ContactMessage(req.body);
         await msg.save();
-        
-        // --- START EMAIL NOTIFICATION CODE (Contact Form) ---
+
+        // --- EMAIL NOTIFICATION ---
         const mailOptions = {
             from: process.env.EMAIL_USER,
-            to: 'jithinpjoji@gmail.com', 
+            to: 'jithinpjoji@gmail.com',
             subject: `New Contact Message: ${subject || 'No Subject'}`,
             html: `
                 <p><strong>Name:</strong> ${name}</p>
@@ -39,13 +39,9 @@ export const submitContact = async (req, res) => {
         };
 
         transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                console.error("Nodemailer Error (Contact):", error);
-            } else {
-                console.log("Contact Email Sent:", info.response);
-            }
+            if (error) console.error("Nodemailer Error (Contact):", error);
+            else console.log("Contact Email Sent:", info.response);
         });
-        // --- END EMAIL NOTIFICATION CODE ---
 
         res.json({ success: true, message: 'Message saved and email notification sent!' });
     } catch (err) {
@@ -64,22 +60,24 @@ export const submitApplication = async (req, res) => {
 
         for (const field in uploadedFiles) {
             for (const file of uploadedFiles[field]) {
-                
-                // 🎯 CRITICAL FIX: Determine resource type AND ensure public access.
-                const isPdf = file.mimetype.includes('pdf');
-                
-                // Set options for Cloudinary upload
-                const uploadOptions = {
-                    resource_type: isPdf ? 'raw' : 'image', 
-                    access_mode: 'public' 
-                };
-                
-                // Pass the options object to the middleware utility
-                const result = await uploadToCloudinary(file.buffer, `admissions/${field}`, file.mimetype, uploadOptions);
 
+                // 🎯 Detect PDF file
+                const isPdf = file.mimetype.includes('pdf');
+
+                // ✅ FIX: Ensure PDFs download as .pdf and retain filename
+                const uploadOptions = {
+                    resource_type: isPdf ? 'raw' : 'image',
+                    access_mode: 'public',
+                    use_filename: true,          // keep original filename
+                    unique_filename: false,      // prevent random hash
+                    format: isPdf ? 'pdf' : undefined  // ensure .pdf extension
+                };
+
+                // Upload to Cloudinary
+                const result = await uploadToCloudinary(file.buffer, `admissions/${field}`, file.mimetype, uploadOptions);
                 uploadedPublicIds.push(result.public_id);
-                
-                // 🛑 NEW FIX: Ensure the URL path component is 'raw/upload' for PDFs
+
+                // 🛑 Fix Cloudinary PDF URL path (raw instead of image)
                 let fileUrl = result.secure_url;
                 if (isPdf) {
                     fileUrl = fileUrl.replace('/image/upload/', '/raw/upload/');
@@ -90,12 +88,13 @@ export const submitApplication = async (req, res) => {
                     originalname: file.originalname,
                     mimetype: file.mimetype,
                     size: file.size,
-                    cloudinaryUrl: fileUrl, // Use the corrected URL
+                    cloudinaryUrl: fileUrl,
                     cloudinaryPublicId: result.public_id
                 });
             }
         }
 
+        // Save admission application
         const appData = new Application({
             pupilName: formData.pupilName,
             dateOfBirth: formData.dateOfBirth,
@@ -108,17 +107,16 @@ export const submitApplication = async (req, res) => {
 
         await appData.save();
 
-        // --- START EMAIL NOTIFICATION CODE (Admission Form) ---
-        // Generates clickable links for uploaded files
+        // --- EMAIL NOTIFICATION (Admission Form) ---
         const fileList = filesInfo.map(f => `
             <p style="margin: 5px 0 0 0;">
-                <strong>${f.fieldname.replace('file_', '').replace('_', ' ')}:</strong> 
+                <strong>${f.fieldname.replace('file_', '').replace('_', ' ')}:</strong>
                 <a href="${f.cloudinaryUrl}" target="_blank">${f.originalname}</a>
             </p>`).join('');
-        
+
         const mailOptions = {
             from: process.env.EMAIL_USER,
-            to: 'jithinpjoji@gmail.com', 
+            to: 'jithinpjoji@gmail.com',
             subject: `NEW ADMISSION: ${formData.pupilName} (${formData.admissionClass})`,
             html: `
                 <h3>New Admission Application Received</h3>
@@ -135,14 +133,10 @@ export const submitApplication = async (req, res) => {
         };
 
         transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                console.error("Nodemailer Error (Admission):", error);
-            } else {
-                console.log("Admission Email Sent:", info.response);
-            }
+            if (error) console.error("Nodemailer Error (Admission):", error);
+            else console.log("Admission Email Sent:", info.response);
         });
-        // --- END EMAIL NOTIFICATION CODE ---
-        
+
         res.json({ success: true, message: 'Application saved and email notification sent!', appId: appData._id });
     } catch (err) {
         console.error(err);
@@ -187,12 +181,11 @@ export const getFaculty = async (req, res) => {
     }
 };
 
-// --- Public Principal Message (EXISTING) ---
+// --- Public Principal Message (GET /principal-message) ---
 export const getPublicPrincipalMessage = async (req, res) => {
     try {
-        // Fetch the single latest message
         const latestMessage = await PrincipalMessage.findOne().sort({ createdAt: -1 })
-            .select('principalName messageText qualification fromYear toYear cloudinaryUrl'); 
+            .select('principalName messageText qualification fromYear toYear cloudinaryUrl');
 
         if (!latestMessage) {
             return res.status(404).json({ success: false, message: 'No principal message found.' });
@@ -205,14 +198,9 @@ export const getPublicPrincipalMessage = async (req, res) => {
     }
 };
 
-
-// =========================================================================
-// NEW: PUBLIC ACHIEVEMENTS
-// =========================================================================
-
+// --- Public Achievements (GET /achievements) ---
 export const getPublicAchievements = async (req, res) => {
     try {
-        // Fetch all achievements, sorted by most recent first
         const achievements = await Achievement.find().sort({ uploadDate: -1 });
         res.json({ success: true, achievements });
     } catch (error) {
@@ -221,13 +209,9 @@ export const getPublicAchievements = async (req, res) => {
     }
 };
 
-// =========================================================================
-// NEW: PUBLIC RESULTS (ICSE & ISC)
-// =========================================================================
-
+// --- Public Results (GET /results) ---
 export const getPublicResults = async (req, res) => {
     try {
-        // Fetch all results, sorted by type (ICSE/ISC) and then by percentage (descending)
         const results = await Result.find().sort({ type: 1, percentage: -1 });
         res.json({ success: true, results });
     } catch (error) {
@@ -236,14 +220,10 @@ export const getPublicResults = async (req, res) => {
     }
 };
 
-// =========================================================================
-// NEW: PUBLIC DISCLOSURE DOCUMENTS
-// =========================================================================
-
+// --- Public Disclosures (GET /disclosures) ---
 export const getPublicDisclosures = async (req, res) => {
     try {
-        // Fetch all disclosure documents, sorted by type for grouping in frontend
-        const disclosures = await DisclosureDocument.find().sort({ type: 1, title: 1 });
+        const disclosures = await DisclosureDocument.find().sort({ uploadDate: -1 });
         res.json({ success: true, disclosures });
     } catch (error) {
         console.error('Public Get Disclosures Error:', error);

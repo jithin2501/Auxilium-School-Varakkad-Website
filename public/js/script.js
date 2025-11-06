@@ -624,13 +624,25 @@ async function loadPrincipalMessageContent() {
 
     try {
         const response = await fetch(`${API_BASE}/principal-message`); 
+        
         if (!response.ok) {
             if (response.status === 404) {
                  return container.innerHTML = '<p style="color: #444; text-align: center;">No principal message is currently available. Add one via the Admin Panel.</p>';
             }
             throw new Error(`HTTP ${response.status}`);
         }
-        const data = await response.json();
+        
+        // **CRITICAL FIX:** Read response as text first, then parse.
+        const rawResponseText = await response.text(); 
+        
+        let data;
+        try {
+            data = JSON.parse(rawResponseText);
+        } catch (e) {
+            console.error('Failed to parse JSON response:', e, 'Raw text:', rawResponseText.substring(0, 200));
+            // If parsing fails, display the raw text (which is the JSON string) as a temporary error.
+            return container.innerHTML = `<p class="text-red-600 text-center">Parsing Error: Data received was not valid JSON. Check Admin Panel configuration.</p>`;
+        }
         
         const profile = data.profile; 
         

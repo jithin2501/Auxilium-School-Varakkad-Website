@@ -648,8 +648,15 @@ async function loadPrincipalMessageContent() {
                                 `<span class="principal-tenure-detail">${profile.fromYear || 'N/A'} - ${profile.toYear || 'Present'}</span>` : 
                                 '';
             
-            // Clean message text and inject the starting quote
-            const messageTextWithStartQuote = `<span class="start-quote-lg">“</span>${profile.messageText.replace(/\n/g, '<br>')}`;
+            // ============================================================
+            // *** CRITICAL FIX: Format the message text into paragraphs ***
+            // 1. Replace all line breaks (\n, including \r\n from Windows) with </p><p> tags.
+            // 2. Wrap the entire text in a starting <p> and ending </p> tag.
+            // ============================================================
+            const formattedMessageBlocks = `<p>${profile.messageText.replace(/\r?\n/g, '</p><p>')}</p>`;
+
+            // Combine starting quote with the formatted paragraphs
+            const messageContentWithQuotes = `<span class="start-quote-lg">“</span>${formattedMessageBlocks}`;
             
             container.innerHTML = `
                 <div class="principal-content-box new-format-layout">
@@ -661,10 +668,10 @@ async function loadPrincipalMessageContent() {
                     
                     <div class="principal-quote-box new-format-quote">
                         
-                        <p class="principal-message-text principal-long-quote">
-                            ${messageTextWithStartQuote}
+                        <div class="principal-message-text principal-long-quote">
+                            ${messageContentWithQuotes}
                             <span class="end-quote-lg">”</span> 
-                        </p>
+                        </div>
                         
 
                         <div class="principal-signature-box">

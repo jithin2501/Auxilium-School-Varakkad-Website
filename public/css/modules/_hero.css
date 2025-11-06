@@ -227,14 +227,14 @@ filter: brightness(0.7) contrast(1.05);
 
 /* --- MOBILE SPECIFIC BANNER ADJUSTMENTS --- */
 @media (max-width: 640px) {
-    /* Main Banner (Top Banner) */
+    /* Main Banner (Top Banner) - RESTORED TO 100VH */
     .top-banner-bg {
-        height: 80vh; /* Reduced height to make it feel less stretched */
+        height: 100vh; 
         padding-top: 0;
         align-items: center;
     }
     
-    /* Secondary Banners (Know Us, Faculty, etc.) */
+    /* Secondary Banners (Know Us, Faculty, etc.) - KEPT AT OPTIMIZED HEIGHT */
     .knowus-banner-bg, .vision-mission-banner-bg, .contact-banner-bg, .admission-banner-bg, .gallery-banner-bg,
     .alumni-banner-bg, .subjects-banner-bg, .academics-faculty-banner-bg, .administration-banner-bg,
     .competitive-exam-banner-bg, 
@@ -244,7 +244,7 @@ filter: brightness(0.7) contrast(1.05);
     .timing-banner-bg,
     .groups-banner-bg,
     .rules-banner-bg {
-        height: 45vh; /* Dramatically reduced height for a better mobile header feel */
+        height: 45vh; /* Secondary banners remain small for better user experience */
     }
 
     /* Adjust filter specifically for admission if needed, but the shared filter handles it */

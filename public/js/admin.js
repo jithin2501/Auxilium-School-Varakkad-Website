@@ -1483,15 +1483,27 @@ window.viewAdmission = async function(appId) {
     }
 };
 
+// FIX: Updated renderDocLink to correctly show PDF or Image links in the modal
 function renderDocLink(label, url) {
     if (!url) return `<div class="text-gray-400">${label}: Not Uploaded</div>`;
+    
+    // Check if the URL indicates a PDF file (Cloudinary URLs for PDFs often contain f_pdf)
+    const isPdf = url.toLowerCase().includes('.pdf') || url.toLowerCase().includes('f_pdf');
+    const icon = isPdf ? '📄 PDF' : '🖼️ Image';
+    const linkText = isPdf ? 'View PDF / Download' : 'View Image / Download';
+
     return `
         <div>
             <p class="text-gray-700 font-medium">${label}</p>
-            <a href="${url}" target="_blank" class="text-indigo-600 underline text-sm">View / Download</a>
+            <a href="${url}" target="_blank" class="text-indigo-600 underline text-sm flex items-center space-x-2">
+                <span>${icon}</span>
+                <span>${linkText}</span>
+            </a>
         </div>
     `;
 }
+// END FIX
+
 // =========================================================================
 // NEW: ACHIEVEMENTS MANAGEMENT LOGIC
 // =========================================================================
@@ -2035,6 +2047,7 @@ async function handleDisclosureUpload(event) {
 function renderDisclosureCard(doc) {
     const safeTitle = escapeHtml(doc.title);
     const safeTitleForDelete = safeTitle.replace(/'/g, "\\'");
+    // FIXED: Use the URL to determine if it's a PDF
     const isPdf = doc.cloudinaryUrl.toLowerCase().endsWith('.pdf') || doc.cloudinaryUrl.includes('f_pdf');
     const icon = isPdf ? '📄' : '🖼️';
 

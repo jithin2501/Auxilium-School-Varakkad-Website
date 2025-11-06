@@ -450,17 +450,6 @@ input[type="date"] {
         margin-bottom: 2.5rem; 
     }
     
-    /* CRITICAL FIX: Hide Steps 2 and 3 initially */
-    #step-2.multi-step-content:not(.active),
-    #step-3.multi-step-content:not(.active) {
-        display: none !important;
-    }
-    #step-1.multi-step-content.active, 
-    #step-2.multi-step-content.active,
-    #step-3.multi-step-content.active {
-        display: block !important;
-    }
-
     /* UNIVERSAL FORM FIELD STACKING & FULL WIDTH */
 
     /* Force most flex rows to stack, eliminating horizontal space-x */

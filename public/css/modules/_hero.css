@@ -93,7 +93,7 @@
     background-repeat: no-repeat;
     
 filter: brightness(0.7) contrast(1.05); 
-    /* CHANGED: Black overlay opacity increased to 0.8 for maximum darkness */
+    /* CHANGED: Black overlay opacity increased to 0.5 for a moderate darkening effect */
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 1;
 }
@@ -224,8 +224,38 @@ filter: brightness(0.7) contrast(1.05);
         padding-top: 1; 
     }
 }
-@media(max-width:640px){
-  .admission-banner-bg::before{
-      filter: brightness(0.55) !important;
-  }
+
+/* --- MOBILE SPECIFIC BANNER ADJUSTMENTS --- */
+@media (max-width: 640px) {
+    /* Main Banner (Top Banner) */
+    .top-banner-bg {
+        height: 80vh; /* Reduced height to make it feel less stretched */
+        padding-top: 0;
+        align-items: center;
+    }
+    
+    /* Secondary Banners (Know Us, Faculty, etc.) */
+    .knowus-banner-bg, .vision-mission-banner-bg, .contact-banner-bg, .admission-banner-bg, .gallery-banner-bg,
+    .alumni-banner-bg, .subjects-banner-bg, .academics-faculty-banner-bg, .administration-banner-bg,
+    .competitive-exam-banner-bg, 
+    .principal-message-banner-bg, 
+    .results-banner-bg, 
+    .achievements-banner-bg,
+    .timing-banner-bg,
+    .groups-banner-bg,
+    .rules-banner-bg {
+        height: 45vh; /* Dramatically reduced height for a better mobile header feel */
+    }
+
+    /* Adjust filter specifically for admission if needed, but the shared filter handles it */
+    .admission-banner-bg::before{
+        filter: brightness(0.55) !important;
+    }
+    
+    .hero-content h1 {
+        font-size: clamp(2rem, 7vw, 3rem); /* Ensure mobile text is sized correctly */
+    }
+    .hero-content p {
+        font-size: 0.9rem;
+    }
 }

@@ -1000,16 +1000,6 @@ function renderModal(title, message, isSuccess) {
         document.getElementById('submissionModal').remove();
     }
 
-    // 🎯 CRITICAL FIX 1: Temporarily set body overflow to hidden to prevent background scrolling
-    // when the modal is open. This is key for mobile devices, resolving the invisibility issue.
-    document.body.style.overflow = 'hidden'; 
-    
-    // 🎯 CRITICAL FIX 2: Define a function to clean up the body style and remove the modal.
-    window.closeSubmissionModal = function() {
-        document.getElementById('submissionModal').remove();
-        document.body.style.overflow = ''; // Reset body overflow to default
-    }
-
     const bgColor = isSuccess ? 'bg-green-100 border-green-500 text-green-800' : 'bg-red-100 border-red-500 text-red-800';
     const icon = isSuccess ? '✅' : '❌';
     const modalHtml = `
@@ -1019,7 +1009,7 @@ function renderModal(title, message, isSuccess) {
                     <div class="text-4xl mb-3">${icon}</div>
                     <h3 class="text-xl font-bold mb-2">${title}</h3>
                     <p class="text-gray-600 mb-6">${message}</p>
-                    <button onclick="closeSubmissionModal()" 
+                    <button onclick="document.getElementById('submissionModal').remove()" 
                             class="w-full py-2 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition">
                         OKAY
                     </button>

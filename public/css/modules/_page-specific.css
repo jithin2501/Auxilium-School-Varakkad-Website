@@ -722,7 +722,7 @@
 
 .faculty-box-content-wrapper.reverse .faculty-quote {
     /* Explicitly override the .reverse version to match the non-reverse version */
-    border-left: 44px solid #f97316 !important; 
+    border-left: 4px solid #f97316 !important; /* FIXED: Changed from 44px to 4px */
     border-right: none !important;
     padding-left: 15px !important;
     padding-right: 0 !important;

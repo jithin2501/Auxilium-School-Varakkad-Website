@@ -31,7 +31,78 @@
             }
         }
 
-        .nav-item:hover { background-color: #374151;
+        .nav-item:hover { 
+            background-color: #374151;
+        }
+
+        /* Mobile-responsive table styles */
+        @media (max-width: 768px) {
+            .admin-table {
+                display: block;
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .admin-section {
+                padding: 0.5rem;
+            }
+
+            /* Mobile text wrapping and sizing */
+            #section-title {
+                font-size: 1.5rem !important;
+                word-break: break-word;
+                line-height: 1.2;
+            }
+
+            .admin-content {
+                padding: 0.5rem !important;
+            }
+
+            /* Better mobile spacing */
+            .p-4 {
+                padding: 0.75rem !important;
+            }
+
+            .p-6 {
+                padding: 1rem !important;
+            }
+
+            /* Mobile form improvements */
+            input, select, textarea {
+                font-size: 16px !important; /* Prevents iOS zoom */
+            }
+        }
+
+        /* Table scroll indicator */
+        .table-scroll-wrapper {
+            position: relative;
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .table-scroll-wrapper::after {
+            content: "→";
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            color: #666;
+            animation: bounce 1s infinite;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .table-scroll-wrapper.has-overflow::after {
+                display: block;
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(-50%) translateX(0); }
+            50% { transform: translateY(-50%) translateX(5px); }
         }
 
         .spinner {
@@ -45,10 +116,8 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg);
-            }
-            100% { transform: rotate(360deg);
-            }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -122,9 +191,10 @@ Management
             <div id="status-message" class="hidden bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 rounded" role="alert"></div>
 
             <section id="applications-section" class="admin-section">
-                
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <p class="text-gray-500 text-center">Loading application data...</p>
+                <div class="bg-white p-4 sm:p-6 rounded-lg shadow-md overflow-x-auto">
+                    <div class="table-scroll-wrapper admin-content">
+                        <p class="text-gray-500 text-center">Loading application data...</p>
+                    </div>
                 </div>
             </section>
 
@@ -515,6 +585,29 @@ focus:ring-indigo-500 focus:border-indigo-500">
         // Initialize by showing the default section
         document.addEventListener('DOMContentLoaded', () => {
             showAdminSection('applications');
+            
+            // Handle table scroll indicators
+            const tableWrappers = document.querySelectorAll('.table-scroll-wrapper');
+            tableWrappers.forEach(wrapper => {
+                const checkScroll = () => {
+                    if (wrapper.scrollWidth > wrapper.clientWidth) {
+                        wrapper.classList.add('has-overflow');
+                    } else {
+                        wrapper.classList.remove('has-overflow');
+                    }
+                };
+                
+                // Check on load and resize
+                checkScroll();
+                window.addEventListener('resize', checkScroll);
+                
+                // Remove the indicator once user starts scrolling
+                wrapper.addEventListener('scroll', () => {
+                    if (wrapper.scrollLeft > 0) {
+                        wrapper.classList.remove('has-overflow');
+                    }
+                });
+            });
         });
 
     </script>

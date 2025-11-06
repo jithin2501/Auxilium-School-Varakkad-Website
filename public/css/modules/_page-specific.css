@@ -933,6 +933,14 @@
     .alumni-description-box {
         padding: 0;
     }
+    
+    /* ---------------------------------------------------- */
+    /* 🎯 ALUMNI FIX (MOBILE ONLY) */
+    /* ---------------------------------------------------- */
+    .alumni-description-box h3 {
+        text-align: center; /* Center "Alumni Overview" heading */
+    }
+
     .principal-content-box.new-format-layout {
         flex-direction: column;
         align-items: center; 
@@ -1002,13 +1010,28 @@
         height: 200px;
         margin: 0 auto;
     }
+    
+    /* ---------------------------------------------------- */
+    /* 🎯 FACULTY FIX (MOBILE ONLY) */
+    /* ---------------------------------------------------- */
     .faculty-quote,
     .faculty-box-content-wrapper.reverse .faculty-quote {
+        /* 1. Remove orange line (border-left) */
+        border-left: none !important; 
+        
+        /* 2. Center Text */
+        text-align: center !important; 
+        
+        /* Reset Padding/Borders */
         border-right: none;
-        border-left: 4px solid #f97316;
         padding-right: 0;
-        padding-left: 15px;
+        padding-left: 0;
     }
+    .faculty-name,
+    .faculty-subj-qual {
+        text-align: center; /* Center name and designation */
+    }
+    /* ---------------------------------------------------- */
     
     /* FIX 5: Mandatory Disclosure Documents Layout Fix */
     .disclosure-grid-container {

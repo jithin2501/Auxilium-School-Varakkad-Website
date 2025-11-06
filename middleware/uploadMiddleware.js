@@ -17,13 +17,15 @@ export const admissionUpload = multer({ storage: multer.memoryStorage(), limits:
 export const galleryUpload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 100 * 1024 * 1024 } });
 export const alumniUpload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 * 1024 * 1024 } });
 
-// --- File Field Definitions (Extracted from admission.js) ---
+// --- File Field Definitions (FIXED: Added 'file_passport') ---
 export const admissionFileFields = [
     { name: 'file_tc', maxCount: 1 },
     { name: 'file_birth', maxCount: 1 },
     { name: 'file_aadhar', maxCount: 1 },
     { name: 'file_parent_id', maxCount: 1 },
-    { name: 'file_student_photo', maxCount: 5 }
+    { name: 'file_student_photo', maxCount: 5 },
+    // 🎯 CRITICAL FIX: ADDED MISSING FIELD
+    { name: 'file_passport', maxCount: 1 } 
 ];
 
 // --- Cloudinary Helpers (FIXED: Accept and spread options) ---

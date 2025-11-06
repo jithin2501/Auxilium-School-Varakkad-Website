@@ -9,21 +9,17 @@ const router = Router();
 router.post('/api/contact', controller.submitContact);
 router.post('/api/submit-application', admissionUpload.fields(admissionFileFields), controller.submitApplication); 
 
-// Public Data Endpoints
-router.get('/gallery', controller.getPublicGallery);
-router.get('/alumni', controller.getPublicAlumni);
-router.get('/faculty', controller.getFaculty); 
-router.get('/principal-message', controller.getPublicPrincipalMessage); 
+// Public Data Endpoints (UPDATED: All prefixed with /api)
+router.get('/api/gallery', controller.getPublicGallery);
+router.get('/api/alumni', controller.getPublicAlumni);
+router.get('/api/faculty', controller.getFaculty); 
+router.get('/api/principal-message', controller.getPublicPrincipalMessage); 
 
-// --------------------------------------------------------------------------
 // --- NEW: PUBLIC ACHIEVEMENTS & RESULTS ROUTES ---
-// --------------------------------------------------------------------------
-router.get('/achievements', controller.getPublicAchievements);
-router.get('/results', controller.getPublicResults);
+router.get('/api/achievements', controller.getPublicAchievements);
+router.get('/api/results', controller.getPublicResults);
 
-// --------------------------------------------------------------------------
 // --- NEW: PUBLIC DISCLOSURE ROUTE ---
-// --------------------------------------------------------------------------
-router.get('/disclosure', controller.getPublicDisclosures);
+router.get('/api/disclosure', controller.getPublicDisclosures);
 
 export default router;

@@ -383,17 +383,17 @@ window.addEventListener('popstate', () => {
 
 
 // =========================================================================
-// ALL DATA FETCH AND RENDER LOGIC (No major logic changes, just ensuring API_BASE is correct)
+// ALL DATA FETCH AND RENDER LOGIC (UPDATED FETCH URLs)
 // =========================================================================
 
-// ... [loadAlumniProfiles, createFacultyHtml, setupScrollAnimation, loadFacultyProfiles] ...
 async function loadAlumniProfiles() {
     const container = document.getElementById('alumni-profiles-container');
     if (!container) return; 
     container.innerHTML = '<p style="color: #444; text-align: center;">Fetching featured alumni...</p>';
 
     try {
-        const response = await fetch(`${API_BASE}/alumni`);
+        // 🚨 FIXED: Changed from /alumni to /api/alumni
+        const response = await fetch(`${API_BASE}/api/alumni`);
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const data = await response.json();
         
@@ -491,7 +491,8 @@ async function loadFacultyProfiles() {
     container.innerHTML = '<p style="color: #444; text-align: center;">Fetching faculty details...</p>';
 
     try {
-        const response = await fetch(`${API_BASE}/faculty`); 
+        // 🚨 FIXED: Changed from /faculty to /api/faculty
+        const response = await fetch(`${API_BASE}/api/faculty`); 
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const data = await response.json();
         
@@ -524,7 +525,8 @@ async function loadPublicGallery(type, page = 1) {
   if(controlsContainer) controlsContainer.innerHTML = '';
   
   try {
-    const res = await fetch(`${API_BASE}/gallery`);
+    // 🚨 FIXED: Changed from /gallery to /api/gallery
+    const res = await fetch(`${API_BASE}/api/gallery`);
     
     if (!res.ok) {
         container.innerHTML = `<p class="text-red-600 text-center" style="grid-column: 1 / -1;">Error: Cannot connect to the server or fetch data. Status: ${res.status}</p>`;
@@ -623,7 +625,8 @@ async function loadPrincipalMessageContent() {
     container.innerHTML = '<p style="color: #444; text-align: center;">Fetching message...</p>';
 
     try {
-        const response = await fetch(`${API_BASE}/principal-message`); 
+        // 🚨 FIXED: Changed from /principal-message to /api/principal-message
+        const response = await fetch(`${API_BASE}/api/principal-message`); 
         
         if (!response.ok) {
             if (response.status === 404) {
@@ -714,7 +717,8 @@ async function loadAchievements() {
     container.style.display = 'grid'; // Ensure grid display for the cards
 
     try {
-        const response = await fetch(`${API_BASE}/achievements`); 
+        // 🚨 FIXED: Changed from /achievements to /api/achievements
+        const response = await fetch(`${API_BASE}/api/achievements`); 
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const data = await response.json();
         
@@ -760,7 +764,8 @@ async function loadResults() {
     container.style.display = 'block'; // Reset to block container for stacked sections
 
     try {
-        const response = await fetch(`${API_BASE}/results`); 
+        // 🚨 FIXED: Changed from /results to /api/results
+        const response = await fetch(`${API_BASE}/api/results`); 
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const data = await response.json();
         
@@ -834,7 +839,8 @@ async function loadDisclosures() {
     container.innerHTML = '<p style="color: #444; text-align: center; grid-column: 1 / -1;">Fetching mandatory disclosure documents...</p>';
 
     try {
-        const response = await fetch(`${API_BASE}/disclosure`); 
+        // 🚨 FIXED: Changed from /disclosure to /api/disclosure
+        const response = await fetch(`${API_BASE}/api/disclosure`); 
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const data = await response.json();
         

@@ -70,9 +70,7 @@ export const submitApplication = async (req, res) => {
                 
                 // Set options for Cloudinary upload
                 const uploadOptions = {
-                    // MUST be set to raw for PDFs to be viewable as documents
                     resource_type: isPdf ? 'raw' : 'image', 
-                    // MUST be set to public to avoid HTTP ERROR 401
                     access_mode: 'public' 
                 };
                 
@@ -80,12 +78,19 @@ export const submitApplication = async (req, res) => {
                 const result = await uploadToCloudinary(file.buffer, `admissions/${field}`, file.mimetype, uploadOptions);
 
                 uploadedPublicIds.push(result.public_id);
+                
+                // 🛑 NEW FIX: Ensure the URL path component is 'raw/upload' for PDFs
+                let fileUrl = result.secure_url;
+                if (isPdf) {
+                    fileUrl = fileUrl.replace('/image/upload/', '/raw/upload/');
+                }
+
                 filesInfo.push({
                     fieldname: field,
                     originalname: file.originalname,
                     mimetype: file.mimetype,
                     size: file.size,
-                    cloudinaryUrl: result.secure_url,
+                    cloudinaryUrl: fileUrl, // Use the corrected URL
                     cloudinaryPublicId: result.public_id
                 });
             }

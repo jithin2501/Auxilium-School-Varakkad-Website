@@ -666,7 +666,7 @@ async function loadPrincipalMessageContent() {
             // ============================================================
             // *** CRITICAL FIX: Format the message text into paragraphs ***
             // 1. Replace all line breaks (\n, including \r\n from Windows) with </p><p> tags.
-            // 2. Wrap the entire text in a starting <p> and ending </p> tag.
+            // 2. Wrap the entire text in a starting <p> and ending <p> tag.
             // ============================================================
             const formattedMessageBlocks = `<p>${profile.messageText.replace(/\r?\n/g, '</p><p>')}</p>`;
 
@@ -1000,6 +1000,16 @@ function renderModal(title, message, isSuccess) {
         document.getElementById('submissionModal').remove();
     }
 
+    // 🎯 CRITICAL FIX 1: Temporarily set body overflow to hidden to prevent background scrolling
+    // when the modal is open. This is key for mobile devices, resolving the invisibility issue.
+    document.body.style.overflow = 'hidden'; 
+    
+    // 🎯 CRITICAL FIX 2: Define a function to clean up the body style and remove the modal.
+    window.closeSubmissionModal = function() {
+        document.getElementById('submissionModal').remove();
+        document.body.style.overflow = ''; // Reset body overflow to default
+    }
+
     const bgColor = isSuccess ? 'bg-green-100 border-green-500 text-green-800' : 'bg-red-100 border-red-500 text-red-800';
     const icon = isSuccess ? '✅' : '❌';
     const modalHtml = `
@@ -1009,7 +1019,7 @@ function renderModal(title, message, isSuccess) {
                     <div class="text-4xl mb-3">${icon}</div>
                     <h3 class="text-xl font-bold mb-2">${title}</h3>
                     <p class="text-gray-600 mb-6">${message}</p>
-                    <button onclick="document.getElementById('submissionModal').remove()" 
+                    <button onclick="closeSubmissionModal()" 
                             class="w-full py-2 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition">
                         OKAY
                     </button>
@@ -1050,17 +1060,29 @@ window.handleSubmit = async function(event) {
             body: formData 
         });
 
+        // --- NEW/IMPROVED ERROR HANDLING ---
         if (!response.ok) {
-            let errorDetails = 'Unknown server error.';
+            // Attempt to read server response text/JSON for debugging
+            const rawResponseText = await response.text(); 
+            let errorDetails = `Status ${response.status}: Server error or bad request.`;
+            
             try {
-                const errorJson = await response.json();
+                const errorJson = JSON.parse(rawResponseText);
                 errorDetails = errorJson.error || errorJson.message || errorDetails;
             } catch (e) {
-                errorDetails = `Status ${response.status}: Failed to parse server response.`;
+                // If JSON parsing fails, the error message might be in the raw text 
+                // (e.g., from an upstream server like Multer/Cloudinary limit error)
+                if (rawResponseText.includes('File too large')) {
+                    errorDetails = 'Submission failed: One or more files are too large. Please check file sizes.';
+                } else if (rawResponseText.length > 50) {
+                     errorDetails = `Submission failed (Status: ${response.status}). Check server console for full error.`;
+                     console.error("Server raw response:", rawResponseText.substring(0, 500) + '...');
+                }
             }
 
-            throw new Error(`Submission failed. Details: ${errorDetails}`);
+            throw new Error(errorDetails);
         }
+        // --- END NEW/IMPROVED ERROR HANDLING ---
         
         // Success Modal (Remains)
         renderModal(
@@ -1080,11 +1102,19 @@ window.handleSubmit = async function(event) {
 
     } catch (error) {
         console.error('Admission Submission error:', error);
+        
+        let displayMessage = 'An error occurred while submitting your application. Please check your internet connection or try again later. (See console for details)';
+        
+        if (error.message.includes('File too large')) {
+             displayMessage = "File upload failed: One or more of your documents are too large. Please reduce the size and try again.";
+        } else if (error.message.includes('Status')) {
+            displayMessage = error.message;
+        }
 
         // Failure Modal (Remains)
         renderModal(
             "Submission Failed",
-            'An error occurred while submitting your application. Please check your internet connection or try again later. (See console for details)',
+            displayMessage,
             false
         );
 
@@ -1096,7 +1126,7 @@ window.handleSubmit = async function(event) {
         toggleSubmitButton(document.getElementById('declaration-agree').checked);
         
         submitButton.innerHTML = originalButtonContent;
-        submitButton.classList.remove('flex', 'items-center', 'justify-center');
+        button.classList.remove('flex', 'items-center', 'justify-center');
     }
 }
 

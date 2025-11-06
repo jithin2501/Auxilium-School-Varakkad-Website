@@ -428,13 +428,14 @@ input[type="date"] {
 
 @media (max-width: 640px) {
     
-    /* ADDED: Clean box style for input fields on mobile, replacing the bottom-line look */
+    /* 🎯 FIX: Apply clean block style to input fields on mobile, removing the dot-line look */
     .input-line {
         border: 1px solid #ccc !important; 
         border-radius: 4px !important;
         padding: 8px 10px !important;
         background-color: #f7f7f7 !important;
-        border-bottom: 1px solid #ccc !important; /* Overwrite the desktop border-bottom */
+        /* Ensure bottom border from desktop is overridden */
+        border-bottom: 1px solid #ccc !important; 
     }
     .input-line:focus {
         border-color: #4f46e5 !important;
@@ -479,9 +480,11 @@ input[type="date"] {
         margin-right: 0 !important;
         margin-left: 0 !important;
     }
+    /* 🎯 FIX: Ensure spacing is reset after the item number */
     .item-number {
         font-size: 1rem;
         margin-top: 0;
+        margin-bottom: 8px !important; 
     }
     
     /* Fix specific rows that shouldn't have a border */

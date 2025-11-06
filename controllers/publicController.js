@@ -141,7 +141,7 @@ export const getPublicGallery = async (req, res) => {
         const items = await GalleryItem.find().sort({ uploadDate: -1 });
         res.json({ success: true, items });
     } catch (err) {
-        console.error(err);
+        console.error('Error fetching gallery', err);
         res.status(500).json({ success: false, message: 'Error fetching gallery' });
     }
 };
@@ -173,7 +173,7 @@ export const getPublicPrincipalMessage = async (req, res) => {
     try {
         // Fetch the single latest message
         const latestMessage = await PrincipalMessage.findOne().sort({ createdAt: -1 })
-            .select('principalName messageText qualification fromYear toYear cloudinaryUrl'); // ⬅️ UPDATED: Select correct fields
+            .select('principalName messageText qualification fromYear toYear cloudinaryUrl'); 
 
         if (!latestMessage) {
             return res.status(404).json({ success: false, message: 'No principal message found.' });

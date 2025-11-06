@@ -428,6 +428,19 @@ input[type="date"] {
 
 @media (max-width: 640px) {
     
+    /* ADDED: Clean box style for input fields on mobile, replacing the bottom-line look */
+    .input-line {
+        border: 1px solid #ccc !important; 
+        border-radius: 4px !important;
+        padding: 8px 10px !important;
+        background-color: #f7f7f7 !important;
+        border-bottom: 1px solid #ccc !important; /* Overwrite the desktop border-bottom */
+    }
+    .input-line:focus {
+        border-color: #4f46e5 !important;
+        background-color: #fff !important;
+    }
+
     .form-container {
         padding: 1.5rem 1rem;
     }

@@ -26,10 +26,14 @@ export const admissionFileFields = [
     { name: 'file_student_photo', maxCount: 5 }
 ];
 
-// --- Cloudinary Helpers (Extracted from admission.js) ---
-export const uploadToCloudinary = (buffer, folder, mimetype) => {
+// --- Cloudinary Helpers (FIXED: Accept and spread options) ---
+export const uploadToCloudinary = (buffer, folder, mimetype, options = {}) => {
     const dataUri = `data:${mimetype};base64,${buffer.toString('base64')}`;
-    return cloudinary.uploader.upload(dataUri, { folder, resource_type: "auto" });
+    return cloudinary.uploader.upload(dataUri, { 
+        folder, 
+        resource_type: "auto",
+        ...options // Spreads custom options (like resource_type and access_mode)
+    });
 };
 
 export const deleteFromCloudinary = async (publicIds) => {

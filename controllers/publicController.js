@@ -65,16 +65,19 @@ export const submitApplication = async (req, res) => {
         for (const field in uploadedFiles) {
             for (const file of uploadedFiles[field]) {
                 
-                // 🎯 CRITICAL FIX: Determine resource type for Cloudinary 
-                // to correctly handle PDFs as 'raw' documents.
+                // 🎯 CRITICAL FIX: Determine resource type AND ensure public access.
                 const isPdf = file.mimetype.includes('pdf');
-                // Use 'raw' for documents (PDFs) and 'image' for everything else expected
-                const resourceType = isPdf ? 'raw' : 'image'; 
                 
-                // Assuming uploadToCloudinary now takes a resourceType option
-                const result = await uploadToCloudinary(file.buffer, `admissions/${field}`, file.mimetype, {
-                    resource_type: resourceType
-                });
+                // Set options for Cloudinary upload
+                const uploadOptions = {
+                    // MUST be set to raw for PDFs to be viewable as documents
+                    resource_type: isPdf ? 'raw' : 'image', 
+                    // MUST be set to public to avoid HTTP ERROR 401
+                    access_mode: 'public' 
+                };
+                
+                // Pass the options object to the middleware utility
+                const result = await uploadToCloudinary(file.buffer, `admissions/${field}`, file.mimetype, uploadOptions);
 
                 uploadedPublicIds.push(result.public_id);
                 filesInfo.push({

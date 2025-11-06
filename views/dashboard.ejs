@@ -1,166 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auxilium School Admin Dashboard</title>
-    <link rel="icon" type="image/png" href="./css/images/banner/cropped_circle_image.png">
-    <link rel="stylesheet" href="css/style.css"> 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Override base styles to match the main site's font/color scheme */
-        body {
-            font-family: 'Roboto', sans-serif;
-            color: #1a120b; 
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auxilium School Admin Dashboard</title>
+  <link rel="icon" type="image/png" href="./css/images/banner/cropped_circle_image.png">
+  <link rel="stylesheet" href="css/style.css">
 
-        .sidebar { 
-            background-color: #1f2937;
-            /* New: Mobile styles for sidebar */
-            transform: translateX(-100%);
-            transition: transform 0.3s ease-in-out;
-            z-index: 50; /* Ensure it's above other content */
-        }
-        .sidebar.open {
-            transform: translateX(0);
-        }
-        @media (min-width: 1024px) {
-            .sidebar {
-                transform: translateX(0); /* Always visible on large screens */
-                position: fixed;
-            }
-        }
+  <!-- 🩵 Unified base + fade-in + fallback style -->
+  <style>
+    body {
+      opacity: 0;
+      transition: opacity 0.25s ease-in;
+      background: #f9fafb;
+      color: #1a120b;
+      font-family: 'Roboto', system-ui, sans-serif;
+    }
+    a {
+      color: #2563eb;
+      text-decoration: none;
+    }
 
-        .nav-item:hover { background-color: #374151;
-        }
+    /* Sidebar styling (mobile + desktop) */
+    .sidebar {
+      background-color: #1f2937;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease-in-out;
+      z-index: 50;
+      will-change: transform;
+    }
+    .sidebar.open {
+      transform: translateX(0);
+    }
+    @media (min-width: 1024px) {
+      .sidebar {
+        transform: translateX(0);
+        position: fixed;
+      }
+    }
 
-        .spinner {
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top: 4px solid white;
-            width: 1.5rem;
-            height: 1.5rem;
-            animation: spin 1s linear infinite;
-            display: inline-block;
-        }
+    /* Overlay fully fixed for mobile */
+    #sidebar-overlay {
+      position: fixed;
+    }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg);
-            }
-            100% { transform: rotate(360deg);
-            }
-        }
-    </style>
+    /* Prevent background scroll when sidebar open */
+    body.overflow-hidden {
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .nav-item:hover {
+      background-color: #374151;
+    }
+
+    .spinner {
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top: 4px solid white;
+      width: 1.5rem;
+      height: 1.5rem;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+
+  <!-- 🩵 Tailwind via CDN -->
+  <script src="https://cdn.tailwindcss.com" defer></script>
+
+  <!-- 🩵 Fade-in activation -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.body.style.opacity = '1';
+    });
+  </script>
 </head>
+
 <body class="bg-gray-100 min-h-screen font-sans">
-    <div class="flex">
-        <div id="sidebar-overlay" class="fixed inset-0 bg-black opacity-50 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
+  <div class="flex">
+    <!-- Overlay -->
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black opacity-50 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
 
-        <aside id="sidebar" class="sidebar w-64 min-h-screen text-white p-4 space-y-4 fixed h-full">
-            
-            <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-3">
-                <h1 class="text-2xl font-bold">Auxilium Admin</h1>
-                <button id="close-sidebar-btn" class="text-white hover:text-gray-300 lg:hidden focus:outline-none" onclick="toggleSidebar()">
-                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"> 
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
+    <!-- Sidebar -->
+    <aside id="sidebar" class="sidebar w-64 min-h-screen text-white p-4 space-y-4 fixed h-full">
+      <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-3">
+        <h1 class="text-2xl font-bold">Auxilium Admin</h1>
+        <button id="close-sidebar-btn" class="text-white hover:text-gray-300 lg:hidden focus:outline-none" onclick="toggleSidebar()">
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Sidebar Navigation -->
+      <nav class="space-y-2">
+        <a href="#" class="nav-item block px-4 py-3 rounded-lg bg-indigo-600 font-semibold" id="nav-applications" onclick="showAdminSection('applications')">ADMISSION APPLICATION</a>
+        <a href="#" class="nav-item block px-4 py-3 rounded-lg" id="nav-gallery" onclick="showAdminSection('gallery')">Gallery Management</a>
+        <a href="#" class="nav-item block px-4 py-3 rounded-lg" id="nav-alumni" onclick="showAdminSection('alumni')">Alumni Management</a>
+        <a href="#" class="nav-item block px-4 py-3 rounded-lg" id="nav-faculty" onclick="showAdminSection('faculty')">Faculty Management</a>
+        <a href="#" class="nav-item block px-4 py-3 rounded-lg" id="nav-principal-message" onclick="showAdminSection('principal-message')">Principal's Message</a>
+        <a href="#" class="nav-item block px-4 py-3 rounded-lg" id="nav-achievements" onclick="showAdminSection('achievements')">Achievements</a>
+        <a href="#" class="nav-item block px-4 py-3 rounded-lg" id="nav-results" onclick="showAdminSection('results')">ICSE & ISC Results</a>
+        <a href="#" class="nav-item block px-4 py-3 rounded-lg" id="nav-disclosure" onclick="showAdminSection('disclosure')">Public Disclosure</a>
+        <a href="#" class="nav-item block px-4 py-3 rounded-lg" id="nav-user-management" onclick="showAdminSection('user-management')">User Management</a>
+        <a href="/admin/logout" class="nav-item block px-4 py-3 rounded-lg text-red-400 hover:bg-red-800">Sign Out</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-4 lg:p-8 lg:ml-64">
+      <!-- Mobile Menu Button -->
+      <div class="lg:hidden flex justify-start items-center mb-4">
+        <button id="open-sidebar-btn" class="text-gray-800 focus:outline-none p-2 rounded" onclick="toggleSidebar()">
+          <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Section Header -->
+      <h2 id="section-title" class="text-3xl font-extrabold text-gray-800 mb-8 border-b pb-3">ADMISSION APPLICATION</h2>
+
+      <!-- Status Message -->
+      <div id="status-message" class="hidden bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 rounded" role="alert"></div>
+
+      <!-- Admission Applications Section -->
+      <section id="applications-section" class="admin-section">
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <p class="text-gray-500 text-center">Loading application data...</p>
+        </div>
+      </section>
+
+      <!-- Gallery Section -->
+      <section id="gallery-section" class="admin-section hidden">
+        <div class="bg-white p-6 rounded-xl shadow-lg mb-8">
+          <h3 class="text-xl font-bold text-indigo-700 mb-4">Add New Gallery Item (Photo/Video)</h3>
+          <form id="galleryUploadForm" class="space-y-4" enctype="multipart/form-data">
+            <input type="text" name="title" placeholder="Title (e.g., Annual Day 2024)" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+            <textarea name="description" placeholder="Description (Max 250 characters)" maxlength="250" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+            <div class="grid grid-cols-2 gap-4">
+              <select name="type" required class="p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                <option value="" disabled selected>Select Media Type</option>
+                <option value="photo">Photo</option>
+                <option value="video">Video</option>
+              </select>
+              <input type="file" name="mediaFile" accept="image/*,video/*" required class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
             </div>
-            
-            <nav class="space-y-2">
-                <a href="#" class="nav-item block px-4 py-3 rounded-lg bg-indigo-600 font-semibold" id="nav-applications" onclick="showAdminSection('applications')">
-                    ADMISSION APPLICATION
-                </a>
-                <a href="#" class="nav-item block px-4 py-3 rounded-lg" id="nav-gallery" onclick="showAdminSection('gallery')">
-                    Gallery Management
-                </a>
-            
-                <a href="#" class="nav-item block px-4 py-3 rounded-lg" id="nav-alumni" onclick="showAdminSection('alumni')">
-                    Alumni Management
-                </a>
-                <a href="#" class="nav-item block px-4 py-3 rounded-lg" id="nav-faculty" onclick="showAdminSection('faculty')">
-                    Faculty 
-Management
-                </a>
-                <a href="#" class="nav-item block px-4 py-3 rounded-lg" id="nav-principal-message" onclick="showAdminSection('principal-message')">
-                    Principal's Message
-                </a>
-                
-            
-            <a href="#" class="nav-item block px-4 py-3 rounded-lg" id="nav-achievements" onclick="showAdminSection('achievements')">
-                    Achievements
-                </a>
-                <a href="#" class="nav-item block px-4 py-3 rounded-lg" id="nav-results" onclick="showAdminSection('results')">
-            
-                    ICSE & ISC Results
-                </a>
-                <a href="#" class="nav-item block px-4 py-3 rounded-lg" id="nav-disclosure" onclick="showAdminSection('disclosure')">
-                    Public Disclosure
-                </a>
-                <a href="#" class="nav-item block px-4 py-3 rounded-lg" id="nav-user-management" onclick="showAdminSection('user-management')">
-            
-                    User Management
-                </a>
-                <a href="/admin/logout" class="nav-item block px-4 py-3 rounded-lg text-red-400 hover:bg-red-800">
-                    Sign Out
-                </a>
-            
-            </nav>
-        </aside>
-
-        <main class="flex-1 p-4 lg:p-8 lg:ml-64">
-            <div class="lg:hidden flex justify-start items-center mb-4">
-                <button id="open-sidebar-btn" class="text-gray-800 focus:outline-none p-2 rounded" onclick="toggleSidebar()">
-                    <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
-                    </svg>
-                </button>
-            </div>
-            
-            <h2 id="section-title" class="text-3xl font-extrabold text-gray-800 mb-8 border-b pb-3">ADMISSION APPLICATION</h2>
-            
-            <div id="status-message" class="hidden bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 rounded" role="alert"></div>
-
-            <section id="applications-section" class="admin-section">
-                
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <p class="text-gray-500 text-center">Loading application data...</p>
-                </div>
-            </section>
-
-            <section id="gallery-section" class="admin-section hidden">
-                <div 
-class="bg-white p-6 rounded-xl shadow-lg mb-8">
-                    <h3 class="text-xl font-bold text-indigo-700 mb-4">Add New Gallery Item (Photo/Video)</h3>
-                    <form id="galleryUploadForm" class="space-y-4" enctype="multipart/form-data">
-                        <input type="text" name="title" placeholder="Title (e.g., Annual Day 2024)" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
-            
-                    <textarea type="text" name="description" placeholder="Description (Max 250 characters)" maxlength="250" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"></textarea>
-                        
-                        <div class="grid grid-cols-2 gap-4">
-            
-                    <select name="type" required class="p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
-                                <option value="" disabled selected>Select Media Type</option>
-                                <option value="photo">Photo</option>
-                    
-                    <option value="video">Video</option>
-                            </select>
-                            <input type="file" name="mediaFile" accept="image/*,video/*" required class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
-            
-                    </div>
-
-                        <button type="submit" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 flex items-center justify-center transition duration-150" id="gallery-submit-btn">
-                            Upload to Gallery
-            
-                </button>
-                    </form>
-                </div>
-                
-                <h3 class="text-2xl font-bold text-gray-800 mb-4">Existing Gallery Items</h3>
-            
-                <div id="existing-gallery-items" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                </div>
-            </section>
+            <button type="submit" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 flex items-center justify-center transition duration-150" id="gallery-submit-btn">
+              Upload to Gallery
+            </button>
+          </form>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-800 mb-4">Existing Gallery Items</h3>
+        <div id="existing-gallery-items" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      </section>
             
             <section id="alumni-section" class="admin-section hidden">
                 <div class="bg-white p-6 rounded-xl shadow-lg mb-8">

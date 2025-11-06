@@ -1472,7 +1472,6 @@ window.viewAdmission = async function(appId) {
                     ${renderDocLink('Transfer Certificate', app.documents?.file_tc)}
                     ${renderDocLink('Student Photo (View Multiple)', app.documents?.file_student_photo)}
                     ${renderDocLink('Parent ID Proof', app.documents?.file_parent_id)}
-                    ${renderDocLink('Passport (International)', app.documents?.file_passport)}
                 </div>
             </div>
         `;
@@ -1484,22 +1483,24 @@ window.viewAdmission = async function(appId) {
     }
 };
 
-// FIX: Updated renderDocLink to force download (download attribute)
+// FIX: Updated renderDocLink to correctly show PDF or Image links in the modal AND add download attribute.
 function renderDocLink(label, url) {
     if (!url) return `<div class="text-gray-400">${label}: Not Uploaded</div>`;
     
-    // Check if the URL indicates a PDF file 
-    const isPdf = url.toLowerCase().includes('.pdf') || url.toLowerCase().includes('f_pdf');
+    // Check if the URL indicates a PDF file (by extension, f_pdf, or /raw/upload/ path)
+    const isPdf = url.toLowerCase().endsWith('.pdf') || url.toLowerCase().includes('f_pdf') || url.toLowerCase().includes('/raw/upload/');
     const icon = isPdf ? '📄 PDF' : '🖼️ Image';
-    
-    // 🎯 CRITICAL CHANGE: Force download for both PDFs and images
-    const linkText = 'Download Document';
+    const linkText = isPdf ? 'View PDF / Download' : 'View Image / Download';
+
+    // Sanitize label for use as a filename and append correct extension
+    const suggestedFilename = `${label.replace(/[^a-zA-Z0-9]/g, '_')}${isPdf ? '.pdf' : '.jpg'}`;
 
     return `
         <div>
             <p class="text-gray-700 font-medium">${label}</p>
-            <a href="${url}" target="_blank" download
-               class="text-indigo-600 underline text-sm flex items-center space-x-2">
+            <a href="${url}" target="_blank" 
+               class="text-indigo-600 underline text-sm flex items-center space-x-2"
+               download="${suggestedFilename}">
                 <span>${icon}</span>
                 <span>${linkText}</span>
             </a>
@@ -1559,7 +1560,8 @@ async function handleAchievementUpload(event) {
             throw new Error(err.message || 'Upload failed.');
         }
 
-        displayStatus('Achievement uploaded successfully!', true);
+        // 🎯 FIX: Updated success message to encourage multiple, sequential uploads.
+        displayStatus('Result entry for one student created successfully! You can now add the next student.', true);
         form.reset();
         fetchAchievements();
     } catch (err) {

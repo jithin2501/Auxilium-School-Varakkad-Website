@@ -1,222 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Auxilium School Admin Dashboard</title>
-  <link rel="icon" type="image/png" href="/css/images/banner/cropped_circle_image.png">
-  <link rel="stylesheet" href="/css/tailwind.css">
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auxilium School Admin Dashboard</title>
+    <link rel="icon" type="image/png" href="./css/images/banner/cropped_circle_image.png">
+    <link rel="stylesheet" href="css/style.css"> 
+    <style>
         /* Override base styles to match the main site's font/color scheme */
         body {
             font-family: 'Roboto', sans-serif;
-            color: #1a120b; 
+            color: #1a120b; /* text-gray-900 / color: #1a120b; */
+            background-color: #f3f4f6; /* bg-gray-100 */
+            min-height: 100vh; /* min-h-screen */
+        }
+        
+        .flex-container {
+            display: flex; /* flex */
+        }
+        
+        .lg-hidden {
+            display: block;
         }
 
+        .lg-flex-initial {
+            /* flex-initial in Tailwind is usually flex: 0 1 auto; */
+            flex: 0 1 auto;
+        }
+
+        .lg-ml-64 {
+            margin-left: 0;
+        }
+        
+        @media (min-width: 1024px) { /* lg: */
+            .lg-hidden {
+                display: none !important;
+            }
+
+            .lg-block {
+                display: block !important;
+            }
+
+            .lg-ml-64 {
+                margin-left: 16rem; /* lg:ml-64 (16 * 4 = 64px, 16rem) */
+            }
+
+            .lg-p-8 {
+                padding: 2rem !important; /* lg:p-8 */
+            }
+
+            .lg-ml-64 {
+                margin-left: 16rem !important; /* lg:ml-64 */
+            }
+        }
+
+        /* Sidebar Styles */
         .sidebar { 
-            background-color: #1f2937;
-            /* CRITICAL FIXES: Anchor, set full height, and prevent text leakage */
-            position: fixed; 
-            height: 100vh; /* Use viewport height for true mobile full screen */
-            top: 0;
-            left: 0;
+            background-color: #1f2937; /* bg-gray-800 -> bg-indigo-900 -> bg-[#1f2937] */
+            color: #ffffff; /* text-white */
+            padding: 1rem; /* p-4 */
+            width: 16rem; /* w-64 */
+            height: 100vh; /* h-screen, CRITICAL FIX: Use viewport height for true mobile full screen */
+            top: 0; /* top-0 */
+            left: 0; /* left-0 */
             overflow-x: hidden; /* Stops text from leaking when off-screen (fixes Image 2 overlap) */
             overflow-y: auto; /* Allows scrolling inside the sidebar if nav links are many */
-            transform: translateX(-100%); 
+            position: fixed; /* fixed */
+            z-index: 50; /* z-50 */
+            transform: translateX(-100%);
             transition: transform 0.3s ease-in-out; 
-            z-index: 50; 
+            /* space-y-4 */
         }
         .sidebar.open {
-            transform: translateX(0); 
+            transform: translateX(0);
         }
         @media (min-width: 1024px) {
             .sidebar {
-                transform: translateX(0); 
+                transform: translateX(0);
                 position: fixed; 
             }
         }
 
-        .nav-item:hover { background-color: #374151; 
+        /* Sidebar Header */
+        .sidebar-header {
+            display: flex; /* flex */
+            justify-content: space-between; /* justify-between */
+            align-items: center; /* items-center */
+            margin-bottom: 1.5rem; /* mb-6 */
+            border-bottom: 1px solid #374151; /* border-b border-gray-700 */
+            padding-bottom: 0.75rem; /* pb-3 */
         }
 
+        .sidebar-title {
+            font-size: 1.5rem; /* text-2xl */
+            font-weight: 700; /* font-bold */
+        }
+
+        /* Sidebar Close Button */
+        #close-sidebar-btn {
+            color: #ffffff; /* text-white */
+            border: none;
+            padding: 0;
+            background: transparent;
+            cursor: pointer;
+        }
+        
+        #close-sidebar-btn:hover {
+            color: #d1d5db; /* hover:text-gray-300 */
+        }
+
+        /* Sidebar Navigation */
+        .nav-space-y-2 > a:not(:last-child) {
+            margin-bottom: 0.5rem; /* space-y-2 */
+        }
+
+        .nav-item { 
+            display: block; /* block */
+            padding: 0.75rem 1rem; /* px-4 py-3 */
+            border-radius: 0.5rem; /* rounded-lg */
+        }
+
+        .nav-item:hover { 
+            background-color: #374151; /* hover:bg-gray-700 -> hover:bg-[#374151] */
+        }
+
+        .nav-item.active-link {
+            background-color: #4f46e5; /* bg-indigo-600 */
+            font-weight: 600; /* font-semibold */
+        }
+
+        .nav-sign-out {
+            color: #f87171; /* text-red-400 */
+        }
+
+        .nav-sign-out:hover {
+            background-color: #991b1b; /* hover:bg-red-800 */
+        }
+
+        /* Main Content */
+        .main-content {
+            flex-grow: 1; /* flex-1 */
+            padding: 1rem; /* p-4 */
+        }
+
+        /* Mobile Menu Button Container */
+        .mobile-menu-container {
+            display: flex; /* flex */
+            justify-content: flex-start; /* justify-start */
+            align-items: center; /* items-center */
+            margin-bottom: 1rem; /* mb-4 */
+        }
+
+        /* Mobile Menu Button */
+        #open-sidebar-btn {
+            color: #1f2937; /* text-gray-800 */
+            padding: 0.5rem; /* p-2 */
+            border-radius: 0.25rem; /* rounded */
+            border: none;
+            background: transparent;
+            cursor: pointer;
+        }
+        
+        #open-sidebar-btn:focus {
+            outline: none; /* focus:outline-none */
+        }
+
+        /* Section Title */
+        #section-title {
+            font-size: 1.875rem; /* text-3xl */
+            font-weight: 800; /* font-extrabold */
+            color: #1f2937; /* text-gray-800 */
+            margin-bottom: 2rem; /* mb-8 */
+            border-bottom: 1px solid #e5e7eb; /* border-b */
+            padding-bottom: 0.75rem; /* pb-3 */
+        }
+        
+        /* Status Message */
+        #status-message {
+            background-color: #d1fae5; /* bg-green-100 */
+            border-left: 4px solid #10b981; /* border-l-4 border-green-500 */
+            color: #065f46; /* text-green-700 */
+            padding: 1rem; /* p-4 */
+            margin-bottom: 1rem; /* mb-4 */
+            border-radius: 0.25rem; /* rounded */
+        }
+
+        /* Admin Section Containers */
+        .admin-section-card {
+            background-color: #ffffff; /* bg-white */
+            padding: 1.5rem; /* p-6 */
+            border-radius: 0.75rem; /* rounded-lg / rounded-xl */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1); /* shadow-md / shadow-lg */
+            margin-bottom: 2rem; /* mb-8 */
+        }
+        
+        /* Section Heading in Card */
+        .card-heading {
+            font-size: 1.25rem; /* text-xl */
+            font-weight: 700; /* font-bold */
+            color: #4f46e5; /* text-indigo-700 */
+            margin-bottom: 1rem; /* mb-4 */
+        }
+
+        /* Form Styling */
+        .form-space-y-4 > * {
+            margin-top: 1rem; /* space-y-4 */
+            margin-bottom: 0;
+        }
+        .form-space-y-4 > *:first-child {
+            margin-top: 0;
+        }
+
+        /* Input/Textarea Base */
+        .input-base {
+            width: 100%; /* w-full */
+            padding: 0.75rem; /* p-3 */
+            border: 1px solid #d1d5db; /* border border-gray-300 */
+            border-radius: 0.5rem; /* rounded-lg */
+        }
+
+        .input-base:focus {
+            border-color: #6366f1; /* focus:border-indigo-500 */
+            outline: 2px solid #6366f1; /* focus:ring-indigo-500, a simplification of ring/border */
+            outline-offset: 0;
+        }
+
+        /* Form Grid */
+        .grid-col-2 {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem; /* gap-4 */
+        }
+        
+        @media (min-width: 640px) { /* sm: */
+            .sm-grid-col-2 {
+                grid-template-columns: repeat(2, minmax(0, 1fr)); /* sm:grid-cols-2 */
+            }
+            .sm-flex-row {
+                flex-direction: row; /* sm:flex-row */
+            }
+            .sm-space-x-4 > *:not(:first-child) {
+                margin-left: 1rem; /* sm:space-x-4 */
+            }
+            .sm-space-x-4 > * {
+                margin-top: 0 !important; /* to counteract space-y-4 */
+            }
+            .sm-w-1-2 {
+                width: 50%; /* sm:w-1/2 */
+            }
+        }
+        
+        @media (min-width: 768px) { /* md: */
+            .md-grid-col-2 {
+                grid-template-columns: repeat(2, minmax(0, 1fr)); /* md:grid-cols-2 */
+            }
+        }
+
+        @media (min-width: 1024px) { /* lg: */
+            .lg-grid-col-3 {
+                grid-template-columns: repeat(3, minmax(0, 1fr)); /* lg:grid-cols-3 */
+            }
+        }
+
+
+        /* File Input Styling */
+        .file-input-style {
+            display: block; /* block */
+            width: 100%; /* w-full */
+            font-size: 0.875rem; /* text-sm */
+            color: #6b7280; /* text-gray-500 */
+        }
+        
+        .file-input-style::file-selector-button {
+            margin-right: 1rem; /* file:mr-4 */
+            padding: 0.5rem 1rem; /* file:py-2 file:px-4 */
+            border-radius: 9999px; /* file:rounded-full */
+            border: 0; /* file:border-0 */
+            font-size: 0.875rem; /* file:text-sm */
+            font-weight: 600; /* file:font-semibold */
+            background-color: #eef2ff; /* file:bg-indigo-50 */
+            color: #4f46e5; /* file:text-indigo-700 */
+            cursor: pointer;
+        }
+
+        .file-input-style:hover::file-selector-button {
+            background-color: #e0e7ff; /* hover:file:bg-indigo-100 */
+        }
+
+
+        /* Primary Submit Button */
+        .submit-btn-primary {
+            background-color: #4f46e5; /* bg-indigo-600 */
+            color: #ffffff; /* text-white */
+            padding: 0.75rem 1.5rem; /* px-6 py-3 */
+            border-radius: 0.5rem; /* rounded-lg */
+            font-weight: 600; /* font-semibold */
+            display: flex; /* flex */
+            align-items: center; /* items-center */
+            justify-content: center; /* justify-center */
+            transition: background-color 0.15s ease-in-out; /* transition duration-150 */
+            border: none;
+            cursor: pointer;
+        }
+
+        .submit-btn-primary:hover {
+            background-color: #4338ca; /* hover:bg-indigo-700 */
+        }
+        
+        /* Green Submit Button (User Management) */
+        .submit-btn-green {
+            background-color: #10b981; /* bg-green-600 */
+            color: #ffffff; /* text-white */
+            padding: 0.75rem 1.5rem; /* px-6 py-3 */
+            border-radius: 0.5rem; /* rounded-lg */
+            font-weight: 600; /* font-semibold */
+            display: flex; /* flex */
+            align-items: center; /* items-center */
+            justify-content: center; /* justify-center */
+            transition: background-color 0.15s ease-in-out; /* transition duration-150 */
+            border: none;
+            cursor: pointer;
+        }
+
+        .submit-btn-green:hover {
+            background-color: #059669; /* hover:bg-green-700 */
+        }
+        
+        /* Spinner for Buttons */
         .spinner {
-            border: 4px solid rgba(255, 255, 255, 0.3); 
+            border: 4px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%; 
             border-top: 4px solid white;
             width: 1.5rem;
             height: 1.5rem;
             animation: spin 1s linear infinite;
-            display: inline-block; 
+            display: inline-block;
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); 
-            }
-            100% { transform: rotate(360deg); 
-            }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Utility Classes from Tailwind */
+        .min-h-screen {
+            min-height: 100vh;
+        }
+        .font-sans {
+            /* Assuming 'Roboto' is handled by the body style */
+        }
+        .flex {
+            display: flex;
+        }
+        .inset-0 {
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+        .fixed {
+            position: fixed;
+        }
+        .bg-black {
+            background-color: #000;
+        }
+        .opacity-50 {
+            opacity: 0.5;
+        }
+        .z-40 {
+            z-index: 40;
+        }
+        .hidden {
+            display: none !important;
+        }
+        
+        .p-4 {
+            padding: 1rem;
+        }
+        
+        .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+        
+        .items-center {
+            align-items: center;
+        }
+        .justify-between {
+            justify-content: space-between;
+        }
+        .mb-6 {
+            margin-bottom: 1.5rem;
+        }
+        .text-2xl {
+            font-size: 1.5rem;
+        }
+        .font-bold {
+            font-weight: 700;
+        }
+        .hover-text-gray-300:hover {
+            color: #d1d5db;
+        }
+        .h-6 {
+            height: 1.5rem;
+        }
+        .w-6 {
+            width: 1.5rem;
+        }
+        .space-y-2 > * + * {
+            margin-top: 0.5rem;
+        }
+        .font-semibold {
+            font-weight: 600;
+        }
+        .text-red-400 {
+            color: #f87171;
+        }
+        
+        .p-8 {
+            padding: 2rem;
+        }
+        
+        .h-8 {
+            height: 2rem;
+        }
+        .w-8 {
+            width: 2rem;
+        }
+        .font-extrabold {
+            font-weight: 800;
+        }
+        .text-gray-800 {
+            color: #1f2937;
+        }
+        .mb-8 {
+            margin-bottom: 2rem;
+        }
+        .border-b {
+            border-bottom-width: 1px;
+        }
+        .pb-3 {
+            padding-bottom: 0.75rem;
+        }
+        
+        .text-gray-500 {
+            color: #6b7280;
+        }
+        .text-center {
+            text-align: center;
+        }
+        
+        .text-gray-700 {
+            color: #374151;
+        }
+        
+        .gap-6 {
+            gap: 1.5rem;
+        }
+        
+        .w-full {
+            width: 100%;
+        }
+        
+        .max-w-xl {
+            max-width: 36rem;
+        }
+
+        .border-t {
+            border-top-width: 1px;
+            border-top-color: #e5e7eb;
+        }
+        
+        .my-4 {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        .pt-4 {
+            padding-top: 1rem;
+        }
+        
+        .text-sm {
+            font-size: 0.875rem;
+        }
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+        .text-red-500 {
+            color: #ef4444;
+        }
+        .mb-1 {
+            margin-bottom: 0.25rem;
+        }
+        .mt-1 {
+            margin-top: 0.25rem;
+        }
+        .text-gray-900 {
+            color: #111827;
+        }
+        .justify-end {
+            justify-content: flex-end;
+        }
+        .shadow-md {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        }
+        .shadow-lg {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Special complex class handling */
+        .flex-col {
+            flex-direction: column;
         }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen font-sans">
-    <div class="flex">
-        <div id="sidebar-overlay" class="fixed inset-0 bg-black opacity-50 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
+<body class="min-h-screen font-sans">
+    <div class="flex-container">
+        <div id="sidebar-overlay" class="fixed inset-0 bg-black opacity-50 z-40 hidden lg-hidden" onclick="toggleSidebar()"></div>
 
-        <aside id="sidebar" class="sidebar w-64 h-screen text-white p-4 space-y-4 fixed overflow-hidden">
+        <aside id="sidebar" class="sidebar">
             
-            <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-3">
+            <div class="sidebar-header">
                
-                <h1 class="text-2xl font-bold">Auxilium Admin</h1>
-                <button id="close-sidebar-btn" class="text-white hover:text-gray-300 lg:hidden focus:outline-none" onclick="toggleSidebar()">
+                <h1 class="sidebar-title">Auxilium Admin</h1>
+                <button id="close-sidebar-btn" class="hover-text-gray-300 lg-hidden focus:outline-none" onclick="toggleSidebar()">
                     <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"> 
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 
+6M6 6l12 12" />
             
                     </svg>
                 </button>
             </div>
             
-            <nav class="space-y-2">
-                <a href="#" class="nav-item block px-4 py-3 rounded-lg bg-indigo-600 font-semibold" id="nav-applications" onclick="showAdminSection('applications')">
+            <nav class="nav-space-y-2">
+            
+                <a href="#" class="nav-item active-link" id="nav-applications" onclick="showAdminSection('applications')">
              
                     ADMISSION APPLICATION
                 </a>
-                <a href="#" class="nav-item block px-4 py-3 rounded-lg" id="nav-gallery" onclick="showAdminSection('gallery')">
+                <a href="#" class="nav-item" id="nav-gallery" onclick="showAdminSection('gallery')">
+            
                     Gallery Management
                 </a>
             
    
-                <a href="#" class="nav-item block px-4 py-3 rounded-lg" id="nav-alumni" onclick="showAdminSection('alumni')">
+                <a href="#" class="nav-item" id="nav-alumni" onclick="showAdminSection('alumni')">
                     Alumni Management
+               
                 </a>
-                <a href="#" class="nav-item block px-4 py-3 rounded-lg" id="nav-faculty" onclick="showAdminSection('faculty')">
+                <a href="#" class="nav-item" id="nav-faculty" onclick="showAdminSection('faculty')">
                   
                     Faculty 
 Management
                 </a>
-                <a href="#" class="nav-item block px-4 py-3 rounded-lg" id="nav-principal-message" onclick="showAdminSection('principal-message')">
+                <a href="#" class="nav-item" id="nav-principal-message" onclick="showAdminSection('principal-message')">
                     Principal's Message
                 </a>
                 
     
                 
-            <a href="#" class="nav-item block px-4 py-3 rounded-lg" id="nav-achievements" onclick="showAdminSection('achievements')">
-                    Achievements
+            <a href="#" class="nav-item" id="nav-achievements" onclick="showAdminSection('achievements')">
+   
+                  Achievements
                 </a>
-                <a href="#" class="nav-item block px-4 py-3 rounded-lg" id="nav-results" onclick="showAdminSection('results')">
+                <a href="#" class="nav-item" id="nav-results" onclick="showAdminSection('results')">
             
                     ICSE & ISC Results
+        
                 </a>
-                <a href="#" class="nav-item block px-4 py-3 rounded-lg" id="nav-disclosure" onclick="showAdminSection('disclosure')">
+                <a href="#" class="nav-item" id="nav-disclosure" onclick="showAdminSection('disclosure')">
                     Public Disclosure
                 </a>
-                <a href="#" class="nav-item block px-4 py-3 rounded-lg" id="nav-user-management" onclick="showAdminSection('user-management')">
-            
+                <a href="#" class="nav-item" id="nav-user-management" onclick="showAdminSection('user-management')">
+       
+      
                     User Management
                 </a>
-                <a href="/admin/logout" class="nav-item block px-4 py-3 rounded-lg text-red-400 hover:bg-red-800">
+                <a href="/admin/logout" class="nav-item nav-sign-out">
    
                     Sign Out
+          
                 </a>
             
             </nav>
         </aside>
 
-        <main class="flex-1 p-4 lg:p-8 lg:ml-64">
-            <div class="lg:hidden flex justify-start items-center mb-4">
+        <main class="main-content lg-ml-64 lg-p-8">
+            <div class="mobile-menu-container lg-hidden">
      
-                <button id="open-sidebar-btn" class="text-gray-800 focus:outline-none p-2 rounded" onclick="toggleSidebar()">
+                <button id="open-sidebar-btn" class="focus:outline-none" onclick="toggleSidebar()">
+      
                     <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
                     </svg>
    
                 </button>
-            </div>
+       
+             </div>
             
-            <h2 id="section-title" class="text-3xl font-extrabold text-gray-800 mb-8 border-b pb-3">ADMISSION APPLICATION</h2>
+            <h2 id="section-title">ADMISSION APPLICATION</h2>
             
-            <div id="status-message" class="hidden bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 rounded" role="alert"></div>
+            <div id="status-message" class="hidden" role="alert"></div>
 
          
             <section id="applications-section" class="admin-section">
-                
-                <div class="bg-white p-6 rounded-lg shadow-md">
+      
+                <div class="admin-section-card shadow-md">
                     <p class="text-gray-500 text-center">Loading application data...</p>
                 </div>
             </section>
 
        
+           
             <section id="gallery-section" class="admin-section hidden">
                 <div 
-class="bg-white p-6 rounded-xl shadow-lg mb-8">
-                    <h3 class="text-xl font-bold text-indigo-700 mb-4">Add New Gallery Item (Photo/Video)</h3>
-                    <form id="galleryUploadForm" class="space-y-4" enctype="multipart/form-data">
+class="admin-section-card shadow-lg mb-8">
+                    <h3 class="card-heading">Add New Gallery Item (Photo/Video)</h3>
+                    <form id="galleryUploadForm" class="form-space-y-4" enctype="multipart/form-data">
                     
-                        <input type="text" name="title" placeholder="Title (e.g., Annual Day 2024)" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+    
+                        <input type="text" name="title" placeholder="Title (e.g., Annual Day 2024)" required class="input-base">
             
-                    <textarea type="text" name="description" placeholder="Description (Max 250 characters)" maxlength="250" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"></textarea>
-                        
+                    <textarea type="text" name="description" placeholder="Description (Max 250 characters)" maxlength="250" class="input-base"></textarea>
+                   
+      
            
-                        <div class="grid grid-cols-2 gap-4">
+                        <div class="grid-col-2 sm-grid-col-2">
             
-                    <select name="type" required class="p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
-                                <option value="" disabled selected>Select Media Type</option>
+                    <select name="type" required class="input-base">
+                 
+                        <option value="" disabled selected>Select Media Type</option>
        
                                 <option value="photo">Photo</option>
                     
-                    <option value="video">Video</option>
+                    
+                            <option value="video">Video</option>
                             </select>
      
-                        <input type="file" name="mediaFile" accept="image/*,video/*" required class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                        <input type="file" name="mediaFile" accept="image/*,video/*" required class="file-input-style">
             
-                    </div>
+            
+                        </div>
 
-                        <button type="submit" class="bg-indigo-600 
-text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 flex items-center justify-center transition duration-150" id="gallery-submit-btn">
+                        <button type="submit" class="submit-btn-primary" id="gallery-submit-btn">
                             Upload to Gallery
             
-                </button>
+            
+                    </button>
                     </form>
            
                 </div>
                 
                 <h3 class="text-2xl font-bold text-gray-800 mb-4">Existing Gallery Items</h3>
-            
-                <div id="existing-gallery-items" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+           
+                <div id="existing-gallery-items" class="grid-col-2 md-grid-col-2 lg-grid-col-3 gap-6">
                 </div>
        
             </section>
             
             <section id="alumni-section" class="admin-section hidden">
-                <div class="bg-white p-6 rounded-xl shadow-lg mb-8">
+               
+                <div class="admin-section-card shadow-lg mb-8">
                 
-                <h3 class="text-xl font-bold text-indigo-700 mb-4">Add New Alumnus Profile</h3>
+                <h3 class="card-heading">Add New Alumnus Profile</h3>
         
-                    <form id="alumniUploadForm" class="space-y-4" enctype="multipart/form-data">
-                        <input type="text" name="name" placeholder="Alumnus Full Name" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                    <form id="alumniUploadForm" class="form-space-y-4" enctype="multipart/form-data">
+                        
+                        <input type="text" name="name" placeholder="Alumnus Full Name" required class="input-base">
                         <input type="text" name="titleOrAchievement" placeholder="Title / 
-Achievement (e.g., CEO, Doctor, Scientist)" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+Achievement (e.g., CEO, Doctor, Scientist)" required class="input-base">
        
-                        <input type="number" name="graduationYear" placeholder="Graduation Year (e.g., 2010)" min="1900" max="2099" step="1" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
-                        <textarea name="description" placeholder="Detailed description/bio (Max 800 characters)" maxlength="800" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+                        <input type="number" name="graduationYear" placeholder="Graduation Year (e.g., 2010)" min="1900" max="2099" step="1" required class="input-base">
+                        <textarea name="description" placeholder="Detailed description/bio (Max 800 characters)" maxlength="800" required class="input-base"></textarea>
             
                
   
                         <label class="block">
+     
                             <span class="text-gray-700 font-semibold block mb-1">Profile Photo (Square, image file only):</span>
                     
                 <input 
-type="file" name="profilePhoto" accept="image/*" required class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+type="file" name="profilePhoto" accept="image/*" required class="file-input-style">
+              
                         </label>
 
-                        <button type="submit" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 flex items-center justify-center transition duration-150" id="alumni-submit-btn">
+                        <button type="submit" class="submit-btn-primary" id="alumni-submit-btn">
                 
      
                         Add Alumnus Profile
-                        </button>
+     
+                    </button>
                     </form>
                 </div>
                 
            
-                <h3 class="text-2xl font-bold text-gray-800 mb-4">Existing Alumni Profiles</h3>
+                <h3 class="text-2xl 
+font-bold text-gray-800 mb-4">Existing Alumni Profiles</h3>
                 <div id="existing-alumni-profiles" class="space-y-6">
                     <p class="text-gray-500 text-center">Loading alumni profiles...</p>
                 </div>
@@ -224,78 +701,90 @@ type="file" name="profilePhoto" accept="image/*" required class="block w-full te
 
        
             <section id="faculty-section" class="admin-section hidden">
-            
-                <div class="bg-white p-6 rounded-xl shadow-lg mb-8">
-                    <h3 class="text-xl font-bold text-indigo-700 mb-4">Add New Faculty / Staff Member</h3>
-                    <form id="facultyUploadForm" class="space-y-4" enctype="multipart/form-data">
+    
+                <div class="admin-section-card shadow-lg mb-8">
+                    <h3 class="card-heading">Add New Faculty / Staff Member</h3>
+                    <form id="facultyUploadForm" class="form-space-y-4" enctype="multipart/form-data">
        
-                  
-                        <div class="flex flex-col sm:flex-row sm:space-x-4">
-                            <div class="w-full sm:w-1/2">
+            
+                        <div class="flex-col sm-flex-row sm-space-x-4">
+                            <div class="w-full sm-w-1-2">
              
+                       
                                 <label for="facultyName" class="block text-sm font-medium text-gray-700">Full Name <span class="text-red-500">*</span></label>
             
                             <input type="text" id="facultyName" name="name" placeholder="Name" required
                             
-                            class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+          
+                                class="mt-1 input-base">
                         
                             </div>
-                            
+                      
+       
  
-                            <div class="w-full sm:w-1/2">
+                            <div class="w-full sm-w-1-2">
                                 <label for="facultyQualification" class="block text-sm 
 font-medium text-gray-700">Qualification <span class="text-red-500">*</span></label>
-                               
+                        
                                 <input type="text" id="facultyQualification" name="qualification" placeholder="e.g., M.Sc., B.Ed."
-required
-                                        class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                                required
+                                        class="mt-1 input-base">
                             </div>
                 
+        
                         </div>
 
             
-                        <div class="flex flex-col sm:flex-row sm:space-x-4">
-                            <div class="w-full sm:w-1/2">
-                      
+                        <div class="flex-col sm-flex-row sm-space-x-4">
+                            <div class="w-full sm-w-1-2">
+              
                                 <label for="facultySubject" class="block text-sm font-medium text-gray-700">Subject / Designation <span class="text-red-500">*</span></label>
             
-                                <input type="text" id="facultySubject" name="subjectOrDesignation" placeholder="e.g., Chemistry Teacher" required
+                                <input type="text" id="facultySubject" name="subjectOrDesignation" placeholder="e.g., Chemistry Teacher" 
+                                required
                               
-                                class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                                class="mt-1 input-base">
                         
+      
                             </div>
                             <div class="w-full 
-sm:w-1/2">
+sm-w-1-2">
                                 <label for="facultyProfilePhoto" class="block text-sm font-medium text-gray-700">Profile Photo <span class="text-red-500">*</span></label>
-            
+        
                             <input type="file" id="facultyProfilePhoto" name="profilePhoto" accept="image/*" required
                
-                            class="mt-1 block w-full text-sm text-gray-900 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
-                            
+                            class="mt-1 file-input-style text-gray-900">
+      
                             </div>
      
                         </div>
 
+                     
                         <div>
                             <label for="facultyDescription" class="block text-sm font-medium text-gray-700">Description / Quote (Max 500 chars) <span class="text-red-500">*</span></label>
             
      
                             <textarea id="facultyDescription" name="description" rows="3" maxlength="500" required
-                                            class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" placeholder="A short description or professional quote."></textarea>
+       
+                                     class="mt-1 input-base" placeholder="A short description or professional quote."></textarea>
               
                         </div>
-            
+           
+  
                         
                         <div class="flex justify-end">
                             
+                     
                             <button type="submit" id="faculty-submit-btn"
             
-                                class="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition duration-150">
+                                class="submit-btn-primary">
                                 Add Faculty Member
-                           
+    
+                            
                             </button>
             
                         </div>
+             
                     </form>
                 </div>
 
@@ -303,64 +792,69 @@ sm:w-1/2">
   
                 <div id="existing-faculty-profiles"
             
-                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    class="grid-col-2 md-grid-col-2 lg-grid-col-3 gap-6">
                     <p class="text-gray-500 text-center col-span-full">Loading faculty profiles...</p>
                 </div>
            
             </section>
             
             <section id="principal-message-section" class="admin-section hidden">
-            
-                <div class="bg-white p-6 rounded-xl shadow-lg mb-8">
-                    <h3 class="text-xl font-bold text-indigo-700 mb-4">Add/Update Principal's Message</h3>
+      
+                <div class="admin-section-card shadow-lg mb-8">
+                    <h3 class="card-heading">Add/Update Principal's Message</h3>
              
-                    <p class="text-sm text-red-500 mb-4">Note: This system is configured to keep only the latest message active.
+                    <p class="text-sm text-red-500 mb-4">Note: This system is configured to keep only the latest message 
+active.
 Submitting a new message will override the previous one.</p>
 
-                    <form id="principalMessageForm" class="space-y-4" enctype="multipart/form-data">
+                    <form id="principalMessageForm" class="form-space-y-4" enctype="multipart/form-data">
                         
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="grid-col-2 sm-grid-col-2 gap-4">
             
-     
+    
                             <div>
                                 <label for="principalName" class="block text-sm font-medium text-gray-700">Principal Name <span class="text-red-500">*</span></label>
+                               
                                 <input type="text" id="principalName" name="principalName" placeholder="Full 
-Name" required class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+Name" required class="mt-1 input-base">
             
                             </div>
                             <div>
-                      
+                
                                 <label for="qualification" class="block text-sm font-medium text-gray-700">Qualification</label>
             
                             <input type="text" id="qualification" name="qualification" placeholder="e.g., M.A., Ph.D."
-class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                            class="mt-1 input-base">
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="grid-col-2 sm-grid-col-2 gap-4">
             
  
                             <div>
                                 <label for="fromYear" class="block text-sm font-medium text-gray-700">Tenure: From Year</label>
+                                
                                 <input 
-type="text" id="fromYear" name="fromYear" placeholder="e.g., 2020" class="mt-1 block w-full p-3 border border-gray-300 
-rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+type="text" id="fromYear" name="fromYear" placeholder="e.g., 2020" class="mt-1 input-base">
                             </div>
                             <div>
-                               
+                              
                                 <label for="toYear" class="block text-sm font-medium text-gray-700">Tenure: To Year</label>
             
-                            <input type="text" id="toYear" name="toYear" placeholder="e.g., 2024 or Present" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                            <input type="text" id="toYear" name="toYear" placeholder="e.g., 2024 or Present" class="mt-1 input-base">
+    
                             </div>
         
                         </div>
 
             
                         <div>
+        
                             <label for="messageText" class="block text-sm font-medium text-gray-700">Message Text <span class="text-red-500">*</span></label>
             
-                            <textarea id="messageText" name="messageText" rows="6" required class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" placeholder="Type 
+                            <textarea id="messageText" name="messageText" rows="6" required class="mt-1 input-base" placeholder="Type 
 the principal's full message here."></textarea>
+             
                         </div>
                         
                  
@@ -368,15 +862,18 @@ the principal's full message here."></textarea>
                         
                             <label for="principalPhoto" class="block text-sm font-medium text-gray-700">Principal Photo (Required for New Message/Optional for Update) <span class="text-red-500">*</span></label>
                            
-                            <input type="file" id="principalPhoto" name="principalPhoto" accept="image/*" required class="mt-1 block w-full text-sm text-gray-900 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                            <input type="file" id="principalPhoto" 
+                            name="principalPhoto" accept="image/*" required class="mt-1 file-input-style text-gray-900">
                         </div>
 
             
                         <div class="flex justify-end">
                  
-                            <button type="submit" id="principal-msg-submit-btn" class="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition duration-150">
+    
+                            <button type="submit" id="principal-msg-submit-btn" class="submit-btn-primary">
                                 Save Principal's Message
             
+                  
                             </button>
        
                         </div>
@@ -384,45 +881,50 @@ the principal's full message here."></textarea>
                 </div>
 
                 <h3 class="text-2xl font-bold text-gray-800 my-4 pt-4 
-border-t">Current Principal's Message</h3>
+border-t">Current 
+Principal's Message</h3>
                 <div id="existing-principal-messages" class="space-y-6">
      
                     <p class="text-gray-500 text-center">Loading current message...</p>
                 </div>
             </section>
             
+            
             <section id="achievements-section" class="admin-section hidden">
-                <div class="bg-white p-6 rounded-xl shadow-lg mb-8">
+                <div class="admin-section-card shadow-lg mb-8">
      
-                    <h3 class="text-xl font-bold text-indigo-700 mb-4">Add New Achievement</h3>
-                    <form id="achievementUploadForm" class="space-y-4" enctype="multipart/form-data">
+                    <h3 class="card-heading">Add New Achievement</h3>
+                    <form id="achievementUploadForm" class="form-space-y-4" enctype="multipart/form-data">
             
-            
+          
                         <input type="text" name="title" placeholder="Achievement Title (e.g., State Level 
-Science Fair Winner)" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+Science Fair Winner)" required class="input-base">
                         
                         <textarea 
-name="description" placeholder="Detailed description of the achievement (Max 1000 characters)" maxlength="1000" rows="4" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+name="description" placeholder="Detailed description of the achievement (Max 
+1000 characters)" maxlength="1000" rows="4" required class="input-base"></textarea>
                        
   
                         <label class="block">
                             <span class="text-gray-700 font-semibold block mb-1">Achievement 
 Photo (Image file only): <span class="text-red-500">*</span></span>
-                            <input type="file" name="photo" accept="image/*" required class="block w-full text-sm 
-text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+ 
+                            <input type="file" name="photo" accept="image/*" required class="file-input-style text-gray-500">
                         </label>
 
                         <button 
-type="submit" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 flex items-center justify-center transition duration-150" id="achievement-submit-btn">
+type="submit" class="submit-btn-primary" id="achievement-submit-btn">
                             
                             Add Achievement
                         </button>
+            
                     </form>
             
                 </div>
                 <h3 class="text-2xl font-bold text-gray-800 mb-4">Existing Achievements</h3>
       
-                <div id="existing-achievements" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div id="existing-achievements" class="grid-col-2 md-grid-col-2 lg-grid-col-3 gap-6">
+               
                     <p class="text-gray-500 text-center col-span-full">Loading achievements...</p>
                 </div>
             </section>
@@ -431,128 +933,151 @@ type="submit" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold
         
             
             <section id="results-section" class="admin-section hidden">
-                <div class="bg-white p-6 rounded-xl shadow-lg mb-8">
-                    <h3 class="text-xl font-bold text-indigo-700 mb-4">Add New ICSE / ISC Result</h3>
+    
+                <div class="admin-section-card shadow-lg mb-8">
+                    <h3 class="card-heading">Add New ICSE / ISC Result</h3>
             
-            <form id="resultUploadForm" class="space-y-4" enctype="multipart/form-data">
+            <form id="resultUploadForm" class="form-space-y-4" enctype="multipart/form-data">
     
                     
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <select name="type" required class="p-3 border border-gray-300 rounded-lg 
-focus:ring-indigo-500 focus:border-indigo-500">
+   
+                        <div class="grid-col-2 sm-grid-col-2 gap-4">
+                            <select name="type" required class="input-base">
                 
+                       
                                 <option value="" disabled selected>Select Board Type <span class="text-red-500">*</span></option>
                                 <option value="ICSE">ICSE</option>
                             
-            <option value="ISC">ISC</option>
+                            <option value="ISC">ISC</option>
    
+       
                             </select>
-                            <input type="text" name="studentName" placeholder="Student Name" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                            <input type="text" name="studentName" placeholder="Student Name" required class="input-base">
                         </div>
            
   
-                        
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <input type="number" name="percentage" placeholder="Percentage (e.g., 95.5)" step="0.1" min="0" max="100" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+  
+                       
+                        <div class="grid-col-2 sm-grid-col-2 gap-4">
+                            <input type="number" name="percentage" placeholder="Percentage (e.g., 95.5)" step="0.1" min="0" max="100" required class="input-base">
    
-                        
+   
+                            
                             <label class="block">
                                 <span class="text-gray-700 font-semibold block mb-1">Student Photo: 
 <span class="text-red-500">*</span></span>
-                            <input type="file" name="photo" accept="image/*" required class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+           
+                                <input type="file" name="photo" accept="image/*" required class="file-input-style text-gray-500">
                             </label>
              
+                        
                         </div>
             
             
-                        <button type="submit" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 flex items-center justify-center transition duration-150" id="result-submit-btn">
+                        <button type="submit" class="submit-btn-primary" id="result-submit-btn">
                            
-                            Add Result Entry
+           
+                                Add Result Entry
             
                 </button>
                     </form>
                 </div>
-                <h3 class="text-2xl font-bold text-gray-800 mb-4">Existing Results (ICSE & ISC)</h3>
+                <h3 
+class="text-2xl font-bold text-gray-800 mb-4">Existing Results (ICSE & ISC)</h3>
          
                 <div id="existing-results" class="space-y-6">
             
                     <p class="text-gray-500 text-center">Loading results...</p>
                 </div>
             </section>
+   
             
             <section id="disclosure-section" class="admin-section hidden">
  
-                <div class="bg-white p-6 rounded-xl shadow-lg mb-8">
-                    <h3 class="text-xl font-bold text-indigo-700 mb-4">Upload New Mandatory Document</h3>
-                    <form id="disclosureUploadForm" class="space-y-4" enctype="multipart/form-data">
-                        
+                <div class="admin-section-card shadow-lg mb-8">
+                    <h3 class="card-heading">Upload New Mandatory Document</h3>
+                    <form id="disclosureUploadForm" class="form-space-y-4" enctype="multipart/form-data">
+    
+                     
       
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <select name="type" required class="p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                        <div class="grid-col-2 sm-grid-col-2 gap-4">
+                            <select name="type" required class="input-base">
+          
                                 <option value="" disabled selected>Select Document Type <span class="text-red-500">*</span></option>
    
                                 <option value="Affiliation">Affiliation Certificate</option>
-                                <option value="NOC">No Objection Certificate (NOC)</option>
+                                <option value="NOC">No 
+Objection Certificate (NOC)</option>
                                 <option 
 value="Minority Certificate">Minority Certificate</option>
                                 <option value="Building Fitness Certificate">Building Fitness Certificate</option>
+                          
                             </select>
                             <input type="text" name="title" placeholder="Document Title 
-(e.g., Permanent Affiliation 2020)" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+(e.g., Permanent Affiliation 2020)" required class="input-base">
                         </div>
                         
+      
                         <label class="block">
                 
                             <span class="text-gray-700 font-semibold block mb-1">Document File (PDF or Image, Max 10MB): <span class="text-red-500">*</span></span>
-                            <input type="file" name="documentFile" accept="application/pdf,image/*" required class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                         
+                            <input type="file" name="documentFile" accept="application/pdf,image/*" required class="file-input-style text-gray-500">
                         </label>
 
       
-                        <button type="submit" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 flex items-center justify-center transition duration-150" id="disclosure-submit-btn">
-                            Upload Document
+                        <button type="submit" class="submit-btn-primary" id="disclosure-submit-btn">
+           
+                                Upload Document
                         </button>
                
                     </form>
                 </div>
-                
+       
+          
                 <h3 class="text-2xl font-bold text-gray-800 my-4 pt-4 border-t">Existing Mandatory Documents</h3>
                 <div id="existing-disclosure-documents" class="space-y-6">
                     <p 
 class="text-gray-500 text-center">Loading documents...</p>
                 </div>
+          
             </section>
             
             <section id="user-management-section" class="admin-section hidden">
-                <div class="bg-white p-6 rounded-xl shadow-lg">
+                <div class="admin-section-card shadow-lg">
                 
        
       
-                    <h3 class="text-xl font-bold text-indigo-700 mb-4">Create New Admin User</h3>
+                    <h3 class="card-heading">Create New Admin User</h3>
                     <p class="text-sm text-gray-600 mb-6">Create credentials for a new admin user who can access this portal.</p>
-                    <form id="createUserForm" class="space-y-4">
+                    <form id="createUserForm" class="form-space-y-4">
             
  
             
+              
                         <label class="block">
                             <span class="text-gray-700 font-semibold">Username:</span>
                             <input type="text" name="username" placeholder="Enter new 
 username 
-(e.g., admin2)" required class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+(e.g., admin2)" required class="mt-1 input-base">
+              
                         </label>
                         <label class="block">
                             <span class="text-gray-700 font-semibold">Password:</span>
          
-                            <input type="password" name="password" placeholder="Enter a strong password" required class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                          
+                            <input type="password" name="password" placeholder="Enter a strong password" required class="mt-1 input-base">
                         </label>
                         
      
-                        <button type="submit" class="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 flex items-center justify-center transition duration-150" id="create-user-btn">
+                        <button type="submit" class="submit-btn-green" id="create-user-btn">
                             Create Admin Account
                         </button>
  
                     </form>
             
-            </div>
+    
+                </div>
             </section>
         </main>
     </div>
@@ -573,9 +1098,9 @@ username
 
             // Update active nav item styling
             document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('bg-indigo-600', 'font-semibold');
+                item.classList.remove('active-link');
             });
-            document.getElementById(`nav-${sectionId}`).classList.add('bg-indigo-600', 'font-semibold');
+            document.getElementById(`nav-${sectionId}`).classList.add('active-link');
 
             // Close sidebar on mobile after selection
             if (window.innerWidth < 1024) {

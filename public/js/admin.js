@@ -371,7 +371,8 @@ async function fetchFacultyProfiles() {
     container.innerHTML = '<p class="text-gray-500 text-center col-span-full">Loading faculty profiles...</p>';
 
     try {
-        const response = await fetch(`${API_BASE}/faculty`); 
+        // --- FIXED: Added /api prefix ---
+        const response = await fetch(`${API_BASE}/api/faculty`); 
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
         
@@ -603,7 +604,8 @@ async function fetchAlumniProfiles() {
     container.innerHTML = '<p class="text-gray-500 text-center">Loading alumni profiles...</p>';
 
     try {
-        const response = await fetch(`${API_BASE}/alumni`);
+        // --- FIXED: Added /api prefix ---
+        const response = await fetch(`${API_BASE}/api/alumni`);
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
 
@@ -853,7 +855,8 @@ async function fetchGalleryItems() {
     container.innerHTML = '<p class="text-gray-500 text-center col-span-full">Loading gallery items...</p>';
 
     try {
-        const response = await fetch(`${API_BASE}/gallery`);
+        // --- FIXED: Added /api prefix ---
+        const response = await fetch(`${API_BASE}/api/gallery`);
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
 
@@ -1519,8 +1522,8 @@ async function fetchAchievements() {
     container.innerHTML = '<p class="text-gray-500 text-center col-span-full">Loading achievements...</p>';
 
     try {
-        // NOTE: Uses the public endpoint as the admin controller implements getAdminAchievements on the adminRoutes.js file.
-        const response = await fetch(`${API_BASE}/achievements`); 
+        // --- FIXED: Added /api prefix ---
+        const response = await fetch(`${API_BASE}/api/achievements`); 
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
         
@@ -1727,8 +1730,8 @@ async function fetchResults() {
     container.innerHTML = '<p class="text-gray-500 text-center">Loading results...</p>';
 
     try {
-        // NOTE: Uses the public endpoint as the admin controller implements getAdminResults on the adminRoutes.js file.
-        const response = await fetch(`${API_BASE}/results`); 
+        // --- FIXED: Added /api prefix ---
+        const response = await fetch(`${API_BASE}/api/results`); 
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
         

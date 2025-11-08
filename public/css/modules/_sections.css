@@ -282,21 +282,17 @@
     text-align: center;
 }
 .activities-grid-container-inner {
-    /* REMOVED: display: flex; was here for desktop scrolling */
-    /* UPDATED: Disable the horizontal scroll animation */
-    animation: none;
-    /* UPDATED: Allows content to stack vertically for better mobile control */
-    display: block; 
+    /* Create an inner wrapper to hold the duplicated content for seamless loop */
+    display: flex;
+    /* The animation keyframes will target this container */
+    animation: scroll-left-slow 40s linear infinite; /* Adjust time for speed */
 }
 
 .activities-grid-container {
     max-width: 1400px;
     margin: 0 auto;
-    /* CHANGE: Remove fixed grid to allow horizontal scrolling/animation */
-    /* display: grid; */
-    /* grid-template-columns: repeat(5, 1fr); */
     
-    /* NEW: Use flexbox for horizontal layout on desktop/large screens */
+    /* NEW: Use flexbox for horizontal layout */
     display: flex; 
     overflow-x: hidden; /* Hide horizontal scrollbar */
     padding: 10px;
@@ -306,14 +302,14 @@
 }
 
 .activity-card {
-    /* Ensure cards take up defined space horizontally and do not shrink on desktop */
+    /* Ensure cards take up defined space horizontally and do not shrink */
     flex: 0 0 auto; 
-    width: 250px; /* Set a fixed width for the cards on desktop */
-    margin-right: 20px; /* Spacing between cards on desktop */
+    width: 250px; /* Set a fixed width for the cards */
+    margin-right: 20px; /* Spacing between cards */
 
     position: relative;
     overflow: hidden;
-    height: 450px; /* Desktop fixed height */
+    height: 450px; 
     border-radius: 12px; 
     cursor: pointer;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
@@ -375,6 +371,8 @@
 .activity-card:hover .activity-name {
     font-size: 2.2rem; 
 }
+
+/* Keyframes for the continuous scroll animation */
 @keyframes scroll-left-slow {
     0% {
         transform: translateX(0);
@@ -384,64 +382,70 @@
         transform: translateX(-50%); 
     }
 }
+
+
+/* ========================================================= */
 /* --- RESPONSIVENESS (Sections) --- */
+/* ========================================================= */
+
 @media (max-width: 1200px) {
     .academics-cards-container {
         grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
     }
-    /* Removed the old .activities-grid-container rule here */
+    .activities-grid-container {
+        /* This rule is now irrelevant due to the flex/animation setup, 
+           but left for clarity if the layout changes in other breakpoints */
+        /* grid-template-columns: repeat(3, 1fr); */ 
+    }
     .activity-card:hover {
         transform: scale(1.04);
     }
 }
 
 @media (max-width: 992px) {
+    /* GENERAL LAYOUT ADJUSTMENTS */
     .facilities-cards-container {
         grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     }
     .academics-cards-container {
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     }
-
-    /* FIX: School Activities - Single column, 1:1 ratio, no animation */
+    
+    /* ACTIVITIES SECTION - MOBILE CHANGES */
     .activities-grid-container {
-        /* Set up a proper single-column grid */
+        /* FORCED: Single column layout */
         display: grid; 
-        grid-template-columns: 1fr; /* Single column */
-        gap: 20px; 
-        overflow-x: visible; /* Ensure no hidden overflow */
+        grid-template-columns: 1fr;
+        gap: 20px; /* Small gap between boxes */
+        overflow-x: visible; /* Ensure content isn't hidden */
+    }
+    
+    .activities-grid-container-inner {
+        /* STOP ANIMATION: Deactivate the horizontal scroll animation */
+        animation: none; 
+        display: block; /* Reset to default block flow */
     }
 
     .activity-card {
-        /* Ensure cards take up the full width */
-        width: 100%; 
-        flex: none; /* Remove flex sizing */
-        margin-right: 0; /* Remove horizontal margin */
+        /* Reset horizontal sizing used for animation */
+        flex: 1 1 100%; 
+        width: auto;
+        margin-right: 0;
         
-        /* Apply 1:1 Aspect Ratio */
+        /* FORCED: Square aspect ratio (1:1) */
         height: 0; 
-        padding-top: 100%; /* Height is 100% of the width (1:1 ratio) */
-        
-        /* Ensure image/overlay use the full padding-top area */
-        position: relative; 
-        transform: scale(1.0); /* Reset scale from larger viewports */
-        transition: transform 0.4s ease-out, box-shadow 0.4s ease-out, filter 0.4s ease-out; 
+        padding-top: 100%; 
+        transition: box-shadow 0.3s ease-out; /* Minimal transition */
+        transform: none;
     }
     
-    .activity-card > .activity-img,
-    .activity-card > .activity-overlay {
-        /* Ensure absolute children cover the 1:1 padded area */
-        position: absolute; 
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }
-
+    /* NEUTRALIZING HOVER EFFECTS */
     .activity-card:hover {
-        transform: scale(1.01); 
+        transform: none; /* NO scaling on hover */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Minimal box shadow on hover */
     }
-    .activity-name {
-        font-size: 1.4rem; 
+    
+    .activity-card:hover .activity-name {
+        font-size: 1.4rem; /* Keep normal size on hover */
     }
 }

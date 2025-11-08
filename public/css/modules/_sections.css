@@ -406,12 +406,12 @@
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     }
     
-    /* ACTIVITIES SECTION - MOBILE CHANGES */
+    /* ACTIVITIES SECTION - MOBILE CHANGES (GAP FIX) */
     .activities-grid-container {
         /* FORCED: Single column layout */
         display: grid; 
         grid-template-columns: 1fr;
-        /* THIS IS THE CRUCIAL LINE FOR THE GAP */
+        /* Kept gap: 20px for good measure, but the margin is more reliable here */
         gap: 20px; 
         overflow-x: visible; 
     }
@@ -428,11 +428,19 @@
         width: auto;
         margin-right: 0;
         
+        /* === FIX: Explicitly enforce vertical gap with margin-bottom === */
+        margin-bottom: 20px; 
+        
         /* FORCED: Square aspect ratio (1:1) */
         height: 0; 
         padding-top: 100%; 
         transition: box-shadow 0.3s ease-out; 
         transform: none;
+    }
+    
+    /* Remove margin-bottom from the last card to prevent extra space */
+    .activities-grid-container .activity-card:last-child {
+        margin-bottom: 0;
     }
     
     /* NEUTRALIZING HOVER EFFECTS */

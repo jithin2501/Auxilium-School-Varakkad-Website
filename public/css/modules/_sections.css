@@ -392,11 +392,6 @@
     .academics-cards-container {
         grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
     }
-    .activities-grid-container {
-        /* This rule is now irrelevant due to the flex/animation setup, 
-           but left for clarity if the layout changes in other breakpoints */
-        /* grid-template-columns: repeat(3, 1fr); */ 
-    }
     .activity-card:hover {
         transform: scale(1.04);
     }
@@ -416,14 +411,15 @@
         /* FORCED: Single column layout */
         display: grid; 
         grid-template-columns: 1fr;
-        gap: 20px; /* Small gap between boxes */
-        overflow-x: visible; /* Ensure content isn't hidden */
+        /* THIS IS THE CRUCIAL LINE FOR THE GAP */
+        gap: 20px; 
+        overflow-x: visible; 
     }
     
     .activities-grid-container-inner {
         /* STOP ANIMATION: Deactivate the horizontal scroll animation */
         animation: none; 
-        display: block; /* Reset to default block flow */
+        display: block; 
     }
 
     .activity-card {
@@ -435,17 +431,17 @@
         /* FORCED: Square aspect ratio (1:1) */
         height: 0; 
         padding-top: 100%; 
-        transition: box-shadow 0.3s ease-out; /* Minimal transition */
+        transition: box-shadow 0.3s ease-out; 
         transform: none;
     }
     
     /* NEUTRALIZING HOVER EFFECTS */
     .activity-card:hover {
-        transform: none; /* NO scaling on hover */
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Minimal box shadow on hover */
+        transform: none; 
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
     }
     
     .activity-card:hover .activity-name {
-        font-size: 1.4rem; /* Keep normal size on hover */
+        font-size: 1.4rem; 
     }
 }

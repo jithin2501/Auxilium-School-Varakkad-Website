@@ -282,10 +282,11 @@
     text-align: center;
 }
 .activities-grid-container-inner {
-    /* Create an inner wrapper to hold the duplicated content for seamless loop */
-    display: flex;
-    /* The animation keyframes will target this container */
-    animation: scroll-left-slow 40s linear infinite; /* Adjust time for speed */
+    /* REMOVED: display: flex; was here for desktop scrolling */
+    /* UPDATED: Disable the horizontal scroll animation */
+    animation: none;
+    /* UPDATED: Allows content to stack vertically for better mobile control */
+    display: block; 
 }
 
 .activities-grid-container {
@@ -295,7 +296,7 @@
     /* display: grid; */
     /* grid-template-columns: repeat(5, 1fr); */
     
-    /* NEW: Use flexbox for horizontal layout */
+    /* NEW: Use flexbox for horizontal layout on desktop/large screens */
     display: flex; 
     overflow-x: hidden; /* Hide horizontal scrollbar */
     padding: 10px;
@@ -305,14 +306,14 @@
 }
 
 .activity-card {
-    /* Ensure cards take up defined space horizontally and do not shrink */
+    /* Ensure cards take up defined space horizontally and do not shrink on desktop */
     flex: 0 0 auto; 
-    width: 250px; /* Set a fixed width for the cards */
-    margin-right: 20px; /* Spacing between cards */
+    width: 250px; /* Set a fixed width for the cards on desktop */
+    margin-right: 20px; /* Spacing between cards on desktop */
 
     position: relative;
     overflow: hidden;
-    height: 450px; 
+    height: 450px; /* Desktop fixed height */
     border-radius: 12px; 
     cursor: pointer;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
@@ -388,9 +389,7 @@
     .academics-cards-container {
         grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
     }
-    .activities-grid-container {
-        grid-template-columns: repeat(3, 1fr);
-    }
+    /* Removed the old .activities-grid-container rule here */
     .activity-card:hover {
         transform: scale(1.04);
     }
@@ -403,15 +402,42 @@
     .academics-cards-container {
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     }
+
+    /* FIX: School Activities - Single column, 1:1 ratio, no animation */
     .activities-grid-container {
-        grid-template-columns: repeat(1, 1fr); /* FORCED: Single column for mobile view */
+        /* Set up a proper single-column grid */
+        display: grid; 
+        grid-template-columns: 1fr; /* Single column */
         gap: 20px; 
+        overflow-x: visible; /* Ensure no hidden overflow */
     }
+
     .activity-card {
-        height: 0; /* REMOVE fixed height */
-        padding-top: 100%; /* FORCED: Square aspect ratio (1:1) */
-        transition: transform 0.4s ease-out, box-shadow 0.4s ease-out, z-index 0s 0.4s, filter 0.4s ease-out; 
+        /* Ensure cards take up the full width */
+        width: 100%; 
+        flex: none; /* Remove flex sizing */
+        margin-right: 0; /* Remove horizontal margin */
+        
+        /* Apply 1:1 Aspect Ratio */
+        height: 0; 
+        padding-top: 100%; /* Height is 100% of the width (1:1 ratio) */
+        
+        /* Ensure image/overlay use the full padding-top area */
+        position: relative; 
+        transform: scale(1.0); /* Reset scale from larger viewports */
+        transition: transform 0.4s ease-out, box-shadow 0.4s ease-out, filter 0.4s ease-out; 
     }
+    
+    .activity-card > .activity-img,
+    .activity-card > .activity-overlay {
+        /* Ensure absolute children cover the 1:1 padded area */
+        position: absolute; 
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
     .activity-card:hover {
         transform: scale(1.01); 
     }

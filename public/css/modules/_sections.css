@@ -266,10 +266,14 @@
     margin-top: -50px;
 }
 
-.activities-section {
-    background-color: transparent;
+/* New: Wrapper for the scrolling content */
+.activities-scroller-wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+    overflow: hidden; /* Hide the content outside of the wrapper */
+    position: relative;
+    padding: 10px 0; /* Vertical padding for breathing room */
 }
-
 
 .activities-main-heading {
     font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
@@ -283,14 +287,23 @@
 }
 
 
+/* Original grid container - now the animated element */
 .activities-grid-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: grid; 
-    grid-template-columns: repeat(5, 1fr);
+    display: flex; /* Change to flex for horizontal scrolling */
+    flex-wrap: nowrap;
     gap: 20px; 
-    justify-content: center;
-    padding: 10px;
+    justify-content: flex-start; /* Align to the start */
+    padding: 0 10px;
+    box-sizing: content-box;
+    width: max-content; /* Set width to the max content needed for infinite scroll on desktop */
+}
+
+/* New: Styles for the duplicates of the activities */
+.activities-grid-container-duplicate {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 20px; 
+    justify-content: flex-start;
 }
 
 .activity-card {
@@ -298,14 +311,16 @@
     overflow: hidden;
     height: 450px; 
     border-radius: 12px; 
-    cursor: pointer;
+    cursor: default; /* Remove pointer cursor */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
     transform: scale(1);
-    transition: transform 0.4s ease-out, box-shadow 0.4s ease-out, z-index 0s 0.4s, filter 0.4s ease-out; 
+    transition: none; /* Remove hover-related transitions */
     transform-origin: center center;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-shrink: 0; /* Prevent items from shrinking */
+    width: 276px; /* Default width for cards */
 }
 
 .activity-card > .activity-img {
@@ -316,21 +331,12 @@
     height: 100%;
     object-fit: cover; 
     z-index: 1;
-    transition: filter 0.4s ease-out, transform 0.4s ease-out; 
+    transition: none; /* Remove hover-related transitions */
 }
 
 
-.activity-card:hover {
-    transform: scale(1.05);
-    z-index: 50;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    filter: brightness(1.2) contrast(1.1);
-}
+/* Removed all .activity-card:hover styles */
 
-.activity-card:hover > .activity-img {
-    transform: none;
-    filter: none;
-}
 
 .activity-overlay {
     position: absolute;
@@ -346,9 +352,7 @@
     z-index: 10; 
 }
 
-.activity-card:hover .activity-overlay {
-    background-color: rgba(0, 0, 0, 0.3); 
-}
+/* Removed all .activity-card:hover .activity-overlay styles */
 
 .activity-name {
     font-family: 'Montserrat', 'Playfair Display', serif;
@@ -358,24 +362,50 @@
     text-align: center;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     z-index: 11; 
-    transition: font-size 0.3s ease;
+    transition: none; /* Remove hover-related transitions */
 }
 
-.activity-card:hover .activity-name {
-    font-size: 2.2rem; 
+/* Removed all .activity-card:hover .activity-name styles */
+
+/* Keyframes for the scrolling animation */
+@keyframes scroll-activities {
+    from {
+        transform: translateX(0%);
+    }
+    to {
+        transform: translateX(-50%); /* Scroll one full set of content (50% of the combined content) */
+    }
 }
 
 /* --- RESPONSIVENESS (Sections) --- */
+@media (min-width: 993px) {
+    /* Apply animation only on desktop/larger screens */
+    .activities-grid-container {
+        animation: scroll-activities 25s linear infinite; /* Adjust time for speed */
+    }
+
+    .activity-card {
+         /* Calculate width for 5 cards across 1400px max container, accommodating 4 gaps of 20px */
+         width: calc((1400px - (4 * 20px)) / 5); 
+    }
+}
+
 @media (max-width: 1200px) {
     .academics-cards-container {
         grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
     }
+    
+    /* On screen size <= 1200px, adjust card width for smooth desktop animation, or let the grid take over if animation is off */
+    /* If animation is running (min-width: 993px), the calc above handles the width */
+
+    /* If activities-grid-container reverts to the original grid layout for some reason, these original styles would apply:
     .activities-grid-container {
         grid-template-columns: repeat(3, 1fr);
     }
     .activity-card:hover {
         transform: scale(1.04);
     }
+    */
 }
 
 @media (max-width: 992px) {
@@ -385,19 +415,26 @@
     .academics-cards-container {
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     }
+    
+    /* Mobile View: Override animation and use grid */
     .activities-grid-container {
+        display: grid; /* Revert to grid for mobile */
         grid-template-columns: repeat(1, 1fr); /* FORCED: Single column for mobile view */
         gap: 20px; 
+        animation: none; /* Disable animation */
+        width: auto; /* Revert width */
+        padding: 10px; /* Restore padding if needed for mobile */
+    }
+    .activities-grid-container-duplicate {
+        display: none; /* Hide the duplicate content on mobile */
     }
     .activity-card {
         height: 0; /* REMOVE fixed height */
         padding-top: 100%; /* FORCED: Square aspect ratio (1:1) */
-        transition: transform 0.4s ease-out, box-shadow 0.4s ease-out, z-index 0s 0.4s, filter 0.4s ease-out; 
-    }
-    .activity-card:hover {
-        transform: scale(1.01); 
+        width: auto; /* Revert width */
     }
     .activity-name {
         font-size: 1.4rem; 
     }
+    /* Removed all .activity-card:hover styles from here as well */
 }

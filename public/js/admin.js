@@ -3,66 +3,92 @@
 const API_BASE = ''; // Set API_BASE to the server root for consistency
 let currentUserRole = null; // Variable to store the user's role
 
+// 1. GLOBAL FUNCTION DEFINITION: Toggle Sidebar
+window.toggleSidebar = function() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    
+    // Toggle the 'open' class for the slide-in/out effect
+    sidebar.classList.toggle('open');
+    // Toggle the overlay visibility
+    overlay.classList.toggle('hidden');
+    // Prevent body scrolling when the sidebar is open on mobile
+    document.body.classList.toggle('overflow-hidden');
+};
+
+
+// 2. GLOBAL FUNCTION DEFINITION: Show Admin Section
+window.showAdminSection = (sectionId) => {
+    // CRITICAL FIX: Ensure currentUserRole is checked against a valid state (admin or null)
+    if (sectionId === 'user-management' && currentUserRole !== 'superadmin') {
+        alert("ACCESS DENIED: Only the Superadmin can access User Management.");
+        // Fallback to a non-restricted section
+        window.showAdminSection('applications'); 
+        return; 
+    }
+    
+    // --- START: Dashboard.ejs Logic (Moved Here) ---
+    // Update active nav item styling
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('bg-indigo-600', 'font-semibold');
+    });
+    
+    const selectedNavItem = document.getElementById(`nav-${sectionId}`);
+    if (selectedNavItem) {
+         selectedNavItem.classList.add('bg-indigo-600', 'font-semibold');
+    }
+
+    // Hide all sections
+    document.querySelectorAll('.admin-section').forEach(section => {
+        section.classList.add('hidden');
+    });
+    
+    // Show the requested section and update title
+    const targetSection = document.getElementById(`${sectionId}-section`);
+    if (targetSection) {
+        // Update title dynamically based on nav link text
+        const navText = selectedNavItem.textContent.trim();
+        document.getElementById('section-title').textContent = navText;
+        targetSection.classList.remove('hidden');
+    }
+
+    // Close sidebar on mobile after selection
+    if (window.innerWidth < 1024) {
+        window.toggleSidebar();
+    }
+    // --- END: Dashboard.ejs Logic ---
+
+
+    // Execute the data fetch for the newly visible section
+    if (sectionId === 'applications') {
+        fetchApplications();
+    } else if (sectionId === 'gallery') {
+        fetchGalleryItems();
+    } else if (sectionId === 'alumni') {
+        fetchAlumniProfiles();
+    } else if (sectionId === 'faculty') {
+        fetchFacultyProfiles();
+    } else if (sectionId === 'principal-message') { 
+        fetchPrincipalMessage();
+    } else if (sectionId === 'achievements') { 
+        fetchAchievements();
+    } else if (sectionId === 'results') { 
+        fetchResults();
+    } else if (sectionId === 'disclosure') { 
+        fetchDisclosureDocuments();
+    } else if (sectionId === 'user-management') {
+        fetchAdminUsers(); 
+    }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     const currentPath = window.location.pathname;
     if (currentPath.endsWith('/admin')) {
         // Run the role check first to set currentUserRole and restrict UI
         checkUserRoleAndRestrictUI();
 
-        window.showAdminSection = (sectionId) => {
-            // CRITICAL FIX: Ensure currentUserRole is checked against a valid state (admin or null)
-            // If the role hasn't been set yet (null), it defaults to preventing access just in case.
-            if (sectionId === 'user-management' && currentUserRole !== 'superadmin') {
-                alert("ACCESS DENIED: Only the Superadmin can access User Management.");
-                // Fallback to a non-restricted section
-                showAdminSection('applications');
-                return; 
-            }
-            
-            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('bg-indigo-600'));
-            document.getElementById(`nav-${sectionId}`).classList.add('bg-indigo-600');
-
-            document.querySelectorAll('.admin-section').forEach(section => section.classList.add('hidden'));
-            const targetSection = document.getElementById(`${sectionId}-section`);
-            if (targetSection) {
-                // Update title dynamically based on section
-                document.getElementById('section-title').textContent =
-                    sectionId === 'applications' ? 'ADMISSION APPLICATION' :
-                    sectionId === 'gallery' ? 'Gallery Management' :
-                    sectionId === 'alumni' ? 'Alumni Management' :
-                    sectionId === 'faculty' ? 'Faculty & Staff Management' :
-                    sectionId === 'principal-message' ? "Principal's Message" :
-                    sectionId === 'achievements' ? 'Achievements Management' : 
-                    sectionId === 'results' ? 'ICSE & ISC Results Management' : 
-                    sectionId === 'disclosure' ? 'Public Disclosure Management' : // NEW
-                    'User Management';
-                targetSection.classList.remove('hidden');
-            }
-
-            // Execute the data fetch for the newly visible section
-            if (sectionId === 'applications') {
-                fetchApplications();
-            } else if (sectionId === 'gallery') {
-                fetchGalleryItems();
-            } else if (sectionId === 'alumni') {
-                fetchAlumniProfiles();
-            } else if (sectionId === 'faculty') {
-                fetchFacultyProfiles();
-            } else if (sectionId === 'principal-message') { 
-                fetchPrincipalMessage();
-            } else if (sectionId === 'achievements') { 
-                fetchAchievements();
-            } else if (sectionId === 'results') { 
-                fetchResults();
-            } else if (sectionId === 'disclosure') { // NEW
-                fetchDisclosureDocuments();
-            } else if (sectionId === 'user-management') {
-                fetchAdminUsers(); 
-            }
-        };
-
-        // Initial load on dashboard page entry
-        showAdminSection('applications');
+        // Initial load on dashboard page entry (Now correctly calling the global function)
+        window.showAdminSection('applications');
 
         const galleryForm = document.getElementById('galleryUploadForm');
         if (galleryForm) galleryForm.addEventListener('submit', handleGalleryUpload);

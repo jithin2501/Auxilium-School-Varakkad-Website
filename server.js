@@ -21,6 +21,14 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// ⭐⭐⭐ ADD NON-WWW → WWW REDIRECT HERE ⭐⭐⭐
+app.use((req, res, next) => {
+  if (req.headers.host && !req.headers.host.startsWith('www.')) {
+    return res.redirect(301, 'https://www.' + req.headers.host + req.url);
+  }
+  next();
+});
+
 // --- Initialize MongoDB Session Store ---
 const MongoStore = MongoDBStore(session);
 
@@ -66,9 +74,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', publicRoutes);
 app.use('/admin', adminRoutes);
 
-// ⭐⭐⭐ IMPORTANT — Sitemap BEFORE fallback route ⭐⭐⭐
-
-// Serve sitemap.xml correctly
+// ⭐⭐⭐ Serve sitemap.xml BEFORE fallback ⭐⭐⭐
 app.get("/sitemap.xml", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "sitemap.xml"));
 });
@@ -79,7 +85,6 @@ app.get("/robots.txt", (req, res) => {
 });
 
 // ⭐⭐⭐ SPA FALLBACK ROUTE (MUST BE LAST) ⭐⭐⭐
-// Catch-all route so React/HTML routing works
 app.get(/[^]*/, (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });

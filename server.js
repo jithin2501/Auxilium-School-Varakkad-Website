@@ -2,18 +2,17 @@
 import express from 'express';
 import cors from 'cors';
 import session from 'express-session';
-// <-- NEW/MODIFIED: Import the session store package
-import MongoDBStore from 'connect-mongodb-session'; 
+import MongoDBStore from 'connect-mongodb-session';
 import passport from 'passport';
 import LocalStrategy from 'passport-local';
 import path from 'path';
-import { fileURLToPath } from 'url'; 
+import { fileURLToPath } from 'url';
 
 // --- Internal Imports ---
 import connectDB from './config/db.js';
 import { User } from './models/User.js';
 import publicRoutes from './routes/publicRoutes.js';
-import adminRoutes from './routes/adminRoutes.js'; 
+import adminRoutes from './routes/adminRoutes.js';
 
 // --- Setup paths and environment ---
 const __filename = fileURLToPath(import.meta.url);
@@ -22,62 +21,70 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// <-- NEW/MODIFIED: Initialize the store function
-const MongoStore = MongoDBStore(session); 
+// --- Initialize MongoDB Session Store ---
+const MongoStore = MongoDBStore(session);
 
-// 1. Database Connection
+// Connect to MongoDB
 connectDB();
 
-// <-- NEW/MODIFIED: Create the persistent store instance
+// Create persistent session store
 const sessionStore = new MongoStore({
     uri: process.env.MONGO_URI,
-    collection: 'adminSessions', // Sessions will be stored in a new collection called 'adminSessions'
+    collection: 'adminSessions',
 });
 
-// 2. Core Middleware Configuration
+// --- Core Middleware ---
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-app.use(cors({ origin: '*', methods: ['GET', 'POST', 'DELETE', 'PUT'] })); 
+
+app.use(cors({ origin: '*', methods: ['GET', 'POST', 'DELETE', 'PUT'] }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// 3. Session and Passport Setup
-app.use(session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    // <-- MODIFIED: Use the persistent MongoStore instead of MemoryStore
-    store: sessionStore, 
-    cookie: { secure: false, maxAge: 86400000 }
-}));
+// --- Session + Passport Setup ---
+app.use(
+    session({
+        secret: process.env.SESSION_SECRET,
+        resave: false,
+        saveUninitialized: false,
+        store: sessionStore,
+        cookie: { secure: false, maxAge: 86400000 },
+    })
+);
+
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Configure Passport local strategy with the User model
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// 4. Route Mounting
-// Serve static assets (index.html, script.js, css, etc.)
+// --- STATIC FILES ---
 app.use(express.static(path.join(__dirname, 'public')));
 
-// API and backend routes
-app.use('/', publicRoutes); 
-app.use('/admin', adminRoutes); 
+// --- MAIN ROUTES ---
+app.use('/', publicRoutes);
+app.use('/admin', adminRoutes);
 
+// ⭐⭐⭐ IMPORTANT — Sitemap BEFORE fallback route ⭐⭐⭐
 
-// 🎯 CRITICAL FIX: SPA FALLBACK ROUTE (The ultimate workaround)
-// We use a regular expression that matches any path. This bypasses the string parser error.
-// The [^] matches any character including a newline.
+// Serve sitemap.xml correctly
+app.get("/sitemap.xml", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "sitemap.xml"));
+});
+
+// Serve robots.txt
+app.get("/robots.txt", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "robots.txt"));
+});
+
+// ⭐⭐⭐ SPA FALLBACK ROUTE (MUST BE LAST) ⭐⭐⭐
+// Catch-all route so React/HTML routing works
 app.get(/[^]*/, (req, res) => {
-    // Send the single index.html file for all remaining requests, 
-    // letting the client-side JavaScript router handle the content display.
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-
-// 5. Start Server
+// --- START SERVER ---
 app.listen(PORT, () => {
     console.log(`🚀 Server running at http://localhost:${PORT}`);
     console.log('🔑 Admin portal: http://localhost:3000/admin');

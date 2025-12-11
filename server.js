@@ -21,13 +21,7 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ⭐⭐⭐ ADD NON-WWW → WWW REDIRECT HERE ⭐⭐⭐
-app.use((req, res, next) => {
-  if (req.headers.host && !req.headers.host.startsWith('www.')) {
-    return res.redirect(301, 'https://www.' + req.headers.host + req.url);
-  }
-  next();
-});
+// ❌ REMOVED THE REDIRECT CODE (It caused loops)
 
 // --- Initialize MongoDB Session Store ---
 const MongoStore = MongoDBStore(session);
@@ -74,17 +68,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', publicRoutes);
 app.use('/admin', adminRoutes);
 
-// ⭐⭐⭐ Serve sitemap.xml BEFORE fallback ⭐⭐⭐
+// ⭐ Serve sitemap.xml BEFORE fallback
 app.get("/sitemap.xml", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "sitemap.xml"));
 });
 
-// Serve robots.txt
+// ⭐ Serve robots.txt
 app.get("/robots.txt", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "robots.txt"));
 });
 
-// ⭐⭐⭐ SPA FALLBACK ROUTE (MUST BE LAST) ⭐⭐⭐
+// ⭐ SPA FALLBACK ROUTE (MUST BE LAST)
 app.get(/[^]*/, (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });

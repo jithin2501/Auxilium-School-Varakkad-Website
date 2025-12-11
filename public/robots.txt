@@ -1,0 +1,11 @@
+User-agent: *
+Disallow: /admin
+Disallow: /admin/*
+Disallow: /dashboard
+Disallow: /dashboard/*
+Disallow: /api
+Disallow: /api/*
+
+Allow: /
+
+Sitemap: https://auxiliumschoolvarakkad.in/sitemap.xml

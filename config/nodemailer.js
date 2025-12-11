@@ -1,21 +1,20 @@
 // config/nodemailer.js
 import nodemailer from "nodemailer";
-import sendGridTransport from "nodemailer-sendgrid-transport";
 
-// ✅ Create transporter using SendGrid
-export const transporter = nodemailer.createTransport(
-  sendGridTransport({
-    auth: {
-      api_key: process.env.SENDGRID_API_KEY,
-    },
-  })
-);
+export const transporter = nodemailer.createTransport({
+  host: "smtp-relay.brevo.com",
+  port: 587,
+  secure: false,
+  auth: {
+    user: process.env.BREVO_SMTP_USER,
+    pass: process.env.BREVO_SMTP_KEY,
+  },
+});
 
-// Optional: Check connection (you’ll see this in Render logs)
 transporter.verify((error, success) => {
   if (error) {
-    console.error("❌ SendGrid connection failed:", error);
+    console.error("❌ Brevo SMTP connection failed:", error.message);
   } else {
-    console.log("✅ SendGrid transporter is ready to send emails!");
+    console.log("✅ Brevo SMTP transporter is ready to send emails!");
   }
 });

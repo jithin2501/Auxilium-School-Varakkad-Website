@@ -80,9 +80,10 @@ app.get("/robots.txt", (req, res) => {
 
 // ⭐⭐⭐ SPA FALLBACK ROUTE (MUST BE LAST) ⭐⭐⭐
 // Catch-all route so React/HTML routing works
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "index.html"));
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
+
 
 // --- START SERVER ---
 app.listen(PORT, () => {

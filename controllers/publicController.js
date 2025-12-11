@@ -23,7 +23,7 @@ export const submitContact = async (req, res) => {
 
         // --- EMAIL NOTIFICATION (USING RESEND) ---
         await sendEmail({
-            to: 'jithinpjoji@gmail.com',
+            to: 'auxiliumvarakkad@gmail.com',
             subject: `New Contact Message: ${subject || 'No Subject'}`,
             html: `
                 <p><strong>Name:</strong> ${name}</p>
@@ -103,7 +103,7 @@ export const submitApplication = async (req, res) => {
             </p>`).join('');
 
         await sendEmail({
-            to: 'jithinpjoji@gmail.com',
+            to: 'auxiliumvarakkad@gmail.com',
             subject: `NEW ADMISSION: ${formData.pupilName} (${formData.admissionClass})`,
             html: `
                 <h3>New Admission Application Received</h3>

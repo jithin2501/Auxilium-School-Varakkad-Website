@@ -151,7 +151,9 @@ export const getAdmissionDetails = async (req, res) => {
                 file_aadhar: getDocUrl('file_aadhar'),
                 file_tc: getDocUrl('file_tc'),
                 file_student_photo: getDocUrl('file_student_photo'),
-                file_parent_id: getDocUrl('file_parent_id')
+                file_parent_id: getDocUrl('file_parent_id'),
+                // FIX: Added file_passport field
+                file_passport: getDocUrl('file_passport') 
             }
         };
 

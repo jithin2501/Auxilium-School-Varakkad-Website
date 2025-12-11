@@ -1501,6 +1501,8 @@ window.viewAdmission = async function(appId) {
                     ${renderDocLink('Transfer Certificate', app.documents?.file_tc)}
                     ${renderDocLink('Student Photo (View Multiple)', app.documents?.file_student_photo)}
                     ${renderDocLink('Parent ID Proof', app.documents?.file_parent_id)}
+                    
+                    ${renderDocLink('Passport', app.documents?.file_passport)}
                 </div>
             </div>
         `;

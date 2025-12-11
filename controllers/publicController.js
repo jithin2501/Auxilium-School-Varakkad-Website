@@ -7,9 +7,9 @@ import { Faculty } from '../models/Faculty.js';
 import { PrincipalMessage } from '../models/PrincipalMessage.js';
 import { Achievement } from '../models/Achievement.js';
 import { Result } from '../models/Result.js';
-import { DisclosureDocument } from '../models/DisclosureDocument.js'; // NEW IMPORT: Disclosure Document Model
+import { DisclosureDocument } from '../models/DisclosureDocument.js';
 import { uploadToCloudinary, deleteFromCloudinary } from '../middleware/uploadMiddleware.js';
-import { transporter } from '../config/nodemailer.js'; // <- ADDED: Import Nodemailer Transporter
+import { sendEmail } from '../config/nodemailer.js';
 
 // --- Contact Form (POST /api/contact) ---
 export const submitContact = async (req, res) => {
@@ -21,9 +21,8 @@ export const submitContact = async (req, res) => {
         const msg = new ContactMessage(req.body);
         await msg.save();
 
-        // --- EMAIL NOTIFICATION ---
-        const mailOptions = {
-            from: process.env.EMAIL_USER,
+        // --- EMAIL NOTIFICATION (USING RESEND) ---
+        await sendEmail({
             to: 'jithinpjoji@gmail.com',
             subject: `New Contact Message: ${subject || 'No Subject'}`,
             html: `
@@ -36,11 +35,6 @@ export const submitContact = async (req, res) => {
                 <p style="white-space: pre-wrap;">${message}</p>
                 <p><small>Submitted on: ${new Date().toLocaleString()}</small></p>
             `
-        };
-
-        transporter.sendMail(mailOptions, (error, info) => {
-            if (error) console.error("Nodemailer Error (Contact):", error);
-            else console.log("Contact Email Sent:", info.response);
         });
 
         res.json({ success: true, message: 'Message saved and email notification sent!' });
@@ -60,24 +54,19 @@ export const submitApplication = async (req, res) => {
 
         for (const field in uploadedFiles) {
             for (const file of uploadedFiles[field]) {
-
-                // 🎯 Detect PDF file
                 const isPdf = file.mimetype.includes('pdf');
 
-                // ✅ FIX: Ensure PDFs download as .pdf and retain filename
                 const uploadOptions = {
                     resource_type: isPdf ? 'raw' : 'image',
                     access_mode: 'public',
-                    use_filename: true,          // keep original filename
-                    unique_filename: false,      // prevent random hash
-                    format: isPdf ? 'pdf' : undefined  // ensure .pdf extension
+                    use_filename: true,
+                    unique_filename: false,
+                    format: isPdf ? 'pdf' : undefined
                 };
 
-                // Upload to Cloudinary
                 const result = await uploadToCloudinary(file.buffer, `admissions/${field}`, file.mimetype, uploadOptions);
                 uploadedPublicIds.push(result.public_id);
 
-                // 🛑 Fix Cloudinary PDF URL path (raw instead of image)
                 let fileUrl = result.secure_url;
                 if (isPdf) {
                     fileUrl = fileUrl.replace('/image/upload/', '/raw/upload/');
@@ -94,7 +83,6 @@ export const submitApplication = async (req, res) => {
             }
         }
 
-        // Save admission application
         const appData = new Application({
             pupilName: formData.pupilName,
             dateOfBirth: formData.dateOfBirth,
@@ -107,15 +95,14 @@ export const submitApplication = async (req, res) => {
 
         await appData.save();
 
-        // --- EMAIL NOTIFICATION (Admission Form) ---
+        // --- EMAIL NOTIFICATION (USING RESEND) ---
         const fileList = filesInfo.map(f => `
             <p style="margin: 5px 0 0 0;">
                 <strong>${f.fieldname.replace('file_', '').replace('_', ' ')}:</strong>
                 <a href="${f.cloudinaryUrl}" target="_blank">${f.originalname}</a>
             </p>`).join('');
 
-        const mailOptions = {
-            from: process.env.EMAIL_USER,
+        await sendEmail({
             to: 'jithinpjoji@gmail.com',
             subject: `NEW ADMISSION: ${formData.pupilName} (${formData.admissionClass})`,
             html: `
@@ -130,11 +117,6 @@ export const submitApplication = async (req, res) => {
                 <br>
                 <p><small>View full application details in the Admin Panel.</small></p>
             `
-        };
-
-        transporter.sendMail(mailOptions, (error, info) => {
-            if (error) console.error("Nodemailer Error (Admission):", error);
-            else console.log("Admission Email Sent:", info.response);
         });
 
         res.json({ success: true, message: 'Application saved and email notification sent!', appId: appData._id });

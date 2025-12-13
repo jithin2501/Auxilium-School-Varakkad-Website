@@ -66,8 +66,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', publicRoutes);
 app.use('/admin', adminRoutes);
 
-// ⭐⭐⭐ IMPORTANT — Sitemap BEFORE fallback route ⭐⭐⭐
-
 // Serve sitemap.xml correctly
 app.get("/sitemap.xml", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "sitemap.xml"));
@@ -78,12 +76,13 @@ app.get("/robots.txt", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "robots.txt"));
 });
 
-app.get('*', (req, res) => {
+
+app.use((req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // --- START SERVER ---
 app.listen(PORT, () => {
     console.log(`🚀 Server running at http://localhost:${PORT}`);
-    console.log('🔑 Admin portal: http://localhost:3000/admin');
+    console.log('🔐 Admin portal: http://localhost:3000/admin');
 });

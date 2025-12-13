@@ -78,9 +78,7 @@ app.get("/robots.txt", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "robots.txt"));
 });
 
-// ⭐⭐⭐ SPA FALLBACK ROUTE (MUST BE LAST) ⭐⭐⭐
-// Catch-all route so React/HTML routing works
-app.get(/[^]*/, (req, res) => {
+app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 

@@ -14,14 +14,14 @@ import { User } from './models/User.js';
 import publicRoutes from './routes/publicRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 
-// --- Setup paths and environment ---
+// --- Setup paths ---
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// --- Initialize MongoDB Session Store ---
+// --- MongoDB Session Store ---
 const MongoStore = MongoDBStore(session);
 
 // Connect to MongoDB
@@ -41,14 +41,17 @@ app.use(cors({ origin: '*', methods: ['GET', 'POST', 'DELETE', 'PUT'] }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// --- Session + Passport Setup ---
+// --- Session + Passport ---
 app.use(
     session({
         secret: process.env.SESSION_SECRET,
         resave: false,
         saveUninitialized: false,
         store: sessionStore,
-        cookie: { secure: false, maxAge: 86400000 },
+        cookie: {
+            secure: false, // keep false on Render (no HTTPS termination here)
+            maxAge: 86400000,
+        },
     })
 );
 
@@ -62,21 +65,27 @@ passport.deserializeUser(User.deserializeUser());
 // --- STATIC FILES ---
 app.use(express.static(path.join(__dirname, 'public')));
 
+// ================================
+// ✅ SEO FILES (VERY IMPORTANT)
+// ================================
+
+// Serve sitemap.xml (must be BEFORE routes)
+app.get('/sitemap.xml', (req, res) => {
+    res.type('application/xml');
+    res.sendFile(path.join(__dirname, 'public', 'sitemap.xml'));
+});
+
+// Serve robots.txt
+app.get('/robots.txt', (req, res) => {
+    res.type('text/plain');
+    res.sendFile(path.join(__dirname, 'public', 'robots.txt'));
+});
+
 // --- MAIN ROUTES ---
 app.use('/', publicRoutes);
 app.use('/admin', adminRoutes);
 
-// Serve sitemap.xml correctly
-app.get("/sitemap.xml", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "sitemap.xml"));
-});
-
-// Serve robots.txt
-app.get("/robots.txt", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "robots.txt"));
-});
-
-
+// --- SPA / FALLBACK ---
 app.use((req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
@@ -84,5 +93,5 @@ app.use((req, res) => {
 // --- START SERVER ---
 app.listen(PORT, () => {
     console.log(`🚀 Server running at http://localhost:${PORT}`);
-    console.log('🔐 Admin portal: http://localhost:3000/admin');
+    console.log(`🔐 Admin portal: http://localhost:${PORT}/admin`);
 });

@@ -2,6 +2,8 @@ User-agent: *
 Disallow: /admin/
 Disallow: /dashboard/
 
+Allow: /admission
+Allow: /contact
 Allow: /
 
 Sitemap: https://auxiliumschoolvarakkad.in/sitemap.xml

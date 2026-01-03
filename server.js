@@ -64,6 +64,9 @@ passport.deserializeUser(User.deserializeUser());
 
 // --- STATIC FILES ---
 app.use(express.static(path.join(__dirname, 'public')));
+app.get('/home', (req, res) => {
+    res.redirect(301, '/');
+});
 
 // ================================
 // ✅ SEO FILES (VERY IMPORTANT)

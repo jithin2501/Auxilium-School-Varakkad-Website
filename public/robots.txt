@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-
 Sitemap: https://auxiliumschoolvarakkad.in/sitemap.xml

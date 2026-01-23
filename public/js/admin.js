@@ -78,7 +78,9 @@ window.showAdminSection = (sectionId) => {
         fetchDisclosureDocuments();
     } else if (sectionId === 'user-management') {
         fetchAdminUsers(); 
-    }
+    }else if (sectionId === 'announcement') {
+    fetchCurrentAnnouncement(); // Add this line
+}
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -2136,3 +2138,68 @@ window.handleDisclosureDelete = async function (id, title, type) {
         displayStatus(`Deletion failed: ${err.message}`, false);
     }
 };
+async function fetchCurrentAnnouncement() {
+    const previewDiv = document.getElementById('current-poster-preview');
+    const previewImg = document.getElementById('poster-preview-img');
+    const activeToggle = document.getElementById('posterIsActive');
+    const expiryInput = document.getElementById('posterExpiryDate');
+
+    try {
+        const response = await fetch(`${API_BASE}/admin/announcement`);
+        const data = await response.json();
+
+        if (data.success && data.data) {
+            const poster = data.data;
+            // Update Preview
+            previewImg.src = poster.cloudinaryUrl;
+            previewDiv.classList.remove('hidden');
+            
+            // Populate Form Fields
+            activeToggle.value = poster.isActive.toString();
+            if (poster.expiryDate) {
+                expiryInput.value = new Date(poster.expiryDate).toISOString().split('T')[0];
+            }
+        }
+    } catch (err) {
+        console.error('Error fetching announcement:', err);
+    }
+}
+async function handleAnnouncementUpdate(event) {
+    event.preventDefault();
+
+    const form = event.target;
+    const button = document.getElementById('announcement-submit-btn');
+    const originalText = button.innerHTML;
+
+    button.disabled = true;
+    button.innerHTML = '<div class="spinner mr-2"></div> Saving...';
+    button.classList.add('flex', 'items-center', 'justify-center');
+
+    try {
+        const response = await fetch('/admin/announcement', {
+            method: 'POST',
+            body: new FormData(form),
+            credentials: 'include'
+        });
+
+        if (response.status === 401 || response.status === 302) {
+            return window.location.replace('/admin');
+        }
+
+        const data = await response.json();
+        if (!response.ok || !data.success) {
+            throw new Error(data.message || 'Failed to save poster');
+        }
+
+        displayStatus('Admission poster updated successfully!', true);
+        fetchCurrentAnnouncement(); // refresh preview
+
+    } catch (err) {
+        console.error('Announcement update error:', err);
+        displayStatus(err.message, false);
+    } finally {
+        button.disabled = false;
+        button.innerHTML = originalText;
+        button.classList.remove('flex', 'items-center', 'justify-center');
+    }
+}

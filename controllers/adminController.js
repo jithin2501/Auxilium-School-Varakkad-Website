@@ -965,6 +965,9 @@ export const getAnnouncement = async (req, res) => {
 export const updateAnnouncement = async (req, res) => {
     try {
         const { isActive, expiryDate } = req.body;
+        // Fetch existing to get old Public ID
+        const oldRecord = await Announcement.findOne();
+        
         let updateData = { 
             isActive: isActive === 'true', 
             expiryDate: expiryDate ? new Date(expiryDate) : null 
@@ -977,10 +980,9 @@ export const updateAnnouncement = async (req, res) => {
                 resource_type: 'image'
             });
             
-            // Delete old image from Cloudinary if replacing
-            const old = await Announcement.findOne();
-            if (old?.cloudinaryPublicId) {
-                await cloudinary.uploader.destroy(old.cloudinaryPublicId);
+            // Delete old image if it exists
+            if (oldRecord?.cloudinaryPublicId) {
+                await cloudinary.uploader.destroy(oldRecord.cloudinaryPublicId);
             }
 
             updateData.cloudinaryUrl = result.secure_url;
@@ -990,7 +992,6 @@ export const updateAnnouncement = async (req, res) => {
         const announcement = await Announcement.findOneAndUpdate({}, updateData, { upsert: true, new: true });
         res.json({ success: true, message: 'Poster updated successfully!', announcement });
     } catch (err) {
-        console.error(err);
         res.status(500).json({ success: false, message: 'Error updating poster' });
     }
 };

@@ -27,9 +27,13 @@ router.get('/api/announcement', async (req, res) => {
     try {
         const data = await Announcement.findOne({ isActive: true });
         
-        // Auto-hide logic: if today is past the expiry date, hide it.
-        if (data && data.expiryDate && new Date() > new Date(data.expiryDate)) {
-            return res.json({ success: true, data: null });
+        // Ensure data exists before checking expiry
+        if (data && data.expiryDate) {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0); // Normalize time
+            if (today > new Date(data.expiryDate)) {
+                return res.json({ success: true, data: null });
+            }
         }
         
         res.json({ success: true, data });

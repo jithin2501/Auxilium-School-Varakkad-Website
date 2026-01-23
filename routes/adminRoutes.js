@@ -70,7 +70,7 @@ router.get('/disclosure', isAdmin, controller.getAdminDisclosureDocuments);
 router.delete('/disclosure/:id', isAdmin, controller.deleteDisclosureDocument);
 
 router.get('/announcement', isAdmin, controller.getAnnouncement);
-router.post('/announcement', isAdmin, alumniUpload.single('posterImage'), controller.updateAnnouncement); 
+router.post('/announcement', isAdmin, alumniUpload.single('poster'), controller.updateAnnouncement); 
 
 
 // --------------------------------------------------------------------------

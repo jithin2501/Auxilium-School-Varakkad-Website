@@ -1,0 +1,98 @@
+/* =====================================================
+   ANNOUNCEMENT POPUP – FULL SCREEN POSTER
+   ===================================================== */
+
+/* Overlay background */
+#announcement-popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999; /* Must be above header */
+}
+
+/* Hidden state */
+#announcement-popup.hidden {
+    display: none;
+}
+
+/* Poster container */
+.announcement-box {
+    position: relative;
+    width: 700px;           /* Desktop size */
+    max-width: 92vw;        /* Mobile safe */
+    max-height: 92vh;
+    animation: popupZoom 0.35s ease;
+}
+
+/* Poster image */
+#announcement-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    display: block;
+}
+
+/* Close button (❌) */
+.announcement-close {
+    position: absolute;
+    top: -14px;
+    right: -14px;
+    width: 36px;
+    height: 36px;
+    background: #ffffff;
+    color: #000;
+    border: none;
+    border-radius: 50%;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.announcement-close:hover {
+    background: #f2f2f2;
+    transform: scale(1.08);
+}
+
+/* Popup animation */
+@keyframes popupZoom {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Mobile optimization */
+@media (max-width: 480px) {
+    .announcement-box {
+        width: 95vw;
+    }
+
+    .announcement-close {
+        top: -10px;
+        right: -10px;
+        width: 32px;
+        height: 32px;
+        font-size: 20px;
+    }
+}
+
+/* =====================================================
+   HEADER Z-INDEX FIX (IMPORTANT)
+   ===================================================== */
+
+.top-header-bar {
+    z-index: 100;
+}

@@ -2,6 +2,7 @@
 import { Router } from 'express';
 import * as controller from '../controllers/publicController.js';
 import { admissionUpload, admissionFileFields } from '../middleware/uploadMiddleware.js';
+import { Announcement } from '../models/Announcement.js';
 
 const router = Router();
 
@@ -21,5 +22,20 @@ router.get('/api/results', controller.getPublicResults);
 
 // --- NEW: PUBLIC DISCLOSURE ROUTE ---
 router.get('/api/disclosure', controller.getPublicDisclosures);
+
+router.get('/api/announcement', async (req, res) => {
+    try {
+        const data = await Announcement.findOne({ isActive: true });
+        
+        // Auto-hide logic: if today is past the expiry date, hide it.
+        if (data && data.expiryDate && new Date() > new Date(data.expiryDate)) {
+            return res.json({ success: true, data: null });
+        }
+        
+        res.json({ success: true, data });
+    } catch (err) {
+        res.status(500).json({ success: false, data: null });
+    }
+});
 
 export default router;

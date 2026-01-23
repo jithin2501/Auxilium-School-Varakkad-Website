@@ -11,6 +11,7 @@ import { Achievement } from '../models/Achievement.js';
 import { Result } from '../models/Result.js'; 
 import { DisclosureDocument } from '../models/DisclosureDocument.js'; // NEW IMPORT: Disclosure Document Model
 import { logActivity } from '../middleware/logMiddleware.js';
+import { Announcement } from '../models/Announcement.js';
 import { uploadToCloudinary, deleteFromCloudinary, cloudinary } from '../middleware/uploadMiddleware.js'; 
 import mongoose from 'mongoose'; 
 
@@ -950,5 +951,46 @@ export const deleteDisclosureDocument = async (req, res) => {
     } catch (err) {
         console.error('Disclosure Delete Error:', err);
         res.status(500).json({ success: false, message: 'Error deleting document.'});
+    }
+};
+export const getAnnouncement = async (req, res) => {
+    try {
+        const announcement = await Announcement.findOne();
+        res.json({ success: true, data: announcement });
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Error fetching announcement' });
+    }
+};
+
+export const updateAnnouncement = async (req, res) => {
+    try {
+        const { isActive, expiryDate } = req.body;
+        let updateData = { 
+            isActive: isActive === 'true', 
+            expiryDate: expiryDate ? new Date(expiryDate) : null 
+        };
+
+        if (req.file) {
+            const dataUri = `data:${req.file.mimetype};base64,${req.file.buffer.toString('base64')}`;
+            const result = await cloudinary.uploader.upload(dataUri, {
+                folder: 'announcements',
+                resource_type: 'image'
+            });
+            
+            // Delete old image from Cloudinary if replacing
+            const old = await Announcement.findOne();
+            if (old?.cloudinaryPublicId) {
+                await cloudinary.uploader.destroy(old.cloudinaryPublicId);
+            }
+
+            updateData.cloudinaryUrl = result.secure_url;
+            updateData.cloudinaryPublicId = result.public_id;
+        }
+
+        const announcement = await Announcement.findOneAndUpdate({}, updateData, { upsert: true, new: true });
+        res.json({ success: true, message: 'Poster updated successfully!', announcement });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ success: false, message: 'Error updating poster' });
     }
 };

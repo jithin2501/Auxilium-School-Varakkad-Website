@@ -291,6 +291,11 @@ function getCleanPath() {
 function initializePublicRouting() {
     const targetPageId = getCleanPath();
     const isHomePage = targetPageId === 'home';
+        if (isHomePage) {
+        setTimeout(() => {
+            loadAnnouncementPopup();
+        }, 500);
+    }
     
     // 1. Hide all page sections
     document.querySelectorAll('.page-section').forEach(section => {
@@ -385,6 +390,43 @@ window.addEventListener('popstate', () => {
 // =========================================================================
 // ALL DATA FETCH AND RENDER LOGIC (UPDATED FETCH URLs)
 // =========================================================================
+// =====================================================
+// ANNOUNCEMENT POPUP LOGIC
+// =====================================================
+
+async function loadAnnouncementPopup() {
+    try {
+        // Prevent showing again in same session
+        if (sessionStorage.getItem('announcementClosed')) return;
+
+        const response = await fetch(`${API_BASE}/api/announcement`);
+        if (!response.ok) return;
+
+        const data = await response.json();
+        if (!data.success || !data.data) return;
+
+        const popup = document.getElementById('announcement-popup');
+        const image = document.getElementById('announcement-image');
+
+        if (!popup || !image) return;
+
+        image.src = data.data.cloudinaryUrl;
+        popup.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+
+    } catch (err) {
+        console.error('Announcement load error:', err);
+    }
+}
+
+window.closeAnnouncement = function () {
+    const popup = document.getElementById('announcement-popup');
+    if (popup) {
+        popup.classList.add('hidden');
+        document.body.style.overflow = '';
+        sessionStorage.setItem('announcementClosed', 'true');
+    }
+};
 
 async function loadAlumniProfiles() {
     const container = document.getElementById('alumni-profiles-container');
@@ -1126,7 +1168,8 @@ window.handleSubmit = async function(event) {
         toggleSubmitButton(document.getElementById('declaration-agree').checked);
         
         submitButton.innerHTML = originalButtonContent;
-        button.classList.remove('flex', 'items-center', 'justify-center');
+        submitButton.classList.remove('flex', 'items-center', 'justify-center');
+
     }
 }
 

@@ -115,6 +115,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // NEW: Event listener for Disclosure Documents
         const disclosureUploadForm = document.getElementById('disclosureUploadForm');
         if (disclosureUploadForm) disclosureUploadForm.addEventListener('submit', handleDisclosureUpload);
+
+        const announcementForm = document.getElementById('announcementForm');
+        if (announcementForm) announcementForm.addEventListener('submit', handleAnnouncementUpdate);
     }
 });
 

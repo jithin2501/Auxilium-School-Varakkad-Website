@@ -23,3 +23,4 @@
 @import url('./modules/_page-specific.css');
 @import url('./modules/_results-achievements.css');
 @import url('./modules/_login-admin.css');
+@import "./modules/_announcement.css";

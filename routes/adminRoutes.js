@@ -69,6 +69,10 @@ router.post('/disclosure', isAdmin, admissionUpload.single('documentFile'), cont
 router.get('/disclosure', isAdmin, controller.getAdminDisclosureDocuments);
 router.delete('/disclosure/:id', isAdmin, controller.deleteDisclosureDocument);
 
+router.get('/announcement', isAdmin, controller.getAnnouncement);
+router.post('/announcement', isAdmin, alumniUpload.single('posterImage'), controller.updateAnnouncement); 
+
+
 // --------------------------------------------------------------------------
 // --- SUPERADMIN ONLY ROUTES (User Management) ---
 router.post('/create-user', isSuperAdmin, controller.createUser);

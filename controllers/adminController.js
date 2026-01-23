@@ -995,3 +995,30 @@ export const updateAnnouncement = async (req, res) => {
         res.status(500).json({ success: false, message: 'Error updating poster' });
     }
 };
+export const deleteAnnouncement = async (req, res) => {
+    try {
+        const announcement = await Announcement.findOne();
+        if (!announcement) {
+            return res.status(404).json({ success: false, message: 'No poster found' });
+        }
+
+        // Delete image from Cloudinary
+        if (announcement.cloudinaryPublicId) {
+            await deleteFromCloudinary([announcement.cloudinaryPublicId]);
+        }
+
+        await Announcement.deleteMany();
+
+        await logActivity(
+            req,
+            'ANNOUNCEMENT_DELETED',
+            `Admission poster deleted by ${req.user.username}`
+        );
+
+        res.json({ success: true, message: 'Poster deleted successfully' });
+
+    } catch (err) {
+        console.error('Delete Announcement Error:', err);
+        res.status(500).json({ success: false, message: 'Failed to delete poster' });
+    }
+};

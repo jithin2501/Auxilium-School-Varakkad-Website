@@ -2203,3 +2203,34 @@ async function handleAnnouncementUpdate(event) {
         button.classList.remove('flex', 'items-center', 'justify-center');
     }
 }
+async function handleAnnouncementDelete() {
+    const confirmDelete = confirm(
+        'Are you sure you want to delete the admission poster?\nThis action cannot be undone.'
+    );
+
+    if (!confirmDelete) return;
+
+    try {
+        const response = await fetch('/admin/announcement', {
+            method: 'DELETE',
+            credentials: 'include'
+        });
+
+        const data = await response.json();
+        if (!response.ok || !data.success) {
+            throw new Error(data.message || 'Delete failed');
+        }
+
+        displayStatus('Poster deleted successfully!', true);
+
+        // Reset UI
+        document.getElementById('poster-preview-img').src = '';
+        document.getElementById('current-poster-preview').classList.add('hidden');
+        document.getElementById('delete-announcement-btn').classList.add('hidden');
+        document.getElementById('announcementForm').reset();
+
+    } catch (err) {
+        console.error('Delete poster error:', err);
+        displayStatus(err.message, false);
+    }
+}

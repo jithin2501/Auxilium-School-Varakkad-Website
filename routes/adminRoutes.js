@@ -71,6 +71,8 @@ router.delete('/disclosure/:id', isAdmin, controller.deleteDisclosureDocument);
 
 router.get('/announcement', isAdmin, controller.getAnnouncement);
 router.post('/announcement', isAdmin, alumniUpload.single('poster'), controller.updateAnnouncement); 
+router.delete('/announcement', isAdmin, controller.deleteAnnouncement);
+
 
 
 // --------------------------------------------------------------------------

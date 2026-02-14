@@ -37,30 +37,6 @@ const sessionStore = new MongoStore({
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// ================================
-// ✅ REDIRECT www → non-www (Render-compatible)
-// ================================
-app.use((req, res, next) => {
-    // Get the host from headers
-    const host = req.headers.host || req.get('host');
-    
-    // Check if it starts with www.
-    if (host && host.startsWith('www.')) {
-        // Get protocol from Render's forwarded header or default to https
-        const protocol = req.headers['x-forwarded-proto'] || 'https';
-        
-        // Build new URL without www
-        const newHost = host.replace(/^www\./, '');
-        const newUrl = `${protocol}://${newHost}${req.url}`;
-        
-        // Perform 301 permanent redirect
-        return res.redirect(301, newUrl);
-    }
-    
-    // Continue to next middleware
-    next();
-});
-
 app.use(cors({ origin: '*', methods: ['GET', 'POST', 'DELETE', 'PUT'] }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -87,7 +63,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // ================================
-// ✅ CRITICAL: SEO FILES (serve before static files)
+// ✅ CRITICAL: SEO FILES FIRST!
 // ================================
 
 // Serve robots.txt
@@ -120,6 +96,7 @@ app.use('/admin', adminRoutes);
 // ✅ SPA FALLBACK (MUST BE LAST!)
 // ================================
 // Serve index.html for all other routes (enables client-side routing)
+// Note: www → non-www redirect is handled by Render's Custom Domains
 app.use((req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
@@ -130,5 +107,5 @@ app.listen(PORT, () => {
     console.log(`🔐 Admin portal: http://localhost:${PORT}/admin`);
     console.log(`📄 Robots.txt: http://localhost:${PORT}/robots.txt`);
     console.log(`🗺️  Sitemap: http://localhost:${PORT}/sitemap.xml`);
-    console.log(`🔀 www → non-www redirect enabled`);
+    console.log(`✅ www → non-www redirect: Handled by Render`);
 });

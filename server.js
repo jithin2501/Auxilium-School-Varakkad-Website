@@ -37,6 +37,18 @@ const sessionStore = new MongoStore({
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+// ================================
+// ✅ CRITICAL: REDIRECT www → non-www (MUST BE FIRST!)
+// ================================
+app.use((req, res, next) => {
+    const host = req.get('host');
+    if (host && host.startsWith('www.')) {
+        const newUrl = `https://${host.slice(4)}${req.originalUrl}`;
+        return res.redirect(301, newUrl);
+    }
+    next();
+});
+
 app.use(cors({ origin: '*', methods: ['GET', 'POST', 'DELETE', 'PUT'] }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -63,7 +75,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // ================================
-// ✅ CRITICAL: SEO FILES FIRST!
+// ✅ CRITICAL: SEO FILES (serve before static files)
 // ================================
 
 // Serve robots.txt
@@ -96,7 +108,6 @@ app.use('/admin', adminRoutes);
 // ✅ SPA FALLBACK (MUST BE LAST!)
 // ================================
 // Serve index.html for all other routes (enables client-side routing)
-// Using app.use() instead of app.get('*') for better compatibility
 app.use((req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
@@ -107,4 +118,5 @@ app.listen(PORT, () => {
     console.log(`🔐 Admin portal: http://localhost:${PORT}/admin`);
     console.log(`📄 Robots.txt: http://localhost:${PORT}/robots.txt`);
     console.log(`🗺️  Sitemap: http://localhost:${PORT}/sitemap.xml`);
+    console.log(`🔀 Redirecting www → non-www automatically`);
 });

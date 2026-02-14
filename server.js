@@ -38,14 +38,26 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // ================================
-// ✅ CRITICAL: REDIRECT www → non-www (MUST BE FIRST!)
+// ✅ REDIRECT www → non-www (Render-compatible)
 // ================================
 app.use((req, res, next) => {
-    const host = req.get('host');
+    // Get the host from headers
+    const host = req.headers.host || req.get('host');
+    
+    // Check if it starts with www.
     if (host && host.startsWith('www.')) {
-        const newUrl = `https://${host.slice(4)}${req.originalUrl}`;
+        // Get protocol from Render's forwarded header or default to https
+        const protocol = req.headers['x-forwarded-proto'] || 'https';
+        
+        // Build new URL without www
+        const newHost = host.replace(/^www\./, '');
+        const newUrl = `${protocol}://${newHost}${req.url}`;
+        
+        // Perform 301 permanent redirect
         return res.redirect(301, newUrl);
     }
+    
+    // Continue to next middleware
     next();
 });
 
@@ -118,5 +130,5 @@ app.listen(PORT, () => {
     console.log(`🔐 Admin portal: http://localhost:${PORT}/admin`);
     console.log(`📄 Robots.txt: http://localhost:${PORT}/robots.txt`);
     console.log(`🗺️  Sitemap: http://localhost:${PORT}/sitemap.xml`);
-    console.log(`🔀 Redirecting www → non-www automatically`);
+    console.log(`🔀 www → non-www redirect enabled`);
 });

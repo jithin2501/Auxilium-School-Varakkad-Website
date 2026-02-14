@@ -1155,3 +1155,20 @@ h2.academics-main-heading {
     margin-top: 40px;
     margin-bottom: 40px;
 }
+/* ALUMNI & ACHIEVEMENTS EMPTY STATE SPACING */
+#alumni-profiles-container,
+#achievements-display-container {
+    min-height: 400px;
+    padding-bottom: 80px;
+}
+
+#alumni-profiles-container p,
+#achievements-display-container p {
+    padding-bottom: 60px;
+    margin-bottom: 40px;
+}
+
+#alumni .about-us-main-wrapper,
+#achievements .about-us-main-wrapper {
+    padding-bottom: 100px !important;
+}

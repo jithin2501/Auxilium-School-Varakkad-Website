@@ -1155,3 +1155,17 @@ h2.academics-main-heading {
     margin-top: 40px;
     margin-bottom: 40px;
 }
+/* ALUMNI PAGE BALANCED SPACING */
+#alumni .about-us-main-wrapper {
+    padding-top: 80px !important;
+    padding-bottom: 80px !important;
+}
+
+#alumni-profiles-container {
+    min-height: 200px;
+}
+
+#alumni-profiles-container p {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}

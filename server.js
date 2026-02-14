@@ -66,7 +66,7 @@ passport.deserializeUser(User.deserializeUser());
 // ✅ CRITICAL: SEO FILES FIRST!
 // ================================
 
-// Serve robots.txt (must be before static files to avoid conflicts)
+// Serve robots.txt
 app.get('/robots.txt', (req, res) => {
     res.type('text/plain');
     res.sendFile(path.join(__dirname, 'public', 'robots.txt'));
@@ -96,8 +96,8 @@ app.use('/admin', adminRoutes);
 // ✅ SPA FALLBACK (MUST BE LAST!)
 // ================================
 // Serve index.html for all other routes (enables client-side routing)
-// This allows routes like /home, /admission, /contact to work properly
-app.get('*', (req, res) => {
+// Using app.use() instead of app.get('*') for better compatibility
+app.use((req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 

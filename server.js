@@ -49,7 +49,7 @@ app.use(
         saveUninitialized: false,
         store: sessionStore,
         cookie: {
-            secure: false, // keep false on Render (no HTTPS termination here)
+            secure: false,
             maxAge: 86400000,
         },
     })
@@ -62,34 +62,42 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// --- STATIC FILES ---
-app.use(express.static(path.join(__dirname, 'public')));
-app.get('/home', (req, res) => {
-    res.redirect(301, '/');
-});
-
 // ================================
-// ✅ SEO FILES (VERY IMPORTANT)
+// ✅ CRITICAL: SEO FILES FIRST!
 // ================================
 
-// Serve sitemap.xml (must be BEFORE routes)
-app.get('/sitemap.xml', (req, res) => {
-    res.type('application/xml');
-    res.sendFile(path.join(__dirname, 'public', 'sitemap.xml'));
-});
-
-// Serve robots.txt
+// Serve robots.txt (must be before static files to avoid conflicts)
 app.get('/robots.txt', (req, res) => {
     res.type('text/plain');
     res.sendFile(path.join(__dirname, 'public', 'robots.txt'));
 });
 
-// --- MAIN ROUTES ---
+// Serve sitemap.xml
+app.get('/sitemap.xml', (req, res) => {
+    res.type('application/xml');
+    res.sendFile(path.join(__dirname, 'public', 'sitemap.xml'));
+});
+
+// ================================
+// STATIC FILES
+// ================================
+app.use(express.static(path.join(__dirname, 'public')));
+
+// ================================
+// API & ADMIN ROUTES
+// ================================
+// Public API routes (all /api/* endpoints)
 app.use('/', publicRoutes);
+
+// Admin routes (all /admin/* endpoints)
 app.use('/admin', adminRoutes);
 
-// --- SPA / FALLBACK ---
-app.use((req, res) => {
+// ================================
+// ✅ SPA FALLBACK (MUST BE LAST!)
+// ================================
+// Serve index.html for all other routes (enables client-side routing)
+// This allows routes like /home, /admission, /contact to work properly
+app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
@@ -97,4 +105,6 @@ app.use((req, res) => {
 app.listen(PORT, () => {
     console.log(`🚀 Server running at http://localhost:${PORT}`);
     console.log(`🔐 Admin portal: http://localhost:${PORT}/admin`);
+    console.log(`📄 Robots.txt: http://localhost:${PORT}/robots.txt`);
+    console.log(`🗺️  Sitemap: http://localhost:${PORT}/sitemap.xml`);
 });

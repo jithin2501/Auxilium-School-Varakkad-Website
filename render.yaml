@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: auxilium-school-varakkad
+    env: node
+    buildCommand: npm install
+    startCommand: npm start
+    
+    # Serve static files from public folder
+    staticPublishPath: ./public
+    
+    # Headers to allow search engine crawling
+    headers:
+      - path: /*
+        name: X-Robots-Tag
+        value: all
+    
+    # Critical: Handle SPA routes
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

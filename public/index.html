@@ -1465,7 +1465,7 @@
 
                         <form id="contactForm" class="contact-form-grid" method="POST">
 
-                            <input type="text" name="name" placeholder="Name" required class="grid-item-name">
+                            <input type="text" name="name" placeholder="Name" required class="grid-item-name" pattern="[A-Za-z\s]+" title="Please enter only alphabets" oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')">
                             <input type="email" name="email" placeholder="Email" required class="grid-item-email">
 
                             <input type="tel" name="mobile" placeholder="Mobile" class="grid-item-mobile">

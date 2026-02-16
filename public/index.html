@@ -1468,7 +1468,7 @@
                             <input type="text" name="name" placeholder="Name" required class="grid-item-name" pattern="[A-Za-z\s]+" title="Please enter only alphabets" oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')">
                             <input type="email" name="email" placeholder="Email" required class="grid-item-email">
 
-                            <input type="tel" name="mobile" placeholder="Mobile" class="grid-item-mobile">
+                            <input type="tel" name="mobile" placeholder="Mobile" class="grid-item-mobile" required pattern="[0-9]{10}" maxlength="10" title="Please enter exactly 10 digits" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)">
                             <input type="text" name="subject" placeholder="Subject" class="grid-item-subject" pattern="[A-Za-z\s]+" title="Please enter only alphabets" oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')">
 
                             <textarea name="message" placeholder="Message" rows="5" required class="grid-item-message"></textarea>

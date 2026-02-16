@@ -126,8 +126,9 @@
 
         /* Q1 Name/Aadhar */
         .form-row-item-1 .form-label:nth-of-type(1) { 
-            min-width: 12rem; 
+            min-width: auto;
             display: inline;
+            margin-right: 0.5rem;
         }
         .form-row-item-1 .form-label:nth-of-type(2) { 
             margin-left: 1rem; 
@@ -135,6 +136,7 @@
         }
         .label-q1-name {
             display: inline;
+            white-space: nowrap;
         }
 
         /* Q2 DOB */
@@ -286,7 +288,9 @@
         }
 
         .label-q8-a, .label-q8-b, .label-q8-c { 
-            min-width: 15rem; 
+            min-width: auto;
+            white-space: nowrap;
+            margin-right: 0.5rem;
         }
 
         /* Q9 TC Details */
@@ -326,7 +330,9 @@
         }
 
         .label-q10-a, .label-q10-b { 
-            min-width: 15rem; 
+            min-width: auto;
+            white-space: nowrap;
+            margin-right: 0.5rem;
         }
 
         /* Q11 Identification Marks */
@@ -349,7 +355,7 @@
         .form-q11-marks-wrapper {
             display: flex;
             flex-direction: column;
-            width: 100%;
+            width: calc(100% - 3rem);
             gap: 0.5rem;
             margin-left: 2.5rem;
         }
@@ -358,6 +364,12 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            width: 100%;
+        }
+
+        .form-subrow-q11 .input-line {
+            width: 100%;
+            max-width: 100%;
         }
 
         .label-q11-mark-num {
@@ -479,7 +491,8 @@
                 
                 <div class="form-row-desktop form-row-item-1">
                     <span class="item-number">1.</span>
-                    <div class="form-label label-q1-name">Name of pupil : <input type="text" id="pupilName" class="input-line input-full-width" readonly></div>
+                    <div class="form-label label-q1-name" style="display: inline;">Name of pupil :</div>
+                    <input type="text" id="pupilName" class="input-line" style="display: inline; width: auto; flex: 1;" readonly>
                     <div class="form-label label-q1-aadhar">Aadhar No:</div>
                     <input type="text" id="pupilAadhar" class="input-line input-full-width" readonly>
                 </div>
@@ -590,8 +603,8 @@
                             </div>
                             <div class="form-subrow-q8-aligned">
                                 <span class="form-label label-q8-sub-num">(c)</span>
-                                <div class="form-label label-q8-c">Date of leaving that school</div>
-                                <input type="text" id="leavingDate" class="input-line input-full-width" readonly>
+                                <div class="form-label label-q8-c" style="white-space: nowrap;">Date of leaving that school</div>
+                                <input type="text" id="leavingDate" class="input-line input-full-width" style="margin-left: 0;" readonly>
                             </div>
                         </div>
                     </div>
@@ -614,8 +627,8 @@
                             </div>
                             <div class="form-subrow-q10-aligned">
                                 <span class="form-label label-q10-sub-num">(b)</span>
-                                <div class="form-label label-q10-b">Mother Tongue</div>
-                                <input type="text" id="motherTongue" class="input-line input-full-width" readonly>
+                                <div class="form-label label-q10-b" style="white-space: nowrap;">Mother Tongue</div>
+                                <input type="text" id="motherTongue" class="input-line input-full-width" style="margin-left: 0;" readonly>
                             </div>
                         </div>
                     </div>
@@ -626,14 +639,14 @@
                         <span class="item-number">11.</span>
                         <div class="form-label label-q11-main">Identification Marks</div>
                     </div>
-                    <div class="form-q11-marks-wrapper">
+                    <div class="form-q11-marks-wrapper" style="margin-left: 2.5rem; padding-right: 1rem;">
                         <div class="form-subrow-q11">
                             <span class="form-label label-q11-mark-num">1)</span>
-                            <input type="text" id="idMark1" class="input-line input-full-width" readonly>
+                            <input type="text" id="idMark1" class="input-line" style="width: 100%; max-width: 100%;" readonly>
                         </div>
                         <div class="form-subrow-q11">
                             <span class="form-label label-q11-mark-num">2)</span>
-                            <input type="text" id="idMark2" class="input-line input-full-width" readonly>
+                            <input type="text" id="idMark2" class="input-line" style="width: 100%; max-width: 100%;" readonly>
                         </div>
                     </div>
                 </div>

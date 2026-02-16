@@ -1072,6 +1072,48 @@ function renderModal(title, message, isSuccess) {
     document.body.insertAdjacentHTML('beforeend', modalHtml);
 }
 
+// =========================================================================
+// ADMISSION CONFIRMATION MODAL FUNCTIONS
+// =========================================================================
+
+/**
+ * Shows the custom admission confirmation modal
+ */
+function showAdmissionConfirmationModal() {
+    const modal = document.getElementById('admissionConfirmationModal');
+    if (modal) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    }
+}
+
+/**
+ * Closes the admission confirmation modal and resets to Step 1
+ */
+window.closeAdmissionConfirmationModal = function() {
+    const modal = document.getElementById('admissionConfirmationModal');
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = ''; // Restore scrolling
+        
+        // Reset to Step 1
+        showStep(1);
+        
+        // Scroll to the top of the admission section smoothly
+        const admissionSection = document.getElementById('admission');
+        if (admissionSection) {
+            const header = document.querySelector('.top-header-bar');
+            const headerHeight = header ? header.offsetHeight : 0;
+            const targetPosition = admissionSection.getBoundingClientRect().top + window.scrollY - headerHeight - 20;
+            
+            window.scrollTo({ 
+                top: targetPosition, 
+                behavior: 'smooth' 
+            });
+        }
+    }
+}
+
 // ... [window.handleSubmit function] ...
 window.handleSubmit = async function(event) {
     event.preventDefault(); 
@@ -1126,12 +1168,8 @@ window.handleSubmit = async function(event) {
         }
         // --- END NEW/IMPROVED ERROR HANDLING ---
         
-        // Success Modal (Remains)
-        renderModal(
-            "Application Submitted Successfully!",
-             `Your application has been successfully submitted. We will contact you shortly.`,
-            true
-        );
+        // Show Custom Admission Confirmation Modal
+        showAdmissionConfirmationModal();
         
         // Reset form fields and file names
         form.reset();
@@ -1139,8 +1177,7 @@ window.handleSubmit = async function(event) {
             span.textContent = 'No file chosen';
         });
         
-        // Reset to Step 1 after successful submission
-        showStep(1);
+        // Note: showStep(1) will be called when user clicks OK button in the modal
 
     } catch (error) {
         console.error('Admission Submission error:', error);

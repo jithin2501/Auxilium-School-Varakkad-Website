@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Print Admission Application - Auxilium School</title>
+    <style>
+        /* Import Inter font for form elements */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f7f7f7;
+            padding: 20px;
+            color: #1a120b;
+        }
+
+        .print-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 2.5rem 1.5rem;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 0.75rem;
+            border: 1px solid #e5e7eb;
+        }
+
+        /* Header */
+        .admission-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #25597f;
+            padding-bottom: 1rem;
+        }
+
+        .header-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+            color: #1a120b;
+        }
+
+        .header-subtext {
+            font-size: 0.875rem;
+            color: #4b5563;
+            margin-bottom: 0.25rem;
+        }
+
+        .header-subtext-bottom {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Step Heading */
+        .step-heading {
+            font-size: 1.125rem;
+            font-weight: 700;
+            background-color: #f3f4f6;
+            padding: 0.5rem 0;
+            border-top: 1px solid #d1d5db;
+            border-bottom: 1px solid #d1d5db;
+            color: #25597f;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Form Content */
+        .admission-main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .input-line {
+            border: none;
+            border-bottom: 1px solid #9ca3af;
+            width: 100%;
+            padding: 0.25rem 0;
+            font-size: 0.95rem;
+            color: #1a120b;
+            flex-grow: 1;
+            background: transparent;
+        }
+
+        .form-label {
+            font-size: 0.95rem;
+            color: #1f2937;
+            font-weight: 500;
+            flex-shrink: 0;
+        }
+
+        .item-number {
+            font-weight: 600;
+            min-width: 2rem;
+            margin-right: 0.5rem;
+            color: #1a120b;
+            flex-shrink: 0;
+        }
+
+        .admission-line-break {
+            width: 100%;
+            height: 1px;
+            background-color: #e5e7eb;
+            margin: 1rem 0;
+        }
+
+        .flex-spacer {
+            flex-grow: 1;
+            display: block;
+            visibility: hidden;
+        }
+
+        /* Desktop Layout */
+        .form-row-desktop {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Q1 Name/Aadhar */
+        .form-row-item-1 .form-label:nth-of-type(1) { 
+            min-width: 12rem; 
+            display: inline;
+        }
+        .form-row-item-1 .form-label:nth-of-type(2) { 
+            margin-left: 1rem; 
+            min-width: 5rem; 
+        }
+        .label-q1-name {
+            display: inline;
+        }
+
+        /* Q2 DOB */
+        .form-row-item-2 .form-label { 
+            min-width: 5rem; 
+        }
+        .form-row-item-2 .input-date-width { 
+            max-width: 16rem; 
+        }
+
+        /* Q3 Religion/Caste */
+        .form-row-item-3 .form-label:nth-of-type(1) { 
+            min-width: 1rem; 
+        }
+        .form-row-item-3 .form-label:nth-of-type(2) { 
+            margin-left: 1rem; 
+            min-width: 3rem; 
+        }
+
+        /* Q4 Parent Details */
+        .parent-details-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-row-parent-wrapper {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .item-number-parent { 
+            margin-top: 0.25rem; 
+        }
+
+        .mobile-field-align-content {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .form-subrow-q4 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-subrow-q4-mother { 
+            margin-bottom: 0; 
+        }
+
+        .form-subrow-q4-spacer {
+            opacity: 0;
+            pointer-events: none;
+            display: none; 
+        }
+
+        .label-q4-father, .label-q4-mother { 
+            min-width: 8rem; 
+        }
+
+        .label-q4-address { 
+            min-width: 4rem; 
+        }
+
+        /* Q5 Occupation/Income */
+        .form-row-q5-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-row-multi-column {
+            display: flex;
+            width: 100%;
+            gap: 1rem;
+            flex-grow: 1;
+        }
+
+        .column-left, .column-right {
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 50%;
+            gap: 0.5rem;
+        }
+
+        .form-row-sub-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: 100%;
+        }
+
+        .margin-top-1 {
+            margin-top: 0.5rem;
+        }
+
+        .label-q5-father-occ, .label-q5-mother-occ { 
+            min-width: 9rem; 
+        }
+
+        .label-q5-income { 
+            min-width: 7rem; 
+        }
+
+        /* Q6 Mobile/Q7 Nationality */
+        .form-row-item-6 .form-label:nth-of-type(1), 
+        .form-row-item-7 .form-label:nth-of-type(1) { 
+            min-width: 10rem; 
+        }
+
+        .form-row-item-6 .form-label:nth-of-type(2), 
+        .form-row-item-7 .form-label:nth-of-type(2) { 
+            margin-left: 1rem; 
+            min-width: 10rem; 
+        }
+
+        /* Q8 Previous School */
+        .form-row-q8-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-row-q8-main {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .form-q8-content-aligned {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 0.5rem;
+        }
+
+        .form-subrow-q8-aligned {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .label-q8-sub-num {
+            min-width: 1.5rem;
+            font-weight: 600;
+        }
+
+        .label-q8-a, .label-q8-b, .label-q8-c { 
+            min-width: 15rem; 
+        }
+
+        /* Q9 TC Details */
+        .form-row-item-9 .form-label { 
+            min-width: 24rem; 
+        }
+
+        /* Q10 Languages */
+        .form-row-q10-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-row-q10-main {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .form-q10-content-aligned {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 0.5rem;
+        }
+
+        .form-subrow-q10-aligned {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .label-q10-sub-num {
+            min-width: 1.5rem;
+            font-weight: 600;
+        }
+
+        .label-q10-a, .label-q10-b { 
+            min-width: 15rem; 
+        }
+
+        /* Q11 Identification Marks */
+        .form-row-q11-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-row-q11-main {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .label-q11-main { 
+            min-width: 10rem; 
+        }
+
+        .form-q11-marks-wrapper {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 0.5rem;
+            margin-left: 2.5rem;
+        }
+
+        .form-subrow-q11 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .label-q11-mark-num {
+            min-width: 1.5rem;
+            font-weight: 600;
+        }
+
+        /* Print Button */
+        .no-print {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 2px solid #e5e7eb;
+        }
+
+        .print-button {
+            background-color: #4f46e5;
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-right: 1rem;
+        }
+
+        .print-button:hover {
+            background-color: #4338ca;
+        }
+
+        .close-button {
+            background-color: #6b7280;
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .close-button:hover {
+            background-color: #4b5563;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+
+            .print-container {
+                max-width: 100%;
+                box-shadow: none;
+                border: none;
+                border-radius: 0;
+                padding: 1rem;
+            }
+
+            .no-print {
+                display: none;
+            }
+
+            .admission-header {
+                border-bottom: 2px solid #000;
+            }
+
+            .step-heading {
+                background-color: #f3f4f6;
+                border-top: 1px solid #000;
+                border-bottom: 1px solid #000;
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
+
+            .input-line {
+                border-bottom: 1px solid #000;
+            }
+
+            .admission-line-break {
+                background-color: #000;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .form-row-desktop {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .form-label {
+                min-width: auto !important;
+            }
+
+            .form-row-multi-column {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="print-container">
+        <header class="admission-header">
+            <h1 class="header-title">AUXILIUM SCHOOL</h1>
+            <p class="header-subtext">VARAKKAD, KOTTAMALA P.O. - 671 314, Kasaragod, Kerala</p>
+            <p class="header-subtext header-subtext-bottom">Affiliated to ICSE, Delhi (KE 124)</p>
+        </header>
+
+        <div id="admission-form-content">
+            <h2 class="step-heading">
+                STEP 1: APPLICATION FOR ADMISSION
+            </h2>
+            <main class="admission-main-content">
+                
+                <div class="form-row-desktop form-row-item-1">
+                    <span class="item-number">1.</span>
+                    <div class="form-label label-q1-name">Name of pupil : <input type="text" id="pupilName" class="input-line input-full-width" readonly></div>
+                    <div class="form-label label-q1-aadhar">Aadhar No:</div>
+                    <input type="text" id="pupilAadhar" class="input-line input-full-width" readonly>
+                </div>
+
+                <div class="form-row-desktop form-row-item-2">
+                    <span class="item-number">2.</span>
+                    <div class="form-label label-q2-dob">Date of Birth :</div>
+                    <input type="text" id="dateOfBirth" class="input-line input-date-width" readonly>
+                    <span class="flex-spacer"></span>
+                </div>
+
+                <div class="form-row-desktop form-row-item-3">
+                    <span class="item-number">3.</span>
+                    <div class="form-label label-q3-religion">Religion :</div>
+                    <input type="text" id="religion" class="input-line input-full-width" readonly>
+                    <div class="form-label label-q3-caste">Caste:</div>
+                    <input type="text" id="caste" class="input-line input-full-width" readonly>
+                </div>
+
+                <div class="parent-details-group">
+                    <div class="form-row-parent-wrapper">
+                        <span class="item-number item-number-parent">4.</span>
+                        <div class="mobile-field-align-content">
+                            
+                            <div class="form-subrow-q4 form-subrow-q4-father">
+                                <div class="form-label label-q4-father">Name of Father :</div>
+                                <input type="text" id="fatherName" class="input-line input-full-width" readonly>
+                            </div>
+
+                            <div class="form-subrow-q4 form-subrow-q4-address">
+                                <div class="form-label label-q4-address">Address:</div>
+                                <input type="text" id="addressLine1" class="input-line input-full-width" readonly>
+                            </div>
+
+                            <div class="form-subrow-q4 form-subrow-q4-mother">
+                                <div class="form-label label-q4-mother">Name of Mother :</div>
+                                <input type="text" id="motherName" class="input-line input-full-width" readonly>
+                            </div>
+                            <div class="form-subrow-q4 form-subrow-q4-spacer">
+                                <div class="form-label label-q4-spacer"> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row-q5-wrapper">
+                    <div class="form-row-desktop form-row-item-5">
+                        <span class="item-number">5.</span>
+                        <div class="form-row-multi-column">
+                            
+                            <div class="column-left">
+                                <div class="form-row-sub-item">
+                                    <div class="form-label label-q5-father-occ">Occupation of Father :</div>
+                                    <input type="text" id="fatherOccupation" class="input-line input-full-width" readonly>
+                                </div>
+                                <div class="form-row-sub-item margin-top-1">
+                                    <div class="form-label label-q5-mother-occ">Occupation of Mother :</div>
+                                    <input type="text" id="motherOccupation" class="input-line input-full-width" readonly>
+                                </div>
+                            </div>
+
+                            <div class="column-right">
+                                <div class="form-row-sub-item">
+                                    <div class="form-label label-q5-income">Monthly income:</div>
+                                    <input type="text" id="fatherIncome" class="input-line input-full-width" readonly>
+                                </div>
+                                <div class="form-row-sub-item margin-top-1">
+                                    <div class="form-label label-q5-income">Monthly income:</div>
+                                    <input type="text" id="motherIncome" class="input-line input-full-width" readonly>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-row-desktop form-row-item-6">
+                    <span class="item-number">6.</span>
+                    <div class="form-label label-q6-father-mob">Mobile No. of Father :</div>
+                    <input type="text" id="fatherMobile" class="input-line input-full-width" readonly>
+                    <div class="form-label label-q6-mother-mob">Mobile No. of Mother:</div>
+                    <input type="text" id="motherMobile" class="input-line input-full-width" readonly>
+                </div>
+
+                <div class="form-row-desktop form-row-item-7">
+                    <span class="item-number">7.</span>
+                    <div class="form-label label-q7-father-nat">Nationality of Father :</div>
+                    <input type="text" id="fatherNationality" class="input-line input-full-width" readonly>
+                    <div class="form-label label-q7-mother-nat">Nationality of Mother:</div>
+                    <input type="text" id="motherNationality" class="input-line input-full-width" readonly>
+                </div>
+
+                <div class="admission-line-break"></div>
+
+                <div class="form-row-q8-wrapper">
+                    <div class="form-row-q8-main">
+                        <span class="item-number">8.</span>
+                        <div class="form-q8-content-aligned">
+                            <div class="form-subrow-q8-aligned">
+                                <span class="form-label label-q8-sub-num">(a)</span>
+                                <div class="form-label label-q8-a">School in which the pupil was studying previously</div>
+                                <input type="text" id="previousSchoolName" class="input-line input-full-width" readonly>
+                            </div>
+                            <div class="form-subrow-q8-aligned">
+                                <span class="form-label label-q8-sub-num">(b)</span>
+                                <div class="form-label label-q8-b">Class to which admission is sought</div>
+                                <input type="text" id="admissionClass" class="input-line input-full-width" readonly>
+                            </div>
+                            <div class="form-subrow-q8-aligned">
+                                <span class="form-label label-q8-sub-num">(c)</span>
+                                <div class="form-label label-q8-c">Date of leaving that school</div>
+                                <input type="text" id="leavingDate" class="input-line input-full-width" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row-desktop form-row-item-9">
+                    <span class="item-number">9.</span>
+                    <div class="form-label label-q9-tc">Number and date of the Transfer Certificate from the last school</div>
+                    <input type="text" id="tcDetails" class="input-line input-full-width" readonly>
+                </div>
+
+                <div class="form-row-q10-wrapper">
+                    <div class="form-row-q10-main">
+                        <span class="item-number">10.</span>
+                        <div class="form-q10-content-aligned">
+                            <div class="form-subrow-q10-aligned">
+                                <span class="form-label label-q10-sub-num">(a)</span>
+                                <div class="form-label label-q10-a">What second language the pupil will take if admitted?</div>
+                                <input type="text" id="secondLanguage" class="input-line input-full-width" readonly>
+                            </div>
+                            <div class="form-subrow-q10-aligned">
+                                <span class="form-label label-q10-sub-num">(b)</span>
+                                <div class="form-label label-q10-b">Mother Tongue</div>
+                                <input type="text" id="motherTongue" class="input-line input-full-width" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row-q11-wrapper">
+                    <div class="form-row-q11-main">
+                        <span class="item-number">11.</span>
+                        <div class="form-label label-q11-main">Identification Marks</div>
+                    </div>
+                    <div class="form-q11-marks-wrapper">
+                        <div class="form-subrow-q11">
+                            <span class="form-label label-q11-mark-num">1)</span>
+                            <input type="text" id="idMark1" class="input-line input-full-width" readonly>
+                        </div>
+                        <div class="form-subrow-q11">
+                            <span class="form-label label-q11-mark-num">2)</span>
+                            <input type="text" id="idMark2" class="input-line input-full-width" readonly>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+
+        <div class="no-print">
+            <button onclick="window.print()" class="print-button">🖨️ Print Application</button>
+            <button onclick="window.close()" class="close-button">✖ Close</button>
+        </div>
+    </div>
+
+    <script>
+        // Get application ID from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const appId = urlParams.get('id');
+
+        if (!appId) {
+            alert('No application ID provided');
+            window.close();
+        }
+
+        // Fetch and populate application data
+        async function loadApplicationData() {
+            try {
+                const response = await fetch(`/admin/applications/${appId}`, {
+                    credentials: 'include'
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch application data');
+                }
+
+                const data = await response.json();
+                if (!data.success) {
+                    throw new Error('Application not found');
+                }
+
+                const app = data.application;
+                const formDetails = app.formDetails || {};
+
+                // Helper function to safely set value
+                const setValue = (id, value) => {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.value = value || 'N/A';
+                    }
+                };
+
+                // Helper function to format date
+                const formatDate = (dateStr) => {
+                    if (!dateStr) return 'N/A';
+                    const date = new Date(dateStr);
+                    return date.toLocaleDateString('en-GB'); // DD/MM/YYYY format
+                };
+
+                // Populate all fields
+                setValue('pupilName', app.pupilName);
+                setValue('pupilAadhar', formDetails.pupilAadhar);
+                setValue('dateOfBirth', formatDate(formDetails.dateOfBirth));
+                setValue('religion', formDetails.religion);
+                setValue('caste', formDetails.caste);
+                
+                setValue('fatherName', formDetails.fatherName);
+                setValue('addressLine1', formDetails.addressLine1);
+                setValue('motherName', formDetails.motherName);
+                
+                setValue('fatherOccupation', formDetails.fatherOccupation);
+                setValue('motherOccupation', formDetails.motherOccupation);
+                setValue('fatherIncome', formDetails.fatherIncome);
+                setValue('motherIncome', formDetails.motherIncome);
+                
+                setValue('fatherMobile', formDetails.fatherMobile);
+                setValue('motherMobile', formDetails.motherMobile);
+                setValue('fatherNationality', formDetails.fatherNationality);
+                setValue('motherNationality', formDetails.motherNationality);
+                
+                setValue('previousSchoolName', formDetails.previousSchoolName);
+                setValue('admissionClass', app.admissionClass);
+                setValue('leavingDate', formatDate(formDetails.leavingDate));
+                setValue('tcDetails', formDetails.tcDetails);
+                
+                setValue('secondLanguage', formDetails.secondLanguage);
+                setValue('motherTongue', formDetails.motherTongue);
+                setValue('idMark1', formDetails.idMark1);
+                setValue('idMark2', formDetails.idMark2);
+
+            } catch (error) {
+                console.error('Error loading application:', error);
+                alert('Failed to load application data: ' + error.message);
+                window.close();
+            }
+        }
+
+        // Load data when page loads
+        window.addEventListener('DOMContentLoaded', loadApplicationData);
+    </script>
+</body>
+</html>

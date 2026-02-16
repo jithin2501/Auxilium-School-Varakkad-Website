@@ -1414,6 +1414,10 @@ function renderApplicationsTable(applications) {
                                             class="bg-indigo-600 text-white text-xs px-3 py-1 rounded-full hover:bg-indigo-700 transition">
                                             View
                                         </button>
+                                        <button onclick="printAdmission('${app._id}')" 
+                                            class="bg-green-600 text-white text-xs px-3 py-1 rounded-full hover:bg-green-700 transition">
+                                            Print
+                                        </button>
                                     ` : `
                                         <button onclick="viewContactMessage(${contactArgs})" 
                                             class="bg-blue-500 text-white text-xs px-3 py-1 rounded-full hover:bg-blue-600 transition">
@@ -2234,3 +2238,29 @@ async function handleAnnouncementDelete() {
         displayStatus(err.message, false);
     }
 }
+
+// =========================================================================
+// PRINT ADMISSION APPLICATION FUNCTION
+// =========================================================================
+
+/**
+ * Opens the print-friendly admission application page in a new window
+ * @param {string} appId - The ID of the admission application to print
+ */
+window.printAdmission = function(appId) {
+    if (!appId) {
+        alert('Application ID is missing');
+        return;
+    }
+    
+    // Open print page in a new window with the application ID as a parameter
+    const printWindow = window.open(
+        `/print-admission.html?id=${appId}`, 
+        'PrintAdmission',
+        'width=900,height=800,scrollbars=yes,resizable=yes'
+    );
+    
+    if (!printWindow) {
+        alert('Please allow pop-ups to print the admission application');
+    }
+};

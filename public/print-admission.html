@@ -335,7 +335,7 @@
             margin-right: 0.5rem;
         }
 
-        /* Q11 Identification Marks */
+        /* Q11 Identification Marks - Match Q8/Q10 structure */
         .form-row-q11-wrapper {
             display: flex;
             flex-direction: column;
@@ -348,16 +348,16 @@
             gap: 0.5rem;
         }
 
-        .label-q11-main { 
-            min-width: 10rem; 
-        }
-
-        .form-q11-marks-wrapper {
+        .form-q11-content-aligned {
             display: flex;
             flex-direction: column;
-            width: calc(100% - 3rem);
+            width: 100%;
             gap: 0.5rem;
-            margin-left: 2.5rem;
+        }
+
+        .label-q11-main { 
+            font-weight: 500;
+            margin-bottom: 0.5rem;
         }
 
         .form-subrow-q11 {
@@ -365,11 +365,6 @@
             align-items: center;
             gap: 0.5rem;
             width: 100%;
-        }
-
-        .form-subrow-q11 .input-line {
-            width: 100%;
-            max-width: 100%;
         }
 
         .label-q11-mark-num {
@@ -637,16 +632,16 @@
                 <div class="form-row-q11-wrapper">
                     <div class="form-row-q11-main">
                         <span class="item-number">11.</span>
-                        <div class="form-label label-q11-main">Identification Marks</div>
-                    </div>
-                    <div class="form-q11-marks-wrapper" style="margin-left: 2.5rem; padding-right: 1rem;">
-                        <div class="form-subrow-q11">
-                            <span class="form-label label-q11-mark-num">1)</span>
-                            <input type="text" id="idMark1" class="input-line" style="width: 100%; max-width: 100%;" readonly>
-                        </div>
-                        <div class="form-subrow-q11">
-                            <span class="form-label label-q11-mark-num">2)</span>
-                            <input type="text" id="idMark2" class="input-line" style="width: 100%; max-width: 100%;" readonly>
+                        <div class="form-q11-content-aligned">
+                            <div class="form-label label-q11-main">Identification Marks</div>
+                            <div class="form-subrow-q11">
+                                <span class="form-label label-q11-mark-num">1)</span>
+                                <input type="text" id="idMark1" class="input-line input-full-width" readonly>
+                            </div>
+                            <div class="form-subrow-q11">
+                                <span class="form-label label-q11-mark-num">2)</span>
+                                <input type="text" id="idMark2" class="input-line input-full-width" readonly>
+                            </div>
                         </div>
                     </div>
                 </div>

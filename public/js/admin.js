@@ -83,6 +83,362 @@ window.showAdminSection = (sectionId) => {
 }
 };
 
+
+// ✅ NEW: Print Admission Application Function
+window.printAdmissionForm = async function(appId) {
+    try {
+        const res = await fetch(`${API_BASE}/admin/applications/${appId}`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        if (!data.success) throw new Error("Failed to load details");
+        const app = data.application;
+        
+        const getValue = (field) => app.formDetails[field] || '';
+        const getDateValue = (field) => {
+            const date = app.formDetails[field];
+            return date ? new Date(date).toLocaleDateString('en-GB') : '';
+        };
+
+        // Create print window
+        const printWindow = window.open('', '_blank');
+        printWindow.document.write(`
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admission Application - ${app.pupilName}</title>
+    <style>
+        @media print {
+            @page {
+                size: A4;
+                margin: 15mm;
+            }
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 11pt;
+            line-height: 1.4;
+            color: #000;
+            background: white;
+        }
+        
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .admission-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #000;
+        }
+        
+        .header-title {
+            font-size: 20pt;
+            font-weight: bold;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+        
+        .header-subtext {
+            font-size: 10pt;
+            margin: 3px 0;
+        }
+        
+        .step-heading {
+            text-align: center;
+            font-size: 14pt;
+            font-weight: bold;
+            margin: 15px 0 20px 0;
+            text-decoration: underline;
+        }
+        
+        .form-row {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            page-break-inside: avoid;
+        }
+        
+        .item-number {
+            font-weight: bold;
+            min-width: 25px;
+            margin-right: 5px;
+        }
+        
+        .form-content {
+            flex: 1;
+        }
+        
+        .form-label {
+            display: inline-block;
+            margin-right: 8px;
+        }
+        
+        .value {
+            display: inline-block;
+            border-bottom: 1px solid #000;
+            min-width: 100px;
+            padding: 0 5px;
+        }
+        
+        .value-block {
+            display: block;
+            border-bottom: 1px solid #000;
+            padding: 0 5px;
+            margin: 3px 0;
+        }
+        
+        .parent-group {
+            margin-left: 25px;
+        }
+        
+        .form-subrow {
+            margin: 8px 0;
+        }
+        
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-left: 25px;
+        }
+        
+        .sub-item-label {
+            font-style: italic;
+            margin-left: 15px;
+            display: inline-block;
+            min-width: 150px;
+        }
+        
+        .line-break {
+            border-top: 1px solid #ccc;
+            margin: 20px 0;
+        }
+        
+        .no-print {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px dashed #ccc;
+        }
+        
+        @media print {
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <header class="admission-header">
+            <h1 class="header-title">AUXILIUM SCHOOL</h1>
+            <p class="header-subtext">VARAKKAD, KOTTAMALA P.O. - 671 314, Kasaragod, Kerala</p>
+            <p class="header-subtext">Affiliated to ICSE, Delhi (KE 124)</p>
+        </header>
+
+        <h2 class="step-heading">STEP 1: APPLICATION FOR ADMISSION</h2>
+
+        <div class="form-row">
+            <span class="item-number">1.</span>
+            <div class="form-content">
+                <span class="form-label">Name of pupil:</span>
+                <span class="value" style="min-width: 300px;">${getValue('pupilName').toUpperCase()}</span>
+                <br><br>
+                <span class="form-label">Aadhar No:</span>
+                <span class="value" style="min-width: 180px;">${getValue('pupilAadhar')}</span>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <span class="item-number">2.</span>
+            <div class="form-content">
+                <span class="form-label">Date of Birth:</span>
+                <span class="value" style="min-width: 150px;">${getDateValue('dateOfBirth')}</span>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <span class="item-number">3.</span>
+            <div class="form-content">
+                <span class="form-label">Religion:</span>
+                <span class="value" style="min-width: 150px;">${getValue('religion')}</span>
+                <span style="margin-left: 50px;"></span>
+                <span class="form-label">Caste:</span>
+                <span class="value" style="min-width: 150px;">${getValue('caste')}</span>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <span class="item-number">4.</span>
+            <div class="form-content">
+                <div class="form-subrow">
+                    <span class="form-label">Name of Father:</span>
+                    <span class="value" style="min-width: 400px;">${getValue('fatherName')}</span>
+                </div>
+                <div class="form-subrow">
+                    <span class="form-label">Address:</span>
+                    <span class="value" style="min-width: 500px;">${getValue('addressLine1')}</span>
+                    ${getValue('addressLine2') ? `<br><span class="value-block">${getValue('addressLine2')}</span>` : ''}
+                </div>
+                <div class="form-subrow">
+                    <span class="form-label">Name of Mother:</span>
+                    <span class="value" style="min-width: 400px;">${getValue('motherName')}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <span class="item-number">5.</span>
+            <div class="form-content">
+                <div class="two-column">
+                    <div>
+                        <div class="form-subrow">
+                            <span class="sub-item-label">Occupation of Father:</span><br>
+                            <span class="value" style="width: 100%;">${getValue('fatherOccupation')}</span>
+                        </div>
+                        <div class="form-subrow">
+                            <span class="sub-item-label">Occupation of Mother:</span><br>
+                            <span class="value" style="width: 100%;">${getValue('motherOccupation')}</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-subrow">
+                            <span class="sub-item-label">Monthly income:</span><br>
+                            <span class="value" style="width: 100%;">${getValue('fatherIncome')}</span>
+                        </div>
+                        <div class="form-subrow">
+                            <span class="sub-item-label">Monthly income:</span><br>
+                            <span class="value" style="width: 100%;">${getValue('motherIncome')}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <span class="item-number">6.</span>
+            <div class="form-content">
+                <span class="form-label">Mobile No. of Father:</span>
+                <span class="value" style="min-width: 150px;">${getValue('fatherMobile')}</span>
+                <span style="margin-left: 30px;"></span>
+                <span class="form-label">Mobile No. of Mother:</span>
+                <span class="value" style="min-width: 150px;">${getValue('motherMobile')}</span>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <span class="item-number">7.</span>
+            <div class="form-content">
+                <span class="form-label">Nationality of Father:</span>
+                <span class="value" style="min-width: 130px;">${getValue('fatherNationality')}</span>
+                <span style="margin-left: 30px;"></span>
+                <span class="form-label">Nationality of Mother:</span>
+                <span class="value" style="min-width: 130px;">${getValue('motherNationality')}</span>
+            </div>
+        </div>
+
+        <div class="line-break"></div>
+
+        <div class="form-row">
+            <span class="item-number">8.</span>
+            <div class="form-content">
+                <div class="form-subrow">
+                    <span class="form-label" style="margin-left: 15px;">(a)</span>
+                    <span class="form-label">School in which the pupil was studying previously</span><br>
+                    <span class="value-block">${getValue('previousSchoolName')}</span>
+                </div>
+                <div class="form-subrow">
+                    <span class="form-label" style="margin-left: 15px;">(b)</span>
+                    <span class="form-label">Class to which admission is sought</span><br>
+                    <span class="value-block">${getValue('admissionClass')}</span>
+                </div>
+                <div class="form-subrow">
+                    <span class="form-label" style="margin-left: 15px;">(c)</span>
+                    <span class="form-label">Date of leaving that school</span><br>
+                    <span class="value-block">${getDateValue('leavingDate')}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <span class="item-number">9.</span>
+            <div class="form-content">
+                <span class="form-label">Number and date of the Transfer Certificate from the last school</span><br>
+                <span class="value-block">${getValue('tcDetails')}</span>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <span class="item-number">10.</span>
+            <div class="form-content">
+                <div class="form-subrow">
+                    <span class="form-label" style="margin-left: 15px;">(a)</span>
+                    <span class="form-label">What second language the pupil will take if admitted?</span><br>
+                    <span class="value-block">${getValue('secondLanguage')}</span>
+                </div>
+                <div class="form-subrow">
+                    <span class="form-label" style="margin-left: 15px;">(b)</span>
+                    <span class="form-label">Mother Tongue</span><br>
+                    <span class="value-block">${getValue('motherTongue')}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <span class="item-number">11.</span>
+            <div class="form-content">
+                <span class="form-label">Identification Marks</span>
+                <div class="form-subrow">
+                    <span class="form-label" style="margin-left: 15px;">1)</span>
+                    <span class="value" style="min-width: 400px;">${getValue('idMark1')}</span>
+                </div>
+                <div class="form-subrow">
+                    <span class="form-label" style="margin-left: 15px;">2)</span>
+                    <span class="value" style="min-width: 400px;">${getValue('idMark2')}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="no-print">
+            <button onclick="window.print()" style="padding: 10px 30px; font-size: 14pt; background: #4F46E5; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                Print Application
+            </button>
+            <button onclick="window.close()" style="padding: 10px 30px; font-size: 14pt; background: #6B7280; color: white; border: none; border-radius: 5px; cursor: pointer; margin-left: 10px;">
+                Close
+            </button>
+        </div>
+    </div>
+</body>
+</html>
+        `);
+        
+        printWindow.document.close();
+        
+        // Auto-print after content loads
+        printWindow.onload = function() {
+            printWindow.focus();
+        };
+        
+    } catch (err) {
+        console.error("Print Admission Error:", err);
+        alert("Failed to load admission details for printing.");
+    }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     const currentPath = window.location.pathname;
     if (currentPath.endsWith('/admin')) {
@@ -1360,6 +1716,8 @@ window.handleApplicationDelete = async function(appId, applicantName) {
 };
 
 
+
+
 function renderApplicationsTable(applications) {
     return `
         <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -1410,6 +1768,11 @@ function renderApplicationsTable(applications) {
                                 <td class="px-6 py-4 text-sm text-gray-900">${mainDetail}</td>
                                 <td class="px-6 py-4 text-center space-x-2">
                                     ${app.type === 'Admission' ? `
+                                        <button onclick="printAdmissionForm('${app._id}')" 
+                                            class="bg-green-600 text-white text-xs px-3 py-1 rounded-full hover:bg-green-700 transition"
+                                            title="Print Admission Form">
+                                            Print
+                                        </button>
                                         <button onclick="viewAdmission('${app._id}')" 
                                             class="bg-indigo-600 text-white text-xs px-3 py-1 rounded-full hover:bg-indigo-700 transition">
                                             View

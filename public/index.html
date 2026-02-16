@@ -1444,7 +1444,7 @@
 
                         <div class="contact-item inquiries-item">
                             <img src="./images/icons/email-icon.png" alt="Email" class="inquiry-icon-img" loading="lazy" />
-                            <p class="contact-text inquiries-text-detail">auxiliumvarakkad@gmail.com</p>
+                            <p class="contact-text inquiries-text-detail"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3a5b4f425356534f574c5b485b51515b5e7a5d575b535614595557">[email&#160;protected]</a></p>
                         </div>
 
                         <div class="contact-item inquiries-item">
@@ -1545,10 +1545,9 @@
                         
                         <div class="form-row-desktop form-row-item-1">
                             <span class="item-number">1.</span>
-                            <div class="form-label label-q1-name">Name of pupil (Block letters) :</div>
-                            <input type="text" name="pupilName" class="input-line input-full-width" placeholder="Enter Full Name" required>
+                            <div class="form-label label-q1-name" style="display: inline;">Name of pupil : <input type="text" name="pupilName" class="input-line input-full-width" placeholder="Enter Full Name" required pattern="[A-Za-z\s]+" title="Please enter only alphabets" oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '').toUpperCase()" style="display: inline; width: auto; flex: 1;"></div>
                             <div class="form-label label-q1-aadhar">Aadhar No:</div>
-                            <input type="text" name="pupilAadhar" class="input-line input-full-width" placeholder="Enter Aadhar Number">
+                            <input type="text" name="pupilAadhar" class="input-line input-full-width" placeholder="Enter Aadhar Number" pattern="[0-9]{12}" maxlength="12" title="Please enter exactly 12 digits" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 12)">
                         </div>
 
                         <div class="form-row-desktop form-row-item-2">
@@ -1561,9 +1560,9 @@
                         <div class="form-row-desktop form-row-item-3">
                             <span class="item-number">3.</span>
                             <div class="form-label label-q3-religion">Religion :</div>
-                            <input type="text" name="religion" class="input-line input-full-width" placeholder="Enter Religion">
+                            <input type="text" name="religion" class="input-line input-full-width" placeholder="Enter Religion" pattern="[A-Za-z\s]+" title="Please enter only alphabets" oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')">
                             <div class="form-label label-q3-caste">Caste:</div>
-                            <input type="text" name="caste" class="input-line input-full-width" placeholder="Enter Caste">
+                            <input type="text" name="caste" class="input-line input-full-width" placeholder="Enter Caste" pattern="[A-Za-z\s]+" title="Please enter only alphabets" oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')">
                         </div>
 
                         <div class="parent-details-group">
@@ -1573,7 +1572,7 @@
                                     
                                     <div class="form-subrow-q4 form-subrow-q4-father">
                                         <div class="form-label label-q4-father">Name of Father :</div>
-                                        <input type="text" name="fatherName" class="input-line input-full-width" placeholder="Enter Father's Name" required>
+                                        <input type="text" name="fatherName" class="input-line input-full-width" placeholder="Enter Father's Name" required pattern="[A-Za-z\s]+" title="Please enter only alphabets" oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')">
                                     </div>
 
                                     <div class="form-subrow-q4 form-subrow-q4-address">
@@ -1583,7 +1582,7 @@
 
                                     <div class="form-subrow-q4 form-subrow-q4-mother">
                                         <div class="form-label label-q4-mother">Name of Mother :</div>
-                                        <input type="text" name="motherName" class="input-line input-full-width" placeholder="Enter Mother's Name" required>
+                                        <input type="text" name="motherName" class="input-line input-full-width" placeholder="Enter Mother's Name" required pattern="[A-Za-z\s]+" title="Please enter only alphabets" oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')">
                                     </div>
                                     <div class="form-subrow-q4 form-subrow-q4-spacer">
                                         <div class="form-label label-q4-spacer"> </div>
@@ -1600,22 +1599,22 @@
                                     <div class="column-left">
                                         <div class="form-row-sub-item">
                                             <div class="form-label label-q5-father-occ">Occupation of Father :</div>
-                                            <input type="text" name="fatherOccupation" class="input-line input-full-width" placeholder="Enter Occupation">
+                                            <input type="text" name="fatherOccupation" class="input-line input-full-width" placeholder="Enter Occupation" pattern="[A-Za-z\s]+" title="Please enter only alphabets" oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')">
                                         </div>
                                         <div class="form-row-sub-item margin-top-1">
                                             <div class="form-label label-q5-mother-occ">Occupation of Mother :</div>
-                                            <input type="text" name="motherOccupation" class="input-line input-full-width" placeholder="Enter Occupation">
+                                            <input type="text" name="motherOccupation" class="input-line input-full-width" placeholder="Enter Occupation" pattern="[A-Za-z\s]+" title="Please enter only alphabets" oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')">
                                         </div>
                                     </div>
 
                                     <div class="column-right">
                                         <div class="form-row-sub-item">
                                             <div class="form-label label-q5-income">Monthly income:</div>
-                                            <input type="text" name="fatherIncome" class="input-line input-full-width" placeholder="Enter Income">
+                                            <input type="text" name="fatherIncome" class="input-line input-full-width" placeholder="Enter Income" pattern="[0-9]+" title="Please enter only numbers" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                                         </div>
                                         <div class="form-row-sub-item margin-top-1">
                                             <div class="form-label label-q5-income">Monthly income:</div>
-                                            <input type="text" name="motherIncome" class="input-line input-full-width" placeholder="Enter Income">
+                                            <input type="text" name="motherIncome" class="input-line input-full-width" placeholder="Enter Income" pattern="[0-9]+" title="Please enter only numbers" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                                         </div>
                                     </div>
                                     
@@ -1626,17 +1625,17 @@
                         <div class="form-row-desktop form-row-item-6">
                             <span class="item-number">6.</span>
                             <div class="form-label label-q6-father-mob">Mobile No. of Father :</div>
-                            <input type="tel" name="fatherMobile" class="input-line input-full-width" placeholder="Enter Father's Mobile" required>
+                            <input type="tel" name="fatherMobile" class="input-line input-full-width" placeholder="Enter Father's Mobile" required pattern="[0-9]{10}" maxlength="10" title="Please enter exactly 10 digits" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)">
                             <div class="form-label label-q6-mother-mob">Mobile No. of Mother:</div>
-                            <input type="tel" name="motherMobile" class="input-line input-full-width" placeholder="Enter Mother's Mobile">
+                            <input type="tel" name="motherMobile" class="input-line input-full-width" placeholder="Enter Mother's Mobile" pattern="[0-9]{10}" maxlength="10" title="Please enter exactly 10 digits" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)">
                         </div>
 
                         <div class="form-row-desktop form-row-item-7">
                             <span class="item-number">7.</span>
                             <div class="form-label label-q7-father-nat">Nationality of Father :</div>
-                            <input type="text" name="fatherNationality" class="input-line input-full-width" placeholder="Enter Nationality">
+                            <input type="text" name="fatherNationality" class="input-line input-full-width" placeholder="Enter Nationality" pattern="[A-Za-z\s]+" title="Please enter only alphabets" oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')">
                             <div class="form-label label-q7-mother-nat">Nationality of Mother:</div>
-                            <input type="text" name="motherNationality" class="input-line input-full-width" placeholder="Enter Nationality">
+                            <input type="text" name="motherNationality" class="input-line input-full-width" placeholder="Enter Nationality" pattern="[A-Za-z\s]+" title="Please enter only alphabets" oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')">
                         </div>
 
                         <div class="admission-line-break"></div>
@@ -1647,12 +1646,12 @@
                                 <div class="form-q8-content-aligned"> <div class="form-subrow-q8-aligned">
                                         <span class="form-label label-q8-sub-num">(a)</span>
                                         <div class="form-label label-q8-a">School in which the pupil was studying previously</div>
-                                        <input type="text" name="previousSchoolName" class="input-line input-full-width" placeholder="School Name">
+                                        <input type="text" name="previousSchoolName" class="input-line input-full-width" placeholder="School Name" pattern="[A-Za-z\s]+" title="Please enter only alphabets" oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')">
                                     </div>
                                     <div class="form-subrow-q8-aligned">
                                         <span class="form-label label-q8-sub-num">(b)</span>
                                         <div class="form-label label-q8-b">Class to which admission is sought</div>
-                                        <input type="text" name="admissionClass" class="input-line input-full-width" placeholder="Class" required>
+                                        <input type="text" name="admissionClass" class="input-line input-full-width" placeholder="Class" required pattern="[0-9]+" title="Please enter only numbers" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                                     </div>
                                     <div class="form-subrow-q8-aligned">
                                         <span class="form-label label-q8-sub-num">(c)</span>
@@ -1666,7 +1665,7 @@
                         <div class="form-row-desktop form-row-item-9">
                             <span class="item-number">9.</span>
                             <div class="form-label label-q9-tc">Number and date of the Transfer Certificate from the last school</div>
-                            <input type="text" name="tcDetails" class="input-line input-full-width" placeholder="TC Number and Date">
+                            <input type="text" name="tcDetails" class="input-line input-full-width" placeholder="TC Number and Date" pattern="[0-9]+" title="Please enter only numbers" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                         </div>
 
                         <div class="form-row-q10-wrapper">
@@ -1675,12 +1674,12 @@
                                 <div class="form-q10-content-aligned"> <div class="form-subrow-q10-aligned">
                                         <span class="form-label label-q10-sub-num">(a)</span>
                                         <div class="form-label label-q10-a">What second language the pupil will take if admitted?</div>
-                                        <input type="text" name="secondLanguage" class="input-line input-full-width" placeholder="Second Language">
+                                        <input type="text" name="secondLanguage" class="input-line input-full-width" placeholder="Second Language" pattern="[A-Za-z\s]+" title="Please enter only alphabets" oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')">
                                     </div>
                                     <div class="form-subrow-q10-aligned">
                                         <span class="form-label label-q10-sub-num">(b)</span>
                                         <div class="form-label label-q10-b">Mother Tongue</div>
-                                        <input type="text" name="motherTongue" class="input-line input-full-width" placeholder="Mother Tongue">
+                                        <input type="text" name="motherTongue" class="input-line input-full-width" placeholder="Mother Tongue" pattern="[A-Za-z\s]+" title="Please enter only alphabets" oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')">
                                     </div>
                                 </div>
                             </div>
@@ -1694,11 +1693,11 @@
                             <div class="form-q11-marks-wrapper">
                                 <div class="form-subrow-q11">
                                     <span class="form-label label-q11-mark-num">1)</span>
-                                    <input type="text" name="idMark1" class="input-line input-full-width" placeholder="First Mark">
+                                    <input type="text" name="idMark1" class="input-line input-full-width" placeholder="First Mark" pattern="[A-Za-z\s]+" title="Please enter only alphabets" oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')">
                                 </div>
                                 <div class="form-subrow-q11">
                                     <span class="form-label label-q11-mark-num">2)</span>
-                                    <input type="text" name="idMark2" class="input-line input-full-width" placeholder="Second Mark">
+                                    <input type="text" name="idMark2" class="input-line input-full-width" placeholder="Second Mark" pattern="[A-Za-z\s]+" title="Please enter only alphabets" oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')">
                                 </div>
                             </div>
                         </div>
@@ -1900,7 +1899,7 @@
 
             <div class="contact-item">
                 <img src="./images/icons/email-icon.png" alt="Email" class="contact-detail-icon" onerror="this.style.display='none'" />
-                <p class="contact-text">auxiliumvarakkad@gmail.com</p>
+                <p class="contact-text"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b2d3c7cadbdedbc7dfc4d3c0d3d9d9d3d6f2d5dfd3dbde9cd1dddf">[email&#160;protected]</a></p>
             </div>
 
             <div class="contact-item">

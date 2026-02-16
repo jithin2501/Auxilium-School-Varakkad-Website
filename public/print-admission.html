@@ -411,6 +411,11 @@
 
         /* Print Styles */
         @media print {
+            /* Hide browser default headers and footers */
+            @page {
+                margin: 0.5cm;
+            }
+
             body {
                 background-color: white;
                 padding: 0;

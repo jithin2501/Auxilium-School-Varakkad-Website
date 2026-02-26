@@ -47,8 +47,8 @@
 .lp-bg { background-color: #8c88c7; }
 .up-bg { background-color: #7b9fe8; }
 .hs-bg { background-color: #72a5a0; }
-.hs-science-bg { background-color: #48a9a6; } 
-.hs-cs-bg { background-color: #438fbf; } 
+.hs-science-bg { background-color: #48a9a6; }
+.hs-cs-bg { background-color: #438fbf; }
 
 .card-header-label {
     display: inline-block;
@@ -92,7 +92,7 @@
 }
 
 .card-features-list li::before {
-    content: "\2022"; 
+    content: "\2022";
     font-size: 1.5rem;
     color: #25597f;
     font-weight: 700;
@@ -214,15 +214,15 @@
 }
 
 /* UNIQUE LIGHT BACKGROUND COLORS ON HOVER */
-.facility-card:nth-child(1):hover .card-content { background-color: #E6F3FF; } 
-.facility-card:nth-child(2):hover .card-content { background-color: #E6FFE6; } 
-.facility-card:nth-child(3):hover .card-content { background-color: #FFF3E6; } 
-.facility-card:nth-child(4):hover .card-content { background-color: #FFFFE6; } 
-.facility-card:nth-child(5):hover .card-content { background-color: #F3E6FF; } 
-.facility-card:nth-child(6):hover .card-content { background-color: #E6FFF9; } 
-.facility-card:nth-child(7):hover .card-content { background-color: #FFECEC; } 
-.facility-card:nth-child(8):hover .card-content { background-color: #ECECFF; } 
-.facility-card:nth-child(9):hover .card-content { background-color: #FFECCF; } 
+.facility-card:nth-child(1):hover .card-content { background-color: #E6F3FF; }
+.facility-card:nth-child(2):hover .card-content { background-color: #E6FFE6; }
+.facility-card:nth-child(3):hover .card-content { background-color: #FFF3E6; }
+.facility-card:nth-child(4):hover .card-content { background-color: #FFFFE6; }
+.facility-card:nth-child(5):hover .card-content { background-color: #F3E6FF; }
+.facility-card:nth-child(6):hover .card-content { background-color: #E6FFF9; }
+.facility-card:nth-child(7):hover .card-content { background-color: #FFECEC; }
+.facility-card:nth-child(8):hover .card-content { background-color: #ECECFF; }
+.facility-card:nth-child(9):hover .card-content { background-color: #FFECCF; }
 
 /* Title + description transitions */
 .facility-title {
@@ -266,13 +266,13 @@
     margin-top: -50px;
 }
 
-/* New: Wrapper for the scrolling content */
+/* Wrapper for the scrolling content */
 .activities-scroller-wrapper {
     max-width: 1400px;
     margin: 0 auto;
-    overflow: hidden; /* Hide the content outside of the wrapper */
+    overflow: hidden;
     position: relative;
-    padding: 10px 0; /* Vertical padding for breathing room */
+    padding: 10px 0;
 }
 
 .activities-main-heading {
@@ -286,57 +286,52 @@
     text-align: center;
 }
 
-
-/* Original grid container - now the animated element */
+/* Grid container - the animated element */
 .activities-grid-container {
-    display: flex; /* Change to flex for horizontal scrolling */
+    display: flex;
     flex-wrap: nowrap;
-    gap: 20px; 
-    justify-content: flex-start; /* Align to the start */
+    gap: 20px;
+    justify-content: flex-start;
     padding: 0 10px;
     box-sizing: content-box;
-    width: max-content; /* Set width to the max content needed for infinite scroll on desktop */
+    width: max-content;
 }
 
-/* New: Styles for the duplicates of the activities */
+/* Styles for the duplicate activities (infinite scroll) */
 .activities-grid-container-duplicate {
     display: flex;
     flex-wrap: nowrap;
-    gap: 20px; 
+    gap: 20px;
     justify-content: flex-start;
 }
 
 .activity-card {
     position: relative;
     overflow: hidden;
-    height: 450px; 
-    border-radius: 12px; 
-    cursor: default; /* Remove pointer cursor */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+    height: auto;               /* Desktop size controlled in media query below */
+    border-radius: 12px;
+    cursor: default;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     transform: scale(1);
-    transition: none; /* Remove hover-related transitions */
+    transition: none;
     transform-origin: center center;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-shrink: 0; /* Prevent items from shrinking */
-    width: 276px; /* Default width for cards */
+    flex-shrink: 0;
+    width: 276px;
 }
 
 .activity-card > .activity-img {
-    position: absolute; 
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; 
+    object-fit: cover;
     z-index: 1;
-    transition: none; /* Remove hover-related transitions */
+    transition: none;
 }
-
-
-/* Removed all .activity-card:hover styles */
-
 
 .activity-overlay {
     position: absolute;
@@ -349,23 +344,19 @@
     justify-content: center;
     align-items: center;
     transition: background-color 0.3s ease;
-    z-index: 10; 
+    z-index: 10;
 }
-
-/* Removed all .activity-card:hover .activity-overlay styles */
 
 .activity-name {
     font-family: 'Montserrat', 'Playfair Display', serif;
-    font-size: 1.8rem; 
+    font-size: 1.8rem;
     font-weight: 700;
     color: #fff;
     text-align: center;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    z-index: 11; 
-    transition: none; /* Remove hover-related transitions */
+    z-index: 11;
+    transition: none;
 }
-
-/* Removed all .activity-card:hover .activity-name styles */
 
 /* Keyframes for the scrolling animation */
 @keyframes scroll-activities {
@@ -373,20 +364,24 @@
         transform: translateX(0%);
     }
     to {
-        transform: translateX(-50%); /* Scroll one full set of content (50% of the combined content) */
+        transform: translateX(-50%);
     }
 }
 
 /* --- RESPONSIVENESS (Sections) --- */
 @media (min-width: 993px) {
-    /* Apply animation only on desktop/larger screens */
     .activities-grid-container {
-        animation: scroll-activities 25s linear infinite; /* Adjust time for speed */
+        animation: scroll-activities 25s linear infinite;
     }
 
+    /* =====================================================
+       TO RESIZE CARDS ON DESKTOP:
+       width  = how wide each card is
+       height = how tall each card is
+    ===================================================== */
     .activity-card {
-         /* Calculate width for 5 cards across 1400px max container, accommodating 4 gaps of 20px */
-         width: calc((1400px - (4 * 20px)) / 5); 
+        width: 350px;   /* ← change this to resize width  */
+        height: 450px;  /* ← change this to resize height */
     }
 }
 
@@ -394,18 +389,6 @@
     .academics-cards-container {
         grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
     }
-    
-    /* On screen size <= 1200px, adjust card width for smooth desktop animation, or let the grid take over if animation is off */
-    /* If animation is running (min-width: 993px), the calc above handles the width */
-
-    /* If activities-grid-container reverts to the original grid layout for some reason, these original styles would apply:
-    .activities-grid-container {
-        grid-template-columns: repeat(3, 1fr);
-    }
-    .activity-card:hover {
-        transform: scale(1.04);
-    }
-    */
 }
 
 @media (max-width: 992px) {
@@ -415,26 +398,32 @@
     .academics-cards-container {
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     }
-    
+
     /* Mobile View: Override animation and use grid */
     .activities-grid-container {
-        display: grid; /* Revert to grid for mobile */
-        grid-template-columns: repeat(1, 1fr); /* FORCED: Single column for mobile view */
-        gap: 20px; 
-        animation: none; /* Disable animation */
-        width: auto; /* Revert width */
-        padding: 10px; /* Restore padding if needed for mobile */
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 20px;
+        animation: none;
+        width: auto;
+        padding: 10px;
     }
     .activities-grid-container-duplicate {
-        display: none; /* Hide the duplicate content on mobile */
+        display: none;
     }
+
+    /* =====================================================
+       MOBILE CARD SIZE:
+       width  = 100% of container (full width on phone)
+       height = fixed 450px to match desktop height
+    ===================================================== */
     .activity-card {
-        height: 0; /* REMOVE fixed height */
-        padding-top: 100%; /* FORCED: Square aspect ratio (1:1) */
-        width: auto; /* Revert width */
+        width: 100%;        /* full width on mobile        */
+        height: 450px;      /* ← change this to resize height on mobile */
+        padding-top: 0;     /* override the old square ratio */
     }
+
     .activity-name {
-        font-size: 1.4rem; 
+        font-size: 1.4rem;
     }
-    /* Removed all .activity-card:hover styles from here as well */
 }

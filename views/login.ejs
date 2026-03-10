@@ -6,7 +6,50 @@
     <title>Auxilium Admin Login</title>
     <link rel="icon" type="image/png" href="./css/images/banner/cropped_circle_image.png">
     <link rel="stylesheet" href="/css/style.css"> 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .signin-title {
+            font-size: 1.875rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .password-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .password-input {
+            padding-right: 2.8rem;
+            width: 100%;
+        }
+
+        .toggle-password-btn {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaaaaa;
+            z-index: 10;
+            transition: color 0.2s ease;
+        }
+
+        .toggle-password-btn:hover {
+            color: #ffffff;
+        }
+
+        .toggle-password-btn:focus {
+            outline: none;
+        }
+    </style>
 </head>
 <body class="login-body">
     <section class="animated-grid-bg">
@@ -17,7 +60,7 @@
         <div class="signin-center-wrapper">
             <div class="signin-box">
                 <form action="/admin/login" method="POST" class="signin-form">
-                    <h2 class="text-3xl font-bold text-center mb-6">SIGN IN</h2>
+                    <h2 class="signin-title">SIGN IN</h2>
                    
                     <% if (typeof error !== 'undefined' && error) { %>
                         <div class="error-message">
@@ -32,7 +75,29 @@
                     
                     <div class="input-field-group">
                         <label for="password" class="input-label">Password</label>
-                        <input type="password" name="password" id="password" placeholder="Password" required class="input-field">
+                        <div class="password-wrapper">
+                            <input 
+                                type="password" 
+                                name="password" 
+                                id="password" 
+                                placeholder="Password" 
+                                required 
+                                class="input-field password-input"
+                            >
+                            <button type="button" id="togglePassword" class="toggle-password-btn">
+                                <!-- Eye Open Icon (password hidden) -->
+                                <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                    <circle cx="12" cy="12" r="3"/>
+                                </svg>
+                                <!-- Eye Closed Icon (password visible) -->
+                                <svg id="eyeOffIcon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                                    <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94"/>
+                                    <path d="M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19"/>
+                                    <line x1="1" y1="1" x2="23" y2="23"/>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
 
                     <button type="submit" class="login-button">Login</button>
@@ -44,5 +109,21 @@
             </div>
         </div>
     </section>
+
+    <script>
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+        const eyeIcon = document.getElementById('eyeIcon');
+        const eyeOffIcon = document.getElementById('eyeOffIcon');
+
+        togglePassword.addEventListener('click', () => {
+            const isPassword = passwordInput.type === 'password';
+
+            passwordInput.type = isPassword ? 'text' : 'password';
+
+            eyeIcon.style.display = isPassword ? 'none' : 'block';
+            eyeOffIcon.style.display = isPassword ? 'block' : 'none';
+        });
+    </script>
 </body>
 </html>

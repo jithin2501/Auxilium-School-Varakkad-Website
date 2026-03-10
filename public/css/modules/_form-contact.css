@@ -62,16 +62,15 @@
 }
 
 .inquiry-icon-img {
-    width: 30px; 
-    height: 30px;
+    width: 34px; 
+    height: 34px;
     margin-right: 12px;
     flex-shrink: 0;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 50%; 
     border: 2px solid #1a120b; 
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); 
 }
-
 /* --- Map Styles --- */
 .contact-map-embed-large {
     width: 100%;

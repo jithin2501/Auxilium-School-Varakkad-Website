@@ -93,7 +93,7 @@ img {
 /* --- CONTACT COLUMN --- */
 .contact-item {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     margin-bottom: 18px;
 }
 
@@ -103,7 +103,6 @@ img {
     object-fit: contain;
     margin-right: 12px;
     flex-shrink: 0;
-    margin-top: 3px;
 }
 
 .contact-text {
